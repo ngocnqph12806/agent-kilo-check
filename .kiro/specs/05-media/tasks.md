@@ -1,0 +1,22 @@
+# 05 — Media · Tasks
+
+- [ ] Tạo Flyway `V6__media.sql` (media_assets, person_media).
+- [ ] Entity + repositories + MapStruct mapper.
+- [ ] Cài imagemagick + libheif + exiftool trong Dockerfile api.
+- [ ] `MinioConfig` (bucket init on startup).
+- [ ] `StorageService` (putObject, getObject, presigned URL, delete).
+- [ ] `ExifService` extract fields.
+- [ ] `ThumbnailService` async generate 3 sizes.
+- [ ] `MediaService` upload pipeline + DB persist.
+- [ ] `MediaUploadController` xử lý multipart (max 25MB).
+- [ ] `MediaController` CRUD.
+- [ ] `AttachService` set avatar / gallery / document.
+- [ ] Virus scan adapter (ClamAV REST) — mock cho local.
+- [ ] BE unit test: ThumbnailService (golden image diff), ExifService.
+- [ ] BE integration test upload + presigned URL expire.
+- [ ] FE: component `MediaUploader` (drag-drop, progress bar, queue).
+- [ ] FE: trang `/media` gallery masonry (lightbox shadcn-dialog).
+- [ ] FE: tab Media trong person detail.
+- [ ] FE: set avatar bằng context menu.
+- [ ] Test: file HEIC upload → convert JPEG thành công.
+- [ ] e2E: upload 3 ảnh, attach 1 làm avatar, xóa → assert cascade.

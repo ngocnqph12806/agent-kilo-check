@@ -1,0 +1,21 @@
+# 10 — Notifications · Tasks
+
+- [ ] Tạo Flyway `V10__notifications.sql`.
+- [ ] Entity + repository + MapStruct mapper.
+- [ ] `NotificationService.create` (respect preferences, dispatch channels).
+- [ ] `EmailQueue` Redis wrapper (push, pop batch).
+- [ ] `EmailWorker` `@Scheduled` (SMTP send + retry).
+- [ ] WebSocket config + JWT handshake interceptor.
+- [ ] `NotificationWsController` push tới user queue.
+- [ ] `NotificationPreferenceController` GET/PUT.
+- [ ] Tích hợp `EventNotificationJob` (epic 07) gọi `NotificationService.create`.
+- [ ] Email templates theo type (`birthday.html`, `death-anniversary.html`, ...).
+- [ ] Backfill preferences cho existing users khi thêm type mới.
+- [ ] BE unit test dispatch logic.
+- [ ] BE integration test email queue + retry.
+- [ ] e2E: cron tạo notification → assert WS message + email queue length.
+- [ ] FE: `NotificationBell` component với badge.
+- [ ] FE: page `/notifications` với filter + mark read.
+- [ ] FE: toast realtime qua `sonner`.
+- [ ] FE: Settings > Notifications UI với toggle matrix.
+- [ ] Verify unsubscribe link trong email (token-based).

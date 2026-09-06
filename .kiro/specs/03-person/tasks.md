@@ -1,0 +1,21 @@
+# 03 — Person CRUD · Tasks
+
+- [ ] Tạo Flyway `V4__persons.sql` (bảng persons + indexes + person_audits).
+- [ ] Entity `Person` với `@Where`, `@SQLDelete` (soft delete).
+- [ ] Repository với custom queries: filter theo generation/branch/living/gender, cursor pagination.
+- [ ] `GenerationResolver` service + cache Redis.
+- [ ] `LunarDateService` implement convert âm ↔ dương (1900–2100).
+- [ ] `PersonService` (create/read/update/softDelete/restore).
+- [ ] `PersonAuditService` (AOP capture diff).
+- [ ] DTO validation + MapStruct mapper.
+- [ ] Controller endpoints + Swagger annotations.
+- [ ] Exception `HasLivingDescendantsException` → 409.
+- [ ] BE unit test: GenerationResolver, LunarDateService (sample ngày).
+- [ ] BE integration test: CRUD + RBAC + audit diff.
+- [ ] FE: trang `/families/[slug]/persons` (table + filters + bulk actions).
+- [ ] FE: form tạo/sửa person (dùng React Hook Form + Zod + shadcn Form).
+- [ ] FE: chọn ngày âm/dương qua custom `LunarDatePicker`.
+- [ ] FE: trang `/persons/[id]` (chi tiết, gallery, relationships summary — full UI epic 06).
+- [ ] FE: tab "History" hiển thị audit diff.
+- [ ] FE: xác nhận soft-delete có descendant → modal cảnh báo.
+- [ ] e2E Playwright: tạo person, edit, view history.

@@ -1,0 +1,21 @@
+# 06 — Tree Visualization · Tasks
+
+- [ ] Tạo `TreeController` BE + `TreeDataService` query persons + relationships.
+- [ ] `TreeLayoutService` (dagre wrapper + radial algorithm).
+- [ ] Endpoint `GET /families/{slug}/tree/data` với Redis cache 5 phút.
+- [ ] WS endpoint `/ws/families/{slug}/tree` (STOMP).
+- [ ] Publish events từ PersonService + RelationshipService → pub/sub Redis → forward WS.
+- [ ] BE unit test: layout generation BFS, edge cases (orphan nodes, cycles).
+- [ ] FE: cài `@xyflow/react`, `dagre`, `elkjs`.
+- [ ] FE: `TreeCanvas.tsx` + custom node `PersonNode.tsx`.
+- [ ] FE: custom edges (5 loại) với màu + style.
+- [ ] FE: layout switcher (vertical/horizontal/radial).
+- [ ] FE: `TreeFilterBar` với 5 filter.
+- [ ] FE: panel detail mở khi click node.
+- [ ] FE: dialog "Add child" double-click edge.
+- [ ] FE: export PNG/SVG.
+- [ ] FE: virtualization >200 nodes.
+- [ ] FE: hook realtime cập nhật tree qua WS.
+- [ ] e2E: render family 50 nodes, pan/zoom, filter, export PNG.
+- [ ] Perf test với fixture 500 + 2000 nodes.
+- [ ] A11y: keyboard nav giữa nodes, ARIA labels.

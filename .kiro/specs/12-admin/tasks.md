@@ -1,0 +1,22 @@
+# 12 — Admin & Audit · Tasks
+
+- [ ] Tạo Flyway `V12__admin.sql` (audit_logs, backup_jobs, retention bảng bổ sung nếu cần).
+- [ ] Annotation `@Audited(entity, action)` + AOP aspect.
+- [ ] Áp dụng `@Audited` cho các service method ở epic 02/03/04/05/07.
+- [ ] `AuditService` query + filter + paginate.
+- [ ] `StatsService` dashboard aggregations.
+- [ ] `BackupService` (pg_dump wrapper) + MinIO upload.
+- [ ] `RestoreService` dry-run preview + apply.
+- [ ] `ImpersonationService` + JWT special claim.
+- [ ] `RetentionScheduler` purge deleted families + expired refresh tokens.
+- [ ] `SystemAdminGuard` chỉ cho phép `SYSTEM_ADMIN_EMAILS` env.
+- [ ] Controllers + Swagger.
+- [ ] BE unit test AOP audit capture diff.
+- [ ] BE integration test backup → restore round-trip.
+- [ ] e2E: OWNER vào admin tab, tạo backup, download, restore dry-run.
+- [ ] e2E: SYSTEM_ADMIN impersonate user → action của user ghi audit với impersonator.
+- [ ] FE: dashboard page với cards + Recharts.
+- [ ] FE: audit table + filter + JSON diff drawer.
+- [ ] FE: backup list + restore wizard.
+- [ ] FE: `/admin` system admin page.
+- [ ] Verify retention cron chạy đúng (manual trigger qua endpoint test).
