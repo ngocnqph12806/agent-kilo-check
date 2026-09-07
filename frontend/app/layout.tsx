@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
+import { AuthInitializer } from '@/modules/auth/components/auth-initializer';
+import { QueryProvider } from '@/lib/query-provider';
+
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
@@ -13,7 +16,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <QueryProvider>
+          <AuthInitializer />
+          {children}
+        </QueryProvider>
+      </body>
     </html>
   );
 }
