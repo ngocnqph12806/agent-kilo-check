@@ -2,6 +2,7 @@ package com.skillseed.shared.exception;
 
 import com.skillseed.auth.exception.AuthException;
 import com.skillseed.user.exception.UserException;
+import com.skillseed.wallet.exception.WalletException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ApiErrorResponse> handleUser(UserException ex) {
+        return ResponseEntity.status(ex.getHttpStatus())
+                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(WalletException.class)
+    public ResponseEntity<ApiErrorResponse> handleWallet(WalletException ex) {
         return ResponseEntity.status(ex.getHttpStatus())
                 .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
     }
