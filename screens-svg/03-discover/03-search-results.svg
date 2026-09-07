@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(540, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0" fill="#10B981" font-weight="600">Discover</text>
+      <text x="100" y="0">Bookings</text>
+      <text x="200" y="0">Pods</text>
+      <text x="280" y="0">Events</text>
+      <text x="360" y="0">Wallet</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Search bar -->
+  <g transform="translate(80, 110)">
+    <rect width="1280" height="56" rx="28" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2"/>
+    <text x="24" y="36" font-size="18">🔍</text>
+    <text x="60" y="36" fill="#111827" font-size="16" font-weight="600">italian cooking</text>
+    <line x1="200" y1="14" x2="200" y2="42" stroke="#E5E7EB"/>
+    <text x="220" y="36" fill="#9CA3AF" font-size="14">All categories</text>
+    <text x="360" y="36" fill="#9CA3AF" font-size="14">▼</text>
+    <g transform="translate(1140, 12)">
+      <rect width="120" height="32" rx="16" fill="url(#ctaGrad)"/>
+      <text x="60" y="22" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Search</text>
+    </g>
+  </g>
+
+  <!-- Results header -->
+  <g transform="translate(80, 200)">
+    <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">142 mentors found for "italian cooking"</text>
+    <text x="0" y="24" fill="#6B7280" font-size="13">Search took 0.12s</text>
+    <g transform="translate(1100, -8)">
+      <rect width="180" height="36" rx="18" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="23" fill="#374151" font-size="13">Sort: Best match</text>
+      <text x="160" y="23" fill="#9CA3AF" font-size="13">▼</text>
+    </g>
+  </g>
+
+  <!-- Filters chips -->
+  <g transform="translate(80, 260)">
+    <text x="0" y="14" fill="#9CA3AF" font-size="11" font-weight="600">ACTIVE FILTERS:</text>
+    <g transform="translate(140, 0)">
+      <rect width="100" height="28" rx="14" fill="#ECFDF5"/>
+      <text x="14" y="19" fill="#047857" font-size="12">⭐⭐⭐ Expert</text>
+      <text x="86" y="19" fill="#047857" font-size="12">×</text>
+    </g>
+    <g transform="translate(250, 0)">
+      <rect width="100" height="28" rx="14" fill="#ECFDF5"/>
+      <text x="14" y="19" fill="#047857" font-size="12">🎥 Available</text>
+      <text x="86" y="19" fill="#047857" font-size="12">×</text>
+    </g>
+    <g transform="translate(360, 0)">
+      <rect width="120" height="28" rx="14" fill="#ECFDF5"/>
+      <text x="14" y="19" fill="#047857" font-size="12">🇮🇹 Italy first</text>
+      <text x="106" y="19" fill="#047857" font-size="12">×</text>
+    </g>
+  </g>
+
+  <!-- Results list -->
+  <g transform="translate(80, 310)">
+    <!-- Result 1 -->
+    <g>
+      <rect width="1280" height="140" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <circle cx="50" cy="50" r="50" fill="#DBEAFE"/>
+        <text x="50" y="68" text-anchor="middle" font-size="40">👨‍🍳</text>
+      </g>
+      <g transform="translate(140, 24)">
+        <text x="0" y="0" fill="#111827" font-size="18" font-weight="700">Chef Marco Rossi</text>
+        <g transform="translate(160, -10)">
+          <rect width="60" height="20" rx="10" fill="#10B981"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="600">✓ Verified</text>
+        </g>
+        <text x="0" y="22" fill="#6B7280" font-size="13">🍝 Italian Cooking · 12 years experience · Professional Chef</text>
+        <text x="0" y="44" fill="#6B7280" font-size="12">🇮🇹 Rome, Italy · GMT+1 · Speaks English, Italian</text>
+        <g transform="translate(0, 60)">
+          <text x="0" y="0" fill="#F59E0B" font-size="12">⭐⭐⭐⭐⭐ 4.9 (245 reviews)</text>
+          <text x="180" y="0" fill="#6B7280" font-size="12">· 1,200 sessions completed</text>
+        </g>
+        <g transform="translate(0, 80)">
+          <rect width="80" height="20" rx="10" fill="#ECFDF5"/>
+          <text x="40" y="14" text-anchor="middle" fill="#047857" font-size="10" font-weight="600">98% match</text>
+        </g>
+      </g>
+      <g transform="translate(940, 32)">
+        <rect width="160" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="80" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Book session</text>
+        <g transform="translate(180, 0)">
+          <rect width="120" height="40" rx="20" fill="transparent" stroke="#10B981"/>
+          <text x="60" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">View profile</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Result 2 -->
+    <g transform="translate(0, 160)">
+      <rect width="1280" height="140" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <circle cx="50" cy="50" r="50" fill="#FEF3C7"/>
+        <text x="50" y="68" text-anchor="middle" font-size="40">👩‍🍳</text>
+      </g>
+      <g transform="translate(140, 24)">
+        <text x="0" y="0" fill="#111827" font-size="18" font-weight="700">Giulia Bianchi</text>
+        <g transform="translate(140, -10)">
+          <rect width="60" height="20" rx="10" fill="#10B981"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="600">✓ Verified</text>
+        </g>
+        <text x="0" y="22" fill="#6B7280" font-size="13">🍝 Italian Home Cooking · Pasta, Risotto, Tiramisu</text>
+        <text x="0" y="44" fill="#6B7280" font-size="12">🇮🇹 Milan, Italy · GMT+1 · Speaks English, Italian, Spanish</text>
+        <g transform="translate(0, 60)">
+          <text x="0" y="0" fill="#F59E0B" font-size="12">⭐⭐⭐⭐⭐ 4.8 (132 reviews)</text>
+          <text x="180" y="0" fill="#6B7280" font-size="12">· 580 sessions completed</text>
+        </g>
+        <g transform="translate(0, 80)">
+          <rect width="80" height="20" rx="10" fill="#ECFDF5"/>
+          <text x="40" y="14" text-anchor="middle" fill="#047857" font-size="10" font-weight="600">94% match</text>
+        </g>
+      </g>
+      <g transform="translate(940, 32)">
+        <rect width="160" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="80" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Book session</text>
+        <g transform="translate(180, 0)">
+          <rect width="120" height="40" rx="20" fill="transparent" stroke="#10B981"/>
+          <text x="60" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">View profile</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Result 3 -->
+    <g transform="translate(0, 320)">
+      <rect width="1280" height="140" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <circle cx="50" cy="50" r="50" fill="#D1FAE5"/>
+        <text x="50" y="68" text-anchor="middle" font-size="40">👨‍🍳</text>
+      </g>
+      <g transform="translate(140, 24)">
+        <text x="0" y="0" fill="#111827" font-size="18" font-weight="700">Antonio Verde</text>
+        <text x="0" y="22" fill="#6B7280" font-size="13">🍕 Pizza &amp; Italian Street Food · Beginner-friendly</text>
+        <text x="0" y="44" fill="#6B7280" font-size="12">🇮🇹 Naples, Italy · GMT+1 · Speaks Italian, basic English</text>
+        <g transform="translate(0, 60)">
+          <text x="0" y="0" fill="#F59E0B" font-size="12">⭐⭐⭐⭐ 4.6 (78 reviews)</text>
+          <text x="160" y="0" fill="#6B7280" font-size="12">· 290 sessions completed</text>
+        </g>
+        <g transform="translate(0, 80)">
+          <rect width="80" height="20" rx="10" fill="#FEF3C7"/>
+          <text x="40" y="14" text-anchor="middle" fill="#92400E" font-size="10" font-weight="600">86% match</text>
+        </g>
+      </g>
+      <g transform="translate(940, 32)">
+        <rect width="160" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="80" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Book session</text>
+        <g transform="translate(180, 0)">
+          <rect width="120" height="40" rx="20" fill="transparent" stroke="#10B981"/>
+          <text x="60" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">View profile</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Pagination -->
+  <g transform="translate(720, 850)" text-anchor="middle">
+    <text x="0" y="0" fill="#6B7280" font-size="13">← 1 2 3 4 5 ... 14 →</text>
+  </g>
+</svg>
