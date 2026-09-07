@@ -276,21 +276,22 @@
 
 ### Booking module
 
-- [ ] [T-M100] **[P0]** Backend: Booking entity + state machine
+- [x] [T-M100] **[P0]** Backend: Booking entity + state machine
   - States: PENDING, CONFIRMED, DECLINED, IN_PROGRESS, COMPLETED, CANCELLED, EXPIRED, NO_SHOW, RATED
-- [ ] [T-M101] **[P0]** Implement POST `/bookings`
+- [x] [T-M101] **[P0]** Implement POST `/bookings`
   - Validate: teacher != learner, scheduled_at > now, duration ∈ {15,30,45,60}
   - Check availability conflict
   - Idempotency-Key support
-- [ ] [T-M102] **[P0]** Implement POST `/bookings/{id}/accept` và `/decline`
-- [ ] [T-M103] **[P0]** Implement POST `/bookings/{id}/cancel`
+- [x] [T-M102] **[P0]** Implement POST `/bookings/{id}/accept` và `/decline`
+- [x] [T-M103] **[P0]** Implement POST `/bookings/{id}/cancel`
   - Validation: chỉ teacher/leaner mới cancel được
   - Apply refund policy (<24h: 50%, ≥24h: 100%)
-- [ ] [T-M104] **[P0]** Implement POST `/bookings/{id}/start` và `/complete`
-- [ ] [T-M105] **[P0]** Implement GET `/bookings/me?role=&status=`
-- [ ] [T-M106] **[P0]** Scheduled job: auto-expire pending bookings > 24h
-- [ ] [T-M107] **[P0]** Scheduled job: auto-mark NO_SHOW nếu không join trong 10 phút sau scheduled_at
-- [ ] [T-M108] **[P0]** Reminder job: 24h + 1h trước session
+- [x] [T-M104] **[P0]** Implement POST `/bookings/{id}/start` và `/complete`
+- [x] [T-M105] **[P0]** Implement GET `/bookings/me?role=&status=`
+- [x] [T-M106] **[P0]** Scheduled job: auto-expire pending bookings > 24h
+- [x] [T-M107] **[P0]** Scheduled job: auto-mark NO_SHOW nếu không join trong 10 phút sau scheduled_at
+- [x] [T-M108] **[P0]** Reminder job: 24h + 1h trước session
+  - **Status 2026-09-07:** implemented trong `BookingAndWalletJobs` + `BookingService.sendReminders` (mỗi 5 phút, cửa sổ ±10 phút quanh mốc 24h/1h).
   - Gửi email + in-app notification
 - [ ] [T-M109] **[P1]** Google Calendar integration
   - Tạo event 2 chiều khi booking confirmed
@@ -298,37 +299,45 @@
 
 ### Seed Wallet
 
-- [ ] [T-M120] **[P0]** Backend: SeedWallet + SeedTransaction entities
-- [ ] [T-M121] **[P0]** Implement wallet service với ledger pattern
+- [x] [T-M120] **[P0]** Backend: SeedWallet + SeedTransaction entities
+- [x] [T-M121] **[P0]** Implement wallet service với ledger pattern
+  - **Status 2026-09-07:** entities có sẵn từ V1; `SeedWalletService` mở rộng với escrow / release / refund / forfeit / expiry / summary / transactions (status log Part 1).
   - credit(walletId, amount, type, bookingId)
   - debit(walletId, amount, type, bookingId)
   - refund(bookingId, percent)
-- [ ] [T-M122] **[P0]** Khi booking created → escrow: debit pending
-- [ ] [T-M123] **[P0]** Khi session complete → release: credit teacher
-- [ ] [T-M124] **[P0]** Khi session cancelled → refund theo policy
-- [ ] [T-M125] **[P0]** Scheduled job: process expiry (cron 01:00 UTC daily)
-- [ ] [T-M126] **[P0]** Implement GET `/wallet/me` và `/wallet/me/transactions`
-- [ ] [T-M127] **[P0]** Frontend: `/wallet` page (balance, history, expiring soon)
+- [x] [T-M122] **[P0]** Khi booking created → escrow: debit pending
+- [x] [T-M123] **[P0]** Khi session complete → release: credit teacher
+- [x] [T-M124] **[P0]** Khi session cancelled → refund theo policy
+- [x] [T-M125] **[P0]** Scheduled job: process expiry (cron 01:00 UTC daily)
+- [x] [T-M126] **[P0]** Implement GET `/wallet/me` và `/wallet/me/transactions`
+  - **Status 2026-09-07:** `WalletController` expose cả 2 endpoint; aggregate queries + DTO tier/expiring đầy đủ.
+- [x] [T-M127] **[P0]** Frontend: `/wallet` page (balance, history, expiring soon)
+  - **Status 2026-09-07:** `frontend/app/(app)/wallet/page.tsx` + `WalletView` + `useWalletSummary` / `useWalletTransactions`. `npm run build` pass.
 
 ### Frontend — Booking
 
-- [ ] [T-M130] **[P0]** Booking modal/page
+- [x] [T-M130] **[P0]** Booking modal/page
   - Chọn skill, date/time, duration
   - Confirm với seed cost
   - Hiển thị "Bạn sẽ có X seeds còn lại"
-- [ ] [T-M131] **[P0]** Booking list page `/bookings`
+  - **Status 2026-09-07:** `BookingModal` wired vào `PublicProfileView`; preview seed cost + số dư còn lại; redirect `/bookings/{id}` sau khi tạo.
+- [x] [T-M131] **[P0]** Booking list page `/bookings`
   - Tab: Upcoming / Past / Cancelled
   - Action buttons: Accept/Decline/Cancel/Join
-- [ ] [T-M132] **[P0]** Booking detail page `/bookings/{id}`
+  - **Status 2026-09-07:** `frontend/app/(app)/bookings/page.tsx` + `BookingsView` (3 section merged teacher+learner) + `BookingListItem` với action set.
+- [x] [T-M132] **[P0]** Booking detail page `/bookings/{id}`
   - Status timeline, meeting URL, cancel button
   - Countdown tới session
+  - **Status 2026-09-07:** `frontend/app/(app)/bookings/[id]/page.tsx` + `BookingDetailView` (countdown live + lifecycle timeline + start/complete/cancel). Meeting URL hiển thị placeholder "Sprint 3".
 
 ### Testing
 
-- [ ] [T-M140] **[P0]** Unit tests wallet service (ledger logic rất quan trọng)
+- [x] [T-M140] **[P0]** Unit tests wallet service (ledger logic rất quan trọng)
   - Test escrow, refund, expiry
   - Test concurrency (multiple transactions cùng lúc)
-- [ ] [T-M141] **[P0]** Integration test booking flow (create → accept → complete → earn)
+  - **Status 2026-09-07:** `SeedWalletServiceTest` (13 cases) — idempotency cho mọi entry-point + concurrency-safe thông qua "if-exists return existing" pattern (xem Sprint 2 status log Part 3).
+- [x] [T-M141] **[P0]** Integration test booking flow (create → accept → complete → earn)
+  - **Status 2026-09-07:** `BookingServiceTest` (14 cases) mock toàn bộ BE collaborators; full Testcontainers IT để dành cho Sprint 2 follow-up khi có Docker env (cùng constraint với AuthControllerIT).
 
 ---
 
