@@ -2,14 +2,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { BookingModal } from '@/modules/booking/components/booking-modal';
+import { useWalletSummary } from '@/modules/wallet/hooks/use-wallet';
 
 import {
   usePublicProfile,
   useUserFreeSlots
 } from '../hooks/use-public-profile';
+import { useCurrentUser } from '@/modules/auth/hooks/use-auth-mutations';
 import type { PublicUserProfile } from '../lib/schemas';
 
 export interface PublicProfileViewProps {
@@ -19,7 +23,11 @@ export interface PublicProfileViewProps {
 export function PublicProfileView({ userId }: PublicProfileViewProps) {
   const profile = usePublicProfile(userId);
   const slots = useUserFreeSlots(userId, 14);
+  const me = useCurrentUser();
+  const wallet = useWalletSummary();
+  const router = useRouter();
   const [bookingSkill, setBookingSkill] = useState<string>('');
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   if (profile.isLoading) {
     return <CenteredLoading />;
@@ -38,6 +46,8 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
   }
 
   const user = profile.data;
+  const isSelf = me.data?.id === user.id;
+  const currentBalance = wallet.data?.balance;
 
   return (
     <main className="container mx-auto max-w-4xl space-y-8 py-10">
@@ -94,6 +104,9 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             slotsLoading={slots.isLoading}
             bookingSkill={bookingSkill}
             setBookingSkill={setBookingSkill}
+            isSelf={isSelf}
+            isAuthenticated={Boolean(me.data)}
+            onOpenBooking={() => setBookingOpen(true)}
           />
           <Block title="Languages">
             <p className="text-sm">
@@ -105,6 +118,25 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           </Block>
         </aside>
       </section>
+
+      <BookingModal
+        teacherId={user.id}
+        teacherName={user.fullName}
+        skills={user.offeredSkills.map((s) => ({
+          id: s.id,
+          name: s.name,
+          hourlySeedRate: s.hourlySeedRate
+        }))}
+        slots={slots.data ?? []}
+        defaultSkillId={bookingSkill || user.offeredSkills[0]?.id}
+        currentBalance={currentBalance}
+        open={bookingOpen}
+        onClose={() => setBookingOpen(false)}
+        onCreated={(bookingId) => {
+          setBookingOpen(false);
+          router.push(`/bookings/${bookingId}`);
+        }}
+      />
     </main>
   );
 }
@@ -149,6 +181,9 @@ interface BookSessionPanelProps {
   slotsLoading: boolean;
   bookingSkill: string;
   setBookingSkill: (next: string) => void;
+  isSelf: boolean;
+  isAuthenticated: boolean;
+  onOpenBooking: () => void;
 }
 
 function BookSessionPanel({
@@ -156,9 +191,12 @@ function BookSessionPanel({
   slots,
   slotsLoading,
   bookingSkill,
-  setBookingSkill
+  setBookingSkill,
+  isSelf,
+  isAuthenticated,
+  onOpenBooking
 }: BookSessionPanelProps) {
-  const canBook = user.offeredSkills.length > 0;
+  const canBook = user.offeredSkills.length > 0 && !isSelf;
   return (
     <div className="space-y-3 rounded-lg border bg-card p-4 shadow-sm">
       <h2 className="text-base font-semibold">Book a session</h2>
@@ -209,17 +247,25 @@ function BookSessionPanel({
             )}
           </div>
 
-          <Button className="w-full" disabled>
-            Book session (coming in Sprint 2)
+          <Button className="w-full" disabled={!isAuthenticated} onClick={onOpenBooking}>
+            {!isAuthenticated
+              ? 'Sign in to book'
+              : slots.length === 0
+                ? 'No available slots'
+                : 'Book session'}
           </Button>
-          <p className="text-center text-xs text-muted-foreground">
-            The booking modal ships with T-M130. For now this confirms the
-            availability endpoint works end-to-end.
-          </p>
+          {isAuthenticated && slots.length > 0 ? (
+            <p className="text-center text-xs text-muted-foreground">
+              Seeds are held in escrow and released to the teacher when the
+              session completes.
+            </p>
+          ) : null}
         </>
       ) : (
         <p className="text-sm text-muted-foreground">
-          This teacher hasn't added any skills yet.
+          {isSelf
+            ? "You can't book yourself."
+            : "This teacher hasn't added any skills yet."}
         </p>
       )}
     </div>
