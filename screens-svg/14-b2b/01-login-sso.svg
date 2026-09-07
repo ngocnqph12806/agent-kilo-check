@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="leftGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12"/>
+      <feOffset dx="0" dy="6"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Left side -->
+  <rect x="0" y="0" width="600" height="900" fill="url(#leftGrad)"/>
+  <g transform="translate(60, 60)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="22" font-weight="700">🌱 SkillSeed · Business</text>
+  </g>
+
+  <g transform="translate(60, 280)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="44" font-weight="800">Skill development</text>
+    <text x="0" y="56" fill="#FFFFFF" font-size="44" font-weight="800">for modern teams</text>
+    <text x="0" y="120" fill="#BFDBFE" font-size="16">Enterprise-grade learning platform</text>
+    <text x="0" y="142" fill="#BFDBFE" font-size="16">with SSO, analytics, and team features</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(60, 600)" fill="#A7F3D0" font-size="14">
+    <g>
+      <text x="0" y="0" fill="#FFFFFF" font-size="20" font-weight="700">2,400+</text>
+      <text x="0" y="20">Companies onboarded</text>
+    </g>
+    <g transform="translate(160, 0)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="20" font-weight="700">SOC 2</text>
+      <text x="0" y="20">Type II certified</text>
+    </g>
+    <g transform="translate(280, 0)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="20" font-weight="700">GDPR</text>
+      <text x="0" y="20">Compliant</text>
+    </g>
+  </g>
+
+  <!-- Right side -->
+  <g transform="translate(720, 100)">
+    <rect width="600" height="700" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <g transform="translate(50, 50)">
+      <text x="0" y="0" fill="#111827" font-size="28" font-weight="800">Sign in to SkillSeed</text>
+      <text x="0" y="28" fill="#6B7280" font-size="14">for Business</text>
+
+      <!-- SSO options -->
+      <g transform="translate(0, 80)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Single sign-on (SSO)</text>
+
+        <g transform="translate(0, 16)">
+          <rect width="500" height="56" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+          <g transform="translate(16, 12)">
+            <rect width="32" height="32" rx="6" fill="#1E40AF"/>
+            <text x="16" y="22" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">M</text>
+          </g>
+          <g transform="translate(60, 16)">
+            <text x="0" y="14" fill="#111827" font-size="13" font-weight="700">Microsoft Entra ID (Azure AD)</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">Continue with your work account</text>
+          </g>
+          <g transform="translate(420, 14)">
+            <rect width="60" height="28" rx="14" fill="#10B981"/>
+            <text x="30" y="20" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">→</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 84)">
+          <rect width="500" height="56" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+          <g transform="translate(16, 12)">
+            <rect width="32" height="32" rx="6" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="16" y="22" text-anchor="middle" font-size="14">🔐</text>
+          </g>
+          <g transform="translate(60, 16)">
+            <text x="0" y="14" fill="#111827" font-size="13" font-weight="700">Okta</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">SAML 2.0 · Most common</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 152)">
+          <rect width="500" height="56" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+          <g transform="translate(16, 12)">
+            <rect width="32" height="32" rx="6" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="16" y="22" text-anchor="middle" font-size="14">🔗</text>
+          </g>
+          <g transform="translate(60, 16)">
+            <text x="0" y="14" fill="#111827" font-size="13" font-weight="700">Google Workspace</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">Sign in with your @company.com</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 220)">
+          <rect width="500" height="56" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+          <g transform="translate(16, 12)">
+            <rect width="32" height="32" rx="6" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="16" y="22" text-anchor="middle" font-size="14">🛡️</text>
+          </g>
+          <g transform="translate(60, 16)">
+            <text x="0" y="14" fill="#111827" font-size="13" font-weight="700">Custom SAML</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">Configure your own IdP</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- Divider -->
+      <g transform="translate(0, 380)">
+        <line x1="0" y1="0" x2="200" y2="0" stroke="#E5E7EB"/>
+        <line x1="280" y1="0" x2="500" y2="0" stroke="#E5E7EB"/>
+        <text x="240" y="6" text-anchor="middle" fill="#9CA3AF" font-size="12">OR</text>
+      </g>
+
+      <!-- Email -->
+      <g transform="translate(0, 410)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Work email</text>
+        <rect x="0" y="10" width="500" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="38" fill="#111827" font-size="13">you@yourcompany.com</text>
+      </g>
+
+      <g transform="translate(0, 470)">
+        <rect width="500" height="44" rx="22" fill="url(#ctaGrad)"/>
+        <text x="250" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Continue with email →</text>
+      </g>
+
+      <g transform="translate(0, 540)">
+        <text x="250" y="0" text-anchor="middle" fill="#9CA3AF" font-size="11">By signing in, you agree to our <tspan fill="#10B981" font-weight="600">Terms</tspan></text>
+        <text x="250" y="16" text-anchor="middle" fill="#9CA3AF" font-size="11">Need help? <tspan fill="#10B981" font-weight="600">Contact your IT admin</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
