@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+  <rect width="1440" height="72" fill="#FFFFFF"/>
+  <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+  <g transform="translate(80, 22)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+  </g>
+
+  <!-- Offline banner -->
+  <g transform="translate(0, 72)">
+    <rect width="1440" height="48" fill="#FEF3C7"/>
+    <g transform="translate(720, 16)" text-anchor="middle">
+      <text x="0" y="20" fill="#92400E" font-size="14" font-weight="600">📶 You're offline · Some features may be unavailable</text>
+    </g>
+  </g>
+
+  <g transform="translate(720, 320)" text-anchor="middle">
+    <g>
+      <circle cx="0" cy="0" r="100" fill="#FEF3C7"/>
+      <circle cx="0" cy="0" r="84" fill="#F59E0B"/>
+      <text x="0" y="14" text-anchor="middle" fill="#FFFFFF" font-size="60">📡</text>
+    </g>
+
+    <text x="0" y="180" fill="#111827" font-size="36" font-weight="800">You're offline</text>
+    <text x="0" y="220" fill="#6B7280" font-size="16">Check your internet connection and try again.</text>
+    <text x="0" y="244" fill="#6B7280" font-size="14">Bookmarked content is still available below.</text>
+
+    <g transform="translate(-90, 290)">
+      <rect width="180" height="48" rx="24" fill="url(#ctaGrad)"/>
+      <text x="90" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">↻ Retry</text>
+    </g>
+  </g>
+
+  <!-- Cached content -->
+  <g transform="translate(80, 720)">
+    <rect width="1280" height="120" rx="12" fill="#FFFFFF"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📚 Available offline</text>
+      <text x="0" y="20" fill="#6B7280" font-size="11">Content saved on this device</text>
+    </g>
+    <g transform="translate(24, 64)">
+      <rect width="200" height="40" rx="20" fill="transparent" stroke="#E5E7EB"/>
+      <text x="20" y="26" fill="#374151" font-size="12">📖 Italian Cooking notes</text>
+    </g>
+    <g transform="translate(232, 64)">
+      <rect width="200" height="40" rx="20" fill="transparent" stroke="#E5E7EB"/>
+      <text x="20" y="26" fill="#374151" font-size="12">🎥 Past session recording</text>
+    </g>
+    <g transform="translate(440, 64)">
+      <rect width="200" height="40" rx="20" fill="transparent" stroke="#E5E7EB"/>
+      <text x="20" y="26" fill="#374151" font-size="12">📝 Your SBT passport</text>
+    </g>
+  </g>
+</svg>

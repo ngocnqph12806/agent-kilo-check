@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g transform="translate(80, 40)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="18" font-weight="700">SkillSeed</text>
+    <text x="1280" y="20" fill="#6B7280" font-size="14" text-anchor="end">Step 6 of 7</text>
+    <text x="1280" y="40" fill="#10B981" font-size="13" font-weight="600" text-anchor="end">85% complete</text>
+  </g>
+
+  <g transform="translate(80, 100)">
+    <rect width="1280" height="6" rx="3" fill="#E5E7EB"/>
+    <rect width="1088" height="6" rx="3" fill="url(#ctaGrad)"/>
+  </g>
+
+  <g transform="translate(220, 180)">
+    <text x="0" y="0" fill="#111827" font-size="40" font-weight="800">Languages &amp; location</text>
+    <text x="0" y="38" fill="#6B7280" font-size="16">So we can match you with people across the globe.</text>
+  </g>
+
+  <!-- Native language -->
+  <g transform="translate(220, 270)">
+    <text x="0" y="0" fill="#374151" font-size="14" font-weight="700">Your native language</text>
+    <g transform="translate(0, 16)">
+      <rect width="500" height="48" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+      <text x="20" y="30" fill="#111827" font-size="14">🇻🇳 Vietnamese</text>
+      <text x="480" y="30" fill="#10B981" font-size="14">▼</text>
+    </g>
+  </g>
+
+  <!-- Spoken languages -->
+  <g transform="translate(220, 370)">
+    <text x="0" y="0" fill="#374151" font-size="14" font-weight="700">Languages you can teach in (pick all)</text>
+    <g transform="translate(0, 16)">
+      <rect width="140" height="40" rx="20" fill="#10B981"/>
+      <text x="20" y="26" fill="#FFFFFF" font-size="13">🇻🇳 Vietnamese</text>
+      <text x="120" y="26" fill="#FFFFFF" font-size="13">×</text>
+    </g>
+    <g transform="translate(150, 16)">
+      <rect width="120" height="40" rx="20" fill="#10B981"/>
+      <text x="20" y="26" fill="#FFFFFF" font-size="13">🇬🇧 English</text>
+      <text x="100" y="26" fill="#FFFFFF" font-size="13">×</text>
+    </g>
+    <g transform="translate(280, 16)">
+      <rect width="140" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="20" y="26" fill="#374151" font-size="13">+ Add language</text>
+    </g>
+  </g>
+
+  <!-- Proficiency levels -->
+  <g transform="translate(220, 470)">
+    <text x="0" y="0" fill="#374151" font-size="14" font-weight="700">English proficiency (for cross-border matching)</text>
+    <g transform="translate(0, 16)">
+      <rect width="155" height="64" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="30" fill="#111827" font-size="13" font-weight="600">Beginner (A1-A2)</text>
+    </g>
+      <g transform="translate(165, 16)">
+        <rect width="155" height="64" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="20" y="30" fill="#111827" font-size="13" font-weight="600">Intermediate (B1-B2)</text>
+      </g>
+      <g transform="translate(330, 16)">
+        <rect width="155" height="64" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+        <text x="20" y="30" fill="#111827" font-size="13" font-weight="600">Advanced (C1-C2)</text>
+        <text x="20" y="50" fill="#10B981" font-size="11" font-weight="600">✓ Selected</text>
+      </g>
+      <g transform="translate(495, 16)">
+        <rect width="155" height="64" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="20" y="30" fill="#111827" font-size="13" font-weight="600">Native</text>
+      </g>
+  </g>
+
+  <!-- Country -->
+  <g transform="translate(220, 600)">
+    <text x="0" y="0" fill="#374151" font-size="14" font-weight="700">Where are you based?</text>
+    <g transform="translate(0, 16)">
+      <rect width="500" height="48" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+      <text x="20" y="30" fill="#111827" font-size="14">🇻🇳 Vietnam</text>
+      <text x="480" y="30" fill="#10B981" font-size="14">▼</text>
+    </g>
+
+    <g transform="translate(520, 16)">
+      <rect width="220" height="48" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="30" fill="#111827" font-size="14">📍 Ho Chi Minh City</text>
+    </g>
+  </g>
+
+  <!-- Cross-border opt-in -->
+  <g transform="translate(220, 720)">
+    <rect width="1000" height="60" rx="10" fill="#ECFDF5"/>
+    <g transform="translate(20, 18)">
+      <circle cx="14" cy="14" r="14" fill="#10B981"/>
+      <path d="M8 14 L12 18 L20 10" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+    </g>
+    <text x="60" y="26" fill="#047857" font-size="14" font-weight="700">Open to cross-border learning partners</text>
+    <text x="60" y="46" fill="#065F46" font-size="12">You'll see matches from all 120+ supported countries, with auto-translated chat.</text>
+
+    <!-- Toggle -->
+    <g transform="translate(900, 18)">
+      <rect width="48" height="28" rx="14" fill="#10B981"/>
+      <circle cx="34" cy="14" r="12" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <g transform="translate(220, 820)">
+    <rect width="160" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+    <text x="80" y="30" text-anchor="middle" fill="#6B7280" font-size="14">← Back</text>
+  </g>
+  <g transform="translate(1060, 820)">
+    <rect width="160" height="48" rx="24" fill="url(#ctaGrad)"/>
+    <text x="80" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Continue →</text>
+  </g>
+</svg>

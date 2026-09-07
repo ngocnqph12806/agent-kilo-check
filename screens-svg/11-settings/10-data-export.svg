@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Settings · Data Export</text>
+  </g>
+
+  <!-- Sidebar -->
+  <g transform="translate(80, 180)">
+    <rect width="240" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)" fill="#374151" font-size="14">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">ACCOUNT</text>
+      <g transform="translate(0, 20)"><text x="20" y="20">👤 Account</text></g>
+      <g transform="translate(0, 60)"><text x="20" y="20">🔔 Notifications</text></g>
+      <g transform="translate(0, 100)"><text x="20" y="20">🔒 Privacy</text></g>
+      <g transform="translate(0, 140)"><text x="20" y="20">💳 Payments</text></g>
+      <g transform="translate(0, 200)" fill="#9CA3AF"><text x="0" y="0" font-size="11" font-weight="700">PREFERENCES</text></g>
+      <g transform="translate(0, 220)"><text x="20" y="20">🌍 Locale</text></g>
+      <g transform="translate(0, 260)"><text x="20" y="20">🔗 Wallet</text></g>
+      <g transform="translate(0, 300)"><text x="20" y="20">📅 Calendars</text></g>
+      <g transform="translate(0, 340)"><text x="20" y="20">💻 Devices</text></g>
+      <g transform="translate(0, 400)" fill="#9CA3AF"><text x="0" y="0" font-size="11" font-weight="700">DATA</text></g>
+      <g transform="translate(0, 420)">
+        <rect width="200" height="36" rx="8" fill="#ECFDF5"/>
+        <text x="20" y="23" fill="#10B981" font-size="13" font-weight="600">📥 Export</text>
+      </g>
+      <g transform="translate(0, 460)"><text x="20" y="20">🚫 Blocked</text></g>
+      <g transform="translate(0, 500)"><text x="20" y="20" fill="#EF4444" font-weight="600">⚠️ Delete account</text></g>
+    </g>
+  </g>
+
+  <!-- Main -->
+  <g transform="translate(360, 180)">
+    <rect width="1000" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(40, 40)">
+      <text x="0" y="0" fill="#111827" font-size="24" font-weight="800">📥 Export your data</text>
+      <text x="0" y="28" fill="#6B7280" font-size="13">Download a copy of everything we've stored about you (GDPR &amp; CCPA compliant)</text>
+
+      <!-- What will be included -->
+      <g transform="translate(0, 80)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📦 Your export will include:</text>
+        <g transform="translate(0, 20)">
+          <rect width="460" height="200" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 20)" fill="#374151" font-size="13">
+            <text x="0" y="14">✓ Profile information</text>
+            <text x="0" y="38">✓ Skills (teach &amp; learn)</text>
+            <text x="0" y="62">✓ Booking history (142 records)</text>
+            <text x="0" y="86">✓ Messages (5,847 records)</text>
+            <text x="0" y="110">✓ Session recordings (12 files)</text>
+            <text x="0" y="134">✓ Wallet transactions</text>
+            <text x="0" y="158">✓ SBT mint history</text>
+          </g>
+        </g>
+        <g transform="translate(480, 20)">
+          <rect width="460" height="200" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 20)" fill="#374151" font-size="13">
+            <text x="0" y="14">✓ Pod memberships</text>
+            <text x="0" y="38">✓ Forum posts &amp; replies</text>
+            <text x="0" y="62">✓ Ratings &amp; reviews</text>
+            <text x="0" y="86">✓ Notification preferences</text>
+            <text x="0" y="110">✓ Connected accounts</text>
+            <text x="0" y="134">✓ Login history</text>
+            <text x="0" y="158">✓ Privacy settings</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- Format -->
+      <g transform="translate(0, 360)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📄 Choose format</text>
+        <g transform="translate(0, 20)">
+          <rect width="300" height="60" rx="10" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+          <text x="20" y="32" fill="#047857" font-size="14" font-weight="700">📁 JSON (machine-readable)</text>
+          <text x="20" y="50" fill="#065F46" font-size="11">Recommended · Easy to import elsewhere</text>
+        </g>
+        <g transform="translate(316, 20)">
+          <rect width="300" height="60" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/>
+          <text x="20" y="32" fill="#111827" font-size="14" font-weight="600">📊 CSV (spreadsheet)</text>
+          <text x="20" y="50" fill="#6B7280" font-size="11">Tables split into multiple files</text>
+        </g>
+        <g transform="translate(632, 20)">
+          <rect width="288" height="60" rx="10" fill="#F9FAFB" stroke="#E5E7EB"/>
+          <text x="20" y="32" fill="#111827" font-size="14" font-weight="600">📑 HTML (human-readable)</text>
+          <text x="20" y="50" fill="#6B7280" font-size="11">View in any browser</text>
+        </g>
+      </g>
+
+      <!-- Estimated -->
+      <g transform="translate(0, 470)">
+        <rect width="920" height="60" rx="10" fill="#FEF3C7"/>
+        <text x="20" y="32" fill="#92400E" font-size="13" font-weight="700">📊 Estimated size: 487 MB · 12,847 records</text>
+        <text x="20" y="50" fill="#78350F" font-size="11">Processing typically takes 5-15 minutes. We'll email you when ready.</text>
+      </g>
+
+      <!-- Action -->
+      <g transform="translate(0, 570)">
+        <rect width="180" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+        <text x="90" y="26" text-anchor="middle" fill="#374151" font-size="13">Cancel</text>
+      </g>
+      <g transform="translate(196, 570)">
+        <rect width="240" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="120" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">📥 Request export</text>
+      </g>
+
+      <text x="0" y="640" fill="#6B7280" font-size="11">Last export: Aug 15, 2026 (download link expired). Need another?</text>
+    </g>
+  </g>
+</svg>

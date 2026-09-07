@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">💬 Contact Support</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">We're here to help · Average response time: 1h 42m</text>
+  </g>
+
+  <!-- Contact channels -->
+  <g transform="translate(80, 200)">
+    <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Choose a channel</text>
+  </g>
+
+  <g transform="translate(80, 230)">
+    <rect width="290" height="100" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+    <g transform="translate(20, 20)">
+      <rect width="48" height="48" rx="12" fill="#FFFFFF" stroke="#10B981"/>
+      <text x="24" y="36" text-anchor="middle" font-size="24">💬</text>
+    </g>
+    <g transform="translate(80, 20)">
+      <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Live chat</text>
+      <text x="0" y="32" fill="#065F46" font-size="11">Avg response: 2 min</text>
+      <text x="0" y="56" fill="#10B981" font-size="11" font-weight="700">● Online now</text>
+    </g>
+  </g>
+
+  <g transform="translate(390, 230)">
+    <rect width="290" height="100" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <g transform="translate(20, 20)">
+      <rect width="48" height="48" rx="12" fill="#FEF3C7"/>
+      <text x="24" y="36" text-anchor="middle" font-size="24">📧</text>
+    </g>
+    <g transform="translate(80, 20)">
+      <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Email</text>
+      <text x="0" y="32" fill="#6B7280" font-size="11">Avg response: 4 hours</text>
+      <text x="0" y="56" fill="#92400E" font-size="11" font-weight="700">support@skillseed.app</text>
+    </g>
+  </g>
+
+  <g transform="translate(700, 230)">
+    <rect width="290" height="100" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <g transform="translate(20, 20)">
+      <rect width="48" height="48" rx="12" fill="#DBEAFE"/>
+      <text x="24" y="36" text-anchor="middle" font-size="24">📞</text>
+    </g>
+    <g transform="translate(80, 20)">
+      <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Phone (Pro+)</text>
+      <text x="0" y="32" fill="#6B7280" font-size="11">Available Mon-Fri 9-18 GMT</text>
+      <text x="0" y="56" fill="#1E40AF" font-size="11" font-weight="700">+1 (555) 123-4567</text>
+    </g>
+  </g>
+
+  <g transform="translate(1010, 230)">
+    <rect width="350" height="100" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <g transform="translate(20, 20)">
+      <rect width="48" height="48" rx="12" fill="#FCE7F3"/>
+      <text x="24" y="36" text-anchor="middle" font-size="24">📞</text>
+    </g>
+    <g transform="translate(80, 20)">
+      <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Community Discord</text>
+      <text x="0" y="32" fill="#6B7280" font-size="11">Peer-to-peer help</text>
+      <text x="0" y="56" fill="#9D174D" font-size="11" font-weight="700">discord.gg/skillseed</text>
+    </g>
+  </g>
+
+  <!-- Contact form -->
+  <g transform="translate(80, 380)">
+    <rect width="900" height="440" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">📝 Send us a message</text>
+      <text x="0" y="22" fill="#6B7280" font-size="13">We'll typically respond within 4 hours</text>
+
+      <g transform="translate(0, 60)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Subject</text>
+        <rect x="0" y="10" width="836" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="38" fill="#9CA3AF" font-size="13">e.g. "Can't book a session with my mentor"</text>
+      </g>
+
+      <g transform="translate(0, 130)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Category</text>
+        <g transform="translate(0, 10)">
+          <rect width="180" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="90" y="22" text-anchor="middle" fill="#374151" font-size="12">🐛 Bug Report</text>
+        </g>
+        <g transform="translate(190, 10)">
+          <rect width="180" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="90" y="22" text-anchor="middle" fill="#374151" font-size="12">💳 Payment issue</text>
+        </g>
+        <g transform="translate(380, 10)">
+          <rect width="180" height="36" rx="18" fill="#10B981"/>
+          <text x="90" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">❓ Question</text>
+        </g>
+        <g transform="translate(570, 10)">
+          <rect width="180" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="90" y="22" text-anchor="middle" fill="#374151" font-size="12">⚠️ Report user</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 200)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">How can we help?</text>
+        <rect x="0" y="14" width="836" height="160" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#9CA3AF" font-size="13">Describe your issue or question in detail. Include steps to reproduce if applicable...</text>
+        <text x="16" y="160" fill="#9CA3AF" font-size="10">847 / 2000 characters · Markdown supported</text>
+      </g>
+
+      <g transform="translate(0, 390)">
+        <rect width="180" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+        <text x="90" y="26" text-anchor="middle" fill="#374151" font-size="13">Cancel</text>
+      </g>
+      <g transform="translate(196, 390)">
+        <rect width="200" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="100" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">📤 Send message</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right: Recent tickets -->
+  <g transform="translate(1010, 380)">
+    <rect width="350" height="440" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📋 Your tickets (3)</text>
+
+      <g transform="translate(0, 24)">
+        <rect width="302" height="80" rx="10" fill="#F9FAFB"/>
+        <g transform="translate(16, 16)">
+          <rect width="60" height="20" rx="10" fill="#F59E0B"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">PENDING</text>
+        </g>
+        <text x="0" y="50" fill="#111827" font-size="13" font-weight="600">Can't see my SBT in passport</text>
+        <text x="0" y="68" fill="#6B7280" font-size="11">Submitted Sep 7 · #SUP-12847</text>
+      </g>
+
+      <g transform="translate(0, 116)">
+        <rect width="302" height="80" rx="10" fill="#F9FAFB"/>
+        <g transform="translate(16, 16)">
+          <rect width="60" height="20" rx="10" fill="#10B981"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">RESOLVED</text>
+        </g>
+        <text x="0" y="50" fill="#111827" font-size="13" font-weight="600">Refund request #SK-1234</text>
+        <text x="0" y="68" fill="#6B7280" font-size="11">Resolved Sep 5 · 2 seeds refunded</text>
+      </g>
+
+      <g transform="translate(0, 208)">
+        <rect width="302" height="80" rx="10" fill="#F9FAFB"/>
+        <g transform="translate(16, 16)">
+          <rect width="60" height="20" rx="10" fill="#10B981"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">RESOLVED</text>
+        </g>
+        <text x="0" y="50" fill="#111827" font-size="13" font-weight="600">Calendar sync issue with Google</text>
+        <text x="0" y="68" fill="#6B7280" font-size="11">Resolved Aug 30 · Re-authenticated</text>
+      </g>
+
+      <g transform="translate(0, 320)">
+        <rect width="302" height="36" rx="18" fill="transparent" stroke="#10B981" stroke-width="2"/>
+        <text x="151" y="22" text-anchor="middle" fill="#10B981" font-size="12" font-weight="600">View all tickets →</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="passportGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3730A3"/>
+    </linearGradient>
+    <linearGradient id="sbtGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🏅 Skill Passport</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Soulbound Tokens (SBTs) verify your skills on-chain — yours forever.</text>
+  </g>
+
+  <!-- Big passport card -->
+  <g transform="translate(80, 200)">
+    <rect width="420" height="280" rx="16" fill="url(#passportGrad)"/>
+
+    <!-- Logo + Title -->
+    <g transform="translate(32, 28)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="14" font-weight="700">🌱 SkillSeed · Skill Passport</text>
+    </g>
+
+    <!-- Avatar + Name -->
+    <g transform="translate(32, 60)">
+      <circle cx="40" cy="40" r="40" fill="#FEF3C7"/>
+      <text x="40" y="58" text-anchor="middle" font-size="40">👩</text>
+      <text x="100" y="32" fill="#FFFFFF" font-size="20" font-weight="800">Mai Tran</text>
+      <text x="100" y="56" fill="#A5B4FC" font-size="13">@mai_tran · 🇻🇳 Vietnam</text>
+      <text x="100" y="74" fill="#A5B4FC" font-size="11">Wallet: 0x7F3A...8E2d</text>
+    </g>
+
+    <!-- Stats grid -->
+    <g transform="translate(32, 160)">
+      <rect width="356" height="100" rx="10" fill="rgba(255,255,255,0.1)"/>
+      <g transform="translate(20, 20)">
+        <text x="0" y="0" fill="#A5B4FC" font-size="11" font-weight="600">SBTs EARNED</text>
+        <text x="0" y="36" fill="#FFFFFF" font-size="32" font-weight="800">14</text>
+      </g>
+      <g transform="translate(140, 20)">
+        <text x="0" y="0" fill="#A5B4FC" font-size="11" font-weight="600">SESSIONS</text>
+        <text x="0" y="36" fill="#FFFFFF" font-size="32" font-weight="800">87</text>
+      </g>
+      <g transform="translate(260, 20)">
+        <text x="0" y="0" fill="#A5B4FC" font-size="11" font-weight="600">RATING</text>
+        <text x="0" y="36" fill="#FFFFFF" font-size="32" font-weight="800">4.8</text>
+        <text x="0" y="58" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Sharing -->
+  <g transform="translate(80, 500)">
+    <rect width="420" height="280" rx="12" fill="#FFFFFF"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Share your passport</text>
+      <text x="0" y="22" fill="#6B7280" font-size="12">Prove your skills anywhere — link, QR, or PDF</text>
+
+      <!-- QR -->
+      <g transform="translate(120, 60)">
+        <rect width="160" height="160" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <g fill="#111827">
+          <rect x="16" y="16" width="40" height="40"/>
+          <rect x="104" y="16" width="40" height="40"/>
+          <rect x="16" y="104" width="40" height="40"/>
+        </g>
+        <g fill="#FFFFFF">
+          <rect x="24" y="24" width="24" height="24"/>
+          <rect x="112" y="24" width="24" height="24"/>
+          <rect x="24" y="112" width="24" height="24"/>
+        </g>
+        <g fill="#111827">
+          <rect x="32" y="32" width="8" height="8"/>
+          <rect x="64" y="40" width="8" height="8"/>
+          <rect x="80" y="48" width="8" height="8"/>
+          <rect x="96" y="56" width="8" height="8"/>
+          <rect x="72" y="72" width="8" height="8"/>
+          <rect x="88" y="80" width="8" height="8"/>
+          <rect x="104" y="96" width="8" height="8"/>
+          <rect x="64" y="104" width="8" height="8"/>
+          <rect x="80" y="120" width="8" height="8"/>
+          <rect x="96" y="128" width="8" height="8"/>
+          <rect x="120" y="112" width="8" height="8"/>
+        </g>
+      </g>
+      <g transform="translate(20, 240)">
+        <rect width="170" height="32" rx="16" fill="transparent" stroke="#10B981"/>
+        <text x="85" y="22" text-anchor="middle" fill="#10B981" font-size="12" font-weight="600">📋 Copy share link</text>
+      </g>
+      <g transform="translate(220, 240)">
+        <rect width="160" height="32" rx="16" fill="transparent" stroke="#10B981"/>
+        <text x="80" y="22" text-anchor="middle" fill="#10B981" font-size="12" font-weight="600">📥 Download PDF</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- SBT Grid -->
+  <g transform="translate(520, 200)">
+    <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">Earned SBTs (14)</text>
+    <text x="0" y="22" fill="#6B7280" font-size="13">Click any token to view details, transaction hash, or share</text>
+  </g>
+
+  <g transform="translate(520, 250)">
+    <!-- Row 1 -->
+    <g>
+      <rect width="200" height="200" rx="12" fill="url(#sbtGrad)"/>
+      <text x="100" y="60" text-anchor="middle" font-size="48">🇻🇳</text>
+      <text x="100" y="100" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Vietnamese</text>
+      <text x="100" y="118" text-anchor="middle" fill="#FFFFFF" font-size="11">Native Speaker</text>
+      <rect x="20" y="140" width="160" height="2" fill="rgba(255,255,255,0.3)"/>
+      <text x="20" y="160" fill="#FEF3C7" font-size="9">SBT #001 · Tier 3</text>
+      <text x="20" y="178" fill="#FEF3C7" font-size="9">Minted Aug 12, 2026</text>
+    </g>
+    <g transform="translate(220, 0)">
+      <rect width="200" height="200" rx="12" fill="url(#sbtGrad)"/>
+      <text x="100" y="60" text-anchor="middle" font-size="48">🍳</text>
+      <text x="100" y="100" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Vietnamese Cooking</text>
+      <text x="100" y="118" text-anchor="middle" fill="#FFFFFF" font-size="11">Expert · 42 sessions</text>
+      <rect x="20" y="140" width="160" height="2" fill="rgba(255,255,255,0.3)"/>
+      <text x="20" y="160" fill="#FEF3C7" font-size="9">SBT #002 · Tier 2</text>
+      <text x="20" y="178" fill="#FEF3C7" font-size="9">Minted Aug 28, 2026</text>
+    </g>
+    <g transform="translate(440, 0)">
+      <rect width="200" height="200" rx="12" fill="url(#sbtGrad)"/>
+      <text x="100" y="60" text-anchor="middle" font-size="48">💻</text>
+      <text x="100" y="100" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">React.js</text>
+      <text x="100" y="118" text-anchor="middle" fill="#FFFFFF" font-size="11">Advanced · 30 sessions</text>
+      <rect x="20" y="140" width="160" height="2" fill="rgba(255,255,255,0.3)"/>
+      <text x="20" y="160" fill="#FEF3C7" font-size="9">SBT #003 · Tier 2</text>
+      <text x="20" y="178" fill="#FEF3C7" font-size="9">Minted Sep 5, 2026</text>
+    </g>
+    <g transform="translate(660, 0)">
+      <rect width="200" height="200" rx="12" fill="#E5E7EB" stroke-dasharray="6 6"/>
+      <text x="100" y="80" text-anchor="middle" font-size="48">🎤</text>
+      <text x="100" y="116" text-anchor="middle" fill="#6B7280" font-size="13" font-weight="700">Public Speaking</text>
+      <g transform="translate(70, 130)">
+        <rect width="60" height="20" rx="10" fill="#10B981"/>
+        <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="600">Pending</text>
+      </g>
+      <text x="100" y="170" text-anchor="middle" fill="#9CA3AF" font-size="11">Complete 3 more</text>
+      <text x="100" y="186" text-anchor="middle" fill="#9CA3AF" font-size="11">sessions to mint</text>
+    </g>
+  </g>
+
+  <g transform="translate(520, 470)">
+    <!-- Row 2 -->
+    <g>
+      <rect width="200" height="200" rx="12" fill="url(#sbtGrad)"/>
+      <text x="100" y="60" text-anchor="middle" font-size="48">🍝</text>
+      <text x="100" y="100" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Italian Pasta</text>
+      <text x="100" y="118" text-anchor="middle" fill="#FFFFFF" font-size="11">Beginner · 3 sessions</text>
+      <rect x="20" y="140" width="160" height="2" fill="rgba(255,255,255,0.3)"/>
+      <text x="20" y="160" fill="#FEF3C7" font-size="9">SBT #004 · Tier 1</text>
+      <text x="20" y="178" fill="#FEF3C7" font-size="9">Minted Sep 7, 2026</text>
+    </g>
+    <g transform="translate(220, 0)">
+      <rect width="200" height="200" rx="12" fill="url(#sbtGrad)"/>
+      <text x="100" y="60" text-anchor="middle" font-size="48">🧘</text>
+      <text x="100" y="100" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Meditation</text>
+      <text x="100" y="118" text-anchor="middle" fill="#FFFFFF" font-size="11">Beginner · 5 sessions</text>
+      <rect x="20" y="140" width="160" height="2" fill="rgba(255,255,255,0.3)"/>
+      <text x="20" y="160" fill="#FEF3C7" font-size="9">SBT #005 · Tier 1</text>
+      <text x="20" y="178" fill="#FEF3C7" font-size="9">Minted Sep 2, 2026</text>
+    </g>
+    <g transform="translate(440, 0)">
+      <rect width="200" height="200" rx="12" fill="url(#sbtGrad)"/>
+      <text x="100" y="60" text-anchor="middle" font-size="48">🎸</text>
+      <text x="100" y="100" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Guitar</text>
+      <text x="100" y="118" text-anchor="middle" fill="#FFFFFF" font-size="11">Beginner · 2 sessions</text>
+      <rect x="20" y="140" width="160" height="2" fill="rgba(255,255,255,0.3)"/>
+      <text x="20" y="160" fill="#FEF3C7" font-size="9">SBT #006 · Tier 1</text>
+      <text x="20" y="178" fill="#FEF3C7" font-size="9">Minted Aug 30, 2026</text>
+    </g>
+    <g transform="translate(660, 0)">
+      <rect width="200" height="200" rx="12" fill="#E5E7EB" stroke-dasharray="6 6"/>
+      <text x="100" y="80" text-anchor="middle" font-size="48">📊</text>
+      <text x="100" y="116" text-anchor="middle" fill="#6B7280" font-size="13" font-weight="700">Excel Advanced</text>
+      <g transform="translate(70, 130)">
+        <rect width="60" height="20" rx="10" fill="#10B981"/>
+        <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="600">Locked</text>
+      </g>
+      <text x="100" y="170" text-anchor="middle" fill="#9CA3AF" font-size="11">Reach Intermediate</text>
+      <text x="100" y="186" text-anchor="middle" fill="#9CA3AF" font-size="11">to unlock</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(80, 820)">
+    <text x="0" y="0" fill="#6B7280" font-size="12">All SBTs are non-transferable (soulbound) and live on-chain via Polygon.</text>
+    <text x="0" y="20" fill="#9CA3AF" font-size="11">Each token is verified by AI + community consensus, ensuring trust at scale.</text>
+  </g>
+</svg>

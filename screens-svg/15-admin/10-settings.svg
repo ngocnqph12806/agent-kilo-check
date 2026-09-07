@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Admin Settings</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Configure system-wide policies, limits, and integrations</text>
+  </g>
+
+  <!-- Tabs -->
+  <g transform="translate(80, 200)">
+    <rect width="180" height="40" rx="20" fill="#10B981"/>
+    <text x="90" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">📋 General</text>
+    <g transform="translate(190, 0)">
+      <rect width="180" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="26" text-anchor="middle" fill="#374151" font-size="13">🔌 Integrations</text>
+    </g>
+    <g transform="translate(380, 0)">
+      <rect width="160" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="26" text-anchor="middle" fill="#374151" font-size="13">📧 Email</text>
+    </g>
+    <g transform="translate(550, 0)">
+      <rect width="180" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="26" text-anchor="middle" fill="#374151" font-size="13">💳 Payments</text>
+    </g>
+  </g>
+
+  <!-- Main -->
+  <g transform="translate(80, 270)">
+    <rect width="800" height="580" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="800">⚙️ Platform policies</text>
+
+      <!-- Maintenance -->
+      <g transform="translate(0, 50)">
+        <rect width="736" height="60" rx="10" bg fill="#FEF3C7"/>
+        <g transform="translate(20, 16)">
+          <rect width="32" height="32" rx="6" bg fill="#F59E0B"/>
+          <text x="16" y="22" text-anchor="middle" fill="#FFFFFF" font-size="14">🔧</text>
+        </g>
+        <g transform="translate(64, 14)">
+          <text x="0" y="14" fill="#92400E" font-size="13" font-weight="700">🔧 Maintenance mode</text>
+          <text x="0" y="32" fill="#78350F" font-size="11">Disable bookings during maintenance · Active now (auto in 14m)</text>
+        </g>
+        <g transform="translate(680, 18)">
+          <rect width="48" height="24" rx="12" bg fill="#F59E0B"/>
+          <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <!-- Signups -->
+      <g transform="translate(0, 130)">
+        <rect width="736" height="60" rx="10" bg fill="#F9FAFB"/>
+        <text x="20" y="28" fill="#111827" font-size="13" font-weight="600">Signups allowed</text>
+        <text x="20" y="48" fill="#6B7280" font-size="11">Allow new users to sign up via email, social, or SSO</text>
+        <g transform="translate(680, 18)">
+          <rect width="48" height="24" rx="12" bg fill="#10B981"/>
+          <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <!-- Auto-moderation -->
+      <g transform="translate(0, 210)">
+        <rect width="736" height="60" rx="10" bg fill="#F9FAFB"/>
+        <text x="20" y="28" fill="#111827" font-size="13" font-weight="600">Auto-moderate messages + reviews</text>
+        <text x="20" y="48" fill="#6B7280" font-size="11">ML-based content moderation · 96.6% precision</text>
+        <g transform="translate(680, 18)">
+          <rect width="48" height="24" rx="12" bg fill="#10B981"/>
+          <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <!-- Rate limit -->
+      <g transform="translate(0, 290)">
+        <rect width="736" height="60" rx="10" bg fill="#F9FAFB"/>
+        <text x="20" y="28" fill="#111827" font-size="13" font-weight="600">API rate limit</text>
+        <text x="20" y="48" fill="#6B7280" font-size="11">1000 req/min per user · 10K req/min global</text>
+        <g transform="translate(540, 18)">
+          <rect width="180" height="24" rx="6" bg fill="transparent" stroke="#D1D5DB"/>
+          <text x="90" y="16" text-anchor="middle" fill="#374151" font-size="11">1000 / min</text>
+        </g>
+      </g>
+
+      <!-- Default seeds -->
+      <g transform="translate(0, 370)">
+        <rect width="736" height="60" rx="10" bg fill="#F9FAFB"/>
+        <text x="20" y="28" fill="#111827" font-size="13" font-weight="600">Default seeds for new users</text>
+        <text x="20" y="48" fill="#6B7280" font-size="11">Welcome gift · Applied automatically on signup</text>
+        <g transform="translate(620, 18)">
+          <rect width="100" height="24" rx="6" bg fill="transparent" stroke="#D1D5DB"/>
+          <text x="50" y="16" text-anchor="middle" fill="#374151" font-size="11">30 seeds</text>
+        </g>
+      </g>
+
+      <!-- Save -->
+      <g transform="translate(0, 480)">
+        <rect width="180" height="44" rx="22" fill="url(#ctaGrad)"/>
+        <text x="90" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">💾 Save changes</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right: System info -->
+  <g transform="translate(900, 270)">
+    <rect width="460" height="580" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(28, 28)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">💻 System info</text>
+
+      <g transform="translate(0, 30)" fill="#374151" font-size="13">
+        <text x="0" y="14">Version</text>
+        <text x="404" y="14" text-anchor="end" fill="#111827" font-weight="600" font-family="monospace">v2.4.1</text>
+
+        <text x="0" y="40">Environment</text>
+        <text x="404" y="40" text-anchor="end" fill="#111827" font-weight="600">Production</text>
+
+        <text x="0" y="66">Region</text>
+        <text x="404" y="66" text-anchor="end" fill="#111827" font-weight="600">us-east-1, eu-west-1, ap-southeast-1</text>
+
+        <text x="0" y="92">Database</text>
+        <text x="404" y="92" text-anchor="end" fill="#10B981" font-weight="600">✓ Healthy (99.99%)</text>
+
+        <text x="0" y="118">Cache</text>
+        <text x="404" y="118" text-anchor="end" fill="#10B981" font-weight="600">✓ Healthy (96.4% hit)</text>
+
+        <text x="0" y="144">Search index</text>
+        <text x="404" y="144" text-anchor="end" fill="#10B981" font-weight="600">✓ Indexed (2h ago)</text>
+      </g>
+
+      <g transform="translate(0, 200)">
+        <rect width="404" height="120" rx="10" bg fill="#1F2937"/>
+        <g transform="translate(20, 16)">
+          <text x="0" y="14" fill="#FFFFFF" font-size="13" font-weight="700">🛡️ Maintenance window</text>
+          <text x="0" y="34" fill="#9CA3AF" font-size="11">Auto scheduled: Sep 14, 03:00-04:00 UTC</text>
+          <text x="0" y="58" fill="#FCA5A5" font-size="11">⚠️ Affects: bookings, payments, SBT mint</text>
+          <g transform="translate(0, 76)">
+            <rect width="120" height="28" rx="14" bg fill="transparent" stroke="#EF4444" stroke-width="1"/>
+            <text x="60" y="18" text-anchor="middle" fill="#EF4444" font-size="11" font-weight="600">Cancel window</text>
+          </g>
+        </g>
+      </g>
+
+      <g transform="translate(0, 360)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="800">🔍 Diagnostic</text>
+        <g transform="translate(0, 16)">
+          <rect width="404" height="40" rx="20" bg fill="transparent" stroke="#10B981" stroke-width="2"/>
+          <text x="202" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Run health check</text>
+        </g>
+        <g transform="translate(0, 66)">
+          <rect width="404" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+          <text x="202" y="26" text-anchor="middle" fill="#374151" font-size="13">View logs</text>
+        </g>
+        <g transform="translate(0, 116)">
+          <rect width="404" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+          <text x="202" y="26" text-anchor="middle" fill="#374151" font-size="13">Status page</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

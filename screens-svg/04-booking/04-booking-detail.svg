@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Breadcrumb -->
+  <g transform="translate(80, 100)" fill="#6B7280" font-size="13">
+    <text x="0" y="0">My Bookings</text>
+    <text x="100" y="0">›</text>
+    <text x="115" y="0" fill="#10B981" font-weight="600">#SK-2026-09-1042</text>
+  </g>
+
+  <!-- Left column -->
+  <g transform="translate(80, 140)">
+    <rect width="800" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Header card -->
+    <g transform="translate(0, 0)">
+      <rect width="800" height="160" rx="12" fill="url(#ctaGrad)"/>
+      <g transform="translate(40, 36)">
+        <circle cx="40" cy="40" r="40" fill="#FFFFFF"/>
+        <text x="40" y="58" text-anchor="middle" font-size="36">👨‍🍳</text>
+        <text x="100" y="32" fill="#FFFFFF" font-size="22" font-weight="800">Chef Marco Rossi</text>
+        <text x="100" y="56" fill="#A7F3D0" font-size="13">🍝 Italian Pasta Masterclass · 45 minutes</text>
+        <g transform="translate(100, 70)">
+          <rect width="80" height="24" rx="12" fill="rgba(255,255,255,0.2)"/>
+          <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600">UPCOMING</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Time info -->
+    <g transform="translate(40, 200)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📅 DATE &amp; TIME</text>
+      <text x="0" y="24" fill="#111827" font-size="18" font-weight="700">Tuesday, September 10, 2026</text>
+      <text x="0" y="48" fill="#374151" font-size="14">19:00 - 19:45 (your local time, GMT+7)</text>
+      <text x="0" y="68" fill="#6B7280" font-size="12">12:00 - 12:45 in Chef Marco's time (GMT+1)</text>
+
+      <!-- Countdown -->
+      <g transform="translate(0, 90)">
+        <rect width="220" height="44" rx="22" fill="#FEF3C7"/>
+        <text x="20" y="28" fill="#92400E" font-size="14">⏰ Starts in <tspan font-weight="700">4h 23m</tspan></text>
+      </g>
+    </g>
+
+    <!-- Booking notes -->
+    <line x1="40" y1="370" x2="760" y2="370" stroke="#E5E7EB"/>
+    <g transform="translate(40, 390)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📝 YOUR NOTES</text>
+      <text x="0" y="24" fill="#374151" font-size="13">I'm vegetarian — would love to learn egg-free pasta options!</text>
+      <text x="0" y="46" fill="#374151" font-size="13">Also interested in regional sauces from southern Italy.</text>
+    </g>
+
+    <!-- Materials -->
+    <line x1="40" y1="460" x2="760" y2="460" stroke="#E5E7EB"/>
+    <g transform="translate(40, 480)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📦 WHAT TO PREPARE</text>
+      <g transform="translate(0, 16)">
+        <rect width="720" height="40" rx="8" fill="#F9FAFB"/>
+        <text x="16" y="26" fill="#374151" font-size="13">✓ Flour (tipo 00 if available, all-purpose otherwise)</text>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="720" height="40" rx="8" fill="#F9FAFB"/>
+        <text x="16" y="26" fill="#374151" font-size="13">✓ Olive oil, salt, semolina for dusting</text>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect width="720" height="40" rx="8" fill="#F9FAFB"/>
+        <text x="16" y="26" fill="#374151" font-size="13">✓ Rolling pin or pasta machine (optional)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right column -->
+  <g transform="translate(900, 140)">
+    <!-- Join session -->
+    <rect width="460" height="160" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Ready to join?</text>
+      <text x="0" y="22" fill="#6B7280" font-size="12">Test your camera &amp; mic before starting</text>
+      <g transform="translate(0, 40)">
+        <rect width="200" height="48" rx="24" fill="url(#ctaGrad)"/>
+        <text x="100" y="32" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Join session →</text>
+      </g>
+      <g transform="translate(212, 40)">
+        <rect width="120" height="48" rx="24" fill="transparent" stroke="#10B981" stroke-width="2"/>
+        <text x="60" y="32" text-anchor="middle" fill="#10B981" font-size="14" font-weight="600">Test setup</text>
+      </g>
+    </g>
+
+    <!-- Payment summary -->
+    <g transform="translate(0, 180)">
+      <rect width="460" height="160" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 24)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Payment</text>
+        <line x1="0" y1="20" x2="420" y2="20" stroke="#E5E7EB"/>
+        <text x="0" y="46" fill="#6B7280" font-size="13">Session fee (45 min)</text>
+        <text x="420" y="46" text-anchor="end" fill="#111827" font-size="13" font-weight="600">2 seeds</text>
+        <text x="0" y="70" fill="#6B7280" font-size="13">Platform fee</text>
+        <text x="420" y="70" text-anchor="end" fill="#111827" font-size="13" font-weight="600">Free</text>
+        <line x1="0" y1="86" x2="420" y2="86" stroke="#E5E7EB"/>
+        <text x="0" y="110" fill="#111827" font-size="14" font-weight="700">Total paid</text>
+        <text x="420" y="110" text-anchor="end" fill="#10B981" font-size="16" font-weight="800">2 seeds</text>
+      </g>
+    </g>
+
+    <!-- Actions -->
+    <g transform="translate(0, 360)">
+      <rect width="460" height="160" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 24)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Need to change plans?</text>
+        <g transform="translate(0, 20)">
+          <rect width="420" height="36" rx="18" fill="transparent" stroke="#10B981"/>
+          <text x="210" y="23" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Reschedule to another time</text>
+        </g>
+        <g transform="translate(0, 64)">
+          <rect width="420" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="210" y="23" text-anchor="middle" fill="#374151" font-size="13" font-weight="600">Cancel booking (refund: 2 seeds)</text>
+        </g>
+        <g transform="translate(0, 108)">
+          <text x="0" y="0" fill="#6B7280" font-size="11">Free cancellation up to 24h before the session</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Mentor contact -->
+    <g transform="translate(0, 540)">
+      <rect width="460" height="120" rx="12" fill="#ECFDF5"/>
+      <g transform="translate(20, 24)">
+        <circle cx="24" cy="24" r="24" fill="#FFFFFF"/>
+        <text x="24" y="36" text-anchor="middle" font-size="20">👨‍🍳</text>
+      </g>
+      <g transform="translate(80, 28)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Chef Marco Rossi</text>
+        <text x="0" y="22" fill="#065F46" font-size="12">Reply within 1 hour</text>
+        <g transform="translate(0, 38)">
+          <rect width="140" height="32" rx="16" fill="#10B981"/>
+          <text x="70" y="22" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Send message</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="popularGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#FFFFFF"/>
+
+  <!-- Header -->
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#F3F4F6"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(680, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0">Discover</text>
+      <text x="100" y="0">How it works</text>
+      <text x="220" y="0" fill="#10B981" font-weight="600">Pricing</text>
+      <text x="300" y="0">About</text>
+      <text x="370" y="0">Blog</text>
+    </g>
+    <g transform="translate(1240, 22)">
+      <rect width="120" height="40" rx="20" fill="url(#ctaGrad)"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Get Started</text>
+    </g>
+  </g>
+
+  <!-- Hero -->
+  <g transform="translate(720, 130)" text-anchor="middle">
+    <text x="0" y="0" fill="#111827" font-size="48" font-weight="800">Pricing that grows with you</text>
+    <text x="0" y="38" fill="#6B7280" font-size="18">Start free with 30 starter seeds. Upgrade anytime. Cancel anytime.</text>
+  </g>
+
+  <!-- Toggle -->
+  <g transform="translate(620, 220)">
+    <rect width="200" height="44" rx="22" fill="#F3F4F6"/>
+    <rect x="2" y="2" width="98" height="40" rx="20" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <text x="51" y="28" text-anchor="middle" fill="#111827" font-size="14" font-weight="600">Monthly</text>
+    <text x="151" y="28" text-anchor="middle" fill="#6B7280" font-size="14">Yearly · -20%</text>
+  </g>
+
+  <!-- 3 Pricing Cards -->
+  <!-- Free -->
+  <g transform="translate(140, 300)">
+    <rect width="360" height="500" rx="16" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" filter="url(#cardShadow)"/>
+    <g transform="translate(30, 30)">
+      <text x="0" y="0" fill="#374151" font-size="14" font-weight="600">🌱 FREE</text>
+      <text x="0" y="50" fill="#111827" font-size="48" font-weight="800">$0</text>
+      <text x="80" y="50" fill="#6B7280" font-size="14">/month</text>
+      <text x="0" y="80" fill="#6B7280" font-size="13">Perfect for getting started</text>
+      <line x1="0" y1="100" x2="300" y2="100" stroke="#E5E7EB"/>
+      <g transform="translate(0, 120)" fill="#374151" font-size="13">
+        <text x="0" y="0">✓ 30 starter seeds/month</text>
+        <text x="0" y="24">✓ 3 sessions/month</text>
+        <text x="0" y="48">✓ Basic AI matching</text>
+        <text x="0" y="72">✓ Community access</text>
+        <text x="0" y="96" fill="#9CA3AF">✗ Video HD recording</text>
+        <text x="0" y="120" fill="#9CA3AF">✗ Verified Expert badge</text>
+      </g>
+    </g>
+    <g transform="translate(30, 420)">
+      <rect width="300" height="44" rx="22" fill="transparent" stroke="#10B981" stroke-width="2"/>
+      <text x="150" y="28" text-anchor="middle" fill="#10B981" font-size="14" font-weight="600">Get Started</text>
+    </g>
+  </g>
+
+  <!-- Pro (Popular) -->
+  <g transform="translate(540, 280)">
+    <rect width="360" height="540" rx="16" fill="url(#popularGrad)" stroke="#F59E0B" stroke-width="2" filter="url(#cardShadow)"/>
+    <g transform="translate(140, -16)">
+      <rect width="80" height="32" rx="16" fill="#F59E0B"/>
+      <text x="40" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">POPULAR</text>
+    </g>
+    <g transform="translate(30, 40)">
+      <text x="0" y="0" fill="#92400E" font-size="14" font-weight="600">⚡ PRO</text>
+      <text x="0" y="50" fill="#111827" font-size="48" font-weight="800">$9</text>
+      <text x="80" y="50" fill="#6B7280" font-size="14">/month</text>
+      <text x="0" y="80" fill="#6B7280" font-size="13">For active learners</text>
+      <line x1="0" y1="100" x2="300" y2="100" stroke="#FCD34D"/>
+      <g transform="translate(0, 120)" fill="#374151" font-size="13">
+        <text x="0" y="0">✓ 200 seeds/month</text>
+        <text x="0" y="24">✓ Unlimited sessions</text>
+        <text x="0" y="48">✓ Advanced AI matching</text>
+        <text x="0" y="72">✓ HD video recording</text>
+        <text x="0" y="96">✓ Priority booking</text>
+        <text x="0" y="120">✓ Verified Expert badge</text>
+      </g>
+    </g>
+    <g transform="translate(30, 460)">
+      <rect width="300" height="44" rx="22" fill="url(#ctaGrad)"/>
+      <text x="150" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Upgrade to Pro</text>
+    </g>
+  </g>
+
+  <!-- Team -->
+  <g transform="translate(940, 300)">
+    <rect width="360" height="500" rx="16" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" filter="url(#cardShadow)"/>
+    <g transform="translate(30, 30)">
+      <text x="0" y="0" fill="#374151" font-size="14" font-weight="600">🏢 TEAM</text>
+      <text x="0" y="50" fill="#111827" font-size="48" font-weight="800">$29</text>
+      <text x="80" y="50" fill="#6B7280" font-size="14">/seat/mo</text>
+      <text x="0" y="80" fill="#6B7280" font-size="13">For teams &amp; businesses</text>
+      <line x1="0" y1="100" x2="300" y2="100" stroke="#E5E7EB"/>
+      <g transform="translate(0, 120)" fill="#374151" font-size="13">
+        <text x="0" y="0">✓ Everything in Pro</text>
+        <text x="0" y="24">✓ SSO / SAML</text>
+        <text x="0" y="48">✓ Skill gap analytics</text>
+        <text x="0" y="72">✓ Admin dashboard</text>
+        <text x="0" y="96">✓ Dedicated CSM</text>
+        <text x="0" y="120">✓ Audit logs</text>
+      </g>
+    </g>
+    <g transform="translate(30, 420)">
+      <rect width="300" height="44" rx="22" fill="transparent" stroke="#6366F1" stroke-width="2"/>
+      <text x="150" y="28" text-anchor="middle" fill="#6366F1" font-size="14" font-weight="600">Contact Sales</text>
+    </g>
+  </g>
+
+  <!-- Footer note -->
+  <g transform="translate(720, 850)" text-anchor="middle">
+    <text x="0" y="0" fill="#9CA3AF" font-size="12">All plans include 30-day money-back guarantee · Seeds roll over monthly · Cancel anytime</text>
+  </g>
+</svg>

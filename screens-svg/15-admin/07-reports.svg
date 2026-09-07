@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+  <g transform="translate(1280, 18)">
+    <circle cx="20" cy="20" r="20" fill="#FEE2E2"/>
+    <text x="20" y="28" text-anchor="middle" fill="#991B1B" font-size="14">🛡️</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🚨 Reports Queue</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">12 reports awaiting review · SLA: 4 hours</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(80, 200)">
+    <rect width="290" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 18)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⏳ PENDING</text>
+      <text x="0" y="36" fill="#F59E0B" font-size="22" font-weight="800">12</text>
+    </g>
+  </g>
+  <g transform="translate(390, 200)">
+    <rect width="290" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 18)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">🔴 HIGH SEVERITY</text>
+      <text x="0" y="36" fill="#EF4444" font-size="22" font-weight="800">3</text>
+    </g>
+  </g>
+  <g transform="translate(700, 200)">
+    <rect width="290" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 18)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">✓ RESOLVED (7d)</text>
+      <text x="0" y="36" fill="#10B981" font-size="22" font-weight="800">84</text>
+    </g>
+  </g>
+  <g transform="translate(1010, 200)">
+    <rect width="350" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 18)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⏰ AVG RESPONSE</text>
+      <text x="0" y="36" fill="#111827" font-size="22" font-weight="800">1h 42m</text>
+      <text x="180" y="36" fill="#10B981" font-size="13" font-weight="600">−18%</text>
+    </g>
+  </g>
+
+  <!-- Tabs -->
+  <g transform="translate(80, 310)">
+    <rect width="160" height="40" rx="20" fill="#EF4444"/>
+    <text x="80" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">🚨 Pending (12)</text>
+    <g transform="translate(170, 0)">
+      <rect width="140" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="26" text-anchor="middle" fill="#374151" font-size="13">In review (4)</text>
+    </g>
+    <g transform="translate(320, 0)">
+      <rect width="140" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="26" text-anchor="middle" fill="#374151" font-size="13">Resolved</text>
+    </g>
+    <g transform="translate(470, 0)">
+      <rect width="140" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="26" text-anchor="middle" fill="#374151" font-size="13">All reports</text>
+    </g>
+  </g>
+
+  <!-- Report cards -->
+  <g transform="translate(80, 380)">
+    <!-- Report 1 -->
+    <g>
+      <rect width="1280" height="120" rx="12" fill="#FFFFFF" stroke="#EF4444" stroke-width="2" filter="url(#cardShadow)"/>
+      <rect width="6" height="120" rx="3" fill="#EF4444"/>
+
+      <g transform="translate(20, 20)">
+        <g>
+          <rect width="60" height="22" rx="11" fill="#EF4444"/>
+          <text x="30" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">CRITICAL</text>
+        </g>
+        <g transform="translate(68, 0)">
+          <rect width="100" height="22" rx="11" fill="#FEF3C7"/>
+          <text x="50" y="16" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">🚫 Harassment</text>
+        </g>
+        <text x="0" y="44" fill="#111827" font-size="15" font-weight="700">User reports threatening messages during video call</text>
+        <text x="0" y="66" fill="#374151" font-size="13">"User 'BadActor' sent inappropriate messages in private chat during a cooking lesson."</text>
+
+        <g transform="translate(0, 78)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">Reporter: <tspan fill="#111827" font-weight="600">Anna Kim</tspan></text>
+          <text x="220" y="0">· Suspect: <tspan fill="#EF4444" font-weight="600">@badactor</tspan></text>
+          <text x="480" y="0">· 12 min ago</text>
+        </g>
+      </g>
+
+      <g transform="translate(900, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="50" y="24" text-anchor="middle" fill="#374151" font-size="13">View chat log</text>
+      </g>
+      <g transform="translate(1010, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#EF4444"/>
+        <text x="50" y="24" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">Suspend</text>
+      </g>
+      <g transform="translate(1120, 30)">
+        <rect width="120" height="36" rx="18" fill="#EF4444"/>
+        <text x="60" y="24" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Take action</text>
+      </g>
+    </g>
+
+    <!-- Report 2 -->
+    <g transform="translate(0, 140)">
+      <rect width="1280" height="120" rx="12" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" filter="url(#cardShadow)"/>
+      <rect width="6" height="120" rx="3" fill="#F59E0B"/>
+
+      <g transform="translate(20, 20)">
+        <g>
+          <rect width="80" height="22" rx="11" fill="#F59E0B"/>
+          <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">MEDIUM</text>
+        </g>
+        <g transform="translate(88, 0)">
+          <rect width="100" height="22" rx="11" fill="#DBEAFE"/>
+          <text x="50" y="16" text-anchor="middle" fill="#1E40AF" font-size="11" font-weight="700">📚 Spam skills</text>
+        </g>
+        <text x="0" y="44" fill="#111827" font-size="15" font-weight="700">Suspected fake skill listing</text>
+        <text x="0" y="66" fill="#374151" font-size="13">"User 'SkillBot' lists 247 skills - all auto-generated, no real credentials"</text>
+
+        <g transform="translate(0, 78)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">Reporter: <tspan fill="#111827" font-weight="600">Auto-detected</tspan></text>
+          <text x="220" y="0">· Suspect: <tspan fill="#F59E0B" font-weight="600">@skillbot</tspan></text>
+          <text x="480" y="0">· 47 min ago</text>
+        </g>
+      </g>
+
+      <g transform="translate(900, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="50" y="24" text-anchor="middle" fill="#374151" font-size="13">View profile</text>
+      </g>
+      <g transform="translate(1010, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#EF4444"/>
+        <text x="50" y="24" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">Remove</text>
+      </g>
+      <g transform="translate(1120, 30)">
+        <rect width="120" height="36" rx="18" fill="#F59E0B"/>
+        <text x="60" y="24" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Review</text>
+      </g>
+    </g>
+
+    <!-- Report 3 -->
+    <g transform="translate(0, 280)">
+      <rect width="1280" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="6" height="100" rx="3" fill="#10B981"/>
+
+      <g transform="translate(20, 18)">
+        <g>
+          <rect width="60" height="22" rx="11" fill="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">LOW</text>
+        </g>
+        <g transform="translate(68, 0)">
+          <rect width="80" height="22" rx="11" fill="#FEF3C7"/>
+          <text x="40" y="16" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">⭐ Rating</text>
+        </g>
+        <text x="0" y="42" fill="#111827" font-size="15" font-weight="700">Inappropriate review content</text>
+        <text x="0" y="62" fill="#374151" font-size="13">"Mentor review contains off-topic political commentary"</text>
+
+        <g transform="translate(0, 76)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">Reporter: <tspan fill="#111827" font-weight="600">David L.</tspan></text>
+          <text x="180" y="0">· 2h ago</text>
+        </g>
+      </g>
+
+      <g transform="translate(1120, 32)">
+        <rect width="120" height="36" rx="18" fill="#10B981"/>
+        <text x="60" y="24" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Review</text>
+      </g>
+    </g>
+
+    <!-- Report 4 -->
+    <g transform="translate(0, 400)">
+      <rect width="1280" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="6" height="100" rx="3" fill="#10B981"/>
+
+      <g transform="translate(20, 18)">
+        <g>
+          <rect width="60" height="22" rx="11" fill="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">LOW</text>
+        </g>
+        <g transform="translate(68, 0)">
+          <rect width="80" height="22" rx="11" fill="#FCE7F3"/>
+          <text x="40" y="16" text-anchor="middle" fill="#9D174D" font-size="11" font-weight="700">💬 Forum</text>
+        </g>
+        <text x="0" y="42" fill="#111827" font-size="15" font-weight="700">Spam post in pod forum</text>
+        <text x="0" y="62" fill="#374151" font-size="13">"Promotional crypto link posted in 'Italian Cooking Crew'"</text>
+
+        <g transform="translate(0, 76)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">Reporter: <tspan fill="#111827" font-weight="600">Auto-mod</tspan></text>
+          <text x="180" y="0">· 3h ago</text>
+        </g>
+      </g>
+
+      <g transform="translate(1120, 32)">
+        <rect width="120" height="36" rx="18" fill="#10B981"/>
+        <text x="60" y="24" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Review</text>
+      </g>
+    </g>
+  </g>
+</svg>

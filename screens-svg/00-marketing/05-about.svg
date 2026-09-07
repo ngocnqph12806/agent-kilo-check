@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ECFDF5"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#FFFFFF"/>
+
+  <!-- Header -->
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#F3F4F6"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(680, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0">Discover</text>
+      <text x="100" y="0">How it works</text>
+      <text x="220" y="0">Pricing</text>
+      <text x="300" y="0" fill="#10B981" font-weight="600">About</text>
+      <text x="370" y="0">Blog</text>
+    </g>
+    <g transform="translate(1240, 22)">
+      <rect width="120" height="40" rx="20" fill="url(#ctaGrad)"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Get Started</text>
+    </g>
+  </g>
+
+  <!-- Hero -->
+  <rect x="0" y="72" width="1440" height="380" fill="url(#heroGrad)"/>
+  <g transform="translate(720, 170)" text-anchor="middle">
+    <text x="0" y="0" fill="#10B981" font-size="14" font-weight="700">🌱 OUR MISSION</text>
+    <text x="0" y="60" fill="#111827" font-size="56" font-weight="800">Democratize skill-sharing</text>
+    <text x="0" y="118" fill="#111827" font-size="56" font-weight="800">for everyone, everywhere</text>
+    <text x="0" y="170" fill="#4B5563" font-size="18">Founded in 2024, we believe everyone has something to teach</text>
+    <text x="0" y="196" fill="#4B5563" font-size="18">and something to learn — money shouldn't be the barrier.</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(0, 480)">
+    <rect width="1440" height="120" fill="#FFFFFF"/>
+    <line x1="0" y1="0" x2="1440" y2="0" stroke="#E5E7EB"/>
+    <g transform="translate(280, 30)">
+      <text x="0" y="20" fill="#111827" font-size="36" font-weight="800">200K+</text>
+      <text x="0" y="50" fill="#6B7280" font-size="13">active learners</text>
+    </g>
+    <g transform="translate(560, 30)">
+      <text x="0" y="20" fill="#111827" font-size="36" font-weight="800">8K+</text>
+      <text x="0" y="50" fill="#6B7280" font-size="13">verified mentors</text>
+    </g>
+    <g transform="translate(840, 30)">
+      <text x="0" y="20" fill="#111827" font-size="36" font-weight="800">120+</text>
+      <text x="0" y="50" fill="#6B7280" font-size="13">countries reached</text>
+    </g>
+    <g transform="translate(1120, 30)">
+      <text x="0" y="20" fill="#111827" font-size="36" font-weight="800">$0</text>
+      <text x="0" y="50" fill="#6B7280" font-size="13">to start learning</text>
+    </g>
+  </g>
+
+  <!-- Values -->
+  <g transform="translate(140, 640)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">What we stand for</text>
+  </g>
+
+  <g transform="translate(140, 680)">
+    <rect width="360" height="180" rx="12" fill="#ECFDF5"/>
+    <text x="30" y="50" font-size="36">🌱</text>
+    <text x="30" y="90" fill="#047857" font-size="18" font-weight="700">Time is the new currency</text>
+    <text x="30" y="120" fill="#065F46" font-size="13">Teach 1 hour, learn 1 hour. Fair, balanced, sustainable.</text>
+    <text x="30" y="142" fill="#065F46" font-size="13">Money-free exchanges build real community.</text>
+  </g>
+
+  <g transform="translate(540, 680)">
+    <rect width="360" height="180" rx="12" fill="#EFF6FF"/>
+    <text x="30" y="50" font-size="36">🌍</text>
+    <text x="30" y="90" fill="#1E40AF" font-size="18" font-weight="700">Borderless knowledge</text>
+    <text x="30" y="120" fill="#1E3A8A" font-size="13">Language barriers vanish. Time-zone matching</text>
+    <text x="30" y="142" fill="#1E3A8A" font-size="13">connects mentors and learners globally.</text>
+  </g>
+
+  <g transform="translate(940, 680)">
+    <rect width="360" height="180" rx="12" fill="#FEF3C7"/>
+    <text x="30" y="50" font-size="36">🛡️</text>
+    <text x="30" y="90" fill="#92400E" font-size="18" font-weight="700">Trust through proof</text>
+    <text x="30" y="120" fill="#78350F" font-size="13">Soulbound Tokens, zK-proofs, and community ratings</text>
+    <text x="30" y="142" fill="#78350F" font-size="13">verify real expertise — not just claims.</text>
+  </g>
+</svg>

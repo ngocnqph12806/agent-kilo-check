@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+  <rect width="1440" height="72" fill="#FFFFFF"/>
+  <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+  <g transform="translate(80, 22)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+  </g>
+
+  <g transform="translate(720, 130)" text-anchor="middle">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">Discover</text>
+    <g transform="translate(-200, 36)">
+      <circle cx="14" cy="14" r="14" fill="#E5E7EB">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <text x="40" y="40" fill="#6B7280" font-size="14">Finding your perfect matches...</text>
+  </g>
+
+  <g transform="translate(80, 220)">
+    <rect width="400" height="280" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="0" y="0" width="400" height="100" rx="12" fill="#E5E7EB"/>
+    <circle cx="80" cy="60" r="40" fill="#F3F4F6"/>
+    <rect x="20" y="120" width="200" height="14" rx="4" fill="#E5E7EB"/>
+    <rect x="20" y="146" width="280" height="10" rx="4" fill="#F3F4F6"/>
+    <rect x="20" y="166" width="240" height="10" rx="4" fill="#F3F4F6"/>
+    <rect x="20" y="200" width="60" height="22" rx="11" fill="#E5E7EB"/>
+    <rect x="20" y="232" width="360" height="36" rx="18" fill="#E5E7EB"/>
+  </g>
+
+  <g transform="translate(500, 220)">
+    <rect width="400" height="280" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="0" y="0" width="400" height="100" rx="12" fill="#E5E7EB"/>
+    <circle cx="80" cy="60" r="40" fill="#F3F4F6"/>
+    <rect x="20" y="120" width="200" height="14" rx="4" fill="#E5E7EB"/>
+    <rect x="20" y="146" width="280" height="10" rx="4" fill="#F3F4F6"/>
+    <rect x="20" y="166" width="240" height="10" rx="4" fill="#F3F4F6"/>
+    <rect x="20" y="200" width="60" height="22" rx="11" fill="#E5E7EB"/>
+    <rect x="20" y="232" width="360" height="36" rx="18" fill="#E5E7EB"/>
+  </g>
+
+  <g transform="translate(920, 220)">
+    <rect width="400" height="280" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="0" y="0" width="400" height="100" rx="12" fill="#E5E7EB"/>
+    <circle cx="80" cy="60" r="40" fill="#F3F4F6"/>
+    <rect x="20" y="120" width="200" height="14" rx="4" fill="#E5E7EB"/>
+    <rect x="20" y="146" width="280" height="10" rx="4" fill="#F3F4F6"/>
+    <rect x="20" y="166" width="240" height="10" rx="4" fill="#F3F4F6"/>
+    <rect x="20" y="200" width="60" height="22" rx="11" fill="#E5E7EB"/>
+    <rect x="20" y="232" width="360" height="36" rx="18" fill="#E5E7EB"/>
+  </g>
+
+  <g transform="translate(720, 560)" text-anchor="middle">
+    <text x="0" y="0" fill="#9CA3AF" font-size="13">✨ Matching you with mentors using AI...</text>
+  </g>
+</svg>

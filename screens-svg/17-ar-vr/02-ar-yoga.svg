@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#1A1A2E"/>
+
+  <!-- Simulated camera feed (dark room) -->
+  <rect x="0" y="0" width="1440" height="900" fill="#2A2A3E"/>
+  <g opacity="0.3">
+    <ellipse cx="720" cy="600" rx="400" ry="200" fill="#3A3A4E"/>
+  </g>
+
+  <!-- AR Pose skeleton -->
+  <g transform="translate(720, 480)" opacity="0.85">
+    <!-- Body silhouette -->
+    <g fill="#FFFFFF" opacity="0.85">
+      <!-- Head -->
+      <circle cx="0" cy="-180" r="30"/>
+      <!-- Neck -->
+      <rect x="-8" y="-150" width="16" height="20"/>
+      <!-- Torso -->
+      <ellipse cx="0" cy="-80" rx="50" ry="80"/>
+      <!-- Arms -->
+      <ellipse cx="-90" cy="-80" rx="20" ry="70" transform="rotate(-30 -90 -80)"/>
+      <ellipse cx="90" cy="-80" rx="20" ry="70" transform="rotate(30 90 -80)"/>
+      <!-- Legs -->
+      <ellipse cx="-40" cy="80" rx="22" ry="100" transform="rotate(-10 -40 80)"/>
+      <ellipse cx="40" cy="80" rx="22" ry="100" transform="rotate(10 40 80)"/>
+    </g>
+
+    <!-- AR Joint markers -->
+    <g fill="#10B981" stroke="#FFFFFF" stroke-width="3">
+      <circle cx="0" cy="-180" r="8"/>
+      <circle cx="-90" cy="-130" r="6"/>
+      <circle cx="90" cy="-130" r="6"/>
+      <circle cx="-30" cy="-100" r="6"/>
+      <circle cx="30" cy="-100" r="6"/>
+      <circle cx="-40" cy="80" r="6"/>
+      <circle cx="40" cy="80" r="6"/>
+    </g>
+
+    <!-- Connection lines -->
+    <g stroke="#10B981" stroke-width="2" fill="none" opacity="0.7">
+      <line x1="0" y1="-180" x2="-30" y2="-100"/>
+      <line x1="0" y1="-180" x2="30" y2="-100"/>
+      <line x1="-30" y1="-100" x2="30" y2="-100"/>
+      <line x1="-30" y1="-100" x2="-90" y2="-130"/>
+      <line x1="30" y1="-100" x2="90" y2="-130"/>
+      <line x1="-30" y1="-100" x2="-40" y2="80"/>
+      <line x1="30" y1="-100" x2="40" y2="80"/>
+    </g>
+  </g>
+
+  <!-- Pose name + accuracy -->
+  <g transform="translate(720, 180)" text-anchor="middle">
+    <rect x="-180" y="-30" width="360" height="60" rx="30" fill="rgba(16, 185, 129, 0.9)" filter="url(#cardShadow)"/>
+    <text x="0" y="-2" fill="#FFFFFF" font-size="14" font-weight="700">🧘 Warrior II Pose</text>
+    <text x="0" y="20" fill="#A7F3D0" font-size="12">Accuracy: 94% · Hold for 5 more seconds</text>
+  </g>
+
+  <!-- Top bar -->
+  <g transform="translate(60, 60)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="14" font-weight="700">🧘 AR Yoga · 25 min</text>
+  </g>
+
+  <!-- Timer + heart rate -->
+  <g transform="translate(720, 100)" text-anchor="middle">
+    <rect x="-80" y="0" width="160" height="36" rx="18" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.2)"/>
+    <text x="0" y="22" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">⏱️ 12:34 / 25:00</text>
+  </g>
+
+  <!-- Heart rate -->
+  <g transform="translate(1280, 60)">
+    <rect width="100" height="36" rx="18" fill="rgba(239, 68, 68, 0.2)" stroke="#EF4444"/>
+    <circle cx="20" cy="18" r="8" fill="#EF4444"/>
+    <text x="58" y="22" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">142 BPM</text>
+  </g>
+
+  <!-- Right sidebar: pose list -->
+  <g transform="translate(1240, 180)">
+    <rect width="160" height="600" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.15)"/>
+    <g transform="translate(16, 16)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="11" font-weight="700">FLOW (5 POSES)</text>
+
+      <g transform="translate(0, 20)">
+        <rect width="128" height="60" rx="8" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981"/>
+        <text x="14" y="22" fill="#10B981" font-size="13" font-weight="700">1. Mountain</text>
+        <text x="14" y="42" fill="#A7F3D0" font-size="11">✓ Done · 2:30</text>
+      </g>
+
+      <g transform="translate(0, 90)">
+        <rect width="128" height="60" rx="8" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981"/>
+        <text x="14" y="22" fill="#10B981" font-size="13" font-weight="700">2. Forward Fold</text>
+        <text x="14" y="42" fill="#A7F3D0" font-size="11">✓ Done · 3:00</text>
+      </g>
+
+      <g transform="translate(0, 160)">
+        <rect width="128" height="60" rx="8" fill="rgba(255,255,255,0.15)" stroke="#FFFFFF"/>
+        <text x="14" y="22" fill="#FFFFFF" font-size="13" font-weight="700">3. Warrior II</text>
+        <text x="14" y="42" fill="#A7F3D0" font-size="11">⏱️ Now · 4:30</text>
+      </g>
+
+      <g transform="translate(0, 230)">
+        <rect width="128" height="60" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)"/>
+        <text x="14" y="22" fill="#FFFFFF" font-size="13" font-weight="700">4. Triangle</text>
+        <text x="14" y="42" fill="#94A3B8" font-size="11">⏳ Up next · 5:00</text>
+      </g>
+
+      <g transform="translate(0, 300)">
+        <rect width="128" height="60" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)"/>
+        <text x="14" y="22" fill="#FFFFFF" font-size="13" font-weight="700">5. Corpse</text>
+        <text x="14" y="42" fill="#94A3B8" font-size="11">⏳ Up next · 8:00</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom controls -->
+  <g transform="translate(720, 800)" text-anchor="middle">
+    <circle cx="-120" cy="0" r="32" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)"/>
+    <text x="-120" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20">⏸️</text>
+
+    <circle cx="-40" cy="0" r="32" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)"/>
+    <text x="-40" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20">⏮️</text>
+
+    <circle cx="40" cy="0" r="32" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)"/>
+    <text x="40" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20">⏭️</text>
+
+    <circle cx="120" cy="0" r="36" fill="#EF4444"/>
+    <text x="120" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20">⏹️</text>
+  </g>
+
+  <!-- Voice coach -->
+  <g transform="translate(60, 850)" fill="#A7F3D0" font-size="11">
+    <text x="0" y="0">🎤 Aiko: "Open your chest, breathe deep..." · Say "Hey SkillSeed" to ask</text>
+  </g>
+</svg>

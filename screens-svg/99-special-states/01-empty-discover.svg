@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+  <rect width="1440" height="72" fill="#FFFFFF"/>
+  <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+  <g transform="translate(80, 22)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+  </g>
+
+  <g transform="translate(720, 380)" text-anchor="middle">
+    <circle cx="0" cy="0" r="100" fill="#ECFDF5"/>
+    <text x="0" y="20" text-anchor="middle" font-size="80">🔍</text>
+    <text x="0" y="180" fill="#111827" font-size="32" font-weight="800">No matches found</text>
+    <text x="0" y="220" fill="#6B7280" font-size="16">Try adjusting your filters or expanding your search radius.</text>
+    <text x="0" y="244" fill="#6B7280" font-size="16">Or join a Learning Pod to discover more people.</text>
+
+    <g transform="translate(-180, 290)">
+      <rect width="180" height="48" rx="24" fill="url(#ctaGrad)"/>
+      <text x="90" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">↻ Reset filters</text>
+    </g>
+    <g transform="translate(20, 290)">
+      <rect width="180" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="30" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Browse pods →</text>
+    </g>
+  </g>
+</svg>

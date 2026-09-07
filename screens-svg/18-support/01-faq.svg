@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Hero -->
+  <rect x="0" y="72" width="1440" height="200" fill="url(#heroGrad)"/>
+  <g transform="translate(720, 150)" text-anchor="middle">
+    <text x="0" y="0" fill="#FFFFFF" font-size="40" font-weight="800">❓ Help Center</text>
+    <text x="0" y="40" fill="#A7F3D0" font-size="16">Find answers · Get help · Contact support</text>
+
+    <g transform="translate(-260, 70)">
+      <rect width="520" height="48" rx="24" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <text x="20" y="30" fill="#9CA3AF" font-size="14">🔍 Search articles, FAQs, guides...</text>
+      <g transform="translate(440, 12)">
+        <rect width="68" height="24" rx="12" fill="#10B981"/>
+        <text x="34" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">Search</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Categories -->
+  <g transform="translate(80, 320)">
+    <text x="0" y="0" fill="#111827" font-size="22" font-weight="800">📚 Browse by topic</text>
+  </g>
+
+  <g transform="translate(80, 350)">
+    <g>
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="290" height="120" rx="12" fill="transparent"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#ECFDF5"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">🚀</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">Getting Started</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">12 articles · Beginner-friendly</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+
+    <g transform="translate(310, 0)">
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#DBEAFE"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">💳</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">Payments &amp; Seeds</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">8 articles · Wallet &amp; pricing</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+
+    <g transform="translate(620, 0)">
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#FEF3C7"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">📅</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">Bookings</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">15 articles · Schedules &amp; reschedule</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+
+    <g transform="translate(930, 0)">
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#FCE7F3"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">🏅</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">SBTs &amp; Passport</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">6 articles · Verified skills</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(80, 500)">
+    <g>
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#D1FAE5"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">🌐</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">Cross-border</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">5 articles · Translation</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+
+    <g transform="translate(310, 0)">
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#FED7AA"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">🛡️</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">Safety &amp; Privacy</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">9 articles · Reporting</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+
+    <g transform="translate(620, 0)">
+      <rect width="290" height="120" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#FBCFE8"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">🏢</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">B2B / Teams</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">10 articles · Enterprise</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+
+    <g transform="translate(930, 0)">
+      <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="48" height="48" rx="12" fill="#E0E7FF"/>
+        <text x="24" y="36" text-anchor="middle" font-size="28">🤖</text>
+      </g>
+      <g transform="translate(80, 20)">
+        <text x="0" y="14" fill="#111827" font-size="15" font-weight="700">AI Features</text>
+        <text x="0" y="34" fill="#6B7280" font-size="12">7 articles · Voice &amp; AI coach</text>
+        <text x="0" y="80" fill="#10B981" font-size="11" font-weight="600">→ Read guides</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Popular FAQs -->
+  <g transform="translate(80, 660)">
+    <text x="0" y="0" fill="#111827" font-size="22" font-weight="800">❓ Frequently asked questions</text>
+  </g>
+
+  <g transform="translate(80, 700)">
+    <!-- FAQ 1 -->
+    <g>
+      <rect width="780" height="60" rx="10" fill="#FFFFFF" stroke="#E5E7EB" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 14)">
+        <circle cx="14" cy="14" r="14" fill="#ECFDF5"/>
+        <text x="14" y="20" text-anchor="middle" fill="#10B981" font-size="14" font-weight="700">?</text>
+      </g>
+      <text x="60" y="36" fill="#111827" font-size="13" font-weight="600">How do seeds work? Can I buy them or only earn them?</text>
+      <text x="760" y="36" text-anchor="end" fill="#9CA3AF" font-size="20">›</text>
+    </g>
+
+    <g transform="translate(0, 76)">
+      <rect width="780" height="60" rx="10" fill="#FFFFFF" stroke="#E5E7EB" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 14)">
+        <circle cx="14" cy="14" r="14" fill="#ECFDF5"/>
+        <text x="14" y="20" text-anchor="middle" fill="#10B981" font-size="14" font-weight="700">?</text>
+      </g>
+      <text x="60" y="36" fill="#111827" font-size="13" font-weight="600">What is a Soulbound Token (SBT) and why is it useful?</text>
+      <text x="760" y="36" text-anchor="end" fill="#9CA3AF" font-size="20">›</text>
+    </g>
+
+    <g transform="translate(0, 152)">
+      <rect width="780" height="60" rx="10" fill="#FFFFFF" stroke="#E5E7EB" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 14)">
+        <circle cx="14" cy="14" r="14" fill="#ECFDF5"/>
+        <text x="14" y="20" text-anchor="middle" fill="#10B981" font-size="14" font-weight="700">?</text>
+      </g>
+      <text x="60" y="36" fill="#111827" font-size="13" font-weight="600">How do I cancel a session and get a refund?</text>
+      <text x="760" y="36" text-anchor="end" fill="#9CA3AF" font-size="20">›</text>
+    </g>
+  </g>
+
+  <!-- Contact support -->
+  <g transform="translate(900, 700)">
+    <rect width="460" height="200" rx="12" fill="#1F2937"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="20" font-weight="800">💬 Still need help?</text>
+      <text x="0" y="28" fill="#9CA3AF" font-size="13">Our support team is available 24/7</text>
+
+      <g transform="translate(0, 60)">
+        <rect width="396" height="44" rx="22" fill="#10B981"/>
+        <text x="198" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">📧 Email support</text>
+      </g>
+
+      <g transform="translate(0, 116)">
+        <rect width="396" height="44" rx="22" fill="transparent" stroke="#10B981" stroke-width="2"/>
+        <text x="198" y="28" text-anchor="middle" fill="#10B981" font-size="14" font-weight="700">💬 Live chat</text>
+      </g>
+    </g>
+  </g>
+</svg>

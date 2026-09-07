@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Pod header -->
+  <g transform="translate(80, 100)">
+    <rect width="1280" height="80" rx="12" fill="url(#ctaGrad)"/>
+    <g transform="translate(20, 20)">
+      <rect width="40" height="40" rx="20" fill="#FFFFFF"/>
+      <text x="20" y="28" text-anchor="middle" font-size="20">🍝</text>
+    </g>
+    <text x="80" y="36" fill="#FFFFFF" font-size="18" font-weight="700">Italian Cooking Crew</text>
+    <text x="80" y="56" fill="#A7F3D0" font-size="12">8/12 members · Forum · 147 posts</text>
+
+    <!-- Tabs -->
+    <g transform="translate(380, 26)" fill="#FFFFFF" font-size="13">
+      <text x="0" y="0" opacity="0.7">Sessions</text>
+      <text x="100" y="0" font-weight="700" opacity="1">📝 Forum</text>
+      <line x1="100" y1="6" x2="160" y2="6" stroke="#FFFFFF" stroke-width="2"/>
+      <text x="200" y="0" opacity="0.7">Members</text>
+      <text x="300" y="0" opacity="0.7">Resources</text>
+      <text x="400" y="0" opacity="0.7">Analytics</text>
+    </g>
+
+    <g transform="translate(1080, 20)">
+      <rect width="180" height="40" rx="20" fill="rgba(255,255,255,0.2)"/>
+      <text x="90" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">+ New post</text>
+    </g>
+  </g>
+
+  <!-- Categories -->
+  <g transform="translate(80, 200)">
+    <rect width="200" height="44" rx="22" fill="#10B981"/>
+    <text x="100" y="28" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">🌟 All Topics</text>
+    <g transform="translate(210, 0)">
+      <rect width="160" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">📢 Announcements</text>
+    </g>
+    <g transform="translate(380, 0)">
+      <rect width="160" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">❓ Questions</text>
+    </g>
+    <g transform="translate(550, 0)">
+      <rect width="160" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">🍳 Recipes</text>
+    </g>
+    <g transform="translate(720, 0)">
+      <rect width="160" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">🎉 Wins</text>
+    </g>
+  </g>
+
+  <!-- Threads -->
+  <g transform="translate(80, 270)">
+    <!-- Pinned -->
+    <g>
+      <rect width="1280" height="80" rx="12" fill="#FEF3C7" filter="url(#cardShadow)"/>
+      <rect width="4" height="80" rx="2" fill="#F59E0B"/>
+      <g transform="translate(20, 16)">
+        <text x="0" y="0" font-size="20">📌</text>
+      </g>
+      <g transform="translate(60, 22)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">[PINNED] Welcome to Italian Cooking Crew! Read this first 👋</text>
+        <text x="0" y="20" fill="#92400E" font-size="11">Posted by Marco (Mentor) · 23 days ago · Pinned by Pod Leader</text>
+      </g>
+      <g transform="translate(1180, 30)" fill="#92400E" font-size="11">
+        <text x="80" y="0" text-anchor="end">💬 24</text>
+        <text x="80" y="18" text-anchor="end">❤️ 18</text>
+      </g>
+    </g>
+
+    <!-- Hot thread -->
+    <g transform="translate(0, 92)">
+      <rect width="1280" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="4" height="80" rx="2" fill="#EF4444"/>
+      <g transform="translate(20, 16)">
+        <circle cx="20" cy="20" r="20" fill="#DBEAFE"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨‍🍳</text>
+      </g>
+      <g transform="translate(80, 22)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Best flour substitute for gluten-free pasta? 🥖</text>
+        <text x="0" y="20" fill="#6B7280" font-size="11">Marco Rossi (Mentor) · 2 hours ago · Tagged: gluten-free, ingredients</text>
+      </g>
+      <g transform="translate(1180, 30)" fill="#374151" font-size="11">
+        <text x="80" y="0" text-anchor="end">💬 12</text>
+        <text x="80" y="18" text-anchor="end">🔥 Hot</text>
+      </g>
+    </g>
+
+    <!-- Regular -->
+    <g transform="translate(0, 184)">
+      <rect width="1280" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 16)">
+        <circle cx="20" cy="20" r="20" fill="#FCE7F3"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+      </g>
+      <g transform="translate(80, 22)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">I finally nailed Cacio e Pepe! Here's what worked for me 🍝</text>
+        <text x="0" y="20" fill="#6B7280" font-size="11">Anna Kim · Yesterday · Tagged: success, recipe</text>
+      </g>
+      <g transform="translate(1180, 30)" fill="#374151" font-size="11">
+        <text x="80" y="0" text-anchor="end">💬 8</text>
+        <text x="80" y="18" text-anchor="end">❤️ 24</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 276)">
+      <rect width="1280" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 16)">
+        <circle cx="20" cy="20" r="20" fill="#D1FAE5"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨</text>
+      </g>
+      <g transform="translate(80, 22)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Question: timing the egg addition in fresh pasta dough?</text>
+        <text x="0" y="20" fill="#6B7280" font-size="11">David Lee · 2 days ago · Tagged: question, technique</text>
+      </g>
+      <g transform="translate(1180, 30)" fill="#374151" font-size="11">
+        <text x="80" y="0" text-anchor="end">💬 5</text>
+        <text x="80" y="18" text-anchor="end">👀 14</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 368)">
+      <rect width="1280" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 16)">
+        <circle cx="20" cy="20" r="20" fill="#FED7AA"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+      </g>
+      <g transform="translate(80, 22)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📢 Session reminder: Tomorrow at 14:00 GMT+7 - Orecchiette!</text>
+        <text x="0" y="20" fill="#6B7280" font-size="11">Sara Mohammed · 3 days ago · Tagged: announcement</text>
+      </g>
+      <g transform="translate(1180, 30)" fill="#374151" font-size="11">
+        <text x="80" y="0" text-anchor="end">💬 3</text>
+        <text x="80" y="18" text-anchor="end">RSVP: 6 ✓</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 460)">
+      <rect width="1280" height="80" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 16)">
+        <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+      </g>
+      <g transform="translate(80, 22)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">My first successful risotto! (with pics) 📸</text>
+        <text x="0" y="20" fill="#6B7280" font-size="11">Mai Tran (You) · 4 days ago · Tagged: win, photo</text>
+      </g>
+      <g transform="translate(1180, 30)" fill="#374151" font-size="11">
+        <text x="80" y="0" text-anchor="end">💬 15</text>
+        <text x="80" y="18" text-anchor="end">❤️ 32</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Pagination -->
+  <g transform="translate(720, 850)" text-anchor="middle">
+    <text x="0" y="0" fill="#374151" font-size="13">← 1 2 3 4 5 ... 15 →</text>
+  </g>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#bgGrad)"/>
+
+  <g transform="translate(60, 60)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="18" font-weight="700">🌱 SkillSeed Voice</text>
+  </g>
+  <g transform="translate(1340, 60)">
+    <text x="40" y="0" text-anchor="middle" fill="#94A3B8" font-size="20">×</text>
+  </g>
+
+  <!-- Conversation transcript -->
+  <g transform="translate(220, 140)">
+    <text x="0" y="0" fill="#94A3B8" font-size="11" font-weight="700">CONVERSATION</text>
+
+    <g transform="translate(0, 24)">
+      <rect width="1000" height="80" rx="12" fill="rgba(99, 102, 241, 0.15)" stroke="rgba(99, 102, 241, 0.3)"/>
+      <g transform="translate(20, 16)">
+        <circle cx="14" cy="14" r="14" fill="#6366F1"/>
+        <text x="14" y="22" text-anchor="middle" fill="#FFFFFF" font-size="14">🤖</text>
+      </g>
+      <g transform="translate(50, 16)">
+        <text x="0" y="14" fill="#A5B4FC" font-size="11" font-weight="600">SkillSeed AI</text>
+        <text x="0" y="34" fill="#E0E7FF" font-size="14">Hi Mai! I heard you say "find me an Italian cooking mentor".</text>
+        <text x="0" y="54" fill="#E0E7FF" font-size="14">I found 3 great matches. Want me to show them?</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 124)">
+      <rect width="1000" height="64" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+      <g transform="translate(20, 12)">
+        <circle cx="14" cy="14" r="14" fill="#FEF3C7"/>
+        <text x="14" y="22" text-anchor="middle" font-size="14">👩</text>
+      </g>
+      <g transform="translate(50, 12)">
+        <text x="0" y="14" fill="#A7F3D0" font-size="11" font-weight="600">You</text>
+        <text x="0" y="34" fill="#E0E7FF" font-size="14">Yes please. Show me the top one and book a session.</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 208)">
+      <rect width="1000" height="120" rx="12" fill="rgba(99, 102, 241, 0.15)" stroke="rgba(99, 102, 241, 0.3)"/>
+      <g transform="translate(20, 16)">
+        <circle cx="14" cy="14" r="14" fill="#6366F1"/>
+        <text x="14" y="22" text-anchor="middle" fill="#FFFFFF" font-size="14">🤖</text>
+      </g>
+      <g transform="translate(50, 16)">
+        <text x="0" y="14" fill="#A5B4FC" font-size="11" font-weight="600">SkillSeed AI · 1.2s ago</text>
+        <text x="0" y="34" fill="#E0E7FF" font-size="14">Chef Marco Rossi · ⭐ 4.9 · Italian Pasta expert</text>
+        <text x="0" y="56" fill="#94A3B8" font-size="12">Available: Tue 19:00, Wed 14:00, Thu 20:00</text>
+        <g transform="translate(0, 76)">
+          <rect width="120" height="32" rx="16" fill="#10B981"/>
+          <text x="60" y="22" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">📅 Book Tue 19:00</text>
+        </g>
+        <g transform="translate(132, 76)">
+          <rect width="100" height="32" rx="16" fill="transparent" stroke="#6366F1"/>
+          <text x="50" y="22" text-anchor="middle" fill="#A5B4FC" font-size="13">View profile</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Live waveform area -->
+    <g transform="translate(0, 348)">
+      <rect width="1000" height="60" rx="12" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981"/>
+      <text x="20" y="36" fill="#A7F3D0" font-size="13" font-weight="600">🎤 Listening...</text>
+      <g transform="translate(140, 14)" fill="#10B981">
+        <rect x="0" y="14" width="3" height="14" rx="1"/>
+        <rect x="6" y="10" width="3" height="22" rx="1"/>
+        <rect x="12" y="6" width="3" height="30" rx="1"/>
+        <rect x="18" y="14" width="3" height="14" rx="1"/>
+        <rect x="24" y="18" width="3" height="6" rx="1"/>
+        <rect x="30" y="2" width="3" height="38" rx="1"/>
+        <rect x="36" y="8" width="3" height="26" rx="1"/>
+        <rect x="42" y="14" width="3" height="14" rx="1"/>
+        <rect x="48" y="20" width="3" height="2" rx="1"/>
+        <rect x="54" y="10" width="3" height="22" rx="1"/>
+        <rect x="60" y="14" width="3" height="14" rx="1"/>
+        <rect x="66" y="6" width="3" height="30" rx="1"/>
+        <rect x="72" y="14" width="3" height="14" rx="1"/>
+        <rect x="78" y="2" width="3" height="38" rx="1"/>
+        <rect x="84" y="10" width="3" height="22" rx="1"/>
+      </g>
+      <text x="980" y="36" text-anchor="end" fill="#A7F3D0" font-size="13" font-weight="600">00:08</text>
+    </g>
+  </g>
+
+  <!-- Actions -->
+  <g transform="translate(720, 580)" text-anchor="middle">
+    <circle cx="-80" cy="0" r="32" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)"/>
+    <text x="-80" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20">⏸️</text>
+
+    <circle cx="0" cy="0" r="40" fill="#10B981"/>
+    <text x="0" y="10" text-anchor="middle" fill="#FFFFFF" font-size="24">🎤</text>
+
+    <circle cx="80" cy="0" r="32" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)"/>
+    <text x="80" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20">⌨️</text>
+  </g>
+
+  <text x="720" y="700" text-anchor="middle" fill="#94A3B8" font-size="13">Tap mic to pause · Type to switch to keyboard · "Hey SkillSeed" to wake</text>
+
+  <!-- Settings -->
+  <g transform="translate(60, 850)" fill="#94A3B8" font-size="11">
+    <text x="0" y="0">🎧 Connected · English (US)</text>
+  </g>
+</svg>

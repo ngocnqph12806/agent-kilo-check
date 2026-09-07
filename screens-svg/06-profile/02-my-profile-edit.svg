@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">Edit Profile</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Make a great first impression — profiles with photos and bios get 5x more matches.</text>
+  </g>
+
+  <!-- Avatar section -->
+  <g transform="translate(80, 200)">
+    <rect width="1280" height="160" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 30)">
+      <circle cx="50" cy="50" r="50" fill="#FEF3C7"/>
+      <text x="50" y="70" text-anchor="middle" font-size="48">👩</text>
+      <g transform="translate(76, 76)">
+        <circle cx="16" cy="16" r="16" fill="#10B981" stroke="#FFFFFF" stroke-width="2"/>
+        <text x="16" y="22" text-anchor="middle" fill="#FFFFFF" font-size="14">📷</text>
+      </g>
+    </g>
+    <g transform="translate(180, 44)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="700">Profile photo</text>
+      <text x="0" y="22" fill="#6B7280" font-size="12">JPG, PNG · Max 5MB · Recommended 400x400px</text>
+      <g transform="translate(0, 40)">
+        <rect width="120" height="36" rx="18" fill="transparent" stroke="#10B981" stroke-width="2"/>
+        <text x="60" y="23" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Upload new</text>
+      </g>
+      <g transform="translate(130, 40)">
+        <rect width="120" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="60" y="23" text-anchor="middle" fill="#374151" font-size="13">Remove</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Basic info -->
+  <g transform="translate(80, 380)">
+    <rect width="620" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Basic information</text>
+
+      <g transform="translate(0, 24)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Display name</text>
+        <rect x="0" y="10" width="556" height="40" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="34" fill="#111827" font-size="13">Mai Tran</text>
+      </g>
+      <g transform="translate(0, 86)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Tagline (60 chars)</text>
+        <rect x="0" y="10" width="556" height="40" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="34" fill="#111827" font-size="13">Frontend dev who loves cooking 🍳</text>
+        <text x="556" y="60" text-anchor="end" fill="#9CA3AF" font-size="10">38 / 60</text>
+      </g>
+      <g transform="translate(0, 160)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Bio (500 chars)</text>
+        <rect x="0" y="10" width="556" height="80" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="32" fill="#111827" font-size="12">Hi! I'm Mai, a frontend developer from Ho Chi Minh City.</text>
+        <text x="16" y="52" fill="#111827" font-size="12">I love cooking Vietnamese food and want to learn more cuisines.</text>
+        <text x="16" y="72" fill="#111827" font-size="12">Excited to swap skills with people around the world! 🌏</text>
+        <text x="556" y="106" text-anchor="end" fill="#9CA3AF" font-size="10">201 / 500</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right column -->
+  <g transform="translate(720, 380)">
+    <rect width="640" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Location &amp; languages</text>
+
+      <g transform="translate(0, 24)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Country</text>
+        <rect x="0" y="10" width="276" height="40" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="34" fill="#111827" font-size="13">🇻🇳 Vietnam</text>
+        <text x="256" y="34" fill="#9CA3AF" font-size="13">▼</text>
+      </g>
+      <g transform="translate(300, 24)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">City</text>
+        <rect x="0" y="10" width="276" height="40" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="34" fill="#111827" font-size="13">Ho Chi Minh City</text>
+      </g>
+
+      <g transform="translate(0, 86)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Timezone</text>
+        <rect x="0" y="10" width="276" height="40" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="34" fill="#111827" font-size="13">GMT+7 (auto-detected)</text>
+      </g>
+      <g transform="translate(300, 86)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Hourly rate (USD)</text>
+        <rect x="0" y="10" width="276" height="40" rx="8" fill="#F3F4F6"/>
+        <text x="16" y="34" fill="#9CA3AF" font-size="13">Pro feature · upgrade to set</text>
+      </g>
+
+      <g transform="translate(0, 148)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="600">Languages you speak</text>
+        <g transform="translate(0, 16)">
+          <rect width="100" height="32" rx="16" fill="#10B981"/>
+          <text x="20" y="22" fill="#FFFFFF" font-size="12">🇻🇳 Vietnamese</text>
+          <text x="86" y="22" fill="#FFFFFF" font-size="12">×</text>
+        </g>
+        <g transform="translate(110, 16)">
+          <rect width="100" height="32" rx="16" fill="#10B981"/>
+          <text x="20" y="22" fill="#FFFFFF" font-size="12">🇬🇧 English</text>
+          <text x="86" y="22" fill="#FFFFFF" font-size="12">×</text>
+        </g>
+        <g transform="translate(220, 16)">
+          <rect width="140" height="32" rx="16" fill="transparent" stroke="#D1D5DB" stroke-dasharray="3 3"/>
+          <text x="20" y="22" fill="#6B7280" font-size="12">+ Add language</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Skills sections -->
+  <g transform="translate(80, 680)">
+    <rect width="620" height="180" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Skills I teach</text>
+      <g transform="translate(0, 16)">
+        <rect width="120" height="32" rx="16" fill="#10B981"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🇻🇳 Vietnamese</text>
+        <text x="106" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(130, 16)">
+        <rect width="160" height="32" rx="16" fill="#10B981"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🍳 Vietnamese Cooking</text>
+        <text x="146" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(300, 16)">
+        <rect width="120" height="32" rx="16" fill="#10B981"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">💻 React.js</text>
+        <text x="106" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(430, 16)">
+        <rect width="160" height="32" rx="16" fill="#10B981"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🎤 Public Speaking</text>
+        <text x="146" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="160" height="32" rx="16" fill="transparent" stroke="#D1D5DB" stroke-dasharray="3 3"/>
+        <text x="20" y="22" fill="#6B7280" font-size="12">+ Add teaching skill</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(720, 680)">
+    <rect width="640" height="180" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Skills I want to learn</text>
+      <g transform="translate(0, 16)">
+        <rect width="100" height="32" rx="16" fill="#3B82F6"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🇬🇧 English</text>
+        <text x="86" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(110, 16)">
+        <rect width="100" height="32" rx="16" fill="#3B82F6"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🎸 Guitar</text>
+        <text x="86" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(220, 16)">
+        <rect width="120" height="32" rx="16" fill="#3B82F6"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🍝 Italian Cooking</text>
+        <text x="106" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(350, 16)">
+        <rect width="120" height="32" rx="16" fill="#3B82F6"/>
+        <text x="20" y="22" fill="#FFFFFF" font-size="12">🧘 Meditation</text>
+        <text x="106" y="22" fill="#FFFFFF" font-size="12">×</text>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="180" height="32" rx="16" fill="transparent" stroke="#D1D5DB" stroke-dasharray="3 3"/>
+        <text x="20" y="22" fill="#6B7280" font-size="12">+ Add learning goal</text>
+      </g>
+    </g>
+  </g>
+</svg>

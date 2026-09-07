@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="dangerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12"/>
+      <feOffset dx="0" dy="6"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#000000" opacity="0.5"/>
+
+  <!-- Modal -->
+  <g transform="translate(370, 100)">
+    <rect width="700" height="700" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Warning icon -->
+    <g transform="translate(312, 40)">
+      <circle cx="48" cy="48" r="48" fill="#FEE2E2"/>
+      <circle cx="48" cy="48" r="40" fill="#EF4444"/>
+      <text x="48" y="64" text-anchor="middle" fill="#FFFFFF" font-size="48" font-weight="700">!</text>
+    </g>
+
+    <text x="350" y="200" text-anchor="middle" fill="#111827" font-size="28" font-weight="800">Delete your account?</text>
+    <text x="350" y="226" text-anchor="middle" fill="#6B7280" font-size="14">This action is permanent and cannot be undone.</text>
+
+    <!-- What will be lost -->
+    <g transform="translate(40, 260)">
+      <rect width="620" height="200" rx="10" fill="#FEE2E2"/>
+      <g transform="translate(20, 20)">
+        <text x="0" y="0" fill="#991B1B" font-size="14" font-weight="700">⚠️ The following will be permanently deleted:</text>
+        <g transform="translate(0, 24)" fill="#7F1D1D" font-size="13">
+          <text x="0" y="0">• Your profile, skills, and bio</text>
+          <text x="0" y="22">• 87 booking history records</text>
+          <text x="0" y="44">• All 14 Soulbound Tokens (SBTs) — irreversible on-chain</text>
+          <text x="0" y="66">• 142 seed balance (will not be refunded)</text>
+          <text x="0" y="88">• 5,847 messages &amp; forum posts</text>
+          <text x="0" y="110">• Pod memberships &amp; relationships</text>
+          <text x="0" y="132">• Reviews left for mentors</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Confirm -->
+    <g transform="translate(40, 490)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Type <tspan fill="#EF4444" font-family="monospace">DELETE MY ACCOUNT</tspan> to confirm:</text>
+      <rect x="0" y="14" width="620" height="48" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="44" fill="#9CA3AF" font-size="14" font-family="monospace">Type confirmation here...</text>
+    </g>
+
+    <!-- 30 day grace -->
+    <g transform="translate(40, 580)">
+      <rect width="620" height="40" rx="10" fill="#FEF3C7"/>
+      <text x="20" y="26" fill="#92400E" font-size="12" font-weight="600">💡 Tip: Account deletion can be undone within 30 days. After that, it's permanent.</text>
+    </g>
+
+    <!-- Buttons -->
+    <g transform="translate(40, 640)">
+      <rect width="200" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="100" y="28" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Cancel</text>
+    </g>
+    <g transform="translate(260, 640)">
+      <rect width="220" height="44" rx="22" fill="transparent" stroke="#F59E0B" stroke-width="2"/>
+      <text x="110" y="28" text-anchor="middle" fill="#F59E0B" font-size="14" font-weight="600">Schedule deletion</text>
+    </g>
+    <g transform="translate(500, 640)">
+      <rect width="160" height="44" rx="22" fill="#FEE2E2"/>
+      <text x="80" y="28" text-anchor="middle" fill="#991B1B" font-size="14" font-weight="700">Delete now</text>
+    </g>
+  </g>
+</svg>

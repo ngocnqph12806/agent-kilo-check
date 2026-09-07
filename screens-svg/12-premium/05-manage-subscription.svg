@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Subscription</text>
+  </g>
+
+  <!-- Current plan -->
+  <g transform="translate(80, 200)">
+    <rect width="1280" height="240" rx="16" fill="url(#ctaGrad)" filter="url(#cardShadow)"/>
+    <g transform="translate(40, 36)">
+      <g transform="translate(0, 0)">
+        <rect width="80" height="80" rx="16" fill="rgba(255,255,255,0.2)"/>
+        <text x="40" y="58" text-anchor="middle" fill="#FFFFFF" font-size="48">⚡</text>
+      </g>
+      <g transform="translate(100, 12)">
+        <text x="0" y="0" fill="#A7F3D0" font-size="14" font-weight="700">CURRENT PLAN</text>
+        <text x="0" y="34" fill="#FFFFFF" font-size="32" font-weight="800">Pro · Monthly</text>
+        <text x="0" y="60" fill="#A7F3D0" font-size="14">$9/month · Renews Oct 7, 2026</text>
+      </g>
+
+      <g transform="translate(800, 16)">
+        <rect width="180" height="44" rx="22" fill="rgba(255,255,255,0.2)"/>
+        <text x="90" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">⬆️ Upgrade plan</text>
+      </g>
+      <g transform="translate(800, 70)">
+        <rect width="180" height="44" rx="22" fill="rgba(255,255,255,0.2)"/>
+        <text x="90" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">💳 Update payment</text>
+      </g>
+      <g transform="translate(1000, 16)">
+        <rect width="200" height="44" rx="22" fill="#FFFFFF"/>
+        <text x="100" y="28" text-anchor="middle" fill="#10B981" font-size="14" font-weight="700">⚙️ Manage subscription</text>
+      </g>
+      <g transform="translate(1000, 70)">
+        <rect width="200" height="44" rx="22" fill="rgba(255,255,255,0.2)"/>
+        <text x="100" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">⏸️ Pause subscription</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Usage this month -->
+  <g transform="translate(80, 460)">
+    <rect width="1280" height="180" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📊 Usage this month</text>
+      <text x="0" y="20" fill="#6B7280" font-size="12">Resets Oct 1, 2026</text>
+
+      <g transform="translate(0, 50)">
+        <text x="0" y="0" fill="#374151" font-size="12" font-weight="600">Seeds used</text>
+        <text x="160" y="0" fill="#111827" font-size="13" font-weight="700">142 / 200</text>
+        <rect x="0" y="14" width="1216" height="10" rx="5" fill="#E5E7EB"/>
+        <rect x="0" y="14" width="864" height="10" rx="5" fill="url(#ctaGrad)"/>
+      </g>
+
+      <g transform="translate(0, 100)">
+        <text x="0" y="0" fill="#374151" font-size="12" font-weight="600">Sessions completed</text>
+        <text x="160" y="0" fill="#111827" font-size="13" font-weight="700">18</text>
+        <text x="320" y="0" fill="#374151" font-size="12" font-weight="600">· HD recordings</text>
+        <text x="500" y="0" fill="#111827" font-size="13" font-weight="700">12</text>
+        <text x="660" y="0" fill="#374151" font-size="12" font-weight="600">· AI summaries generated</text>
+        <text x="900" y="0" fill="#111827" font-size="13" font-weight="700">47</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Billing history -->
+  <g transform="translate(80, 660)">
+    <rect width="1280" height="200" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📄 Billing history</text>
+
+      <g transform="translate(0, 32)" fill="#374151" font-size="13">
+        <text x="0" y="14" fill="#9CA3AF" font-size="11" font-weight="700">DATE</text>
+        <text x="200" y="14" fill="#9CA3AF" font-size="11" font-weight="700">DESCRIPTION</text>
+        <text x="900" y="14" fill="#9CA3AF" font-size="11" font-weight="700">AMOUNT</text>
+        <text x="1100" y="14" fill="#9CA3AF" font-size="11" font-weight="700">INVOICE</text>
+      </g>
+
+      <g transform="translate(0, 56)">
+        <rect x="0" y="0" width="1216" height="44" rx="6" fill="#F9FAFB"/>
+        <text x="0" y="28" fill="#6B7280">Sep 7, 2026</text>
+        <text x="200" y="28" fill="#111827">⚡ Pro Plan · Sep 2026</text>
+        <text x="900" y="28" fill="#111827" font-weight="600">$9.00</text>
+        <text x="1100" y="28" fill="#10B981" font-weight="600">📥 PDF</text>
+      </g>
+
+      <g transform="translate(0, 110)">
+        <rect x="0" y="0" width="1216" height="44" rx="6" fill="#F9FAFB"/>
+        <text x="0" y="28" fill="#6B7280">Aug 7, 2026</text>
+        <text x="200" y="28" fill="#111827">⚡ Pro Plan · Aug 2026</text>
+        <text x="900" y="28" fill="#111827" font-weight="600">$9.00</text>
+        <text x="1100" y="28" fill="#10B981" font-weight="600">📥 PDF</text>
+      </g>
+    </g>
+  </g>
+</svg>

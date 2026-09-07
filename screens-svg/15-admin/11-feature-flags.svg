@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🚩 Feature Flags</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Toggle features on/off or rollout gradually to specific cohorts</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(80, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">🚩 TOTAL FLAGS</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">42</text>
+      <text x="0" y="76" fill="#10B981" font-size="11">32 active · 10 disabled</text>
+    </g>
+  </g>
+  <g transform="translate(390, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">🧪 BETA USERS</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">12,480</text>
+      <text x="0" y="76" fill="#6B7280" font-size="11">Opted in · 1.5% of total</text>
+    </g>
+  </g>
+  <g transform="translate(700, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📊 ACTIVE ROLLOUTS</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">8</text>
+      <text x="0" y="76" fill="#3B82F6" font-size="11">A/B tests running</text>
+    </g>
+  </g>
+  <g transform="translate(1010, 200)">
+    <rect width="350" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">🚨 KILLSWITCH ACTIVE</text>
+      <text x="0" y="50" fill="#EF4444" font-size="32" font-weight="800">0</text>
+      <text x="0" y="76" fill="#10B981" font-size="11">All systems nominal</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 320)">
+    <rect width="180" height="40" rx="20" fill="url(#ctaGrad)"/>
+    <text x="90" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">+ New flag</text>
+    <g transform="translate(190, 0)">
+      <rect width="180" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="26" text-anchor="middle" fill="#374151" font-size="13">📁 Templates</text>
+    </g>
+  </g>
+
+  <!-- Flags table -->
+  <g transform="translate(80, 380)">
+    <rect width="1280" height="470" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <g transform="translate(0, 0)">
+      <rect width="1280" height="48" rx="12" bg fill="#F9FAFB"/>
+      <g transform="translate(20, 0)" fill="#9CA3AF" font-size="11" font-weight="700">
+        <text x="0" y="30">FLAG</text>
+        <text x="500" y="30">STATE</text>
+        <text x="640" y="30">ROLLOUT</text>
+        <text x="820" y="30">VARIANT</text>
+        <text x="1000" y="30">LAST MODIFIED</text>
+        <text x="1240" y="30" text-anchor="end">ACTIONS</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 48)">
+      <rect width="1280" height="60" rx="0" bg fill="#D1FAE5"/>
+      <line x1="20" y1="60" x2="1260" y2="60" stroke="#E5E7EB"/>
+      <g transform="translate(20, 12)">
+        <rect width="36" height="36" rx="6" bg fill="#10B981"/>
+        <text x="18" y="26" text-anchor="middle" fill="#FFFFFF" font-size="18">🤖</text>
+      </g>
+      <g transform="translate(68, 20)">
+        <text x="0" y="0" fill="#111827" font-size="13" font-weight="700">matching_v2_ai</text>
+        <text x="0" y="16" fill="#6B7280" font-size="11">Improved AI matching algorithm with embeddings</text>
+      </g>
+      <g transform="translate(480, 18)">
+        <rect width="80" height="24" rx="12" bg fill="#10B981"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">✓ ON</text>
+      </g>
+      <text x="640" y="34" fill="#111827" font-size="13">Rolling 10% → 25%</text>
+      <text x="820" y="34" fill="#111827" font-size="13">v2 (embeddings)</text>
+      <text x="1000" y="34" fill="#374151" font-size="11">2h ago by Alice</text>
+      <text x="1240" y="34" text-anchor="end" fill="#10B981" font-size="11" font-weight="600">⋯</text>
+    </g>
+
+    <g transform="translate(0, 108)">
+      <rect width="1280" height="60" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="60" x2="1260" y2="60" stroke="#E5E7EB"/>
+      <g transform="translate(20, 12)">
+        <rect width="36" height="36" rx="6" bg fill="#3B82F6"/>
+        <text x="18" y="26" text-anchor="middle" fill="#FFFFFF" font-size="18">💬</text>
+      </g>
+      <g transform="translate(68, 20)">
+        <text x="0" y="0" fill="#111827" font-size="13" font-weight="700">ai_coach_v1</text>
+        <text x="0" y="16" fill="#6B7280" font-size="11">Long-term AI learning coach with personalization</text>
+      </g>
+      <g transform="translate(480, 18)">
+        <rect width="100" height="24" rx="12" bg fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+        <text x="50" y="16" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">🧪 BETA</text>
+      </g>
+      <text x="640" y="34" fill="#111827" font-size="13">100% of beta cohort (5K)</text>
+      <text x="820" y="34" fill="#111827" font-size="13">Coach v1</text>
+      <text x="1000" y="34" fill="#374151" font-size="11">Yesterday by Bob</text>
+      <text x="1240" y="34" text-anchor="end" fill="#10B981" font-size="11" font-weight="600">⋯</text>
+    </g>
+
+    <g transform="translate(0, 168)">
+      <rect width="1280" height="60" rx="0" bg fill="#F9FAFB"/>
+      <line x1="20" y1="60" x2="1260" y2="60" stroke="#E5E7EB"/>
+      <g transform="translate(20, 12)">
+        <rect width="36" height="36" rx="6" bg fill="#8B5CF6"/>
+        <text x="18" y="26" text-anchor="middle" fill="#FFFFFF" font-size="18">🥽</text>
+      </g>
+      <g transform="translate(68, 20)">
+        <text x="0" y="0" fill="#111827" font-size="13" font-weight="700">vr_pods_beta</text>
+        <text x="0" y="16" fill="#6B7280" font-size="11">VR classroom mode · Quest + Vision Pro</text>
+      </g>
+      <g transform="translate(480, 18)">
+        <rect width="100" height="24" rx="12" bg fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+        <text x="50" y="16" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">🧪 BETA</text>
+      </g>
+      <text x="640" y="34" fill="#111827" font-size="13">Opt-in beta · 247 users</text>
+      <text x="820" y="34" fill="#111827" font-size="13">Multiplayer</text>
+      <text x="1000" y="34" fill="#374151" font-size="11">3 days ago by Charlie</text>
+      <text x="1240" y="34" text-anchor="end" fill="#10B981" font-size="11" font-weight="600">⋯</text>
+    </g>
+
+    <g transform="translate(0, 228)">
+      <rect width="1280" height="60" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="60" x2="1260" y2="60" stroke="#E5E7EB"/>
+      <g transform="translate(20, 12)">
+        <rect width="36" height="36" rx="6" bg fill="#F59E0B"/>
+        <text x="18" y="26" text-anchor="middle" fill="#FFFFFF" font-size="18">💳</text>
+      </g>
+      <g transform="translate(68, 20)">
+        <text x="0" y="0" fill="#111827" font-size="13" font-weight="700">crypto_payments_enabled</text>
+        <text x="0" y="16" fill="#6B7280" font-size="11">Allow crypto payments · Currently disabled for compliance</text>
+      </g>
+      <g transform="translate(480, 18)">
+        <rect width="80" height="24" rx="12" bg fill="#374151"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">⏸️ OFF</text>
+      </g>
+      <text x="640" y="34" fill="#6B7280" font-size="13">Disabled globally</text>
+      <text x="820" y="34" fill="#6B7280" font-size="13">—</text>
+      <text x="1000" y="34" fill="#374151" font-size="11">1 week ago by Alice</text>
+      <text x="1240" y="34" text-anchor="end" fill="#10B981" font-size="11" font-weight="600">⋯</text>
+    </g>
+
+    <g transform="translate(0, 288)">
+      <rect width="1280" height="60" rx="0" bg fill="#F9FAFB"/>
+      <line x1="20" y1="60" x2="1260" y2="60" stroke="#E5E7EB"/>
+      <g transform="translate(20, 12)">
+        <rect width="36" height="36" rx="6" bg fill="#EC4899"/>
+        <text x="18" y="26" text-anchor="middle" fill="#FFFFFF" font-size="18">📋</text>
+      </g>
+      <g transform="translate(68, 20)">
+        <text x="0" y="0" fill="#111827" font-size="13" font-weight="700">creator_subscriptions_v1</text>
+        <text x="0" y="16" fill="#6B7280" font-size="11">Creator subscription tiers · Pro launch ready</text>
+      </g>
+      <g transform="translate(480, 18)">
+        <rect width="80" height="24" rx="12" bg fill="#10B981"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">✓ ON</text>
+      </g>
+      <text x="640" y="34" fill="#111827" font-size="13">100% rollout · for all</text>
+      <text x="820" y="34" fill="#111827" font-size="13">Standard</text>
+      <text x="1000" y="34" fill="#374151" font-size="11">2 weeks ago by Dev</text>
+      <text x="1240" y="34" text-anchor="end" fill="#10B981" font-size="11" font-weight="600">⋯</text>
+    </g>
+
+    <g transform="translate(0, 380)">
+      <text x="20" y="0" fill="#6CA3AF" font-size="12">Showing 5 of 42 flags</text>
+      <text x="1260" y="0" text-anchor="end" fill="#374151" font-size="13">← 1 2 3 ... 9 →</text>
+    </g>
+  </g>
+</svg>

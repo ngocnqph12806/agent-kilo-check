@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Settings · Notifications</text>
+  </g>
+
+  <!-- Sidebar -->
+  <g transform="translate(80, 180)">
+    <rect width="240" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)" fill="#374151" font-size="14">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">ACCOUNT</text>
+      <g transform="translate(0, 20)"><text x="20" y="20">👤 Account</text></g>
+      <g transform="translate(0, 60)">
+        <rect width="200" height="36" rx="8" fill="#ECFDF5"/>
+        <text x="20" y="23" fill="#10B981" font-size="13" font-weight="600">🔔 Notifications</text>
+      </g>
+      <g transform="translate(0, 100)"><text x="20" y="20">🔒 Privacy</text></g>
+      <g transform="translate(0, 140)"><text x="20" y="20">💳 Payments</text></g>
+      <g transform="translate(0, 200)" fill="#9CA3AF"><text x="0" y="0" font-size="11" font-weight="700">PREFERENCES</text></g>
+      <g transform="translate(0, 220)"><text x="20" y="20">🌍 Locale</text></g>
+      <g transform="translate(0, 260)"><text x="20" y="20">🔗 Wallet</text></g>
+      <g transform="translate(0, 300)"><text x="20" y="20">📅 Calendars</text></g>
+      <g transform="translate(0, 340)"><text x="20" y="20">💻 Devices</text></g>
+      <g transform="translate(0, 400)" fill="#9CA3AF"><text x="0" y="0" font-size="11" font-weight="700">DATA</text></g>
+      <g transform="translate(0, 420)"><text x="20" y="20">📥 Export</text></g>
+      <g transform="translate(0, 460)"><text x="20" y="20">🚫 Blocked</text></g>
+      <g transform="translate(0, 500)"><text x="20" y="20" fill="#EF4444" font-weight="600">⚠️ Delete account</text></g>
+    </g>
+  </g>
+
+  <!-- Main -->
+  <g transform="translate(360, 180)">
+    <rect width="1000" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(40, 40)">
+      <text x="0" y="0" fill="#111827" font-size="24" font-weight="800">🔔 Notification preferences</text>
+      <text x="0" y="28" fill="#6B7280" font-size="13">Choose how and when we notify you</text>
+
+      <!-- Channels -->
+      <g transform="translate(0, 80)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Channels</text>
+        <g transform="translate(0, 20)">
+          <rect width="930" height="60" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="36" fill="#111827" font-size="13" font-weight="600">📧 Email</text>
+          <g transform="translate(820, 18)">
+            <rect width="48" height="24" rx="12" fill="#10B981"/>
+            <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+        <g transform="translate(0, 88)">
+          <rect width="930" height="60" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="36" fill="#111827" font-size="13" font-weight="600">📱 Push notifications</text>
+          <g transform="translate(820, 18)">
+            <rect width="48" height="24" rx="12" fill="#10B981"/>
+            <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+        <g transform="translate(0, 176)">
+          <rect width="930" height="60" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="36" fill="#111827" font-size="13" font-weight="600">💬 SMS</text>
+          <g transform="translate(820, 18)">
+            <rect width="48" height="24" rx="12" fill="#E5E7EB"/>
+            <circle cx="12" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+        <g transform="translate(0, 264)">
+          <rect width="930" height="60" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="36" fill="#111827" font-size="13" font-weight="600">📨 Telegram bot</text>
+          <g transform="translate(820, 18)">
+            <rect width="48" height="24" rx="12" fill="#10B981"/>
+            <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Categories -->
+      <g transform="translate(0, 380)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Categories</text>
+        <g transform="translate(0, 20)">
+          <rect width="930" height="56" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="32" fill="#111827" font-size="13" font-weight="600">📅 Booking reminders</text>
+          <text x="20" y="48" fill="#6B7280" font-size="11">1 hour &amp; 1 day before each session</text>
+          <g transform="translate(820, 16)">
+            <rect width="48" height="24" rx="12" fill="#10B981"/>
+            <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+        <g transform="translate(0, 88)">
+          <rect width="930" height="56" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="32" fill="#111827" font-size="13" font-weight="600">💬 New messages</text>
+          <text x="20" y="48" fill="#6B7280" font-size="11">When someone messages you</text>
+          <g transform="translate(820, 16)">
+            <rect width="48" height="24" rx="12" fill="#10B981"/>
+            <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+        <g transform="translate(0, 176)">
+          <rect width="930" height="56" rx="10" fill="#F9FAFB"/>
+          <text x="20" y="32" fill="#111827" font-size="13" font-weight="600">🏅 SBT mints &amp; rewards</text>
+          <text x="20" y="48" fill="#6B7280" font-size="11">When you earn a verified token</text>
+          <g transform="translate(820, 16)">
+            <rect width="48" height="24" rx="12" fill="#10B981"/>
+            <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Quiet hours -->
+      <g transform="translate(0, 600)">
+        <rect width="140" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="70" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Save preferences</text>
+      </g>
+    </g>
+  </g>
+</svg>

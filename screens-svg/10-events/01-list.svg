@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(540, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0">Discover</text>
+      <text x="100" y="0">Bookings</text>
+      <text x="200" y="0">Pods</text>
+      <text x="280" y="0" fill="#10B981" font-weight="600">Events</text>
+      <text x="360" y="0">Wallet</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Hero -->
+  <rect x="80" y="110" width="1280" height="160" rx="16" fill="url(#heroGrad)" filter="url(#cardShadow)"/>
+  <g transform="translate(120, 130)">
+    <text x="0" y="0" font-size="60">📍</text>
+  </g>
+  <g transform="translate(220, 150)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="36" font-weight="800">Offline Events</text>
+    <text x="0" y="32" fill="#FEF3C7" font-size="14">Meet your learning community IRL · Workshops, meetups, and skill swaps in your city</text>
+    <g transform="translate(0, 60)">
+      <rect width="140" height="36" rx="18" fill="#FFFFFF"/>
+      <text x="70" y="23" text-anchor="middle" fill="#92400E" font-size="13" font-weight="700">+ Host event</text>
+    </g>
+  </g>
+
+  <!-- Filters -->
+  <g transform="translate(80, 300)">
+    <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">Upcoming events in Ho Chi Minh City</text>
+    <text x="0" y="22" fill="#6CA3AF" font-size="12">📍 Auto-detected · Change in settings</text>
+
+    <g transform="translate(1100, -16)">
+      <rect width="180" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+      <text x="20" y="23" fill="#374151" font-size="13">📅 This month</text>
+      <text x="160" y="23" fill="#9CA3AF" font-size="13">▼</text>
+    </g>
+  </g>
+
+  <!-- Tabs -->
+  <g transform="translate(80, 360)">
+    <rect width="120" height="36" rx="18" fill="#10B981"/>
+    <text x="60" y="22" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">All (24)</text>
+    <g transform="translate(130, 0)">
+      <rect width="140" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="22" text-anchor="middle" fill="#374151" font-size="13">🎓 Workshops</text>
+    </g>
+    <g transform="translate(280, 0)">
+      <rect width="140" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="22" text-anchor="middle" fill="#374151" font-size="13">🤝 Meetups</text>
+    </g>
+    <g transform="translate(430, 0)">
+      <rect width="140" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="22" text-anchor="middle" fill="#374151" font-size="13">🎨 Skill Swap</text>
+    </g>
+    <g transform="translate(580, 0)">
+      <rect width="140" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="22" text-anchor="middle" fill="#374151" font-size="13">🌐 Online</text>
+    </g>
+  </g>
+
+  <!-- Events grid -->
+  <g transform="translate(80, 420)">
+    <!-- Card 1 -->
+    <g>
+      <rect width="400" height="320" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="400" height="140" rx="12" fill="#DBEAFE"/>
+      <text x="200" y="86" text-anchor="middle" font-size="64">🎓</text>
+
+      <g transform="translate(20, 156)">
+        <g>
+          <rect width="60" height="22" rx="11" fill="#3B82F6"/>
+          <text x="30" y="15" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">WORKSHOP</text>
+        </g>
+        <g transform="translate(70, 0)">
+          <rect width="60" height="22" rx="11" fill="#FEF3C7"/>
+          <text x="30" y="15" text-anchor="middle" fill="#92400E" font-size="10" font-weight="700">3 SEEDS</text>
+        </g>
+      </g>
+      <g transform="translate(20, 196)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">Pasta Making 101</text>
+        <text x="0" y="20" fill="#6B7280" font-size="12">📅 Sat Sep 14, 14:00 - 17:00</text>
+        <text x="0" y="38" fill="#6B7280" font-size="12">📍 The Hive, District 1, HCMC</text>
+        <text x="0" y="56" fill="#6B7280" font-size="12">👥 12/20 going · Hosted by Marco</text>
+      </g>
+      <g transform="translate(20, 270)">
+        <rect width="360" height="36" rx="18" fill="url(#ctaGrad)"/>
+        <text x="180" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">RSVP · 3 seeds</text>
+      </g>
+    </g>
+
+    <!-- Card 2 -->
+    <g transform="translate(420, 0)">
+      <rect width="400" height="320" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="400" height="140" rx="12" fill="#FCE7F3"/>
+      <text x="200" y="86" text-anchor="middle" font-size="64">🤝</text>
+
+      <g transform="translate(20, 156)">
+        <g>
+          <rect width="80" height="22" rx="11" fill="#EC4899"/>
+          <text x="40" y="15" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">MEETUP</text>
+        </g>
+        <g transform="translate(90, 0)">
+          <rect width="60" height="22" rx="11" fill="#D1FAE5"/>
+          <text x="30" y="15" text-anchor="middle" fill="#047857" font-size="10" font-weight="700">FREE</text>
+        </g>
+      </g>
+      <g transform="translate(20, 196)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">Frontend Devs Monthly</text>
+        <text x="0" y="20" fill="#6B7280" font-size="12">📅 Thu Sep 19, 19:00 - 21:00</text>
+        <text x="0" y="38" fill="#6B7280" font-size="12">📍 Toong Coworking, District 3</text>
+        <text x="0" y="56" fill="#6B7280" font-size="12">👥 28/50 going · Hosted by David L.</text>
+      </g>
+      <g transform="translate(20, 270)">
+        <rect width="360" height="36" rx="18" fill="url(#ctaGrad)"/>
+        <text x="180" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">RSVP · Free</text>
+      </g>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(840, 0)">
+      <rect width="400" height="320" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <rect width="400" height="140" rx="12" fill="#FEF3C7"/>
+      <text x="200" y="86" text-anchor="middle" font-size="64">🎨</text>
+
+      <g transform="translate(20, 156)">
+        <g>
+          <rect width="80" height="22" rx="11" fill="#F59E0B"/>
+          <text x="40" y="15" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">SKILL SWAP</text>
+        </g>
+        <g transform="translate(90, 0)">
+          <rect width="80" height="22" rx="11" fill="#D1FAE5"/>
+          <text x="40" y="15" text-anchor="middle" fill="#047857" font-size="10" font-weight="700">FREE</text>
+        </g>
+      </g>
+      <g transform="translate(20, 196)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">Cooking &amp; Code Swap</text>
+        <text x="0" y="20" fill="#6B7280" font-size="12">📅 Sun Sep 22, 10:00 - 13:00</text>
+        <text x="0" y="38" fill="#6B7280" font-size="12">📎 SkillsGarden Cafe, District 2</text>
+        <text x="0" y="56" fill="#6B7280" font-size="12">👥 15/30 going · Hosted by Mai T.</text>
+      </g>
+      <g transform="translate(20, 270)">
+        <rect width="360" height="36" rx="18" fill="url(#ctaGrad)"/>
+        <text x="180" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">RSVP · Free</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(80, 770)">
+    <text x="0" y="0" fill="#9CA3AF" font-size="12">Showing 3 of 24 events · All events in HCMC, Vietnam</text>
+    <text x="1280" y="0" text-anchor="end" fill="#374151" font-size="13">← 1 2 ... 8 →</text>
+  </g>
+</svg>

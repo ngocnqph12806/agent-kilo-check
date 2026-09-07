@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 100)" fill="#374151" font-size="13">
+    <text x="0" y="0">Events</text>
+    <text x="60" y="0">›</text>
+    <text x="75" y="0" fill="#10B981" font-weight="600">Pasta Making 101</text>
+  </g>
+
+  <!-- Hero -->
+  <g transform="translate(80, 140)">
+    <rect width="800" height="300" rx="16" fill="#DBEAFE"/>
+    <text x="400" y="180" text-anchor="middle" font-size="120">🎓</text>
+    <text x="400" y="220" text-anchor="middle" fill="#1E40AF" font-size="14">Pasta Making 101 · The Hive District 1</text>
+  </g>
+
+  <!-- Right sidebar -->
+  <g transform="translate(900, 140)">
+    <rect width="460" height="300" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(28, 28)">
+      <g>
+        <rect width="100" height="22" rx="11" fill="#3B82F6"/>
+        <text x="50" y="15" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">WORKSHOP</text>
+      </g>
+      <text x="0" y="56" fill="#111827" font-size="24" font-weight="800">Pasta Making 101</text>
+      <text x="0" y="80" fill="#6B7280" font-size="13">Hosted by Chef Marco Rossi</text>
+
+      <line x1="0" y1="100" x2="404" y2="100" stroke="#E5E7EB"/>
+
+      <g transform="translate(0, 116)" fill="#374151" font-size="13">
+        <text x="0" y="14">📅 Date</text>
+        <text x="404" y="14" text-anchor="end" fill="#111827" font-weight="600">Sat, Sep 14, 2026</text>
+        <text x="0" y="36">⏰ Time</text>
+        <text x="404" y="36" text-anchor="end" fill="#111827" font-weight="600">14:00 - 17:00 (GMT+7)</text>
+        <text x="0" y="58">📍 Venue</text>
+        <text x="404" y="58" text-anchor="end" fill="#111827" font-weight="600">The Hive, D1, HCMC</text>
+        <text x="0" y="80">👥 Capacity</text>
+        <text x="404" y="80" text-anchor="end" fill="#111827" font-weight="600">12/20 going</text>
+        <text x="0" y="102">🌱 Cost</text>
+        <text x="404" y="102" text-anchor="end" fill="#10B981" font-weight="700">3 seeds</text>
+      </g>
+
+      <g transform="translate(0, 240)">
+        <rect width="404" height="48" rx="24" fill="url(#ctaGrad)"/>
+        <text x="202" y="32" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">RSVP · 3 seeds →</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Description -->
+  <g transform="translate(80, 470)">
+    <rect width="800" height="380" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="800">About this event</text>
+      <text x="0" y="32" fill="#374151" font-size="13">Join Chef Marco for an immersive 3-hour pasta-making workshop at The Hive coworking space.</text>
+      <text x="0" y="52" fill="#374151" font-size="13">Learn the fundamentals of fresh egg pasta, hand-rolling techniques, and three classic sauces:</text>
+      <text x="0" y="72" fill="#374151" font-size="13">Cacio e Pepe, Pomodoro, and Pesto. All ingredients and tools provided. Take home your creations!</text>
+
+      <g transform="translate(0, 100)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">What you'll learn:</text>
+        <g transform="translate(0, 24)" fill="#374151" font-size="13">
+          <text x="0" y="0">✓ Making fresh egg pasta dough from scratch</text>
+          <text x="0" y="22">✓ Hand-rolling techniques (no machine needed)</text>
+          <text x="0" y="44">✓ Three classic Italian sauces</text>
+          <text x="0" y="66">✓ Plating &amp; presentation tips</text>
+          <text x="0" y="88">✓ Wine pairing basics (with tasting)</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 240)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">What's included:</text>
+        <g transform="translate(0, 24)" fill="#374151" font-size="13">
+          <text x="0" y="0">• All ingredients &amp; tools</text>
+          <text x="0" y="20">• Apron to keep</text>
+          <text x="0" y="40">• Recipe booklet (digital)</text>
+          <text x="0" y="60">• Wine tasting (1 glass)</text>
+          <text x="0" y="80">• SBT minted: Italian Pasta Beginner</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right: Attendees -->
+  <g transform="translate(900, 470)">
+    <rect width="460" height="380" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">👥 Going (12/20)</text>
+
+      <g transform="translate(0, 24)">
+        <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨‍🍳</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="600">Chef Marco</text>
+        <text x="56" y="36" fill="#9CA3AF" font-size="11">Host · 8 events</text>
+        <g transform="translate(380, 14)">
+          <rect width="60" height="22" rx="11" fill="#F59E0B"/>
+          <text x="30" y="15" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">HOST</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 70)">
+        <circle cx="20" cy="20" r="20" fill="#FCE7F3"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="600">Anna Kim</text>
+        <text x="56" y="36" fill="#9CA3AF" font-size="11">Seoul, KR</text>
+      </g>
+
+      <g transform="translate(0, 116)">
+        <circle cx="20" cy="20" r="20" fill="#D1FAE5"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="600">David Lee</text>
+        <text x="56" y="36" fill="#9CA3AF" font-size="11">Singapore</text>
+      </g>
+
+      <g transform="translate(0, 162)">
+        <circle cx="20" cy="20" r="20" fill="#FED7AA"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="600">Sara Mohammed</text>
+        <text x="56" y="36" fill="#9CA3AF" font-size="11">Dubai, UAE</text>
+      </g>
+
+      <g transform="translate(0, 208)">
+        <circle cx="20" cy="20" r="20" fill="#FBCFE8"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="600">Liam O'Brien</text>
+        <text x="56" y="36" fill="#9CA3AF" font-size="11">Dublin, IE</text>
+      </g>
+
+      <g transform="translate(0, 254)">
+        <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">+ 7 more</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="600">+ 7 going</text>
+        <text x="56" y="36" fill="#9CA3AF" font-size="11">View all</text>
+      </g>
+
+      <g transform="translate(0, 320)">
+        <rect width="412" height="40" rx="20" fill="transparent" stroke="#10B981" stroke-width="2"/>
+        <text x="206" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">📤 Invite friends</text>
+      </g>
+    </g>
+  </g>
+</svg>

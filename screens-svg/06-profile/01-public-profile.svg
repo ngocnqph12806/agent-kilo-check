@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Top nav -->
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Hero -->
+  <rect x="0" y="72" width="1440" height="240" fill="url(#heroGrad)"/>
+
+  <!-- Avatar -->
+  <g transform="translate(120, 132)">
+    <circle cx="80" cy="80" r="80" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="4"/>
+    <circle cx="80" cy="80" r="72" fill="#FEF3C7"/>
+    <text x="80" y="110" text-anchor="middle" font-size="64">👨‍🍳</text>
+    <g transform="translate(132, 132)">
+      <circle cx="20" cy="20" r="20" fill="#10B981" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="20" y="26" text-anchor="middle" fill="#FFFFFF" font-size="14">✓</text>
+    </g>
+  </g>
+
+  <g transform="translate(320, 200)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="32" font-weight="800">Chef Marco Rossi</text>
+    <text x="0" y="32" fill="#A7F3D0" font-size="16">🍝 Italian Cooking · 🇮🇹 Rome, Italy</text>
+    <g transform="translate(0, 50)">
+      <rect width="80" height="22" rx="11" fill="rgba(255,255,255,0.2)"/>
+      <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600">✓ Verified</text>
+    </g>
+    <g transform="translate(88, 50)">
+      <rect width="120" height="22" rx="11" fill="rgba(255,255,255,0.2)"/>
+      <text x="60" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600">⭐ Top Mentor</text>
+    </g>
+  </g>
+
+  <!-- Action buttons -->
+  <g transform="translate(960, 220)">
+    <rect width="160" height="48" rx="24" fill="#FFFFFF"/>
+    <text x="80" y="30" text-anchor="middle" fill="#10B981" font-size="14" font-weight="700">Message</text>
+  </g>
+  <g transform="translate(1140, 220)">
+    <rect width="200" height="48" rx="24" fill="url(#ctaGrad)"/>
+    <text x="100" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Book a session →</text>
+  </g>
+
+  <!-- Stats cards -->
+  <g transform="translate(80, 340)">
+    <rect width="280" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <text x="20" y="36" fill="#9CA3AF" font-size="11" font-weight="600">⭐ RATING</text>
+    <text x="20" y="68" fill="#111827" font-size="28" font-weight="800">4.9</text>
+    <text x="20" y="86" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐</text>
+    <text x="160" y="68" fill="#6B7280" font-size="11">245 reviews</text>
+  </g>
+  <g transform="translate(380, 340)">
+    <rect width="280" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <text x="20" y="36" fill="#9CA3AF" font-size="11" font-weight="600">📚 SESSIONS</text>
+    <text x="20" y="68" fill="#111827" font-size="28" font-weight="800">1,247</text>
+    <text x="160" y="68" fill="#6B7280" font-size="11">completed</text>
+  </g>
+  <g transform="translate(680, 340)">
+    <rect width="280" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <text x="20" y="36" fill="#9CA3AF" font-size="11" font-weight="600">🏅 SBTs ISSUED</text>
+    <text x="20" y="68" fill="#111827" font-size="28" font-weight="800">892</text>
+    <text x="160" y="68" fill="#6B7280" font-size="11">verified skills</text>
+  </g>
+  <g transform="translate(980, 340)">
+    <rect width="380" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <text x="20" y="36" fill="#9CA3AF" font-size="11" font-weight="600">⚡ RESPONSE TIME</text>
+    <text x="20" y="68" fill="#111827" font-size="28" font-weight="800">&lt; 1 hour</text>
+    <text x="160" y="68" fill="#6B7280" font-size="11">avg reply</text>
+  </g>
+
+  <!-- Main content -->
+  <g transform="translate(80, 460)">
+    <!-- About -->
+    <rect width="800" height="220" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">About me</text>
+      <text x="0" y="32" fill="#374151" font-size="13">Professional chef with 12+ years of experience in authentic Italian cuisine.</text>
+      <text x="0" y="54" fill="#374151" font-size="13">Trained in Bologna, worked across Rome and Milan. I love teaching pasta-making,</text>
+      <text x="0" y="76" fill="#374151" font-size="13">regional sauces, and traditional techniques that bring Italy to your kitchen.</text>
+      <text x="0" y="98" fill="#374151" font-size="13">Fluent in English and Italian. Happy to teach beginners to advanced cooks.</text>
+      <g transform="translate(0, 120)">
+        <text x="0" y="14" fill="#6B7280" font-size="11" font-weight="600">SPEAKS</text>
+        <g transform="translate(70, 0)">
+          <rect width="80" height="24" rx="12" fill="#ECFDF5"/>
+          <text x="40" y="16" text-anchor="middle" fill="#047857" font-size="11">🇮🇹 Italian</text>
+        </g>
+        <g transform="translate(160, 0)">
+          <rect width="80" height="24" rx="12" fill="#ECFDF5"/>
+          <text x="40" y="16" text-anchor="middle" fill="#047857" font-size="11">🇬🇧 English</text>
+        </g>
+        <g transform="translate(250, 0)">
+          <rect width="80" height="24" rx="12" fill="#ECFDF5"/>
+          <text x="40" y="16" text-anchor="middle" fill="#047857" font-size="11">🇪🇸 Spanish</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Skills -->
+  <g transform="translate(80, 700)">
+    <rect width="800" height="160" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">Teaches (4 skills)</text>
+
+      <g transform="translate(0, 24)">
+        <rect width="180" height="100" rx="10" fill="#FEF3C7"/>
+        <text x="20" y="36" font-size="32">🍝</text>
+        <text x="20" y="62" fill="#92400E" font-size="13" font-weight="700">Italian Pasta</text>
+        <text x="20" y="80" fill="#92400E" font-size="11">Expert · 450 sessions</text>
+      </g>
+      <g transform="translate(192, 24)">
+        <rect width="180" height="100" rx="10" fill="#DBEAFE"/>
+        <text x="20" y="36" font-size="32">🍕</text>
+        <text x="20" y="62" fill="#1E40AF" font-size="13" font-weight="700">Pizza Napoletana</text>
+        <text x="20" y="80" fill="#1E40AF" font-size="11">Expert · 280 sessions</text>
+      </g>
+      <g transform="translate(384, 24)">
+        <rect width="180" height="100" rx="10" fill="#FCE7F3"/>
+        <text x="20" y="36" font-size="32">🥘</text>
+        <text x="20" y="62" fill="#9D174D" font-size="13" font-weight="700">Risotto Mastery</text>
+        <text x="20" y="80" fill="#9D174D" font-size="11">Advanced · 180 sessions</text>
+      </g>
+      <g transform="translate(576, 24)">
+        <rect width="180" height="100" rx="10" fill="#D1FAE5"/>
+        <text x="20" y="36" font-size="32">🍰</text>
+        <text x="20" y="62" fill="#047857" font-size="13" font-weight="700">Italian Desserts</text>
+        <text x="20" y="80" fill="#047857" font-size="11">Intermediate · 90 sessions</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right column reviews -->
+  <g transform="translate(900, 460)">
+    <rect width="460" height="400" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 24)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="800">Recent reviews</text>
+      <g transform="translate(0, 24)">
+        <rect width="420" height="100" rx="10" fill="#F9FAFB"/>
+        <text x="16" y="28" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐</text>
+        <text x="16" y="48" fill="#111827" font-size="12" font-weight="700">"Patient and clear!"</text>
+        <text x="16" y="64" fill="#374151" font-size="11">Marco walked me through every step. Made pasta from scratch for the first time!</text>
+        <text x="16" y="84" fill="#9CA3AF" font-size="10">— Anna K. · 2 days ago · Italian Pasta</text>
+      </g>
+      <g transform="translate(0, 144)">
+        <rect width="420" height="100" rx="10" fill="#F9FAFB"/>
+        <text x="16" y="28" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐</text>
+        <text x="16" y="48" fill="#111827" font-size="12" font-weight="700">"Worth every seed"</text>
+        <text x="16" y="64" fill="#374151" font-size="11">Authentic techniques, regional tips. Now I make proper cacio e pepe at home.</text>
+        <text x="16" y="84" fill="#9CA3AF" font-size="10">— David L. · 5 days ago · Italian Pasta</text>
+      </g>
+      <g transform="translate(0, 264)">
+        <rect width="420" height="100" rx="10" fill="#F9FAFB"/>
+        <text x="16" y="28" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐</text>
+        <text x="16" y="48" fill="#111827" font-size="12" font-weight="700">"Excellent mentor"</text>
+        <text x="16" y="64" fill="#374151" font-size="11">Loved the cultural context! Will book again for pizza making.</text>
+        <text x="16" y="84" fill="#9CA3AF" font-size="10">— Sara M. · 1 week ago · Risotto</text>
+      </g>
+    </g>
+  </g>
+</svg>

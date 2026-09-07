@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="dangerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+  <rect width="1440" height="72" fill="#FFFFFF"/>
+  <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+  <g transform="translate(80, 22)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+  </g>
+
+  <g transform="translate(720, 220)" text-anchor="middle">
+    <g>
+      <circle cx="0" cy="0" r="80" fill="#FEE2E2"/>
+      <circle cx="0" cy="0" r="68" fill="url(#dangerGrad)"/>
+      <text x="0" y="20" text-anchor="middle" fill="#FFFFFF" font-size="80" font-weight="700">!</text>
+    </g>
+  </g>
+
+  <g transform="translate(720, 380)" text-anchor="middle">
+    <text x="0" y="0" fill="#991B1B" font-size="48" font-weight="800">500</text>
+    <text x="0" y="40" fill="#111827" font-size="28" font-weight="800">Something went wrong</text>
+    <text x="0" y="76" fill="#6B7280" font-size="14">Our team has been notified. Please try again in a moment.</text>
+    <text x="0" y="100" fill="#6CA3AF" font-size="12" font-family="monospace">Error ID: ERR-2026-09-07-A7F3D2</text>
+
+    <g transform="translate(-180, 150)">
+      <rect width="180" height="48" rx="24" fill="url(#ctaGrad)"/>
+      <text x="90" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">↻ Try again</text>
+    </g>
+    <g transform="translate(20, 150)">
+      <rect width="160" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="30" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Status page</text>
+    </g>
+  </g>
+
+  <g transform="translate(720, 700)" text-anchor="middle">
+    <text x="0" y="0" fill="#9CA3AF" font-size="11">If this persists, contact <tspan fill="#10B981" font-weight="600">support@skillseed.app</tspan></text>
+  </g>
+</svg>
