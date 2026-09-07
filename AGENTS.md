@@ -58,6 +58,8 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 | Chi phí cloud theo phase | `SKILLSEED_CLOUD_COST.md` |
 | Pitch / narrative | `SKILLSEED_PITCH_DECK.md` |
 | **CI/CD pipeline / lint / test** | **`docs/CI_CD.md`** ← xem mục 4 (CI gate) |
+| **DB schema visual (ERD Mermaid)** | **`docs/ERD.md`** ← bảng, quan hệ, indexes |
+| **Booking / Wallet / Session state machine** | **`docs/STATE_MACHINES.md`** ← transitions hợp lệ, anti-patterns |
 
 **Quy tắc xung đột:** Phase spec hiện tại thắng master doc. Phát hiện mâu thuẫn → flag trong `tasks.md` của phase, KHÔNG tự sửa.
 
