@@ -201,7 +201,7 @@
 
 ### Frontend — Onboarding
 
-- [ ] [T-M70] **[P0]** Implement `/onboarding` 7-step wizard
+- [x] [T-M70] **[P0]** Implement `/onboarding` 7-step wizard
   - Progress bar, autosave mỗi step
   - Step 1: Skills I can teach
   - Step 2: Skills I want to learn
