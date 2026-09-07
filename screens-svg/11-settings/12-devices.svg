@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Settings · Devices</text>
+  </g>
+
+  <!-- Sidebar -->
+  <g transform="translate(80, 180)">
+    <rect width="240" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)" fill="#374151" font-size="14">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">ACCOUNT</text>
+      <g transform="translate(0, 20)"><text x="20" y="20">👤 Account</text></g>
+      <g transform="translate(0, 60)"><text x="20" y="20">🔔 Notifications</text></g>
+      <g transform="translate(0, 100)"><text x="20" y="20">🔒 Privacy</text></g>
+      <g transform="translate(0, 140)"><text x="20" y="20">💳 Payments</text></g>
+      <g transform="translate(0, 200)" fill="#9CA3AF"><text x="0" y="0" font-size="11" font-weight="700">PREFERENCES</text></g>
+      <g transform="translate(0, 220)"><text x="20" y="20">🌍 Locale</text></g>
+      <g transform="translate(0, 260)"><text x="20" y="20">🔗 Wallet</text></g>
+      <g transform="translate(0, 300)"><text x="20" y="20">📅 Calendars</text></g>
+      <g transform="translate(0, 340)">
+        <rect width="200" height="36" rx="8" fill="#ECFDF5"/>
+        <text x="20" y="23" fill="#10B981" font-size="13" font-weight="600">💻 Devices</text>
+      </g>
+      <g transform="translate(0, 400)" fill="#9CA3AF"><text x="0" y="0" font-size="11" font-weight="700">DATA</text></g>
+      <g transform="translate(0, 420)"><text x="20" y="20">📥 Export</text></g>
+      <g transform="translate(0, 460)"><text x="20" y="20">🚫 Blocked</text></g>
+      <g transform="translate(0, 500)"><text x="20" y="20" fill="#EF4444" font-weight="600">⚠️ Delete account</text></g>
+    </g>
+  </g>
+
+  <!-- Main -->
+  <g transform="translate(360, 180)">
+    <rect width="1000" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(40, 40)">
+      <text x="0" y="0" fill="#111827" font-size="24" font-weight="800">💻 Active sessions &amp; devices</text>
+      <text x="0" y="28" fill="#6B7280" font-size="13">Manage where you're logged in. Sign out of devices you don't recognize.</text>
+
+      <g transform="translate(0, 80)">
+        <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">CURRENT SESSION (1)</text>
+
+        <g transform="translate(0, 16)">
+          <rect width="920" height="80" rx="10" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+          <g transform="translate(20, 16)">
+            <rect width="48" height="48" rx="8" fill="#FFFFFF" stroke="#10B981"/>
+            <text x="24" y="34" text-anchor="middle" font-size="24">💻</text>
+          </g>
+          <g transform="translate(80, 18)">
+            <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">MacBook Pro · Chrome 119</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">📍 Ho Chi Minh City, Vietnam · 14.169.x.x</text>
+            <g transform="translate(0, 46)">
+              <rect width="60" height="18" rx="9" fill="#10B981"/>
+              <text x="30" y="13" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">ACTIVE NOW</text>
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <g transform="translate(0, 200)">
+        <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">OTHER SESSIONS (3)</text>
+
+        <g transform="translate(0, 16)">
+          <rect width="920" height="64" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 8)">
+            <rect width="48" height="48" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="24" y="34" text-anchor="middle" font-size="24">📱</text>
+          </g>
+          <g transform="translate(80, 14)">
+            <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">iPhone 15 Pro · iOS 17</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">📍 Ho Chi Minh City · Last active 2h ago</text>
+          </g>
+          <g transform="translate(800, 18)">
+            <rect width="100" height="32" rx="16" fill="transparent" stroke="#EF4444"/>
+            <text x="50" y="22" text-anchor="middle" fill="#EF4444" font-size="12" font-weight="600">Sign out</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 96)">
+          <rect width="920" height="64" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 8)">
+            <rect width="48" height="48" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="24" y="34" text-anchor="middle" font-size="24">💻</text>
+          </g>
+          <g transform="translate(80, 14)">
+            <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Windows 11 · Edge 119</text>
+            <text x="0" y="32" fill="#6B7280" font-size="11">📍 Hanoi, Vietnam · Last active yesterday</text>
+          </g>
+          <g transform="translate(800, 18)">
+            <rect width="100" height="32" rx="16" fill="transparent" stroke="#EF4444"/>
+            <text x="50" y="22" text-anchor="middle" fill="#EF4444" font-size="12" font-weight="600">Sign out</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 176)">
+          <rect width="920" height="64" rx="10" fill="#FEE2E2" stroke="#EF4444"/>
+          <g transform="translate(20, 8)">
+            <rect width="48" height="48" rx="8" fill="#FFFFFF" stroke="#EF4444"/>
+            <text x="24" y="34" text-anchor="middle" font-size="24">❓</text>
+          </g>
+          <g transform="translate(80, 14)">
+            <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Unknown · Safari 17</text>
+            <text x="0" y="32" fill="#991B1B" font-size="11">📍 Singapore · Last active 3 days ago · ⚠️ Suspicious location</text>
+          </g>
+          <g transform="translate(800, 18)">
+            <rect width="100" height="32" rx="16" fill="#EF4444"/>
+            <text x="50" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">Sign out</text>
+          </g>
+        </g>
+      </g>
+
+      <g transform="translate(0, 520)">
+        <rect width="920" height="60" rx="10" fill="#FEE2E2"/>
+        <text x="20" y="32" fill="#991B1B" font-size="13" font-weight="700">⚠️ Suspicious activity detected?</text>
+        <text x="20" y="50" fill="#7F1D1D" font-size="11">Sign out of all sessions and change your password immediately.</text>
+        <g transform="translate(700, 14)">
+          <rect width="200" height="32" rx="16" fill="#EF4444"/>
+          <text x="100" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">🚪 Sign out all sessions</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
