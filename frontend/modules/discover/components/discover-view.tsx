@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { useLogoutMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { SkillsAutocomplete } from '@/modules/skills/components/skills-autocomplete';
 import { cn } from '@/lib/utils';
 
@@ -16,30 +15,14 @@ export function DiscoverView() {
   const [filters, setFilters] = useState<DiscoverFilters>({});
   const [filtersOpen, setFiltersOpen] = useState(false);
   const discover = useDiscover(filters);
-  const logout = useLogoutMutation();
 
   return (
     <main className="container mx-auto max-w-6xl py-6">
-      <header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Discover teachers</h1>
-          <p className="text-sm text-muted-foreground">
-            People who can teach skills you want to learn.
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button asChild variant="outline" size="sm">
-            <a href="/wallet">Wallet</a>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => logout.mutate()}
-            disabled={logout.isPending}
-          >
-            Sign out
-          </Button>
-        </div>
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold tracking-tight">Discover teachers</h1>
+        <p className="text-sm text-muted-foreground">
+          People who can teach skills you want to learn.
+        </p>
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
