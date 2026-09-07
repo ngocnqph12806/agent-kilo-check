@@ -5,6 +5,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+import { WhiteboardPanel } from './whiteboard-panel';
+
 import type { SessionRoom } from '../lib/session-api';
 
 type DailyCallInstance = {
@@ -37,6 +39,7 @@ export function VideoCall({ room, onLeave }: VideoCallProps) {
   const [muted, setMuted] = useState(false);
   const [cameraOff, setCameraOff] = useState(false);
   const [sharing, setSharing] = useState(false);
+  const [whiteboardOpen, setWhiteboardOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -185,6 +188,15 @@ export function VideoCall({ room, onLeave }: VideoCallProps) {
         <Button
           type="button"
           size="sm"
+          variant={whiteboardOpen ? 'default' : 'secondary'}
+          onClick={() => setWhiteboardOpen((v) => !v)}
+          disabled={status !== 'joined'}
+        >
+          {whiteboardOpen ? 'Hide whiteboard' : 'Whiteboard'}
+        </Button>
+        <Button
+          type="button"
+          size="sm"
           variant="destructive"
           onClick={leave}
           className={cn(status === 'joined' ? '' : 'opacity-80')}
@@ -192,6 +204,10 @@ export function VideoCall({ room, onLeave }: VideoCallProps) {
           Leave session
         </Button>
       </div>
+      <WhiteboardPanel
+        open={whiteboardOpen}
+        onClose={() => setWhiteboardOpen(false)}
+      />
     </div>
   );
 }
