@@ -215,7 +215,7 @@
 
 ### Discover & Search
 
-- [ ] [T-M80] **[P0]** Backend: GET `/discover` (filter-based matching)
+- [x] [T-M80] **[P0]** Backend: GET `/discover` (filter-based matching)
   - Query: JOIN user_skills_offered với user_skills_wanted của current user
   - Filter: skill_id (from wanted), language, country, min_rating
   - Sort: rating DESC, sessions_completed DESC
