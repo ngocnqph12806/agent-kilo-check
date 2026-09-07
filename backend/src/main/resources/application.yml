@@ -92,6 +92,14 @@ storage:
     public-base-url: ${R2_PUBLIC_BASE_URL:}
     region: ${R2_REGION:auto}
 
+session:
+  daily:
+    api-key: ${DAILY_API_KEY:}
+    api-base: ${DAILY_API_BASE:https://api.daily.co/v1}
+    default-room-ttl-minutes: ${DAILY_ROOM_TTL_MINUTES:60}
+    grace-minutes: ${DAILY_GRACE_MINUTES:30}
+    webhook-signing-key: ${DAILY_WEBHOOK_SIGNING_KEY:}
+
 logging:
   level:
     root: INFO
