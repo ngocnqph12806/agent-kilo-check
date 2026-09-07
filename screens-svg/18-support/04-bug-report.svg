@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🐛 Report a Bug</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Help us fix it! Detailed reports get faster fixes.</text>
+  </g>
+
+  <g transform="translate(80, 200)">
+    <rect width="800" height="640" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <g transform="translate(40, 32)">
+      <!-- Title -->
+      <g>
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Bug title</text>
+        <rect x="0" y="14" width="720" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#9CA3AF" font-size="13">e.g. "Video call freezes after 10 minutes"</text>
+      </g>
+
+      <!-- Severity -->
+      <g transform="translate(0, 90)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Severity</text>
+        <g transform="translate(0, 14)">
+          <rect width="160" height="36" rx="18" fill="#10B981"/>
+          <text x="80" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">🟢 Low</text>
+        </g>
+        <g transform="translate(170, 14)">
+          <rect width="160" height="36" rx="18" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
+          <text x="80" y="22" text-anchor="middle" fill="#92400E" font-size="12" font-weight="600">🟡 Medium</text>
+        </g>
+        <g transform="translate(340, 14)">
+          <rect width="160" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="80" y="22" text-anchor="middle" fill="#374151" font-size="12">🟠 High</text>
+        </g>
+        <g transform="translate(510, 14)">
+          <rect width="160" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="80" y="22" text-anchor="middle" fill="#374151" font-size="12">🔴 Critical</text>
+        </g>
+      </g>
+
+      <!-- Area -->
+      <g transform="translate(0, 180)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Where does the bug occur?</text>
+        <g transform="translate(0, 14)">
+          <rect width="180" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="90" y="22" text-anchor="middle" fill="#374151" font-size="12">📱 Mobile app</text>
+        </g>
+        <g transform="translate(190, 14)">
+          <rect width="180" height="36" rx="18" fill="#10B981"/>
+          <text x="90" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">💻 Web app</text>
+        </g>
+        <g transform="translate(380, 14)">
+          <rect width="180" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+          <text x="90" y="22" text-anchor="middle" fill="#374151" font-size="12">🥽 VR session</text>
+        </g>
+      </g>
+
+      <!-- Description -->
+      <g transform="translate(0, 270)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Steps to reproduce</text>
+        <rect x="0" y="14" width="720" height="140" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#9CA3AF" font-size="13">1. Open booking modal</text>
+        <text x="16" y="62" fill="#9CA3AF" font-size="13">2. Select a mentor and time</text>
+        <text x="16" y="82" fill="#9CA3AF" font-size="13">3. Click confirm</text>
+        <text x="16" y="102" fill="#9CA3AF" font-size="13">4. Expected: confirmation toast</text>
+        <text x="16" y="122" fill="#9CA3AF" font-size="13">5. Actual: error modal appears</text>
+      </g>
+
+      <!-- Expected -->
+      <g transform="translate(0, 440)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Expected vs Actual behavior</text>
+        <rect x="0" y="14" width="720" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="12">Expected: Booking succeeds, payment processed</text>
+        <text x="16" y="62" fill="#111827" font-size="12">Actual: "Payment failed" error appears</text>
+      </g>
+
+      <!-- Auto-collected -->
+      <g transform="translate(0, 560)">
+        <rect width="720" height="40" rx="10" fill="#F0FDF4" stroke="#A7F3D0"/>
+        <text x="20" y="26" fill="#047857" font-size="11" font-weight="700">🔍 Auto-collected: Chrome 119 · macOS 14 · SkillSeed v2.4.1 · Session #SK-12847</text>
+      </g>
+
+      <g transform="translate(0, 620)">
+        <rect width="180" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+        <text x="90" y="28" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Save draft</text>
+      </g>
+      <g transform="translate(196, 620)">
+        <rect width="200" height="44" rx="22" fill="url(#ctaGrad)"/>
+        <text x="100" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">🐛 Submit bug</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Side panel -->
+  <g transform="translate(900, 200)">
+    <rect width="460" height="640" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(28, 28)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">💡 Tips for great bug reports</text>
+
+      <g transform="translate(0, 24)">
+        <rect width="404" height="100" rx="10" fill="#ECFDF5"/>
+        <g transform="translate(16, 16)">
+          <text x="0" y="14" fill="#047857" font-size="13" font-weight="700">✓ Be specific</text>
+          <text x="0" y="34" fill="#065F46" font-size="12">"Login fails" → "Login fails with 2FA on Safari"</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 140)">
+        <rect width="404" height="100" rx="10" fill="#DBEAFE"/>
+        <g transform="translate(16, 16)">
+          <text x="0" y="14" fill="#1E40AF" font-size="13" font-weight="700">📝 Include steps</text>
+          <text x="0" y="34" fill="#1E3A8A" font-size="12">Step-by-step reproduction helps us find the cause</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 256)">
+        <rect width="404" height="100" rx="10" fill="#FEF3C7"/>
+        <g transform="translate(16, 16)">
+          <text x="0" y="14" fill="#92400E" font-size="13" font-weight="700">📷 Add screenshots</text>
+          <text x="0" y="34" fill="#78350F" font-size="12">A picture is worth a thousand words</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 380)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="800">📊 SLA</text>
+        <g transform="translate(0, 16)" fill="#374151" font-size="12">
+          <text x="0" y="0">🟢 Low: 14 days</text>
+          <text x="0" y="22">🟡 Medium: 7 days</text>
+          <text x="0" y="44">🟠 High: 3 days</text>
+          <text x="0" y="66">🔴 Critical: 24h</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 500)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="800">🎁 Bounties</text>
+        <text x="0" y="20" fill="#374151" font-size="12">Critical bugs earn you 50 seeds reward + lifetime Pro!</text>
+      </g>
+    </g>
+  </g>
+</svg>
