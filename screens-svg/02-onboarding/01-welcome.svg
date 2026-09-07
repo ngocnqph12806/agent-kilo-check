@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ECFDF5"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#heroGrad)"/>
+
+  <!-- Top bar -->
+  <g transform="translate(80, 40)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="18" font-weight="700">SkillSeed</text>
+    <text x="1280" y="20" fill="#6B7280" font-size="14" text-anchor="end">Step 1 of 7</text>
+    <text x="1280" y="40" fill="#10B981" font-size="13" font-weight="600" text-anchor="end">14% complete</text>
+  </g>
+
+  <!-- Progress -->
+  <g transform="translate(80, 100)">
+    <rect width="1280" height="6" rx="3" fill="#E5E7EB"/>
+    <rect width="183" height="6" rx="3" fill="url(#ctaGrad)"/>
+  </g>
+
+  <!-- Center content -->
+  <g transform="translate(720, 280)" text-anchor="middle">
+    <!-- Big illustration -->
+    <g transform="translate(-160, 0)">
+      <circle cx="60" cy="60" r="60" fill="#10B981" opacity="0.15"/>
+      <text x="60" y="90" text-anchor="middle" font-size="80">🌱</text>
+    </g>
+    <g transform="translate(0, 0)">
+      <circle cx="60" cy="60" r="60" fill="#3B82F6" opacity="0.15"/>
+      <text x="60" y="90" text-anchor="middle" font-size="80">🤝</text>
+    </g>
+    <g transform="translate(160, 0)">
+      <circle cx="60" cy="60" r="60" fill="#F59E0B" opacity="0.15"/>
+      <text x="60" y="90" text-anchor="middle" font-size="80">🎯</text>
+    </g>
+
+    <text x="0" y="200" fill="#111827" font-size="56" font-weight="800">Welcome to SkillSeed!</text>
+    <text x="0" y="260" fill="#4B5563" font-size="20">Let's set up your profile in 7 quick steps.</text>
+    <text x="0" y="290" fill="#4B5563" font-size="20">It takes about 3 minutes.</text>
+  </g>
+
+  <!-- Feature highlights -->
+  <g transform="translate(280, 640)">
+    <rect width="280" height="100" rx="12" fill="#FFFFFF"/>
+    <text x="30" y="40" font-size="28">🎁</text>
+    <text x="80" y="36" fill="#111827" font-size="14" font-weight="700">Get 30 free seeds</text>
+    <text x="80" y="58" fill="#6B7280" font-size="12">Start with starter pack</text>
+    <text x="80" y="78" fill="#6B7280" font-size="12">to book your first session</text>
+  </g>
+
+  <g transform="translate(580, 640)">
+    <rect width="280" height="100" rx="12" fill="#FFFFFF"/>
+    <text x="30" y="40" font-size="28">🤖</text>
+    <text x="80" y="36" fill="#111827" font-size="14" font-weight="700">AI-matched partners</text>
+    <text x="80" y="58" fill="#6B7280" font-size="12">Personalized based on your</text>
+    <text x="80" y="78" fill="#6B7280" font-size="12">goals, style, and schedule</text>
+  </g>
+
+  <g transform="translate(880, 640)">
+    <rect width="280" height="100" rx="12" fill="#FFFFFF"/>
+    <text x="30" y="40" font-size="28">🛡️</text>
+    <text x="80" y="36" fill="#111827" font-size="14" font-weight="700">Verified community</text>
+    <text x="80" y="58" fill="#6B7280" font-size="12">Soulbound Tokens + ratings</text>
+    <text x="80" y="78" fill="#6B7280" font-size="12">ensure trusted connections</text>
+  </g>
+
+  <!-- Buttons -->
+  <g transform="translate(540, 800)">
+    <rect width="160" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+    <text x="80" y="30" text-anchor="middle" fill="#6B7280" font-size="14">Skip for now</text>
+  </g>
+  <g transform="translate(740, 800)">
+    <rect width="160" height="48" rx="24" fill="url(#ctaGrad)"/>
+    <text x="80" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Get Started →</text>
+  </g>
+</svg>
