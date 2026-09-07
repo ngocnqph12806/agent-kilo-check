@@ -227,7 +227,7 @@
 - [x] [T-M83] **[P0]** Frontend: User profile page `/users/{id}`
   - Public profile view + offered skills + reviews
   - "Book Session" CTA
-- [ ] [T-M84] **[P1]** Frontend: Search bar với autocomplete skills
+- [x] [T-M84] **[P1]** Frontend: Search bar với autocomplete skills
 
 ### Email & Notification
 

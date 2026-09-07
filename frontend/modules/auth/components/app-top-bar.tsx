@@ -5,21 +5,23 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useLogoutMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { NotificationBell } from '@/modules/notifications/components/notification-bell';
+import { TopBarSearch } from '@/modules/skills/components/top-bar-search';
 
 export function AppTopBar() {
   const logout = useLogoutMutation();
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
-      <div className="container mx-auto flex max-w-6xl items-center justify-between px-4 py-2">
+      <div className="container mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2">
         <Link href="/discover" className="text-sm font-semibold tracking-tight">
           SkillSeed
         </Link>
-        <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm">
+        <div className="flex flex-1 items-center justify-end gap-2">
+          <TopBarSearch />
+          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
             <Link href="/discover">Discover</Link>
           </Button>
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
             <Link href="/wallet">Wallet</Link>
           </Button>
           <NotificationBell />
@@ -36,3 +38,4 @@ export function AppTopBar() {
     </header>
   );
 }
+
