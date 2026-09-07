@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#FFFFFF"/>
+
+  <!-- Header -->
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#F3F4F6"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(680, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0">Discover</text>
+      <text x="100" y="0">How it works</text>
+      <text x="220" y="0">Pricing</text>
+      <text x="300" y="0">About</text>
+      <text x="370" y="0" fill="#10B981" font-weight="600">Blog</text>
+    </g>
+    <g transform="translate(1240, 22)">
+      <rect width="120" height="40" rx="20" fill="url(#ctaGrad)"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Get Started</text>
+    </g>
+  </g>
+
+  <!-- Hero -->
+  <g transform="translate(720, 130)" text-anchor="middle">
+    <text x="0" y="0" fill="#111827" font-size="48" font-weight="800">SkillSeed Blog</text>
+    <text x="0" y="40" fill="#6B7280" font-size="18">Stories, guides, and insights on peer learning</text>
+  </g>
+
+  <!-- Categories -->
+  <g transform="translate(440, 220)">
+    <rect width="80" height="36" rx="18" fill="#10B981"/>
+    <text x="40" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">All</text>
+    <g transform="translate(96, 0)">
+      <rect width="100" height="36" rx="18" fill="#F3F4F6"/>
+      <text x="50" y="23" text-anchor="middle" fill="#374151" font-size="13">Product</text>
+    </g>
+    <g transform="translate(212, 0)">
+      <rect width="100" height="36" rx="18" fill="#F3F4F6"/>
+      <text x="50" y="23" text-anchor="middle" fill="#374151" font-size="13">Guides</text>
+    </g>
+    <g transform="translate(328, 0)">
+      <rect width="100" height="36" rx="18" fill="#F3F4F6"/>
+      <text x="50" y="23" text-anchor="middle" fill="#374151" font-size="13">Community</text>
+    </g>
+    <g transform="translate(444, 0)">
+      <rect width="120" height="36" rx="18" fill="#F3F4F6"/>
+      <text x="60" y="23" text-anchor="middle" fill="#374151" font-size="13">Engineering</text>
+    </g>
+  </g>
+
+  <!-- Featured -->
+  <g transform="translate(140, 290)">
+    <rect width="1160" height="200" rx="12" fill="#ECFDF5" filter="url(#cardShadow)"/>
+    <g transform="translate(280, 30)">
+      <rect width="200" height="140" rx="8" fill="#10B981"/>
+      <text x="100" y="80" text-anchor="middle" font-size="48">🌱</text>
+    </g>
+    <g transform="translate(520, 50)">
+      <g transform="translate(0, 0)">
+        <rect width="80" height="22" rx="11" fill="#10B981"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600">FEATURED</text>
+      </g>
+      <text x="0" y="50" fill="#111827" font-size="22" font-weight="700">How Soulbound Tokens verify real skills</text>
+      <text x="0" y="80" fill="#6B7280" font-size="14">Why we built a passport for verified expertise — and how it works.</text>
+      <text x="0" y="120" fill="#9CA3AF" font-size="12">By Linh Nguyen · Sep 5, 2026 · 7 min read</text>
+    </g>
+  </g>
+
+  <!-- Posts grid -->
+  <g transform="translate(140, 520)">
+    <!-- Card 1 -->
+    <g>
+      <rect width="370" height="220" rx="12" fill="#FFFFFF" stroke="#E5E7EB" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="370" height="100" rx="12" fill="#DBEAFE"/>
+      <text x="185" y="65" text-anchor="middle" font-size="40">💡</text>
+      <g transform="translate(20, 120)">
+        <text x="0" y="0" fill="#1E40AF" font-size="11" font-weight="600">GUIDES</text>
+        <text x="0" y="22" fill="#111827" font-size="15" font-weight="700">5 tips for first-time mentors</text>
+        <text x="0" y="60" fill="#6B7280" font-size="11">Aug 28, 2026 · 4 min read</text>
+      </g>
+    </g>
+    <!-- Card 2 -->
+    <g transform="translate(395, 0)">
+      <rect width="370" height="220" rx="12" fill="#FFFFFF" stroke="#E5E7EB" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="370" height="100" rx="12" fill="#FEF3C7"/>
+      <text x="185" y="65" text-anchor="middle" font-size="40">🌍</text>
+      <g transform="translate(20, 120)">
+        <text x="0" y="0" fill="#92400E" font-size="11" font-weight="600">COMMUNITY</text>
+        <text x="0" y="22" fill="#111827" font-size="15" font-weight="700">Cross-border learning: 4 stories</text>
+        <text x="0" y="60" fill="#6B7280" font-size="11">Aug 22, 2026 · 6 min read</text>
+      </g>
+    </g>
+    <!-- Card 3 -->
+    <g transform="translate(790, 0)">
+      <rect width="370" height="220" rx="12" fill="#FFFFFF" stroke="#E5E7EB" filter="url(#cardShadow)"/>
+      <rect x="0" y="0" width="370" height="100" rx="12" fill="#FCE7F3"/>
+      <text x="185" y="65" text-anchor="middle" font-size="40">🛠️</text>
+      <g transform="translate(20, 120)">
+        <text x="0" y="0" fill="#9D174D" font-size="11" font-weight="600">ENGINEERING</text>
+        <text x="0" y="22" fill="#111827" font-size="15" font-weight="700">Inside our AI matching engine</text>
+        <text x="0" y="60" fill="#6B7280" font-size="11">Aug 14, 2026 · 8 min read</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Pagination -->
+  <g transform="translate(720, 800)" text-anchor="middle">
+    <text x="0" y="0" fill="#6B7280" font-size="13">← 1 2 3 ... 12 →</text>
+  </g>
+</svg>
