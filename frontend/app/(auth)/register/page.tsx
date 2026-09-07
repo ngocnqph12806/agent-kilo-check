@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 
 import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormError, useFormServerError } from '@/modules/auth/components/form-status';
+import { GoogleSignInButton } from '@/modules/auth/components/google-sign-in-button';
 import { useRegisterMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { registerSchema, type RegisterInput } from '@/modules/auth/lib/schemas';
 
@@ -112,6 +113,17 @@ export default function RegisterPage() {
           {registerMutation.isPending || isSubmitting ? 'Creating account…' : 'Create account'}
         </Button>
       </form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <div className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-card px-2 text-muted-foreground">Or sign up with</span>
+        </div>
+      </div>
+
+      <GoogleSignInButton mode="signup" />
     </AuthShell>
   );
 }

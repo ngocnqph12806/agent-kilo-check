@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 
 import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormError, useFormServerError } from '@/modules/auth/components/form-status';
+import { GoogleSignInButton } from '@/modules/auth/components/google-sign-in-button';
 import { useLoginMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { loginSchema, type LoginInput } from '@/modules/auth/lib/schemas';
 
@@ -119,6 +120,8 @@ export function LoginForm() {
           <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
+
+      <GoogleSignInButton mode="signin" />
 
       <Button variant="outline" type="button" className="w-full" onClick={() => router.push('/register')}>
         Create a new account
