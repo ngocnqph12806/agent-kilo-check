@@ -192,7 +192,7 @@
 
 ### Testing & QA
 
-- [ ] [T-M60] **[P0]** Unit tests cho service layer (JUnit 5 + Mockito)
+- [x] [T-M60] **[P0]** Unit tests cho service layer (JUnit 5 + Mockito)
   - AuthService, UserService, SkillService
   - Coverage ≥ 60% cho các service đã viết
 - [ ] [T-M61] **[P0]** Integration test cho /auth endpoints (Testcontainers Postgres)
