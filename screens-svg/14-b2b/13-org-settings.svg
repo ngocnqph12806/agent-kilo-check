@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+      <text x="160" y="20" fill="#9CA3AF" font-size="13">· Acme Corp</text>
+    </g>
+    <g transform="translate(540, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0">📊 Dashboard</text>
+      <text x="120" y="0">👥 Members</text>
+      <text x="240" y="0">📈 Reports</text>
+      <text x="360" y="0">⚙️ Org Settings</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 100)" fill="#374151" font-size="13">
+    <text x="0" y="0">Org Settings</text>
+    <text x="100" y="0">›</text>
+    <text x="115" y="0" fill="#10B981" font-weight="600">Organization</text>
+  </g>
+
+  <g transform="translate(80, 140)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Organization Settings</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Manage your workspace, branding, and policies</text>
+  </g>
+
+  <!-- Tab nav -->
+  <g transform="translate(80, 220)">
+    <rect width="200" height="40" rx="20" fill="#10B981"/>
+    <text x="100" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">📋 General</text>
+    <g transform="translate(210, 0)">
+      <rect width="160" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="26" text-anchor="middle" fill="#374151" font-size="13">🎨 Branding</text>
+    </g>
+    <g transform="translate(380, 0)">
+      <rect width="160" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="26" text-anchor="middle" fill="#374151" font-size="13">⚖️ Policies</text>
+    </g>
+    <g transform="translate(550, 0)">
+      <rect width="160" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="26" text-anchor="middle" fill="#374151" font-size="13">🔔 Notifications</text>
+    </g>
+    <g transform="translate(720, 0)">
+      <rect width="160" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="26" text-anchor="middle" fill="#374151" font-size="13">🗑️ Delete</text>
+    </g>
+  </g>
+
+  <!-- Main -->
+  <g transform="translate(80, 290)">
+    <rect width="1280" height="560" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📋 General information</text>
+
+      <g transform="translate(0, 36)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Organization name</text>
+        <rect x="0" y="10" width="608" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="38" fill="#111827" font-size="14">Acme Corp</text>
+      </g>
+
+      <g transform="translate(632, 36)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Slug / URL</text>
+        <rect x="0" y="10" width="608" height="44" rx="10" fill="#F9FAFB"/>
+        <text x="16" y="38" fill="#374151" font-size="13" font-family="monospace">skillseed.app/acme-corp</text>
+      </g>
+
+      <g transform="translate(0, 116)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Industry</text>
+        <rect x="0" y="10" width="608" height="44" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+        <text x="16" y="38" fill="#111827" font-size="14">🏢 Technology</text>
+        <text x="588" y="38" fill="#10B981" font-size="13">▼</text>
+      </g>
+
+      <g transform="translate(632, 116)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Company size</text>
+        <rect x="0" y="10" width="608" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="38" fill="#111827" font-size="14">50-200 employees</text>
+        <text x="588" y="38" fill="#9CA3AF" font-size="13">▼</text>
+      </g>
+
+      <g transform="translate(0, 196)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Description</text>
+        <rect x="0" y="10" width="1216" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="36" fill="#111827" font-size="13">Acme Corp is a leading technology company focused on AI-powered solutions</text>
+        <text x="16" y="56" fill="#111827" font-size="13">for enterprise customers across Southeast Asia.</text>
+        <text x="16" y="80" fill="#9CA3AF" font-size="10">201 / 500 characters</text>
+      </g>
+
+      <g transform="translate(0, 316)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">Policies &amp; permissions</text>
+      </g>
+
+      <g transform="translate(0, 360)">
+        <rect width="608" height="60" rx="10" fill="#F9FAFB"/>
+        <text x="20" y="24" fill="#111827" font-size="13" font-weight="600">Content moderation</text>
+        <text x="20" y="44" fill="#6B7280" font-size="11">Auto-scan all messages and posts for inappropriate content</text>
+        <g transform="translate(548, 18)">
+          <rect width="48" height="24" rx="12" fill="#10B981"/>
+          <circle cx="36" cy="12" r="10" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <g transform="translate(632, 360)">
+        <rect width="608" height="60" rx="10" fill="#F9FAFB"/>
+        <text x="20" y="24" fill="#111827" font-size="13" font-weight="600">Auto-approve new skills</text>
+        <text x="20" y="44" fill="#6B7280" font-size="11">Skip manual review for verified Pro+ members</text>
+        <g transform="translate(548, 18)">
+          <rect width="48" height="24" rx="12" fill="#E5E7EB"/>
+          <circle cx="12" cy="12" r="10" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <!-- Save -->
+      <g transform="translate(0, 480)">
+        <rect width="180" height="44" rx="22" fill="url(#ctaGrad)"/>
+        <text x="90" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">💾 Save changes</text>
+      </g>
+    </g>
+  </g>
+</svg>
