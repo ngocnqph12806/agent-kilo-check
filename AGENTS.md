@@ -5,7 +5,7 @@
 >
 > **Nguyên tắc vàng:** File này là **navigation layer** — trỏ đến spec gốc. **KHÔNG duplicate nội dung spec.** Khi có conflict, spec thắng.
 
-**Last updated:** 2026-09-07 (added docs/MANUAL_E2E_AUTH.md cross-link for T-M62)
+**Last updated:** 2026-09-07 (added docs/MANUAL_E2E_VIDEO_RATING.md + docs/LOAD_TEST_VIDEO.md cross-links for T-M180/T-M181)
 **Maintainer:** SkillSeed Product Team
 
 ---
@@ -61,6 +61,8 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 | **DB schema visual (ERD Mermaid)** | **`docs/ERD.md`** ← bảng, quan hệ, indexes |
 | **Booking / Wallet / Session state machine** | **`docs/STATE_MACHINES.md`** ← transitions hợp lệ, anti-patterns |
 | **Manual e2e auth test plan (T-M62)** | **`docs/MANUAL_E2E_AUTH.md`** ← sign-off checklist cho staging |
+| **Manual e2e video + rating test plan (T-M180)** | **`docs/MANUAL_E2E_VIDEO_RATING.md`** ← end-to-end operator checklist cho video call + rating + auto-rate |
+| **Load test plan for 50 concurrent video sessions (T-M181)** | **`docs/LOAD_TEST_VIDEO.md`** ← k6 script + pass criteria cho CI integration |
 
 **Quy tắc xung đột:** Phase spec hiện tại thắng master doc. Phát hiện mâu thuẫn → flag trong `tasks.md` của phase, KHÔNG tự sửa.
 
