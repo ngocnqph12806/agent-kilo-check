@@ -1,9 +1,11 @@
 package com.skillseed.auth.controller;
 
 import com.skillseed.auth.dto.AuthTokenResponse;
+import com.skillseed.auth.dto.ForgotPasswordRequest;
 import com.skillseed.auth.dto.LoginRequest;
 import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
+import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.SimpleMessageResponse;
 import com.skillseed.auth.dto.VerifyEmailRequest;
 import com.skillseed.auth.service.AuthService;
@@ -95,6 +97,27 @@ public class AuthController {
             authService.logout(req.refreshToken());
         }
         return ResponseEntity.ok(new SimpleMessageResponse("Logged out"));
+    }
+
+    @PostMapping("/forgot-password")
+    @Operation(summary = "Request a password-reset email (always returns success)")
+    public ResponseEntity<SimpleMessageResponse> forgotPassword(
+            @Valid @RequestBody ForgotPasswordRequest req) {
+        authService.forgotPassword(req);
+        return ResponseEntity.ok(new SimpleMessageResponse(
+                "If the email exists, a reset link has been sent"));
+    }
+
+    @PostMapping("/reset-password")
+    @Operation(summary = "Reset the password using a single-use token")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Password updated"),
+            @ApiResponse(responseCode = "400", description = "Token invalid or expired")
+    })
+    public ResponseEntity<SimpleMessageResponse> resetPassword(
+            @Valid @RequestBody ResetPasswordRequest req) {
+        authService.resetPassword(req);
+        return ResponseEntity.ok(new SimpleMessageResponse("Password updated"));
     }
 
     private String clientKey(HttpServletRequest request) {

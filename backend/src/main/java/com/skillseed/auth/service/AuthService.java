@@ -1,9 +1,11 @@
 package com.skillseed.auth.service;
 
 import com.skillseed.auth.dto.AuthTokenResponse;
+import com.skillseed.auth.dto.ForgotPasswordRequest;
 import com.skillseed.auth.dto.LoginRequest;
 import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
+import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.UserSummaryResponse;
 import com.skillseed.auth.exception.AuthException;
 import com.skillseed.notification.EmailSender;
@@ -194,6 +196,66 @@ public class AuthService {
             return;
         }
         tokenStore.delete(PURPOSE_REFRESH_TOKEN, refreshToken);
+    }
+
+    /**
+     * Always returns a generic "If the email exists..." message to avoid
+     * leaking account existence. If the account is an email+password user
+     * and exists, a single-use reset token is generated (TTL 1h) and a
+     * reset email is queued.
+     */
+    public void forgotPassword(ForgotPasswordRequest req) {
+        String email = req.email().trim().toLowerCase(Locale.ROOT);
+        Optional<User> maybeUser = userRepository.findByEmail(email);
+        if (maybeUser.isEmpty() || maybeUser.get().getPasswordHash() == null) {
+            log.info("forgotPassword: no actionable account for email");
+            return;
+        }
+        User user = maybeUser.get();
+        String token = TokenGenerator.generate();
+        tokenStore.store(PURPOSE_PASSWORD_RESET, token, user.getId().toString(),
+                Duration.ofHours(1));
+        String link = publicBaseUrl + "/reset-password/" + token;
+        String subject = "Reset your SkillSeed password";
+        String text = "We received a request to reset your SkillSeed password.\n\n"
+                + "Open the link below to choose a new password (expires in 1 hour):\n"
+                + link + "\n\n"
+                + "If you did not request this, you can safely ignore this email.";
+        String html = "<p>We received a request to reset your SkillSeed password.</p>"
+                + "<p>Open the link below to choose a new password (expires in 1 hour):</p>"
+                + "<p><a href=\"" + link + "\">Reset password</a></p>"
+                + "<p>If you did not request this, you can safely ignore this email.</p>";
+        try {
+            emailSender.send(user.getEmail(), subject, html, text);
+        } catch (Exception ex) {
+            log.warn("Failed to send reset email to {}: {}", user.getEmail(), ex.getMessage());
+        }
+    }
+
+    /**
+     * Consumes a reset token and updates the user's password hash. The
+     * token is single-use; subsequent calls with the same token fail with
+     * {@code INVALID_TOKEN}.
+     */
+    @Transactional
+    public void resetPassword(ResetPasswordRequest req) {
+        Optional<String> payload = tokenStore.consume(PURPOSE_PASSWORD_RESET, req.token());
+        if (payload.isEmpty()) {
+            throw AuthException.badRequest("INVALID_TOKEN",
+                    "Reset token is invalid or expired");
+        }
+        UUID userId = UUID.fromString(payload.get());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> AuthException.badRequest("USER_NOT_FOUND",
+                        "User no longer exists"));
+        if (user.getPasswordHash() == null || user.getPasswordHash().isBlank()) {
+            throw AuthException.badRequest("OAUTH_ONLY_ACCOUNT",
+                    "This account uses social sign-in");
+        }
+        user.setPasswordHash(passwordEncoder.encode(req.newPassword()));
+        user.setUpdatedAt(Instant.now());
+        userRepository.save(user);
+        log.info("Password reset for user id={}", userId);
     }
 
     private AuthException invalidCredentials() {
