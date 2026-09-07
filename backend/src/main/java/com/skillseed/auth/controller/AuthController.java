@@ -3,6 +3,8 @@ package com.skillseed.auth.controller;
 import com.skillseed.auth.dto.AuthTokenResponse;
 import com.skillseed.auth.dto.ForgotPasswordRequest;
 import com.skillseed.auth.dto.LoginRequest;
+import com.skillseed.auth.dto.OAuthAppleRequest;
+import com.skillseed.auth.dto.OAuthGoogleRequest;
 import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.ResetPasswordRequest;
@@ -118,6 +120,28 @@ public class AuthController {
             @Valid @RequestBody ResetPasswordRequest req) {
         authService.resetPassword(req);
         return ResponseEntity.ok(new SimpleMessageResponse("Password updated"));
+    }
+
+    @PostMapping("/oauth/google")
+    @Operation(summary = "Sign in or register with a Google id_token (T-M26)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Authenticated; JWT pair returned"),
+            @ApiResponse(responseCode = "400", description = "id_token invalid or provider disabled")
+    })
+    public ResponseEntity<AuthTokenResponse> oauthGoogle(
+            @Valid @RequestBody OAuthGoogleRequest req) {
+        return ResponseEntity.ok(authService.loginWithGoogle(req));
+    }
+
+    @PostMapping("/oauth/apple")
+    @Operation(summary = "Sign in or register with an Apple id_token (T-M27, P1)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Authenticated; JWT pair returned"),
+            @ApiResponse(responseCode = "400", description = "id_token invalid or provider disabled")
+    })
+    public ResponseEntity<AuthTokenResponse> oauthApple(
+            @Valid @RequestBody OAuthAppleRequest req) {
+        return ResponseEntity.ok(authService.loginWithApple(req));
     }
 
     private String clientKey(HttpServletRequest request) {

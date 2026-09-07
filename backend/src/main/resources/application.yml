@@ -70,6 +70,13 @@ notification:
     api-key: ${RESEND_API_KEY:}
     from: ${RESEND_FROM:no-reply@skillseed.app}
 
+oauth:
+  google:
+    client-id: ${GOOGLE_OAUTH_CLIENT_ID:}
+  apple:
+    client-id: ${APPLE_OAUTH_CLIENT_ID:}
+    issuer: ${APPLE_OAUTH_ISSUER:https://appleid.apple.com}
+
 logging:
   level:
     root: INFO

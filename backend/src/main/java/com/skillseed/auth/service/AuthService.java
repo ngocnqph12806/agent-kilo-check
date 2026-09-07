@@ -3,6 +3,8 @@ package com.skillseed.auth.service;
 import com.skillseed.auth.dto.AuthTokenResponse;
 import com.skillseed.auth.dto.ForgotPasswordRequest;
 import com.skillseed.auth.dto.LoginRequest;
+import com.skillseed.auth.dto.OAuthAppleRequest;
+import com.skillseed.auth.dto.OAuthGoogleRequest;
 import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.ResetPasswordRequest;
@@ -15,6 +17,7 @@ import com.skillseed.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,9 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * High-level auth operations: register, email verification, login, refresh,
@@ -50,6 +56,7 @@ public class AuthService {
     private final TokenStore tokenStore;
     private final EmailSender emailSender;
     private final RateLimiter rateLimiter;
+    private final Map<String, OAuthIdTokenVerifier> oauthVerifiers;
     private final String publicBaseUrl;
 
     public AuthService(
@@ -59,6 +66,7 @@ public class AuthService {
             TokenStore tokenStore,
             EmailSender emailSender,
             RateLimiter rateLimiter,
+            ObjectProvider<List<OAuthIdTokenVerifier>> oauthProvider,
             @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -66,6 +74,10 @@ public class AuthService {
         this.tokenStore = tokenStore;
         this.emailSender = emailSender;
         this.rateLimiter = rateLimiter;
+        this.oauthVerifiers = oauthProvider.getIfAvailable(List::of).stream()
+                .collect(Collectors.toMap(
+                        v -> v.configSummary().get("provider"),
+                        v -> v));
         this.publicBaseUrl = publicBaseUrl;
     }
 
@@ -256,6 +268,69 @@ public class AuthService {
         user.setUpdatedAt(Instant.now());
         userRepository.save(user);
         log.info("Password reset for user id={}", userId);
+    }
+
+    /**
+     * Verifies a Google {@code id_token} and signs the corresponding user
+     * in. If no user with the same email exists a new one is created
+     * (auth_provider = GOOGLE, verified = true since Google has verified
+     * the email).
+     */
+    @Transactional
+    public AuthTokenResponse loginWithGoogle(OAuthGoogleRequest req) {
+        return oauthLogin("google", req.idToken(), null);
+    }
+
+    /**
+     * Verifies an Apple {@code id_token} and signs the corresponding user
+     * in. {@code fullName} is only available from Apple during the first
+     * sign-in and is applied to newly created accounts.
+     */
+    @Transactional
+    public AuthTokenResponse loginWithApple(OAuthAppleRequest req) {
+        return oauthLogin("apple", req.idToken(), req.fullName());
+    }
+
+    private AuthTokenResponse oauthLogin(String provider, String idToken, String fallbackName) {
+        OAuthIdTokenVerifier verifier = oauthVerifiers.get(provider);
+        if (verifier == null) {
+            throw AuthException.badRequest("OAUTH_PROVIDER_DISABLED",
+                    provider + " sign-in is not configured");
+        }
+        OAuthIdTokenVerifier.VerifiedProfile profile = verifier.verify(idToken);
+        Optional<User> existing = userRepository.findByEmail(profile.email());
+        User user = existing.orElseGet(() -> createOAuthUser(provider, profile, fallbackName));
+        if (user.getAuthProvider() == AuthProvider.EMAIL) {
+            user.setAuthProvider(AuthProvider.valueOf(provider.toUpperCase(Locale.ROOT)));
+        }
+        if (!user.isVerified()) {
+            user.setVerified(true);
+        }
+        user.setUpdatedAt(Instant.now());
+        userRepository.save(user);
+        return issueTokens(user);
+    }
+
+    private User createOAuthUser(String provider,
+            OAuthIdTokenVerifier.VerifiedProfile profile, String fallbackName) {
+        if (profile.email() == null || profile.email().isBlank()) {
+            throw AuthException.badRequest("EMAIL_REQUIRED",
+                    provider + " did not return a verifiable email");
+        }
+        User user = new User(UUID.randomUUID(), profile.email().toLowerCase(Locale.ROOT),
+                profile.name() != null && !profile.name().isBlank() ? profile.name()
+                        : (fallbackName != null && !fallbackName.isBlank()
+                                ? fallbackName
+                                : profile.email().split("@")[0]));
+        user.setAuthProvider(AuthProvider.valueOf(provider.toUpperCase(Locale.ROOT)));
+        user.setVerified(true);
+        user.setVerificationLevel((short) 0);
+        user.setPasswordHash(null);
+        user.setCreatedAt(Instant.now());
+        user.setUpdatedAt(Instant.now());
+        userRepository.save(user);
+        log.info("Created OAuth user id={} provider={}", user.getId(), provider);
+        return user;
     }
 
     private AuthException invalidCredentials() {
