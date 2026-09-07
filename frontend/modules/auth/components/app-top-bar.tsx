@@ -22,6 +22,9 @@ export function AppTopBar() {
             <Link href="/discover">Discover</Link>
           </Button>
           <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
+            <Link href="/bookings">Bookings</Link>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
             <Link href="/wallet">Wallet</Link>
           </Button>
           <NotificationBell />
