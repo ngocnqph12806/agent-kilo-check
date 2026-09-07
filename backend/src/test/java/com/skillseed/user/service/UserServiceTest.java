@@ -4,11 +4,14 @@ import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.skill.domain.Skill;
 import com.skillseed.shared.domain.SkillCategory;
 import com.skillseed.user.domain.User;
+import com.skillseed.user.domain.UserAvailability;
 import com.skillseed.user.domain.UserSkillOffered;
 import com.skillseed.user.dto.CurrentUserResponse;
+import com.skillseed.user.dto.FreeSlotResponse;
 import com.skillseed.user.dto.PublicUserResponse;
 import com.skillseed.user.dto.UpdateProfileRequest;
 import com.skillseed.user.exception.UserException;
+import com.skillseed.user.repository.UserAvailabilityRepository;
 import com.skillseed.user.repository.UserRepository;
 import com.skillseed.user.repository.UserSkillOfferedRepository;
 import com.skillseed.user.repository.UserSkillWantedRepository;
@@ -20,6 +23,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,6 +47,7 @@ class UserServiceTest {
     private UserSkillOfferedRepository offeredRepo;
     private UserSkillWantedRepository wantedRepo;
     private SeedWalletRepository walletRepo;
+    private UserAvailabilityRepository availabilityRepo;
     private UserService service;
 
     @BeforeEach
@@ -51,7 +56,9 @@ class UserServiceTest {
         offeredRepo = mock(UserSkillOfferedRepository.class);
         wantedRepo = mock(UserSkillWantedRepository.class);
         walletRepo = mock(SeedWalletRepository.class);
-        service = new UserService(userRepository, offeredRepo, wantedRepo, walletRepo);
+        availabilityRepo = mock(UserAvailabilityRepository.class);
+        service = new UserService(userRepository, offeredRepo, wantedRepo, walletRepo,
+                availabilityRepo);
     }
 
     private static User activeUser(UUID id) {
@@ -247,5 +254,37 @@ class UserServiceTest {
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
         service.markOnboardingComplete(id);
         verify(userRepository, never()).save(any());
+    }
+
+    @Test
+    void getFreeSlotsReturnsEmptyForUserWithoutAvailability() {
+        UUID id = UUID.randomUUID();
+        when(userRepository.findById(id)).thenReturn(Optional.of(activeUser(id)));
+        when(availabilityRepo.findByUserId(id)).thenReturn(List.of());
+
+        List<FreeSlotResponse> slots = service.getFreeSlots(id, Instant.now(), 7);
+
+        assertThat(slots).isEmpty();
+    }
+
+    @Test
+    void getFreeSlotsExpandsWeeklyRulesIntoConcreteUtcSlots() {
+        UUID id = UUID.randomUUID();
+        User user = activeUser(id);
+        user.setTimezone("UTC");
+        UserAvailability rule = new UserAvailability(
+                UUID.randomUUID(), user, (short) 0,
+                LocalTime.of(9, 0), LocalTime.of(12, 0), "UTC");
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(availabilityRepo.findByUserId(id)).thenReturn(List.of(rule));
+
+        Instant from = Instant.parse("2026-01-04T00:00:00Z");
+        List<FreeSlotResponse> slots = service.getFreeSlots(id, from, 8);
+
+        assertThat(slots).hasSize(2);
+        for (FreeSlotResponse slot : slots) {
+            assertThat(slot.sourceDow()).isZero();
+            assertThat(slot.timezone()).isEqualTo("UTC");
+        }
     }
 }
