@@ -1,0 +1,68 @@
+# Pre-commit hooks for SkillSeed
+# Cài đặt: `pip install pre-commit && pre-commit install`
+# Chạy thủ công: `pre-commit run --all-files`
+# Reference: AGENTS.md §5
+
+# Cú pháp xem https://pre-commit.com
+repos:
+
+  # ---------- CATCH TYPOS / SECRETS ----------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^\.kilo/
+      - id: end-of-file-fixer
+        exclude: ^\.kilo/
+      - id: check-yaml
+      - id: check-json
+      - id: check-xml
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=500"]
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: detect-private-key
+        name: "🚨 Detect private keys / secrets"
+      - id: no-commit-to-branch
+        name: "🚨 No direct commit to main"
+        args: ["--branch=main", "--pattern=^feat/|^fix/|^chore/|^docs/|^ci/|^refactor/|^test/"]
+
+  # ---------- MARKDOWN ----------
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.14.0
+    hooks:
+      - id: markdownlint-cli2
+        args: []
+        exclude: |
+          (?x)^(
+              \.kilo/.*|
+              node_modules/.*
+          )$
+
+  # ---------- DOCS CROSS-LINK CHECK ----------
+  - repo: https://github.com/pre-commit/pre-commit
+    rev: v4.0.1
+    hooks:
+      - id: check-merge-conflict
+
+  # ---------- LOCAL PROJECT HOOKS ----------
+  - repo: local
+    hooks:
+
+      # Secrets scanner (catches things pre-commit-hooks miss)
+      - id: secrets-scan
+        name: "🚨 Scan for secrets (gitleaks)"
+        entry: bash -c 'which gitleaks > /dev/null && gitleaks protect --staged --no-banner --redact || echo "gitleaks not installed — skipping"'
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
+
+      # No .env files
+      - id: no-env-files
+        name: "🚨 Block .env files"
+        entry: bash -c 'git diff --cached --name-only | grep -E "\.env$|\.env\.[^.]+$" && echo "ERROR: .env files must not be committed" && exit 1 || exit 0'
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]

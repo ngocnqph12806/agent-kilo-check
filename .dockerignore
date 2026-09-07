@@ -1,0 +1,53 @@
+# Files / directories to exclude when building Docker image.
+
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# Docs (trừ README cần cho npm metadata)
+README.md
+docs
+mockups
+screens-svg
+.kiro
+.kilo
+*.md
+LICENSE
+
+# CI
+.github
+
+# IDE
+.idea
+.vscode
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+**/target
+**/build
+**/dist
+**/out
+**/.next
+**/node_modules
+**/__pycache__
+**/*.log
+
+# Secrets (NEVER include)
+**/.env
+**/.env.*
+**/secrets.*
+**/*credentials*
+**/*.pem
+**/*.key
+
+# Tests (không cần trong production image)
+**/src/test
+**/src/**/test
+**/*Test.java
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts

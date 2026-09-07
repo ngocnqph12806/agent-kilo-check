@@ -1,0 +1,48 @@
+# ---------- BUILD STAGE ----------
+# Multi-stage build để giữ image cuối cùng nhỏ gọn.
+
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /workspace
+
+# Cache Maven deps
+COPY backend/pom.xml backend/pom.xml
+COPY backend/.mvn backend/.mvn 2>/dev/null || true
+COPY backend/mvnw backend/mvnw 2>/dev/null || true
+RUN cd backend && \
+    if [ -f mvnw ]; then chmod +x mvnw && ./mvnw dependency:go-offline -B || true; \
+    else apk add --no-cache maven && mvn dependency:go-offline -B || true; \
+    fi
+
+# Copy source và build
+COPY backend/src backend/src
+RUN cd backend && \
+    if [ -f mvnw ]; then ./mvnw -B -DskipTests package; \
+    else mvn -B -DskipTests package; \
+    fi
+
+# ---------- RUNTIME STAGE ----------
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# Non-root user cho security
+RUN addgroup -S skillseed && adduser -S skillseed -G skillseed
+USER skillseed
+
+# Copy artifact từ builder
+COPY --from=builder /workspace/backend/target/*.jar app.jar
+
+# Health check (Spring Actuator)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD wget -q --spider http://localhost:8080/actuator/health || exit 1
+
+EXPOSE 8080
+
+# JVM tuning cho container (CPU/memory từ env)
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Djava.security.egd=file:/dev/./urandom"
+
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar app.jar"]
+
+# Metadata
+LABEL org.opencontainers.image.title="skillseed-backend"
+LABEL org.opencontainers.image.source="https://github.com/skillseed/skillseed"
+LABEL org.opencontainers.image.licenses="UNLICENSED"

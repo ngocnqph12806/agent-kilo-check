@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+  <!-- Generated code -->
+  <suppress files="[\\/]generated[\\/]" checks=".*"/>
+  <suppress files="[\\/]target[\\/]" checks=".*"/>
+
+  <!-- Flyway migrations (SQL embedded trong Java) -->
+  <suppress files="[\\/]db[\\/]migration[\\/]" checks=".*"/>
+
+  <!-- OpenAPI generated DTOs -->
+  <suppress files="[\\/]openapi[\\/]" checks=".*"/>
+
+  <!-- Main class cho Spring Boot Application -->
+  <suppress files="Application\.java$" checks="JavadocMethod"/>
+
+  <!-- Configuration classes (Spring @Configuration) — đôi khi cần public constructor -->
+  <suppress files=".*Config\.java$" checks="HideUtilityClassConstructor"/>
+</suppressions>

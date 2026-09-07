@@ -57,6 +57,7 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 | Code skeleton gợi ý (file/folder) | `SKILLSEED_CODE_SKELETON.md` |
 | Chi phí cloud theo phase | `SKILLSEED_CLOUD_COST.md` |
 | Pitch / narrative | `SKILLSEED_PITCH_DECK.md` |
+| **CI/CD pipeline / lint / test** | **`docs/CI_CD.md`** ← xem mục 4 (CI gate) |
 
 **Quy tắc xung đột:** Phase spec hiện tại thắng master doc. Phát hiện mâu thuẫn → flag trong `tasks.md` của phase, KHÔNG tự sửa.
 
@@ -138,7 +139,7 @@ mockups/{category}/{NN}-{screen-name}.md
 ### 6.1. Mặc định được phép
 - Đọc toàn bộ repo (`.md`, source, config).
 - Chạy lệnh read-only: `ls`, `cat`, `grep`, `git status`, `git diff`, `git log`.
-- Khi `src/` tồn tại: `mvn test`, `mvn checkstyle:check`, `pnpm test`, `pnpm lint`, `pnpm typecheck`.
+- Khi `src/` tồn tại: `mvn test`, `mvn checkstyle:check`, `npm test`, `npm run lint`, `npm run typecheck`. Xem `docs/CI_CD.md` §4 để biết lệnh đầy đủ.
 - Tạo/sửa file trong `mockups/`, `screens-svg/`, `.kiro/specs/**/requirements.md`, `.kiro/specs/**/tasks.md`.
 - Scaffold code theo `SKILLSEED_CODE_SKELETON.md` khi được yêu cầu rõ.
 
@@ -167,8 +168,8 @@ mockups/{category}/{NN}-{screen-name}.md
 
 ### 7.1. Cho code change (khi `src/` tồn tại)
 - [ ] Code đúng theo `.kiro/specs/phase-N/{requirements,design}.md`
-- [ ] Lint pass (`mvn checkstyle:check` / `pnpm lint`)
-- [ ] Type check pass (`mvn compile` / `pnpm typecheck`)
+- [ ] Lint pass (`mvn checkstyle:check` / `npm run lint`)
+- [ ] Type check pass (`mvn compile` / `npm run typecheck`)
 - [ ] Test pass: unit + integration, coverage không giảm
 - [ ] API mới/sửa → OpenAPI + `SKILLSEED_API_AND_DB.md` đã update
 - [ ] DB schema đổi → Flyway migration mới + test rollback

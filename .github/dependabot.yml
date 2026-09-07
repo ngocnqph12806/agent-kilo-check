@@ -1,0 +1,84 @@
+# Dependabot — auto-update dependencies
+# Tạo PR tự động khi có bản mới, giúp project luôn an toàn.
+
+version: 2
+
+updates:
+  # ---------- BACKEND (Maven) ----------
+  - package-ecosystem: "maven"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "skillseed/backend-lead"
+    labels:
+      - "dependencies"
+      - "backend"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot:*"
+          - "org.springframework:*"
+      test:
+        patterns:
+          - "org.testcontainers:*"
+          - "org.junit:*"
+          - "org.mockito:*"
+
+  # ---------- FRONTEND (npm) ----------
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "skillseed/frontend-lead"
+    labels:
+      - "dependencies"
+      - "frontend"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      next:
+        patterns:
+          - "next*"
+          - "@next/*"
+      react:
+        patterns:
+          - "react*"
+          - "@types/react*"
+      ui:
+        patterns:
+          - "@radix-ui/*"
+          - "tailwindcss*"
+
+  # ---------- GITHUB ACTIONS ----------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"
+      - "ci"
+
+  # ---------- DOCKER (khi có Dockerfile base) ----------
+  - package-ecosystem: "docker"
+    directory: "/docker"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"
+      - "docker"
