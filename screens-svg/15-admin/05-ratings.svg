@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⭐ Ratings Moderation</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Review flagged reviews for content policy</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(80, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⏳ PENDING</text>
+      <text x="0" y="50" fill="#F59E0B" font-size="32" font-weight="800">8</text>
+    </g>
+  </g>
+  <g transform="translate(390, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">✓ APPROVED (7d)</text>
+      <text x="0" y="50" fill="#10B981" font-size="32" font-weight="800">147</text>
+    </g>
+  </g>
+  <g transform="translate(700, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">🗑️ REMOVED (7d)</text>
+      <text x="0" y="50" fill="#EF4444" font-size="32" font-weight="800">12</text>
+    </g>
+  </g>
+  <g transform="translate(1010, 200)">
+    <rect width="350" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⏱️ AVG REVIEW TIME</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">1h 28m</text>
+      <text x="0" y="76" fill="#10B981" font-size="11">−12% vs last month</text>
+    </g>
+  </g>
+
+  <!-- Review card -->
+  <g transform="translate(80, 330)">
+    <rect width="1280" height="160" rx="12" bg fill="#FFFFFF" border filter="url(#cardShadow)"/>
+    <rect width="6" height="160" rx="3" fill="#EF4444"/>
+
+    <g transform="translate(32, 24)">
+      <g transform="translate(0, 0)">
+        <rect width="60" height="22" rx="11" bg fill="#EF4444"/>
+        <text x="30" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">⚠️ FLAGGED</text>
+      </g>
+      <g transform="translate(68, 0)">
+        <rect width="80" height="22" rx="11" bg fill="#FEF3C7"/>
+        <text x="40" y="16" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">⚠️ Inappropriate</text>
+      </g>
+      <text x="0" y="40" fill="#111827" font-size="16" font-weight="700">"Coach Marco was OK but made several political comments about Vietnam that were off-topic and uncomfortable."</text>
+      <g transform="translate(0, 60)" fill="#6B7280" font-size="11">
+        <text x="0" y="0">⭐⭐⭐⭐⭐ 5/5 · Session #SK-2026-09-1042 · ⚠️ Auto-flagged for: <tspan fill="#EF4444" font-weight="700">off_topic_keywords</tspan></text>
+        <text x="0" y="18">👤 By: <tspan fill="#111827" font-weight="600">Mai T.</tspan> · Mentor: <tspan fill="#111827" font-weight="600">Marco R.</tspan> · Sep 8, 09:15</text>
+      </g>
+    </g>
+
+    <g transform="translate(900, 50)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#EF4444" stroke-width="2"/>
+      <text x="60" y="26" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">🗑️ Remove</text>
+    </g>
+    <g transform="translate(1030, 50)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="60" y="26" text-anchor="middle" fill="#374151" font-size="13">Edit</text>
+    </g>
+    <g transform="translate(1160, 50)">
+      <rect width="120" height="40" rx="20" fill="url(#ctaGrad)"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">✓ Approve</text>
+    </g>
+  </g>
+
+  <!-- Review card 2 -->
+  <g transform="translate(80, 510)">
+    <rect width="1280" height="120" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <rect width="6" height="120" rx="3" fill="#F59E0B"/>
+
+    <g transform="translate(32, 24)">
+      <g>
+        <rect width="80" height="22" rx="11" bg fill="#F59E0B"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">⚠️ SPAM</text>
+      </g>
+      <text x="0" y="40" fill="#111827" font-size="14" font-weight="700">"Check out my crypto signals at www.spam-link.example for guaranteed 100x returns!"</text>
+      <g transform="translate(0, 60)" fill="#6B7280" font-size="11">
+        <text x="0" y="0">⭐ 1/5 · Session #SK-2026-09-0998 · ⚠️ Auto-flagged: <tspan fill="#F59E0B" font-weight="700">external_link + crypto_keywords</tspan></text>
+        <text x="0" y="18">👤 By: <tspan fill="#111827" font-weight="600">spam_1234</tspan> · Mentor: <tspan fill="#111827" font-weight="600">Anna K.</tspan> · Sep 8, 11:42</text>
+      </g>
+    </g>
+
+    <g transform="translate(900, 40)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#EF4444" stroke-width="2"/>
+      <text x="60" y="26" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">🗑️ Remove</text>
+    </g>
+    <g transform="translate(1030, 40)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="60" y="26" text-anchor="middle" fill="#374151" font-size="13">Ban user</text>
+    </g>
+    <g transform="translate(1160, 40)">
+      <rect width="120" height="40" rx="20" bg fill="url(#ctaGrad)"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">✓ Approve</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 660)">
+    <rect width="1280" height="60" rx="12" bg fill="#FEF3C7"/>
+    <g transform="translate(24, 12)">
+      <text x="0" y="14" fill="#92400E" font-size="13" font-weight="700">🤖 Auto-moderator stats</text>
+      <text x="0" y="32" fill="#78350F" font-size="12">98% accuracy · 1.2% false positive rate · Reviewed 14,520 reviews this month</text>
+    </g>
+  </g>
+</svg>
