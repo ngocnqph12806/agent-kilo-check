@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">📅 All Bookings</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">847,520 total sessions · live across all users</text>
+  </g>
+
+  <!-- Filters -->
+  <g transform="translate(80, 200)">
+    <rect width="320" height="44" rx="22" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="20" y="28" fill="#9CA3AF" font-size="13">🔍 Search bookings...</text>
+    <g transform="translate(330, 0)">
+      <rect width="160" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">📅 Last 7d</text>
+    </g>
+    <g transform="translate(500, 0)">
+      <rect width="160" height="44" rx="22" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">All status</text>
+    </g>
+    <g transform="translate(670, 0)">
+      <rect width="160" height="44" rx="22" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">All types</text>
+    </g>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(80, 280)">
+    <rect width="290" height="100" rx="12" bg fill="url(#adminGrad)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#FECACA" font-size="11" font-weight="700">📅 ACTIVE NOW</text>
+      <text x="0" y="50" fill="#FFFFFF" font-size="32" font-weight="800">847</text>
+      <text x="0" y="76" fill="#FCA5A5" font-size="11">↑ 12% week-over-week</text>
+    </g>
+  </g>
+  <g transform="translate(390, 280)">
+    <rect width="290" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">✅ COMPLETED (24h)</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">28,847</text>
+    </g>
+  </g>
+  <g transform="translate(700, 280)">
+    <rect width="290" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⚠️ ISSUES</text>
+      <text x="0" y="50" fill="#EF4444" font-size="32" font-weight="800">42</text>
+      <text x="0" y="76" fill="#EF4444" font-size="11">Disconnects + timeouts</text>
+    </g>
+  </g>
+  <g transform="translate(1010, 280)">
+    <rect width="350" height="100" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">💰 REVENUE (24h)</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">$187K</text>
+    </g>
+  </g>
+
+  <!-- Table -->
+  <g transform="translate(80, 410)">
+    <rect width="1280" height="440" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <g transform="translate(0, 0)">
+      <rect width="1280" height="44" rx="12" fill="#F9FAFB"/>
+      <g transform="translate(20, 0)" fill="#9CA3AF" font-size="11" font-weight="700">
+        <text x="0" y="26">BOOKING ID</text>
+        <text x="180" y="26">PARTICIPANTS</text>
+        <text x="540" y="26">SKILL</text>
+        <text x="780" y="26">STARTED</text>
+        <text x="920" y="26">STATUS</text>
+        <text x="1240" y="26" text-anchor="end">DURATION</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 44)">
+      <rect width="1280" height="56" rx="0" fill="#D1FAE5"/>
+      <line x1="20" y1="56" x2="1260" y2="56" stroke="#E5E7EB"/>
+      <text x="0" y="34" fill="#111827" font-size="12" font-family="monospace">#SK-2026-09-1042</text>
+      <g transform="translate(180, 12)">
+        <circle cx="14" cy="14" r="14" fill="#FEF3C7"/>
+        <text x="14" y="22" text-anchor="middle" font-size="14">👩</text>
+        <circle cx="34" cy="14" r="14" fill="#DBEAFE"/>
+        <text x="34" y="22" text-anchor="middle" font-size="14">👨</text>
+      </g>
+      <text x="240" y="34" fill="#111827" font-size="12">Mai ↔ Marco</text>
+      <text x="540" y="34" fill="#111827" font-size="12">🍝 Italian Pasta</text>
+      <text x="780" y="34" fill="#10B981" font-size="12" font-weight="600">🟢 Live now</text>
+      <text x="920" y="34" fill="#111827" font-size="12">45 min · Active</text>
+      <text x="1240" y="34" text-anchor="end" fill="#111827" font-size="12" font-weight="600">12:34</text>
+    </g>
+
+    <g transform="translate(0, 100)">
+      <rect width="1280" height="56" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="56" x2="1260" y2="56" stroke="#E5E7EB"/>
+      <text x="0" y="34" fill="#111827" font-size="12" font-family="monospace">#SK-2026-09-1058</text>
+      <g transform="translate(180, 12)">
+        <circle cx="14" cy="14" r="14" fill="#FCE7F3"/>
+        <text x="14" y="22" text-anchor="middle" font-size="14">👩</text>
+        <circle cx="34" cy="14" r="14" fill="#D1FAE5"/>
+        <text x="34" y="22" text-anchor="middle" font-size="14">👩</text>
+      </g>
+      <text x="240" y="34" fill="#111827" font-size="12">Anna ↔ Sarah</text>
+      <text x="540" y="34" fill="#111827" font-size="12">💻 React Hooks</text>
+      <text x="780" y="34" fill="#374151" font-size="12">Sep 12, 20:00</text>
+      <g transform="translate(920, 18)">
+        <rect width="80" height="22" rx="11" fill="#FEF3C7"/>
+        <text x="40" y="15" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">⏳ Scheduled</text>
+      </g>
+      <text x="1240" y="34" text-anchor="end" fill="#111827" font-size="12" font-weight="600">60 min</text>
+    </g>
+
+    <g transform="translate(0, 156)">
+      <rect width="1280" height="56" rx="0" bg fill="#F9FAFB"/>
+      <line x1="20" y1="56" x2="1260" y2="56" stroke="#E5E7EB"/>
+      <text x="0" y="34" fill="#111827" font-size="12" font-family="monospace">#SK-2026-09-1024</text>
+      <g transform="translate(180, 12)">
+        <circle cx="14" cy="14" r="14" fill="#DBEAFE"/>
+        <text x="14" y="22" text-anchor="middle" font-size="14">👨</text>
+        <circle cx="34" cy="14" r="14" fill="#FED7AA"/>
+        <text x="34" y="22" text-anchor="middle" font-size="14">👩</text>
+      </g>
+      <text x="240" y="34" fill="#111827" font-size="12">David ↔ Sara</text>
+      <text x="540" y="34" fill="#111827" font-size="12">🧘 Meditation</text>
+      <text x="780" y="34" fill="#374151" font-size="12">Completed · 30m ago</text>
+      <g transform="translate(920, 18)">
+        <rect width="60" height="22" rx="11" fill="#D1FAE5"/>
+        <text x="30" y="15" text-anchor="middle" fill="#047857" font-size="11" font-weight="700">✓ Done</text>
+      </g>
+      <text x="1240" y="34" text-anchor="end" fill="#111827" font-size="12" font-weight="600">30 min</text>
+    </g>
+
+    <g transform="translate(0, 212)">
+      <rect width="1280" height="56" rx="0" bg fill="#FEE2E2"/>
+      <line x1="20" y1="56" x2="1260" y2="56" stroke="#E5E7EB"/>
+      <text x="0" y="34" fill="#991B1B" font-size="12" font-family="monospace">#SK-2026-09-1019</text>
+      <g transform="translate(180, 12)">
+        <circle cx="14" cy="14" r="14" fill="#FEF3C7"/>
+        <text x="14" y="22" text-anchor="middle" font-size="14">👩</text>
+        <circle cx="34" cy="14" r="14" fill="#FBCFE8"/>
+        <text x="34" y="22" text-anchor="middle" font-size="14">👨</text>
+      </g>
+      <text x="240" y="34" fill="#991B1B" font-size="12">Mai ↔ Liam</text>
+      <text x="540" y="34" fill="#111827" font-size="12">🎸 Guitar Beginner</text>
+      <text x="780" y="34" fill="#991B1B" font-size="12">Cancelled · 15m ago</text>
+      <g transform="translate(920, 18)">
+        <rect width="80" height="22" rx="11" fill="#FEE2E2"/>
+        <text x="40" y="15" text-anchor="middle" fill="#991B1B" font-size="11" font-weight="700">✕ Cancelled</text>
+      </g>
+      <text x="1240" y="34" text-anchor="end" fill="#9CA3AF" font-size="12">—</text>
+    </g>
+
+    <g transform="translate(0, 268)">
+      <rect width="1280" height="56" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="56" x2="1260" y2="56" stroke="#E5E7EB"/>
+      <text x="0" y="34" fill="#111827" font-size="12" font-family="monospace">#SK-2026-09-1011</text>
+      <g transform="translate(180, 12)">
+        <circle cx="14" cy="14" r="14" fill="#FEF3C7"/>
+        <text x="14" y="22" text-anchor="middle" font-size="14">👩</text>
+        <circle cx="34" cy="14" r="14" fill="#D1FAE5"/>
+        <text x="34" y="22" text-anchor="middle" font-size="14">👨</text>
+      </g>
+      <text x="240" y="34" fill="#111827" font-size="12">Mai ↔ Aiko</text>
+      <text x="540" y="34" fill="#111827" font-size="12">🧘 Meditation</text>
+      <text x="780" y="34" fill="#374151" font-size="12">Completed · 2h ago</text>
+      <g transform="translate(920, 18)">
+        <rect width="60" height="22" rx="11" bg fill="#D1FAE5"/>
+        <text x="30" y="15" text-anchor="middle" fill="#047857" font-size="11" font-weight="700">✓ Done</text>
+      </g>
+      <text x="1240" y="34" text-anchor="end" fill="#111827" font-size="12" font-weight="600">30 min</text>
+    </g>
+
+    <g transform="translate(0, 380)">
+      <text x="20" y="0" fill="#6CA3AF" font-size="12">Showing 5 of 28,847 recent bookings</text>
+      <text x="1260" y="0" text-anchor="end" fill="#374151" font-size="13">← 1 2 3 ... 5770 →</text>
+    </g>
+  </g>
+</svg>
