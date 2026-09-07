@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="16"/>
+      <feOffset dx="0" dy="8"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#000000" opacity="0.4"/>
+
+  <g transform="translate(320, 60)">
+    <rect width="800" height="780" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Header -->
+    <g>
+      <rect width="800" height="80" rx="16" fill="url(#ctaGrad)"/>
+      <g transform="translate(32, 16)">
+        <circle cx="24" cy="24" r="24" fill="rgba(255,255,255,0.2)"/>
+        <text x="24" y="36" text-anchor="middle" font-size="20">👨‍🍳</text>
+      </g>
+      <text x="92" y="38" fill="#FFFFFF" font-size="20" font-weight="800">Rate your session with Chef Marco</text>
+      <text x="92" y="58" fill="#A7F3D0" font-size="13">🍝 Italian Pasta Masterclass · 45 min · 12 hours ago</text>
+      <text x="768" y="46" text-anchor="end" fill="#FFFFFF" font-size="20">×</text>
+    </g>
+
+    <!-- Criteria -->
+    <g transform="translate(40, 100)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Rate each aspect</text>
+      <text x="0" y="22" fill="#6B7280" font-size="12">Be honest — your feedback helps the community</text>
+    </g>
+
+    <!-- Criterion 1 -->
+    <g transform="translate(40, 160)">
+      <rect width="720" height="60" rx="10" fill="#F9FAFB"/>
+      <text x="20" y="26" fill="#111827" font-size="14" font-weight="600">Teaching clarity</text>
+      <text x="20" y="46" fill="#6B7280" font-size="11">How easy was it to follow explanations?</text>
+      <g transform="translate(420, 18)">
+        <text x="0" y="22" font-size="20">⭐</text>
+        <text x="32" y="22" font-size="20">⭐</text>
+        <text x="64" y="22" font-size="20">⭐</text>
+        <text x="96" y="22" font-size="20">⭐</text>
+        <text x="128" y="22" font-size="20" fill="#E5E7EB">⭐</text>
+      </g>
+    </g>
+
+    <!-- Criterion 2 -->
+    <g transform="translate(40, 230)">
+      <rect width="720" height="60" rx="10" fill="#F9FAFB"/>
+      <text x="20" y="26" fill="#111827" font-size="14" font-weight="600">Knowledge depth</text>
+      <text x="20" y="46" fill="#6B7280" font-size="11">How deep was the expertise shown?</text>
+      <g transform="translate(420, 18)">
+        <text x="0" y="22" font-size="20">⭐</text>
+        <text x="32" y="22" font-size="20">⭐</text>
+        <text x="64" y="22" font-size="20">⭐</text>
+        <text x="96" y="22" font-size="20">⭐</text>
+        <text x="128" y="22" font-size="20">⭐</text>
+      </g>
+    </g>
+
+    <!-- Criterion 3 -->
+    <g transform="translate(40, 300)">
+      <rect width="720" height="60" rx="10" fill="#F9FAFB"/>
+      <text x="20" y="26" fill="#111827" font-size="14" font-weight="600">Pace &amp; patience</text>
+      <text x="20" y="46" fill="#6B7280" font-size="11">Was the speed appropriate for your level?</text>
+      <g transform="translate(420, 18)">
+        <text x="0" y="22" font-size="20">⭐</text>
+        <text x="32" y="22" font-size="20">⭐</text>
+        <text x="64" y="22" font-size="20">⭐</text>
+        <text x="96" y="22" font-size="20">⭐</text>
+        <text x="128" y="22" font-size="20">⭐</text>
+      </g>
+    </g>
+
+    <!-- Criterion 4 -->
+    <g transform="translate(40, 370)">
+      <rect width="720" height="60" rx="10" fill="#F9FAFB"/>
+      <text x="20" y="26" fill="#111827" font-size="14" font-weight="600">Engagement &amp; friendliness</text>
+      <text x="20" y="46" fill="#6B7280" font-size="11">Did you feel comfortable asking questions?</text>
+      <g transform="translate(420, 18)">
+        <text x="0" y="22" font-size="20">⭐</text>
+        <text x="32" y="22" font-size="20">⭐</text>
+        <text x="64" y="22" font-size="20">⭐</text>
+        <text x="96" y="22" font-size="20">⭐</text>
+        <text x="128" y="22" font-size="20" fill="#E5E7EB">⭐</text>
+      </g>
+    </g>
+
+    <!-- Written review -->
+    <g transform="translate(40, 460)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Share more (optional)</text>
+      <rect x="0" y="16" width="720" height="100" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="44" fill="#111827" font-size="13">Marco was incredibly patient and explained every step clearly.</text>
+      <text x="20" y="64" fill="#111827" font-size="13">Loved the regional Italian tips! Would definitely book again.</text>
+      <text x="20" y="100" fill="#9CA3AF" font-size="11">156 / 500 characters · Public on mentor profile</text>
+    </g>
+
+    <!-- Anonymous toggle -->
+    <g transform="translate(40, 600)">
+      <rect width="22" height="22" rx="6" fill="#10B981"/>
+      <path d="M6 11 L10 15 L17 8" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+      <text x="36" y="16" fill="#374151" font-size="13">Post anonymously (your name will be hidden)</text>
+    </g>
+
+    <!-- SBT preview -->
+    <g transform="translate(40, 650)">
+      <rect width="720" height="56" rx="10" fill="#FEF3C7"/>
+      <g transform="translate(16, 12)">
+        <circle cx="16" cy="16" r="16" fill="#F59E0B"/>
+        <text x="16" y="22" text-anchor="middle" fill="#FFFFFF" font-size="14">🏅</text>
+      </g>
+      <text x="60" y="22" fill="#92400E" font-size="13" font-weight="700">You'll earn a Soulbound Token</text>
+      <text x="60" y="42" fill="#78350F" font-size="11">"Italian Cooking - Beginner" will be added to your Skill Passport</text>
+    </g>
+
+    <!-- Buttons -->
+    <g transform="translate(40, 720)">
+      <rect width="200" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="100" y="28" text-anchor="middle" fill="#374151" font-size="14" font-weight="600">Skip rating</text>
+    </g>
+    <g transform="translate(500, 720)">
+      <rect width="260" height="44" rx="22" fill="url(#ctaGrad)"/>
+      <text x="130" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Submit &amp; mint SBT →</text>
+    </g>
+  </g>
+</svg>
