@@ -5,7 +5,7 @@
 >
 > **Nguyên tắc vàng:** File này là **navigation layer** — trỏ đến spec gốc. **KHÔNG duplicate nội dung spec.** Khi có conflict, spec thắng.
 
-**Last updated:** 2026-09-07
+**Last updated:** 2026-09-07 (added §5.3 Frontend components reusability)
 **Maintainer:** SkillSeed Product Team
 
 ---
@@ -115,12 +115,48 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 - **Imports:** KHÔNG wildcard (`import java.util.*`). Group: builtin → external → internal → relative.
 - **Comments:** KHÔNG thêm comment trừ khi được yêu cầu hoặc giải thích quyết định phức tạp.
 
-### 5.3. Branch & commit
+### 5.3. Frontend components (tái sử dụng)
+
+> **Nguyên tắc:** Mọi UI element dùng ở **≥ 2 màn hình / chỗ khác nhau** PHẢI được tách thành component tái sử dụng. Không copy-paste JSX giữa các screen.
+
+**Quy tắc bắt buộc:**
+
+- **Vị trí đặt component:**
+  - Component **domain-specific** (thuộc 1 module nghiệp vụ): `src/modules/{module}/components/` — ví dụ `src/modules/booking/components/booking-card.tsx`.
+  - Component **shared / generic** (dùng chung ≥ 2 module): `src/components/ui/` (shadcn/ui) hoặc `src/components/shared/` — ví dụ `src/components/shared/empty-state.tsx`.
+  - **KHÔNG** đặt component tái sử dụng trong `app/` (Next.js route) hay trong file screen/page.
+
+- **Phát hiện trùng lặp:**
+  - Khi viết screen mới, **trước khi** tạo block UI → grep `src/modules/` và `src/components/` xem đã có component tương tự chưa.
+  - Nếu đã có → import dùng lại. Nếu chưa có nhưng biết sẽ dùng ở ≥ 2 chỗ → tạo component mới ngay từ đầu.
+
+- **API của component:**
+  - Props phải **typed đầy đủ** (TypeScript interface), **không** dùng `any` hay `unknown` không giải thích.
+  - Tách biệt **data layer** (props) và **presentation**: không fetch trực tiếp trong component trừ khi là page-level.
+  - Ưu tiên **composition** (`children`, `render prop`, slots) hơn prop drilling.
+
+- **Styling:**
+  - Dùng Tailwind + `cn()` helper, **không** inline style trừ khi dynamic giá trị.
+  - Variant / state dùng `cva` (class-variance-authority) — không `if` trải className khắp nơi.
+  - Mọi giá trị màu / spacing / radius phải qua **design token** (xem `tailwind.config.ts` + `src/lib/design-tokens.ts` khi có). Không hardcode hex.
+
+- **Quy ước file:**
+  - 1 component = 1 file, tên file kebab-case: `booking-card.tsx`.
+  - Component export theo **named export** (`export function BookingCard`), trừ Next.js page (default export).
+  - Đặt kèm `index.ts` barrel trong mỗi folder `components/` để import gọn: `import { BookingCard } from '@/modules/booking/components'`.
+
+- **Checklist trước khi merge screen mới:**
+  - [ ] JSX không có phần nào copy-paste từ screen khác.
+  - [ ] Mọi UI element dùng ≥ 2 chỗ đã được tách component.
+  - [ ] Component tái sử dụng có story/example trong `src/modules/{module}/components/__examples__/` (khi có Storybook) hoặc ít nhất 1 usage thực tế ở screen khác.
+  - [ ] Không có prop thừa / hardcoded text cố định trong component generic.
+
+### 5.4. Branch & commit
 - **Branch:** `{type}/{phase}-{short-desc}` — `feat/M01-booking-flow`, `fix/M02-wallet-double-spend`
 - **Commit:** Conventional Commits với **scope** khi thuộc 1 module — `feat(booking): cancel refund logic`.
 - **PR:** Title = Conventional Commit. Body: link issue + mô tả + cách test + ảnh/video (nếu UI).
 
-### 5.4. Mockup file naming
+### 5.5. Mockup file naming
 ```
 mockups/{category}/{NN}-{screen-name}.md
 ```
@@ -129,7 +165,7 @@ mockups/{category}/{NN}-{screen-name}.md
 - `screen-name`: kebab-case
 - Convention đầy đủ: `mockups/README.md`
 
-### 5.5. Spec ID pattern (Kiro)
+### 5.6. Spec ID pattern (Kiro)
 - **FR / NFR:** `FR-{PhaseCode}##` — `FR-M01` (Phase 1, FR #1)
 - **US:** `US-{PhaseCode}##`
 - **Task:** `T-{PhaseLetter}{Serial}` — `T-M01`, `T-A12`, `T-5-01`
