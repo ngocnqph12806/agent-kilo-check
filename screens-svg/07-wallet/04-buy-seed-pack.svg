@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="popularGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 100)" fill="#374151" font-size="14">
+    <text x="0" y="0">Wallet</text>
+    <text x="60" y="0">›</text>
+    <text x="80" y="0" fill="#10B981" font-weight="600">Buy Seeds</text>
+  </g>
+
+  <g transform="translate(720, 150)" text-anchor="middle">
+    <text x="0" y="0" fill="#111827" font-size="40" font-weight="800">🌱 Buy seed packs</text>
+    <text x="0" y="40" fill="#6B7280" font-size="16">Top up your wallet. Seeds never expire once purchased.</text>
+  </g>
+
+  <!-- Packs -->
+  <g transform="translate(80, 280)">
+    <!-- Pack 1 -->
+    <g>
+      <rect width="290" height="380" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 30)">
+        <text x="0" y="0" fill="#6B7280" font-size="12" font-weight="700">🌱 STARTER</text>
+        <text x="0" y="60" fill="#111827" font-size="48" font-weight="800">50</text>
+        <text x="100" y="60" fill="#6B7280" font-size="14">seeds</text>
+        <text x="0" y="90" fill="#111827" font-size="22" font-weight="700">$4.99</text>
+        <text x="0" y="108" fill="#10B981" font-size="11" font-weight="600">$0.10/seed</text>
+
+        <g transform="translate(0, 130)" fill="#374151" font-size="12">
+          <text x="0" y="0">✓ 50 seeds (instant)</text>
+          <text x="0" y="20">✓ Never expires</text>
+          <text x="0" y="40">✓ Use for any skill</text>
+          <text x="0" y="60" fill="#9CA3AF">✗ Priority support</text>
+          <text x="0" y="80" fill="#9CA3AF">✗ Bonus seeds</text>
+        </g>
+        <g transform="translate(0, 240)">
+          <rect width="250" height="44" rx="22" fill="transparent" stroke="#10B981" stroke-width="2"/>
+          <text x="125" y="28" text-anchor="middle" fill="#10B981" font-size="14" font-weight="600">Buy 50 seeds</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Pack 2 (Popular) -->
+    <g transform="translate(310, -20)">
+      <rect width="290" height="420" rx="16" fill="url(#popularGrad)" stroke="#F59E0B" stroke-width="2" filter="url(#cardShadow)"/>
+      <g transform="translate(105, -16)">
+        <rect width="80" height="32" rx="16" fill="#F59E0B"/>
+        <text x="40" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">POPULAR</text>
+      </g>
+      <g transform="translate(20, 50)">
+        <text x="0" y="0" fill="#92400E" font-size="12" font-weight="700">🌿 VALUE</text>
+        <text x="0" y="60" fill="#111827" font-size="48" font-weight="800">200</text>
+        <text x="120" y="60" fill="#6B7280" font-size="14">seeds</text>
+        <g transform="translate(120, 28)">
+          <rect width="60" height="20" rx="10" fill="#10B981"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">+20 BONUS</text>
+        </g>
+        <text x="0" y="90" fill="#111827" font-size="22" font-weight="700">$14.99</text>
+        <text x="0" y="108" fill="#10B981" font-size="11" font-weight="600">$0.07/seed · save 30%</text>
+
+        <g transform="translate(0, 130)" fill="#374151" font-size="12">
+          <text x="0" y="0">✓ 220 seeds (200 + 20 bonus)</text>
+          <text x="0" y="20">✓ Never expires</text>
+          <text x="0" y="40">✓ Use for any skill</text>
+          <text x="0" y="60">✓ Priority support</text>
+          <text x="0" y="80" fill="#9CA3AF">✗ Giftable?</text>
+        </g>
+        <g transform="translate(0, 240)">
+          <rect width="250" height="44" rx="22" fill="url(#ctaGrad)"/>
+          <text x="125" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Buy 220 seeds</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Pack 3 -->
+    <g transform="translate(620, 0)">
+      <rect width="290" height="380" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 30)">
+        <text x="0" y="0" fill="#6B7280" font-size="12" font-weight="700">💼 PRO</text>
+        <text x="0" y="60" fill="#111827" font-size="48" font-weight="800">500</text>
+        <text x="130" y="60" fill="#6B7280" font-size="14">seeds</text>
+        <g transform="translate(130, 28)">
+          <rect width="60" height="20" rx="10" fill="#10B981"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">+75 BONUS</text>
+        </g>
+        <text x="0" y="90" fill="#111827" font-size="22" font-weight="700">$29.99</text>
+        <text x="0" y="108" fill="#10B981" font-size="11" font-weight="600">$0.05/seed · save 50%</text>
+
+        <g transform="translate(0, 130)" fill="#374151" font-size="12">
+          <text x="0" y="0">✓ 575 seeds (500 + 75 bonus)</text>
+          <text x="0" y="20">✓ Never expires</text>
+          <text x="0" y="40">✓ Use for any skill</text>
+          <text x="0" y="60">✓ Priority support</text>
+          <text x="0" y="80">✓ Gifting enabled</text>
+        </g>
+        <g transform="translate(0, 240)">
+          <rect width="250" height="44" rx="22" fill="transparent" stroke="#10B981" stroke-width="2"/>
+          <text x="125" y="28" text-anchor="middle" fill="#10B981" font-size="14" font-weight="600">Buy 575 seeds</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Pack 4 (Enterprise) -->
+    <g transform="translate(930, 0)">
+      <rect width="290" height="380" rx="16" fill="#1F2937"/>
+      <g transform="translate(20, 30)">
+        <text x="0" y="0" fill="#A7F3D0" font-size="12" font-weight="700">🏢 ENTERPRISE</text>
+        <text x="0" y="60" fill="#FFFFFF" font-size="40" font-weight="800">2,000</text>
+        <text x="150" y="60" fill="#9CA3AF" font-size="14">seeds</text>
+        <g transform="translate(150, 28)">
+          <rect width="60" height="20" rx="10" fill="#F59E0B"/>
+          <text x="30" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">+500 BONUS</text>
+        </g>
+        <text x="0" y="90" fill="#FFFFFF" font-size="22" font-weight="700">$99.99</text>
+        <text x="0" y="108" fill="#A7F3D0" font-size="11" font-weight="600">$0.04/seed · best value</text>
+
+        <g transform="translate(0, 130)" fill="#E5E7EB" font-size="12">
+          <text x="0" y="0">✓ 2,500 seeds (2000 + 500 bonus)</text>
+          <text x="0" y="20">✓ Never expires</text>
+          <text x="0" y="40">✓ Use for any skill</text>
+          <text x="0" y="60">✓ Priority support</text>
+          <text x="0" y="80">✓ Team gifting &amp; analytics</text>
+        </g>
+        <g transform="translate(0, 240)">
+          <rect width="250" height="44" rx="22" fill="url(#ctaGrad)"/>
+          <text x="125" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Buy 2,500 seeds</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Payment methods -->
+  <g transform="translate(80, 720)">
+    <rect width="1280" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(40, 30)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Secure payment via</text>
+      <g transform="translate(0, 20)">
+        <rect width="80" height="32" rx="6" fill="#F3F4F6"/>
+        <text x="40" y="22" text-anchor="middle" fill="#374151" font-size="11" font-weight="600">💳 Stripe</text>
+      </g>
+      <g transform="translate(90, 20)">
+        <rect width="80" height="32" rx="6" fill="#F3F4F6"/>
+        <text x="40" y="22" text-anchor="middle" fill="#374151" font-size="11" font-weight="600">🪙 Crypto</text>
+      </g>
+      <g transform="translate(180, 20)">
+        <rect width="80" height="32" rx="6" fill="#F3F4F6"/>
+        <text x="40" y="22" text-anchor="middle" fill="#374151" font-size="11" font-weight="600">🍎 Apple Pay</text>
+      </g>
+      <g transform="translate(270, 20)">
+        <rect width="80" height="32" rx="6" fill="#F3F4F6"/>
+        <text x="40" y="22" text-anchor="middle" fill="#374151" font-size="11" font-weight="600">G Pay</text>
+      </g>
+    </g>
+    <g transform="translate(700, 30)" fill="#6B7280" font-size="12">
+      <text x="0" y="0">🛡️ 30-day money-back guarantee</text>
+      <text x="0" y="20">🔒 SSL encrypted · PCI compliant</text>
+      <text x="0" y="40">📞 24/7 support via chat</text>
+    </g>
+    <g transform="translate(1080, 36)">
+      <rect width="160" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="30" text-anchor="middle" fill="#374151" font-size="13" font-weight="600">Need bulk?</text>
+    </g>
+  </g>
+</svg>
