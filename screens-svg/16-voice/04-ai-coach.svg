@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="aiGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">✨ AI Coach — Your learning journey</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Personalized guidance based on your goals, progress, and habits</text>
+  </g>
+
+  <!-- Main coach card -->
+  <g transform="translate(80, 200)">
+    <rect width="800" height="500" rx="16" fill="url(#aiGrad)" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <g transform="translate(0, 0)">
+        <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.2)"/>
+        <text x="32" y="44" text-anchor="middle" fill="#FFFFFF" font-size="22">✨</text>
+      </g>
+      <g transform="translate(80, 14)">
+        <text x="0" y="0" fill="#E0E7FF" font-size="14" font-weight="700">YOUR AI COACH</text>
+        <text x="0" y="26" fill="#FFFFFF" font-size="22" font-weight="800">Hi Mai 👋 Here's your monthly review</text>
+      </g>
+
+      <g transform="translate(0, 110)">
+        <rect width="736" height="100" rx="10" fill="rgba(255,255,255,0.12)"/>
+        <text x="20" y="32" fill="#FFFFFF" font-size="14" font-weight="700">🎯 You're 87% through your Italian Cooking goal</text>
+        <text x="20" y="56" fill="#E0E7FF" font-size="13">Just 2 more sessions with Chef Marco to earn the Intermediate SBT.</text>
+        <g transform="translate(20, 76)">
+          <rect width="696" height="6" rx="3" fill="rgba(255,255,255,0.2)"/>
+          <rect width="604" height="6" rx="3" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <g transform="translate(0, 230)">
+        <text x="0" y="0" fill="#FFFFFF" font-size="14" font-weight="700">📈 Wins this month</text>
+        <g transform="translate(0, 16)" fill="#E0E7FF" font-size="13">
+          <text x="0" y="0">✓ 12 sessions completed (up 23% vs last month)</text>
+          <text x="0" y="22">✓ 5 new SBTs earned across 3 skill categories</text>
+          <text x="0" y="44">✓ 7-day streak on meditation practice 🔥</text>
+          <text x="0" y="66">✓ Helped 4 community members in pod forums</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 340)">
+        <text x="0" y="0" fill="#FFFFFF" font-size="14" font-weight="700">💡 Recommendations for next week</text>
+        <g transform="translate(0, 16)">
+          <rect width="230" height="100" rx="10" fill="rgba(255,255,255,0.12)"/>
+          <text x="20" y="28" fill="#FFFFFF" font-size="32">🍝</text>
+          <text x="20" y="58" fill="#FFFFFF" font-size="12" font-weight="600">Continue Italian</text>
+          <text x="20" y="76" fill="#E0E7FF" font-size="11">2 more sessions</text>
+        </g>
+        <g transform="translate(246, 16)">
+          <rect width="230" height="100" rx="10" fill="rgba(255,255,255,0.12)"/>
+          <text x="20" y="28" fill="#FFFFFF" font-size="32">📊</text>
+          <text x="20" y="58" fill="#FFFFFF" font-size="12" font-weight="600">Start Excel</text>
+          <text x="20" y="76" fill="#E0E7FF" font-size="11">Match with mentor</text>
+        </g>
+        <g transform="translate(492, 16)">
+          <rect width="244" height="100" rx="10" fill="rgba(255,255,255,0.12)"/>
+          <text x="20" y="28" fill="#FFFFFF" font-size="32">🧘</text>
+          <text x="20" y="58" fill="#FFFFFF" font-size="12" font-weight="600">Maintain streak</text>
+          <text x="20" y="76" fill="#E0E7FF" font-size="11">Daily 7-min sessions</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right column -->
+  <g transform="translate(900, 200)">
+    <rect width="460" height="240" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="800">📈 Learning velocity</text>
+      <text x="0" y="20" fill="#6B7280" font-size="11">Skills mastered per month</text>
+
+      <g transform="translate(0, 50)">
+        <line x1="0" y1="100" x2="412" y2="100" stroke="#E5E7EB"/>
+        <line x1="0" y1="60" x2="412" y2="60" stroke="#E5E7EB"/>
+        <line x1="0" y1="20" x2="412" y2="20" stroke="#E5E7EB"/>
+
+        <g fill="url(#ctaGrad)">
+          <rect x="20" y="80" width="40" height="20" rx="2"/>
+          <rect x="80" y="60" width="40" height="40" rx="2"/>
+          <rect x="140" y="40" width="40" height="60" rx="2"/>
+          <rect x="200" y="50" width="40" height="50" rx="2"/>
+          <rect x="260" y="20" width="40" height="80" rx="2"/>
+          <rect x="320" y="0" width="40" height="100" rx="2"/>
+        </g>
+
+        <g fill="#9CA3AF" font-size="10" text-anchor="middle">
+          <text x="40" y="120">Jul</text>
+          <text x="100" y="120">Aug</text>
+          <text x="160" y="120">Sep</text>
+          <text x="220" y="120">Oct</text>
+          <text x="280" y="120">Nov</text>
+          <text x="340" y="120">Dec</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Goals -->
+  <g transform="translate(900, 460)">
+    <rect width="460" height="240" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="800">🎯 Active learning goals</text>
+
+      <g transform="translate(0, 30)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">Become conversational in Italian</text>
+        <text x="412" y="14" text-anchor="end" fill="#10B981" font-size="11" font-weight="700">65%</text>
+        <rect x="0" y="22" width="412" height="6" rx="3" fill="#E5E7EB"/>
+        <rect x="0" y="22" width="268" height="6" rx="3" fill="url(#ctaGrad)"/>
+      </g>
+
+      <g transform="translate(0, 80)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">Master 5 cooking techniques</text>
+        <text x="412" y="14" text-anchor="end" fill="#10B981" font-size="11" font-weight="700">80%</text>
+        <rect x="0" y="22" width="412" height="6" rx="3" fill="#E5E7EB"/>
+        <rect x="0" y="22" width="330" height="6" rx="3" fill="url(#ctaGrad)"/>
+      </g>
+
+      <g transform="translate(0, 130)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">Daily 10-min meditation</text>
+        <text x="412" y="14" text-anchor="end" fill="#F59E0B" font-size="11" font-weight="700">45%</text>
+        <rect x="0" y="22" width="412" height="6" rx="3" fill="#E5E7EB"/>
+        <rect x="0" y="22" width="186" height="6" rx="3" fill="#F59E0B"/>
+      </g>
+
+      <g transform="translate(0, 180)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">Excel for Business</text>
+        <text x="412" y="14" text-anchor="end" fill="#9CA3AF" font-size="11" font-weight="700">0%</text>
+        <rect x="0" y="22" width="412" height="6" rx="3" fill="#E5E7EB"/>
+        <rect x="0" y="22" width="0" height="6" rx="3" fill="url(#ctaGrad)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Action button -->
+  <g transform="translate(900, 720)">
+    <rect width="460" height="120" rx="12" fill="url(#aiGrad)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="16" font-weight="800">🎙️ Talk to your coach</text>
+      <text x="0" y="22" fill="#E0E7FF" font-size="12">Get personalized advice · Available 24/7</text>
+      <g transform="translate(0, 50)">
+        <rect width="180" height="40" rx="20" fill="#FFFFFF"/>
+        <text x="90" y="26" text-anchor="middle" fill="#6366F1" font-size="13" font-weight="700">🎤 Start voice session</text>
+      </g>
+    </g>
+  </g>
+</svg>
