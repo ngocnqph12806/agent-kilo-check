@@ -5,7 +5,7 @@
 >
 > **Nguyên tắc vàng:** File này là **navigation layer** — trỏ đến spec gốc. **KHÔNG duplicate nội dung spec.** Khi có conflict, spec thắng.
 
-**Last updated:** 2026-09-07 (added §5.3 FE reusability, §5.4 BE shared logic)
+**Last updated:** 2026-09-07 (added docs/MANUAL_E2E_AUTH.md cross-link for T-M62)
 **Maintainer:** SkillSeed Product Team
 
 ---
@@ -60,6 +60,7 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 | **CI/CD pipeline / lint / test** | **`docs/CI_CD.md`** ← xem mục 4 (CI gate) |
 | **DB schema visual (ERD Mermaid)** | **`docs/ERD.md`** ← bảng, quan hệ, indexes |
 | **Booking / Wallet / Session state machine** | **`docs/STATE_MACHINES.md`** ← transitions hợp lệ, anti-patterns |
+| **Manual e2e auth test plan (T-M62)** | **`docs/MANUAL_E2E_AUTH.md`** ← sign-off checklist cho staging |
 
 **Quy tắc xung đột:** Phase spec hiện tại thắng master doc. Phát hiện mâu thuẫn → flag trong `tasks.md` của phase, KHÔNG tự sửa.
 
