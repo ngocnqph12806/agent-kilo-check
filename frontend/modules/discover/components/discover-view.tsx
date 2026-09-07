@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { SkillsAutocomplete } from '@/modules/skills/components/skills-autocomplete';
@@ -12,9 +13,25 @@ import { useDiscover } from '../hooks/use-discover';
 import type { DiscoverFilters } from '../lib/schemas';
 
 export function DiscoverView() {
+  return (
+    <Suspense fallback={null}>
+      <DiscoverContent />
+    </Suspense>
+  );
+}
+
+function DiscoverContent() {
+  const searchParams = useSearchParams();
   const [filters, setFilters] = useState<DiscoverFilters>({});
   const [filtersOpen, setFiltersOpen] = useState(false);
   const discover = useDiscover(filters);
+
+  useEffect(() => {
+    const param = searchParams?.get('skill');
+    if (param && filters.skill !== param) {
+      setFilters((prev) => ({ ...prev, skill: param }));
+    }
+  }, [searchParams, filters.skill]);
 
   return (
     <main className="container mx-auto max-w-6xl py-6">
@@ -96,4 +113,5 @@ export function DiscoverView() {
     </main>
   );
 }
+
 
