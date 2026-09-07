@@ -235,7 +235,7 @@
   - Welcome email (sau register)
   - Verify email
   - Reset password
-- [ ] [T-M91] **[P0]** Implement In-app notification table
+- [x] [T-M91] **[P0]** Implement In-app notification table
   - Table: `notifications(id, user_id, type, payload, read_at, created_at)`
   - GET `/notifications/me?unreadOnly=true`
 - [ ] [T-M92] **[P0]** Implement notification polling ở frontend (mỗi 60s)
