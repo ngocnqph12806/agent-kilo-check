@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+      <text x="160" y="20" fill="#9CA3AF" font-size="13">· Acme Corp</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">💳 Billing</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Manage your subscription and payment methods</text>
+  </g>
+
+  <!-- Current plan -->
+  <g transform="translate(80, 200)">
+    <rect width="1280" height="180" rx="16" fill="url(#heroGrad)" filter="url(#cardShadow)"/>
+    <g transform="translate(36, 30)">
+      <g>
+        <rect width="80" height="80" rx="16" fill="rgba(255,255,255,0.2)"/>
+        <text x="40" y="58" text-anchor="middle" fill="#FFFFFF" font-size="40">🏢</text>
+      </g>
+      <g transform="translate(100, 12)">
+        <text x="0" y="0" fill="#BFDBFE" font-size="14" font-weight="700">CURRENT PLAN</text>
+        <text x="0" y="32" fill="#FFFFFF" font-size="28" font-weight="800">Enterprise · 200 seats</text>
+        <text x="0" y="58" fill="#BFDBFE" font-size="13">$29/seat/month · Custom contract · Annual</text>
+      </g>
+
+      <g transform="translate(900, 16)">
+        <rect width="180" height="40" rx="20" fill="rgba(255,255,255,0.2)"/>
+        <text x="90" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">⚙️ Manage seats</text>
+      </g>
+      <g transform="translate(900, 66)">
+        <rect width="180" height="40" rx="20" fill="#FFFFFF"/>
+        <text x="90" y="26" text-anchor="middle" fill="#1E40AF" font-size="13" font-weight="700">📄 View contract</text>
+      </g>
+      <g transform="translate(1100, 16)">
+        <rect width="144" height="40" rx="20" fill="rgba(255,255,255,0.2)"/>
+        <text x="72" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Contact sales</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Spend -->
+  <g transform="translate(80, 400)">
+    <rect width="400" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">💵 MTD SPEND</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">$4,847</text>
+      <text x="0" y="74" fill="#10B981" font-size="12">142 seats · Plus overages</text>
+    </g>
+  </g>
+
+  <g transform="translate(500, 400)">
+    <rect width="400" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📅 NEXT INVOICE</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">$5,800</text>
+      <text x="0" y="74" fill="#374151" font-size="12">Due Oct 1, 2026 · 200 seats</text>
+    </g>
+  </g>
+
+  <g transform="translate(920, 400)">
+    <rect width="440" height="120" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📊 YTD SPEND</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">$48,290</text>
+      <text x="0" y="74" fill="#10B981" font-size="12">↓ 12% vs last year (volume discount)</text>
+    </g>
+  </g>
+
+  <!-- Invoices -->
+  <g transform="translate(80, 560)">
+    <rect width="1280" height="300" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 24)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="800">📄 Recent invoices</text>
+      <g transform="translate(1100, -8)">
+        <rect width="160" height="32" rx="16" fill="transparent" stroke="#D1D5DB"/>
+        <text x="80" y="22" text-anchor="middle" fill="#374151" font-size="12">All invoices</text>
+      </g>
+
+      <g transform="translate(0, 32)" fill="#374151" font-size="13">
+        <text x="0" y="14" fill="#9CA3AF" font-size="11" font-weight="700">INVOICE #</text>
+        <text x="200" y="14" fill="#9CA3AF" font-size="11" font-weight="700">DATE</text>
+        <text x="400" y="14" fill="#9CA3AF" font-size="11" font-weight="700">DESCRIPTION</text>
+        <text x="800" y="14" fill="#9CA3AF" font-size="11" font-weight="700">AMOUNT</text>
+        <text x="950" y="14" fill="#9CA3AF" font-size="11" font-weight="700">STATUS</text>
+        <text x="1240" y="14" text-anchor="end" fill="#9CA3AF" font-size="11" font-weight="700">PDF</text>
+      </g>
+
+      <g transform="translate(0, 56)">
+        <rect x="0" y="0" width="1216" height="44" rx="6" fill="#F9FAFB"/>
+        <text x="0" y="28" fill="#111827" font-family="monospace">INV-2026-09-001</text>
+        <text x="200" y="28" fill="#374151">Sep 1, 2026</text>
+        <text x="400" y="28" fill="#111827">🏢 Enterprise · 200 seats · Sep 2026</text>
+        <text x="800" y="28" fill="#111827" font-weight="600">$5,800</text>
+        <text x="950" y="28" fill="#10B981" font-weight="700">✓ Paid</text>
+        <text x="1216" y="28" text-anchor="end" fill="#10B981" font-weight="600">📥</text>
+      </g>
+
+      <g transform="translate(0, 110)">
+        <rect x="0" y="0" width="1216" height="44" rx="6" fill="#F9FAFB"/>
+        <text x="0" y="28" fill="#111827" font-family="monospace">INV-2026-08-001</text>
+        <text x="200" y="28" fill="#374151">Aug 1, 2026</text>
+        <text x="400" y="28" fill="#111827">🏢 Enterprise · 192 seats · Aug 2026</text>
+        <text x="800" y="28" fill="#111827" font-weight="600">$5,568</text>
+        <text x="950" y="28" fill="#10B981" font-weight="700">✓ Paid</text>
+        <text x="1216" y="28" text-anchor="end" fill="#10B981" font-weight="600">📥</text>
+      </g>
+
+      <g transform="translate(0, 164)">
+        <rect x="0" y="0" width="1216" height="44" rx="6" fill="#F9FAFB"/>
+        <text x="0" y="28" fill="#111827" font-family="monospace">INV-2026-07-001</text>
+        <text x="200" y="28" fill="#374151">Jul 1, 2026</text>
+        <text x="400" y="28" fill="#111827">🏢 Enterprise · 180 seats · Jul 2026</text>
+        <text x="800" y="28" fill="#111827" font-weight="600">$5,220</text>
+        <text x="950" y="28" fill="#10B981" font-weight="700">✓ Paid</text>
+        <text x="1216" y="28" text-anchor="end" fill="#10B981" font-weight="600">📥</text>
+      </g>
+
+      <g transform="translate(0, 218)">
+        <rect x="0" y="0" width="1216" height="44" rx="6" fill="#F9FAFB"/>
+        <text x="0" y="28" fill="#111827" font-family="monospace">INV-2026-09-002</text>
+        <text x="200" y="28" fill="#374151">Sep 16, 2026</text>
+        <text x="400" y="28" fill="#111827">➕ Add-on: 8 seats pro-rated</text>
+        <text x="800" y="28" fill="#111827" font-weight="600">$232</text>
+        <text x="950" y="28" fill="#F59E0B" font-weight="700">⏳ Pending</text>
+        <text x="1216" y="28" text-anchor="end" fill="#10B981" font-weight="600">📥</text>
+      </g>
+    </g>
+  </g>
+</svg>
