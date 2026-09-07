@@ -23,6 +23,15 @@
   - **T-M11:** `backend/src/main/resources/db/migration/V2__seed_skills.sql` — 2049 skills trong 8 categories (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
   - **T-M12:** 9 entities (`com.skillseed.{user,skill,booking,rating,wallet}.domain.*`) + 9 Spring Data JPA repositories + 5 enums + 5 AttributeConverters trong `shared/domain`. Entities KHÔNG dùng Lombok (per AGENTS.md §5.2). Sử dụng `@JdbcTypeCode(SqlTypes.UUID)` cho UUID columns, `@JdbcTypeCode(SqlTypes.ARRAY)` cho `TEXT[]` (languages). Enum values map qua AttributeConverter → DB lưu lowercase string ('tech', 'email', 'pending'...).
   - **Sandbox limitation:** không thể chạy `mvn verify` để xác nhận `ddl-auto=validate` pass. Cần user chạy local để xác nhận schema ↔ entity mapping không drift.
+- **2026-09-07 — Sprint 0 Skills module (T-M40..T-M44)**
+  - **Completed:** T-M40, T-M41, T-M42, T-M43, T-M44
+  - **T-M40+T-M41:** `SkillController` exposes `GET /skills` (search/filter/paginate, public), `GET /skills/{id}` (public), `POST /skills` (custom, JWT-required). `V3__add_skill_status.sql` adds `status` column + CHECK + partial index. `SkillStatus` enum + `SkillStatusConverter`; `Skill` entity updated. `SkillService.createCustomSkill` derives URL-safe slug and persists `is_custom=true` + `status=pending_review`.
+  - **T-M42:** `OfferedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/offered`. Strict ownership checks (NOT_OWNER on cross-user); rejects duplicates and unapproved skills (SKILL_NOT_APPROVED).
+  - **T-M43:** `WantedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/wanted`. Same ownership + skill-validation rules.
+  - **T-M44:** `AvailabilityController` exposes GET + PUT `/api/v1/users/me/availability`. PUT is a full bulk replace (`deleteByUserId` + insert in same transaction). Validates `endTime > startTime` (matches DB CHECK) and rejects same-day/same-timezone overlapping slots.
+  - **SecurityConfig:** `GET /api/v1/skills` and `/skills/{id}` are `permitAll()`.
+  - **Sandbox limitation:** không có JDK/Maven nên `mvn verify` chưa chạy local. Cần user verify V3 migration + `ddl-auto=validate` (schema ↔ Skill entity) + lint (Checkstyle) + Swagger UI cho 13 endpoint mới.
+
 - **2026-09-07 — Sprint 0 User module (T-M30..T-M34)**
   - **Completed:** T-M30, T-M31, T-M32, T-M33, T-M34
   - **T-M30+T-M31+T-M33:** `UserController` exposes `GET /me`, `PATCH /me`, `GET /{id}`. `UserService.getCurrentUser` returns `CurrentUserResponse` (profile + Skill DNA summary + wallet summary); `getPublicProfile` returns `PublicUserResponse` (email/phone intentionally omitted); `updateProfile` applies partial updates with Bean Validation. `SecurityConfig`: `GET /api/v1/users/{id}` is `permitAll()`.
@@ -143,18 +152,23 @@
 
 ### Skills module
 
-- [ ] [T-M40] **[P0]** Implement GET `/skills?query=&category=`
+- [x] [T-M40] **[P0]** Implement GET `/skills?query=&category=`
   - Search theo name LIKE %query% + filter category
   - Pagination (max 100)
-- [ ] [T-M41] **[P0]** Implement POST `/skills` (custom skill)
+  - **Verified 2026-09-07:** `SkillController#search` → `SkillService.search` (name LIKE + category, page clamped 0..N, size clamped 1..100, default 20). Filters out non-approved rows; GET endpoints permitAll.
+- [x] [T-M41] **[P0]** Implement POST `/skills` (custom skill)
   - Tạo skill với is_custom=true, status=pending_review
-- [ ] [T-M42] **[P0]** Implement user_skills_offered CRUD
+  - **Verified 2026-09-07:** `V3__add_skill_status.sql` adds `status` column + CHECK + partial index; `SkillStatus` enum + `SkillStatusConverter`. `SkillService.createCustomSkill` derives URL-safe slug, rejects duplicates (409), persists with `is_custom=true` and `status=pending_review`. Requires JWT.
+- [x] [T-M42] **[P0]** Implement user_skills_offered CRUD
   - POST/GET/PATCH/DELETE
-- [ ] [T-M43] **[P0]** Implement user_skills_wanted CRUD
+  - **Verified 2026-09-07:** `OfferedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/offered`. Bean Validation (level 1-5, years positive, description max 1000). Strict ownership checks; rejects duplicates and unapproved skills.
+- [x] [T-M43] **[P0]** Implement user_skills_wanted CRUD
   - POST/GET/PATCH/DELETE
-- [ ] [T-M44] **[P0]** Implement availability endpoints
+  - **Verified 2026-09-07:** `WantedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/wanted`. Bean Validation (priority + targetLevel 1-5, notes max 1000). Strict ownership checks.
+- [x] [T-M44] **[P0]** Implement availability endpoints
   - PUT `/users/me/availability` (bulk replace)
   - GET `/users/me/availability`
+  - **Verified 2026-09-07:** `AvailabilityController` exposes GET + PUT. PUT performs full bulk replace (`deleteByUserId` + insert in the same transaction). Validates `endTime > startTime` and rejects same-day/same-timezone overlapping slots.
 
 ### Frontend — Auth flow
 
