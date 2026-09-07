@@ -224,7 +224,7 @@
 - [x] [T-M82] **[P0]** Frontend: `/discover` page
   - Card grid (avatar, name, top skills, rating, "Match" button)
   - Filter sidebar
-- [ ] [T-M83] **[P0]** Frontend: User profile page `/users/{id}`
+- [x] [T-M83] **[P0]** Frontend: User profile page `/users/{id}`
   - Public profile view + offered skills + reviews
   - "Book Session" CTA
 - [ ] [T-M84] **[P1]** Frontend: Search bar với autocomplete skills
