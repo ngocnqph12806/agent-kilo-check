@@ -231,7 +231,7 @@
 
 ### Email & Notification
 
-- [ ] [T-M90] **[P0]** Setup Resend SDK + email templates
+- [x] [T-M90] **[P0]** Setup Resend SDK + email templates
   - Welcome email (sau register)
   - Verify email
   - Reset password
