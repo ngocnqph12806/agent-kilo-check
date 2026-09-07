@@ -238,6 +238,11 @@ public class BookingService {
                 payloadFor(booking));
         notificationService.publish(booking.getTeacher(), NotificationType.SESSION_COMPLETED,
                 payloadFor(booking));
+        // T-M172: prompt both sides to rate.
+        Map<String, Object> ratingPrompt = new LinkedHashMap<>(payloadFor(booking));
+        ratingPrompt.put("cta", "rate");
+        notificationService.publish(booking.getLearner(), NotificationType.RATING_PROMPT, ratingPrompt);
+        notificationService.publish(booking.getTeacher(), NotificationType.RATING_PROMPT, ratingPrompt);
         return BookingResponse.from(booking);
     }
 
