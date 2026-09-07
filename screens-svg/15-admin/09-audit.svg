@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">📋 Admin Audit Log</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Track all admin actions for compliance &amp; accountability</text>
+  </g>
+
+  <!-- Filters -->
+  <g transform="translate(80, 200)">
+    <rect width="320" height="44" rx="22" bg fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="20" y="28" fill="#9CA3AF" font-size="13">🔍 Search by admin or action...</text>
+    <g transform="translate(330, 0)">
+      <rect width="180" height="44" rx="22" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="28" text-anchor="middle" fill="#374151" font-size="13">📅 Last 7 days</text>
+    </g>
+    <g transform="translate(520, 0)">
+      <rect width="160" height="44" rx="22" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="80" y="28" text-anchor="middle" fill="#374151" font-size="13">All admins</text>
+    </g>
+  </g>
+
+  <!-- Table -->
+  <g transform="translate(80, 270)">
+    <rect width="1280" height="580" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(0, 0)">
+      <rect width="1280" height="44" rx="12" bg fill="#F9FAFB"/>
+      <g transform="translate(20, 0)" fill="#9CA3AF" font-size="11" font-weight="700">
+        <text x="0" y="26">TIMESTAMP</text>
+        <text x="180" y="26">ADMIN</text>
+        <text x="360" y="26">ACTION</text>
+        <text x="800" y="26">DETAILS</text>
+        <text x="1240" y="26" text-anchor="end">TARGET</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 44)">
+      <rect width="1280" height="48" rx="0" bg fill="#FEE2E2"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-07 14:48</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Alice (Lead admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#EF4444"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">🚫 BAN USER</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">spam_2849@gmail.com · Reason: spam</text>
+      <text x="800" y="30" fill="#991B1B" font-size="11">⚠️ Auto-refunded 0 seeds · IP: 185.220.x.x</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">ID: 9E2D1F3A</text>
+    </g>
+
+    <g transform="translate(0, 92)">
+      <rect width="1280" height="48" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-07 12:15</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Bob (Admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#10B981"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">✓ APPROVE</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">Approved 5-star review for Marco R.</text>
+      <text x="800" y="30" fill="#374151" font-size="11">"Excellent mentor!" · Public visible</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">Review #R-4892</text>
+    </g>
+
+    <g transform="translate(0, 140)">
+      <rect width="1280" height="48" rx="0" bg fill="#FEF3C7"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-07 11:32</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Alice (Lead admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="120" height="20" rx="10" bg fill="#F59E0B"/>
+        <text x="60" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">⚠️ MODERATE</text>
+      </g>
+      <text x="500" y="30" fill="#111827" font-size="12">Removed inappropriate review · User notified</text>
+      <text x="800" y="30" fill="#78350F" font-size="11">Content policy violation</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">Review #R-4887</text>
+    </g>
+
+    <g transform="translate(0, 188)">
+      <rect width="1280" height="48" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-07 09:45</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Charlie (Admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#3B82F6"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">⚙️ CONFIG</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">Enabled "Beta matching algorithm v2" for 10%</text>
+      <text x="800" y="30" fill="#374151" font-size="11">Feature flag rollout · Monitor metrics</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">Flag #148</text>
+    </g>
+
+    <g transform="translate(0, 236)">
+      <rect width="1280" height="48" rx="0" bg fill="#F9FAFB"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-06 16:20</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Alice (Lead admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#10B981"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">✓ APPROVE</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">Approved new skill: Traditional Chinese Medicine</text>
+      <text x="800" y="30" fill="#374151" font-size="11">Credentials provided</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">Skill #S-247</text>
+    </g>
+
+    <g transform="translate(0, 284)">
+      <rect width="1280" height="48" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-06 14:10</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Bob (Admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#EF4444"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">✕ REJECT</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">Rejected skill: Crypto Trading Signals (policy)</text>
+      <text x="800" y="30" fill="#991B1B" font-size="11">High-risk investment content</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">Skill #S-245</text>
+    </g>
+
+    <g transform="translate(0, 332)">
+      <rect width="1280" height="48" rx="0" bg fill="#F9FAFB"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-06 11:00</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">Alice (Lead admin)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#10B981"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">✓ APPROVE</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">Approved refund for cancellation #SK-1234</text>
+      <text x="800" y="30" fill="#374151" font-size="11">Refund: 2 seeds issued</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">User #1F4A</text>
+    </g>
+
+    <g transform="translate(0, 380)">
+      <rect width="1280" height="48" rx="0" bg fill="#FFFFFF"/>
+      <line x1="20" y1="48" x2="1260" y2="48" stroke="#E5E7EB"/>
+      <text x="0" y="30" fill="#6B7280" font-size="12" font-family="monospace">2026-09-05 18:45</text>
+      <text x="180" y="30" fill="#111827" font-size="12" font-weight="700">System (auto)</text>
+      <g transform="translate(360, 16)">
+        <rect width="100" height="20" rx="10" bg fill="#9CA3AF"/>
+        <text x="50" y="14" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="700">🤖 AUTO</text>
+      </g>
+      <text x="480" y="30" fill="#111827" font-size="12">Monthly seed refill batch (847 users)</text>
+      <text x="800" y="30" fill="#374151" font-size="11">Total: 25,410 seeds distributed</text>
+      <text x="1240" y="30" text-anchor="end" fill="#111827" font-size="11" font-family="monospace">System</text>
+    </g>
+
+    <g transform="translate(0, 480)">
+      <text x="20" y="0" fill="#6CA3AF" font-size="12">Showing 8 of 1,247 admin actions this week</text>
+      <text x="1260" y="0" text-anchor="end" fill="#374151" font-size="13">← 1 2 3 ... 156 →</text>
+    </g>
+  </g>
+</svg>
