@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="learnGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g transform="translate(80, 40)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="18" font-weight="700">SkillSeed</text>
+    <text x="1280" y="20" fill="#6B7280" font-size="14" text-anchor="end">Step 3 of 7</text>
+    <text x="1280" y="40" fill="#10B981" font-size="13" font-weight="600" text-anchor="end">42% complete</text>
+  </g>
+
+  <g transform="translate(80, 100)">
+    <rect width="1280" height="6" rx="3" fill="#E5E7EB"/>
+    <rect width="538" height="6" rx="3" fill="url(#ctaGrad)"/>
+  </g>
+
+  <g transform="translate(220, 180)">
+    <text x="0" y="0" fill="#111827" font-size="40" font-weight="800">What do you want to learn?</text>
+    <text x="0" y="38" fill="#6B7280" font-size="16">Pick 3+ skills you're excited to master.</text>
+  </g>
+
+  <!-- Selected -->
+  <g transform="translate(220, 270)">
+    <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">YOUR GOALS (5)</text>
+    <g transform="translate(0, 16)">
+      <g>
+        <rect width="120" height="36" rx="18" fill="url(#learnGrad)"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🇬🇧 English</text>
+        <text x="100" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(130, 0)">
+        <rect width="120" height="36" rx="18" fill="url(#learnGrad)"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🎸 Guitar</text>
+        <text x="100" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(260, 0)">
+        <rect width="120" height="36" rx="18" fill="url(#learnGrad)"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">📊 Excel</text>
+        <text x="100" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(390, 0)">
+        <rect width="140" height="36" rx="18" fill="url(#learnGrad)"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🍝 Italian Cooking</text>
+        <text x="120" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(540, 0)">
+        <rect width="140" height="36" rx="18" fill="url(#learnGrad)"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🧘 Meditation</text>
+        <text x="120" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Search -->
+  <g transform="translate(220, 360)">
+    <rect width="1000" height="48" rx="24" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+    <text x="20" y="30" fill="#9CA3AF" font-size="14">🔍 Search skills...</text>
+  </g>
+
+  <!-- Skill suggestions -->
+  <g transform="translate(220, 440)">
+    <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Suggested for you</text>
+    <text x="0" y="22" fill="#6B7280" font-size="12">Based on common pairings with your teaching skills</text>
+  </g>
+
+  <g transform="translate(220, 480)">
+    <!-- Skill card 1 -->
+    <g>
+      <rect width="320" height="100" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="40" font-size="32">🎸</text>
+      <text x="70" y="36" fill="#111827" font-size="14" font-weight="700">Acoustic Guitar</text>
+      <text x="70" y="56" fill="#6B7280" font-size="12">1,240 mentors worldwide</text>
+      <g transform="translate(70, 70)">
+        <text x="0" y="0" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐ 4.8</text>
+      </g>
+      <g transform="translate(220, 36)">
+        <rect width="80" height="32" rx="16" fill="url(#learnGrad)"/>
+        <text x="40" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">+ Add</text>
+      </g>
+    </g>
+    <!-- Skill card 2 -->
+    <g transform="translate(340, 0)">
+      <rect width="320" height="100" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="40" font-size="32">🍝</text>
+      <text x="70" y="36" fill="#111827" font-size="14" font-weight="700">Italian Cooking</text>
+      <text x="70" y="56" fill="#6B7280" font-size="12">680 mentors worldwide</text>
+      <g transform="translate(70, 70)">
+        <text x="0" y="0" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐ 4.9</text>
+      </g>
+      <g transform="translate(220, 36)">
+        <rect width="80" height="32" rx="16" fill="url(#learnGrad)"/>
+        <text x="40" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">+ Add</text>
+      </g>
+    </g>
+    <!-- Skill card 3 -->
+    <g transform="translate(680, 0)">
+      <rect width="320" height="100" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="40" font-size="32">🇬🇧</text>
+      <text x="70" y="36" fill="#111827" font-size="14" font-weight="700">Business English</text>
+      <text x="70" y="56" fill="#6B7280" font-size="12">2,100 mentors worldwide</text>
+      <g transform="translate(70, 70)">
+        <text x="0" y="0" fill="#F59E0B" font-size="11">⭐⭐⭐⭐⭐ 4.7</text>
+      </g>
+      <g transform="translate(220, 36)">
+        <rect width="80" height="32" rx="16" fill="url(#learnGrad)"/>
+        <text x="40" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">+ Add</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(220, 800)">
+    <rect width="160" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+    <text x="80" y="30" text-anchor="middle" fill="#6B7280" font-size="14">← Back</text>
+  </g>
+  <g transform="translate(1060, 800)">
+    <rect width="160" height="48" rx="24" fill="url(#ctaGrad)"/>
+    <text x="80" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Continue →</text>
+  </g>
+</svg>
