@@ -4,6 +4,27 @@
 
 ---
 
+## Open Questions & Spec Conflicts
+
+> Trước khi triển khai, đọc mục này để biết các quyết định đã chốt hoặc cần user duyệt.
+
+- **[RESOLVED 2026-09-07] Conflict với `SKILLSEED_CODE_SKELETON.md` §1:** Skeleton gợi ý multi-module Maven (`common-lib` / `user-service` / `matching-service` / `wallet-service`). Phase 1 design §1 + §5.1 chốt **monolithic-modular** (single Spring Boot app, packages `com.skillseed.{shared,auth,user,skill,discover,booking,session,rating,wallet,notification,admin}`). Theo AGENTS.md §3, Phase 1 spec thắng → Phase 1 dùng **single Maven module** tại `/backend`, không tách microservice. Sẽ revisit khi chuyển sang Phase 2.
+- **[OPEN]** Folder `/hooks` trong T-M03 description — Phase 1 MVP chưa thấy use case cụ thể; convention hooks được handle bằng React Query + Zustand. Có thể bỏ hoặc tạo khi cần.
+
+---
+
+## Status Log
+
+> Lịch sử cập nhật task. Entry mới nhất ở trên.
+
+- **2026-09-07 — Sprint 0 Bootstrap (Đợt 1)**
+  - **Completed:** T-M03, T-M04, T-M05
+  - **Scaffolded, chờ local verify:** T-M01 (cần GitHub repo + branch protection), T-M02 (cần `mvn verify` local), T-M06 (cần truy cập `/swagger-ui.html` local)
+  - **Sandbox limitation:** thiếu Java/Maven/Docker nên chỉ verify được FE (`npm install`, `lint`, `typecheck`, `build` — tất cả pass). BE files đã viết theo design §2.1 nhưng chưa chạy được `mvn verify`.
+  - **Spec conflict flagged:** xem mục Open Questions ở trên.
+
+---
+
 ## Sprint 0 (Tuần 1–2) — Foundation & Auth
 
 ### Project bootstrap
@@ -12,19 +33,25 @@
   - Cấu trúc: `/backend`, `/frontend`, `/docs`, `/infra`
   - Branch protection trên `main`
   - Có AGENTS.md với coding conventions
+  - **Status 2026-09-07:** folder structure scaffolded (`backend/`, `frontend/`, `infra/` đã tạo). Còn thiếu: GitHub repo init + push + branch protection rule.
 - [ ] [T-M02] **[P0]** Setup Maven project backend với Spring Boot 3.3
   - Java 21, parent POM với shared deps
   - `application.yml` profiles: dev/staging/prod
-- [ ] [T-M03] **[P0]** Setup Next.js 15 project frontend
+  - **Status 2026-09-07:** `backend/pom.xml` + 5 profiles YAML scaffolded (deps đầy đủ theo design §2.1: web, jpa, redis, security, oauth2-resource-server, validation, websocket, actuator, flyway, springdoc-openapi 2.6.0, jjwt 0.12.6, resend-java, lombok, testcontainers). Chưa chạy được `mvn verify` vì sandbox thiếu JDK — cần user chạy local để xác nhận.
+- [x] [T-M03] **[P0]** Setup Next.js 15 project frontend
   - TypeScript, TailwindCSS, shadcn/ui, Zustand
   - Folder: `/app`, `/components`, `/lib`, `/hooks`
-- [ ] [T-M04] **[P0]** Setup Docker Compose cho local dev (Postgres + Redis + Backend + Frontend)
-  - Single `docker-compose up` chạy cả stack
-- [ ] [T-M05] **[P0]** Setup GitHub Actions CI cơ bản
+  - **Verified 2026-09-07:** `npm install` (388 packages), `npm run lint`, `npm run typecheck`, `npm run build` đều pass. Folder `/hooks` chưa tạo (xem Open Questions).
+- [x] [T-M04] **[P0]** Setup Docker Compose cho local dev (Postgres + Redis + Backend + Frontend)
+  - Single `docker compose up` chạy cả stack
+  - **Verified 2026-09-07:** file `docker-compose.yml` ở root đã có sẵn 4 services (postgres:16-alpine, redis:7-alpine, backend, frontend) + healthchecks + volumes. Path trỏ đúng `docker/Dockerfile.backend` và `docker/Dockerfile.frontend`.
+- [x] [T-M05] **[P0]** Setup GitHub Actions CI cơ bản
   - Backend: `mvn verify`
   - Frontend: `npm run lint && npm run build`
+  - **Verified 2026-09-07:** `.github/workflows/ci.yml` đã có sẵn 5 jobs (backend-test, backend-style, backend-package, frontend, docs-lint) + CI gate summary.
 - [ ] [T-M06] **[P0]** Setup Swagger UI (`springdoc-openapi`)
   - Có thể truy cập `/swagger-ui.html` ở dev profile
+  - **Status 2026-09-07:** dep `springdoc-openapi-starter-webmvc-ui:2.6.0` đã add vào `pom.xml`; `OpenApiConfig` (JWT bearer scheme) đã viết; `application.yml` đã config `springdoc.swagger-ui.path=/swagger-ui.html`; `SecurityConfig` permit `/swagger-ui/**`, `/v3/api-docs/**`. Cần user mở browser truy cập `/swagger-ui.html` sau khi `docker compose up` để xác nhận trực quan.
 
 ### Database & migrations
 
