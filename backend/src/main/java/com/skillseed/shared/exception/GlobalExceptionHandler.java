@@ -1,6 +1,8 @@
 package com.skillseed.shared.exception;
 
 import com.skillseed.auth.exception.AuthException;
+import com.skillseed.booking.exception.BookingException;
+import com.skillseed.session.exception.SessionException;
 import com.skillseed.skill.exception.SkillException;
 import com.skillseed.user.exception.UserException;
 import com.skillseed.wallet.exception.WalletException;
@@ -48,6 +50,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleSkill(SkillException ex) {
         return ResponseEntity.status(ex.getHttpStatus())
                 .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(SessionException.class)
+    public ResponseEntity<ApiErrorResponse> handleSession(SessionException ex) {
+        return ResponseEntity.status(ex.getStatus())
+                .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(BookingException.class)
+    public ResponseEntity<ApiErrorResponse> handleBooking(BookingException ex) {
+        return ResponseEntity.status(ex.getStatus())
+                .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
