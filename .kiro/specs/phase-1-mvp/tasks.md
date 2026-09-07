@@ -221,7 +221,7 @@
   - Sort: rating DESC, sessions_completed DESC
 - [ ] [T-M81] **[P0]** Backend: GET `/users/{id}/availability?from=now&days=7`
   - Trả về free slots trong N ngày tới
-- [ ] [T-M82] **[P0]** Frontend: `/discover` page
+- [x] [T-M82] **[P0]** Frontend: `/discover` page
   - Card grid (avatar, name, top skills, rating, "Match" button)
   - Filter sidebar
 - [ ] [T-M83] **[P0]** Frontend: User profile page `/users/{id}`
