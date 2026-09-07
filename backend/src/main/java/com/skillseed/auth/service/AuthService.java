@@ -1,6 +1,8 @@
 package com.skillseed.auth.service;
 
 import com.skillseed.auth.dto.AuthTokenResponse;
+import com.skillseed.auth.dto.LoginRequest;
+import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.UserSummaryResponse;
 import com.skillseed.auth.exception.AuthException;
@@ -8,6 +10,7 @@ import com.skillseed.notification.EmailSender;
 import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Locale;
 import java.util.Optional;
@@ -33,12 +37,17 @@ public class AuthService {
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
     static final String PURPOSE_EMAIL_VERIFY = "email-verify";
     static final String PURPOSE_PASSWORD_RESET = "password-reset";
+    static final String PURPOSE_REFRESH_TOKEN = "refresh-token";
+
+    static final Duration LOGIN_WINDOW = Duration.ofMinutes(15);
+    static final int LOGIN_MAX_ATTEMPTS = 5;
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final TokenStore tokenStore;
     private final EmailSender emailSender;
+    private final RateLimiter rateLimiter;
     private final String publicBaseUrl;
 
     public AuthService(
@@ -47,12 +56,14 @@ public class AuthService {
             JwtService jwtService,
             TokenStore tokenStore,
             EmailSender emailSender,
+            RateLimiter rateLimiter,
             @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.tokenStore = tokenStore;
         this.emailSender = emailSender;
+        this.rateLimiter = rateLimiter;
         this.publicBaseUrl = publicBaseUrl;
     }
 
@@ -110,10 +121,91 @@ public class AuthService {
         log.info("Verified email for user id={}", userId);
     }
 
+    /**
+     * Authenticates an email+password user. Enforces a per-IP rate limit
+     * (5 attempts / 15 minutes by default — see {@link #LOGIN_WINDOW} and
+     * {@link #LOGIN_MAX_ATTEMPTS}). On success, returns a fresh access +
+     * refresh token pair and stores the refresh token in Redis so it can
+     * be revoked on logout.
+     *
+     * @throws AuthException with one of {@code RATE_LIMITED},
+     *     {@code INVALID_CREDENTIALS}, or {@code OAUTH_ONLY_ACCOUNT}.
+     */
+    public AuthTokenResponse login(LoginRequest req, String clientKey) {
+        String rateKey = clientKey == null || clientKey.isBlank() ? "unknown" : clientKey;
+        if (!rateLimiter.tryAcquire("login", rateKey, LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW)) {
+            long retry = rateLimiter.retryAfterSeconds("login", rateKey,
+                    LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW);
+            throw AuthException.tooManyRequests("RATE_LIMITED",
+                    "Too many login attempts; retry in " + retry + "s");
+        }
+
+        String email = req.email().trim().toLowerCase(Locale.ROOT);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(this::invalidCredentials);
+
+        if (user.getPasswordHash() == null || user.getPasswordHash().isBlank()) {
+            log.warn("Login attempt on passwordless account id={}", user.getId());
+            throw AuthException.unauthorized("OAUTH_ONLY_ACCOUNT",
+                    "This account uses social sign-in");
+        }
+        if (!passwordEncoder.matches(req.password(), user.getPasswordHash())) {
+            throw invalidCredentials();
+        }
+        log.info("User login id={}", user.getId());
+        return issueTokens(user);
+    }
+
+    /**
+     * Validates a refresh token (signature + Redis presence) and issues a
+     * new access token. The refresh token itself is rotated: the old value
+     * is consumed and a new refresh token is issued.
+     *
+     * @throws AuthException with code {@code INVALID_TOKEN} when the
+     *     refresh token is unknown, expired, or already used.
+     */
+    public AuthTokenResponse refresh(RefreshTokenRequest req) {
+        Claims claims;
+        try {
+            claims = jwtService.parseAndValidate(req.refreshToken(), "refresh");
+        } catch (Exception ex) {
+            throw AuthException.unauthorized("INVALID_TOKEN", "Refresh token is invalid");
+        }
+        UUID userId = UUID.fromString(claims.getSubject());
+
+        Optional<String> stored = tokenStore.consume(PURPOSE_REFRESH_TOKEN, req.refreshToken());
+        if (stored.isEmpty() || !userId.toString().equals(stored.get())) {
+            throw AuthException.unauthorized("INVALID_TOKEN",
+                    "Refresh token is invalid or expired");
+        }
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> AuthException.unauthorized("USER_NOT_FOUND",
+                        "User no longer exists"));
+        return issueTokens(user);
+    }
+
+    /**
+     * Revokes the supplied refresh token. Idempotent: revoking an unknown
+     * token is a no-op.
+     */
+    public void logout(String refreshToken) {
+        if (refreshToken == null || refreshToken.isBlank()) {
+            return;
+        }
+        tokenStore.delete(PURPOSE_REFRESH_TOKEN, refreshToken);
+    }
+
+    private AuthException invalidCredentials() {
+        return AuthException.unauthorized("INVALID_CREDENTIALS", "Invalid email or password");
+    }
+
     AuthTokenResponse issueTokens(User user) {
         String access = jwtService.generateAccessToken(
                 user.getId(), user.getEmail(), user.getVerificationLevel());
         String refresh = jwtService.generateRefreshToken(user.getId());
+        tokenStore.store(PURPOSE_REFRESH_TOKEN, refresh, user.getId().toString(),
+                Duration.ofSeconds(jwtService.getRefreshTtlSeconds()));
         return new AuthTokenResponse(
                 access,
                 refresh,
