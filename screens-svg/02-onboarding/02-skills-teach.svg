@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Top bar -->
+  <g transform="translate(80, 40)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="18" font-weight="700">SkillSeed</text>
+    <text x="1280" y="20" fill="#6B7280" font-size="14" text-anchor="end">Step 2 of 7</text>
+    <text x="1280" y="40" fill="#10B981" font-size="13" font-weight="600" text-anchor="end">28% complete</text>
+  </g>
+
+  <g transform="translate(80, 100)">
+    <rect width="1280" height="6" rx="3" fill="#E5E7EB"/>
+    <rect width="358" height="6" rx="3" fill="url(#ctaGrad)"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(220, 180)">
+    <text x="0" y="0" fill="#111827" font-size="40" font-weight="800">What can you teach?</text>
+    <text x="0" y="38" fill="#6B7280" font-size="16">Pick 3+ skills. The more you add, the more matches you'll get.</text>
+  </g>
+
+  <!-- Selected chips -->
+  <g transform="translate(220, 270)">
+    <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">YOUR SKILLS (4)</text>
+    <g transform="translate(0, 16)">
+      <g>
+        <rect width="140" height="36" rx="18" fill="#10B981"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🇻🇳 Vietnamese</text>
+        <text x="120" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(150, 0)">
+        <rect width="160" height="36" rx="18" fill="#10B981"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🍳 Vietnamese Cooking</text>
+        <text x="140" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(320, 0)">
+        <rect width="160" height="36" rx="18" fill="#10B981"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">💻 React.js</text>
+        <text x="140" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+      <g transform="translate(490, 0)">
+        <rect width="160" height="36" rx="18" fill="#10B981"/>
+        <text x="20" y="23" fill="#FFFFFF" font-size="13">🎤 Public Speaking</text>
+        <text x="140" y="23" fill="#FFFFFF" font-size="13">×</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Search -->
+  <g transform="translate(220, 360)">
+    <rect width="1000" height="48" rx="24" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+    <text x="20" y="30" fill="#9CA3AF" font-size="14">🔍 Search skills (e.g. "guitar", "excel", "yoga")</text>
+  </g>
+
+  <!-- Categories -->
+  <g transform="translate(220, 430)">
+    <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Popular categories</text>
+  </g>
+
+  <g transform="translate(220, 450)">
+    <!-- Row 1 -->
+    <g>
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">💻</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Tech &amp; Code</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">142 skills</text>
+    </g>
+    <g transform="translate(202, 0)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">🗣️</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Languages</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">68 skills</text>
+    </g>
+    <g transform="translate(404, 0)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">🍳</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Cooking</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">52 skills</text>
+    </g>
+    <g transform="translate(606, 0)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">🎨</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Arts &amp; Design</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">87 skills</text>
+    </g>
+    <g transform="translate(808, 0)">
+      <rect width="192" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">🎵</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Music</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">41 skills</text>
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(0, 100)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">📸</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Photography</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">36 skills</text>
+    </g>
+    <g transform="translate(202, 100)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">🏋️</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Fitness</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">45 skills</text>
+    </g>
+    <g transform="translate(404, 100)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">💼</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Business</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">73 skills</text>
+    </g>
+    <g transform="translate(606, 100)">
+      <rect width="190" height="80" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+      <text x="20" y="32" font-size="24">📚</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Academics</text>
+      <text x="60" y="50" fill="#6B7280" font-size="11">58 skills</text>
+    </g>
+    <g transform="translate(808, 100)">
+      <rect width="192" height="80" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+      <text x="20" y="32" font-size="24">✏️</text>
+      <text x="60" y="30" fill="#111827" font-size="13" font-weight="600">Suggest custom</text>
+      <text x="60" y="50" fill="#10B981" font-size="11">+ Add new</text>
+    </g>
+  </g>
+
+  <!-- Buttons -->
+  <g transform="translate(220, 800)">
+    <rect width="160" height="48" rx="24" fill="transparent" stroke="#D1D5DB"/>
+    <text x="80" y="30" text-anchor="middle" fill="#6B7280" font-size="14">← Back</text>
+  </g>
+  <g transform="translate(1060, 800)">
+    <rect width="160" height="48" rx="24" fill="url(#ctaGrad)"/>
+    <text x="80" y="30" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Continue →</text>
+  </g>
+</svg>
