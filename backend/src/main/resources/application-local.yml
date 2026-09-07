@@ -1,0 +1,17 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:postgresql://postgres:5432/skillseed
+    username: skillseed
+    password: skillseed_dev_password
+
+  data:
+    redis:
+      url: redis://:skillseed_dev_password@redis:6379
+
+logging:
+  level:
+    com.skillseed: DEBUG
