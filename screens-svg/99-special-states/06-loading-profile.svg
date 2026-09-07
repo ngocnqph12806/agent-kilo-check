@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+  <rect width="1440" height="72" fill="#FFFFFF"/>
+  <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+  <g transform="translate(80, 22)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <rect width="200" height="14" rx="4" fill="#E5E7EB">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="0" y="30" width="320" height="10" rx="3" fill="#E5E7EB">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.2s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Avatar -->
+  <g transform="translate(80, 220)">
+    <rect width="320" height="200" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="56" cy="60" r="48" fill="#E5E7EB"/>
+    <rect x="120" y="40" width="160" height="14" rx="4" fill="#E5E7EB"/>
+    <rect x="120" y="64" width="120" height="10" rx="3" fill="#F3F4F6"/>
+    <rect x="20" y="140" width="124" height="36" rx="18" fill="#E5E7EB"/>
+    <rect x="156" y="140" width="124" height="36" rx="18" fill="#F3F4F6"/>
+  </g>
+
+  <!-- Main profile blocks -->
+  <g transform="translate(420, 220)">
+    <rect width="940" height="100" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.1s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="24" y="24" width="200" height="14" rx="4" fill="#E5E7EB"/>
+    <rect x="24" y="48" width="500" height="10" rx="3" fill="#F3F4F6"/>
+    <rect x="24" y="68" width="400" height="10" rx="3" fill="#F3F4F6"/>
+  </g>
+
+  <g transform="translate(420, 340)">
+    <rect width="940" height="120" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.2s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="24" y="24" width="160" height="14" rx="4" fill="#E5E7EB"/>
+    <g transform="translate(24, 56)">
+      <rect width="120" height="60" rx="10" fill="#F3F4F6"/>
+      <rect x="140" y="0" width="120" height="60" rx="10" fill="#F3F4F6"/>
+      <rect x="280" y="0" width="120" height="60" rx="10" fill="#F3F4F6"/>
+      <rect x="420" y="0" width="120" height="60" rx="10" fill="#F3F4F6"/>
+    </g>
+  </g>
+
+  <g transform="translate(420, 480)">
+    <rect width="940" height="200" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="24" y="24" width="180" height="14" rx="4" fill="#E5E7EB"/>
+    <rect x="24" y="56" width="900" height="50" rx="8" fill="#F3F4F6"/>
+    <rect x="24" y="116" width="900" height="50" rx="8" fill="#F3F4F6"/>
+  </g>
+
+  <g transform="translate(420, 700)">
+    <rect width="940" height="100" rx="12" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" begin="0.4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <g transform="translate(720, 850)" text-anchor="middle">
+    <text x="0" y="0" fill="#9CA3AF" font-size="13">✨ Loading your profile...</text>
+  </g>
+</svg>
