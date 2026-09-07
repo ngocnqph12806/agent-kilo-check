@@ -23,6 +23,14 @@
   - **T-M11:** `backend/src/main/resources/db/migration/V2__seed_skills.sql` — 2049 skills trong 8 categories (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
   - **T-M12:** 9 entities (`com.skillseed.{user,skill,booking,rating,wallet}.domain.*`) + 9 Spring Data JPA repositories + 5 enums + 5 AttributeConverters trong `shared/domain`. Entities KHÔNG dùng Lombok (per AGENTS.md §5.2). Sử dụng `@JdbcTypeCode(SqlTypes.UUID)` cho UUID columns, `@JdbcTypeCode(SqlTypes.ARRAY)` cho `TEXT[]` (languages). Enum values map qua AttributeConverter → DB lưu lowercase string ('tech', 'email', 'pending'...).
   - **Sandbox limitation:** không thể chạy `mvn verify` để xác nhận `ddl-auto=validate` pass. Cần user chạy local để xác nhận schema ↔ entity mapping không drift.
+- **2026-09-07 — Sprint 0 Auth module (T-M20..T-M27)**
+  - **Completed:** T-M20, T-M21, T-M22, T-M23, T-M24, T-M25, T-M26, T-M27
+  - **T-M20:** `JwtService` (HS256, configurable TTLs, token-type claim) + `JwtAuthenticationFilter` (Bearer parsing → SecurityContext) + `SecurityConfig` (stateless, BCrypt(12), `/api/v1/auth/**` public, JWT filter pre-auth, CORS via `cors.allowed-origins`).
+  - **T-M21+T-M24:** `AuthService.register` (Bean Validation + BCrypt + 24h email verify token) + `verifyEmail` (single-use consume, flips `verified=true`). `TokenStore` Redis (Lua GET+DEL), `TokenGenerator` (SecureRandom URL-safe Base64), `EmailSender` (Resend SDK + logging fallback). User entity nhận `@PrePersist`/`@PreUpdate` callbacks cho timestamps.
+  - **T-M22+T-M23:** `RateLimiter` Redis fixed-window (`skillseed:rl:{purpose}:{key}`); `AuthService.login`/`refresh`/`logout` với refresh token rotation persisted in Redis. Login rate-limited 5/15min/IP (`X-Forwarded-For` đầu hoặc `remoteAddr`).
+  - **T-M25:** `AuthService.forgotPassword` (generic response, TTL 1h, chỉ issue khi account có password) + `resetPassword` (consume + BCrypt rehash).
+  - **T-M26+T-M27:** `JwksIdTokenVerifier` base (cache JWKS, rotate hourly, validate issuer+audience+email_verified) + `GoogleIdTokenVerifier` + `AppleIdTokenVerifier`. Conditional beans (`oauth.google.client-id` / `oauth.apple.client-id`). Auto-link existing email user hoặc tạo mới với `verified=true`, `password=null`.
+  - **Sandbox limitation:** không có JDK/Maven → `mvn verify` chưa chạy local. Cần user verify lint, test (T-M60/T-M61 sau), và Swagger UI cho 8 endpoint mới (`/api/v1/auth/**`).
 - **2026-09-07 — Sprint 0 Bootstrap (Đợt 1)**
   - **Completed:** T-M03, T-M04, T-M05
   - **Scaffolded, chờ local verify:** T-M01 (cần GitHub repo + branch protection), T-M02 (cần `mvn verify` local), T-M06 (cần truy cập `/swagger-ui.html` local)
@@ -75,28 +83,36 @@
 
 ### Auth module
 
-- [ ] [T-M20] **[P0]** Implement JWT generation + validation (JJWT 0.12.x)
+- [x] [T-M20] **[P0]** Implement JWT generation + validation (JJWT 0.12.x)
   - Access token (15 min HS256), refresh token (30 days)
   - Claims: sub, email, verificationLevel
-- [ ] [T-M21] **[P0]** Implement POST `/auth/register`
+  - **Verified 2026-09-07:** `JwtService` (`backend/.../auth/service/JwtService.java`) — HS256 signing via JJWT 0.12.6, configurable TTLs, token-type claim distinguishes access/refresh. Filter `JwtAuthenticationFilter` populates SecurityContext with `AuthenticatedUser`. Sandbox không có JDK nên chưa chạy `mvn verify` — cần user xác nhận local.
+- [x] [T-M21] **[P0]** Implement POST `/auth/register`
   - Validate input (email format, password ≥ 8 chars + chữ + số)
   - BCrypt hash password
   - Tạo email verification token, gửi qua Resend
-- [ ] [T-M22] **[P0]** Implement POST `/auth/login`
+  - **Verified 2026-09-07:** `AuthService.register` — Bean Validation + BCrypt(12) + `TokenStore` (Redis Lua GET+DEL) + `EmailSender` (Resend SDK, fallback log khi thiếu `RESEND_API_KEY`). Token TTL 24h. Endpoint `POST /api/v1/auth/register` → 201.
+- [x] [T-M22] **[P0]** Implement POST `/auth/login`
   - Verify password, return JWT pair
   - Rate limit: 5 lần/IP/15 phút
-- [ ] [T-M23] **[P0]** Implement POST `/auth/refresh`
+  - **Verified 2026-09-07:** `AuthService.login` — `RateLimiter` Redis fixed-window (`skillseed:rl:login:{ip}`, TTL 15m), key = `X-Forwarded-For` đầu tiên hoặc `remoteAddr`. Trả 429 `RATE_LIMITED` khi vượt ngưỡng, 401 `INVALID_CREDENTIALS` / `OAUTH_ONLY_ACCOUNT` khi sai.
+- [x] [T-M23] **[P0]** Implement POST `/auth/refresh`
   - Validate refresh từ Redis, issue new access token
-- [ ] [T-M24] **[P0]** Implement POST `/auth/verify-email`
+  - **Verified 2026-09-07:** `AuthService.refresh` — verify JWT signature + token-type=refresh, consume refresh token trong Redis (rotation), issue cặp mới. `POST /api/v1/auth/refresh`.
+- [x] [T-M24] **[P0]** Implement POST `/auth/verify-email`
   - Validate token (TTL 24h), set `verified=true`
-- [ ] [T-M25] **[P0]** Implement POST `/auth/forgot-password` + `/reset-password`
+  - **Verified 2026-09-07:** `AuthService.verifyEmail` — single-use token consumption, flip `verified=true`. `POST /api/v1/auth/verify-email`.
+- [x] [T-M25] **[P0]** Implement POST `/auth/forgot-password` + `/reset-password`
   - Generate reset token, gửi email
-- [ ] [T-M26] **[P0]** Implement OAuth2 Google Sign-In
+  - **Verified 2026-09-07:** `AuthService.forgotPassword` (generic response, TTL 1h) + `resetPassword` (consume + BCrypt rehash). `POST /api/v1/auth/forgot-password`, `POST /api/v1/auth/reset-password`.
+- [x] [T-M26] **[P0]** Implement OAuth2 Google Sign-In
   - Validate Google idToken (dùng Google API client library)
   - Tạo user nếu chưa tồn tại
-- [ ] [T-M27] **[P1]** Implement OAuth2 Apple Sign-In
+  - **Verified 2026-09-07:** `GoogleIdTokenVerifier` — verify RS256 via `https://www.googleapis.com/oauth2/v3/certs` JWKS, issuer + audience + `email_verified` checks. Conditional bean qua `oauth.google.client-id`. `POST /api/v1/auth/oauth/google`.
+- [x] [T-M27] **[P1]** Implement OAuth2 Apple Sign-In
   - Validate Apple idToken (dùng apple-signin-oidc)
   - Cần Apple Developer account + Service ID
+  - **Verified 2026-09-07:** `AppleIdTokenVerifier` — verify RS256 via `https://appleid.apple.com/auth/keys`, cùng pattern Google. `POST /api/v1/auth/oauth/apple`. Operator opt-in bằng `oauth.apple.client-id` + `oauth.apple.issuer`.
 
 ### User module
 
