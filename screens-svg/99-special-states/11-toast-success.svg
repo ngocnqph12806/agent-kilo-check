@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="toastGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="toastShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Page in background -->
+  <rect width="1440" height="72" fill="#FFFFFF"/>
+  <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+  <g transform="translate(80, 22)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+  </g>
+
+  <!-- Toast (top-right) -->
+  <g transform="translate(1040, 130)">
+    <rect width="380" height="80" rx="12" fill="#FFFFFF" filter="url(#toastShadow)"/>
+    <rect width="6" height="80" rx="3" fill="url(#toastGrad)"/>
+    <g transform="translate(20, 20)">
+      <circle cx="20" cy="20" r="20" fill="url(#toastGrad)"/>
+      <path d="M12 20 L18 26 L28 14" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(76, 16)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">✓ Booking confirmed!</text>
+      <text x="0" y="22" fill="#374151" font-size="12">Tue, Sep 14 · Italian Pasta · Chef Marco</text>
+      <text x="0" y="42" fill="#6B7280" font-size="11">2 seeds deducted · 140 remaining</text>
+    </g>
+    <g transform="translate(348, 12)">
+      <text x="0" y="14" fill="#9CA3AF" font-size="14">×</text>
+    </g>
+  </g>
+
+  <!-- Action link below -->
+  <g transform="translate(1040, 220)">
+    <rect width="380" height="44" rx="10" fill="#ECFDF5" stroke="#A7F3D0"/>
+    <g transform="translate(190, 22)" text-anchor="middle">
+      <text x="0" y="0" fill="#047857" font-size="13" font-weight="600">View booking details →</text>
+    </g>
+  </g>
+
+  <!-- Page content -->
+  <g transform="translate(720, 380)" text-anchor="middle">
+    <text x="0" y="0" fill="#111827" font-size="24" font-weight="800">Bookings List</text>
+    <text x="0" y="32" fill="#9CA3AF" font-size="14">Your new booking appears at the top ↓</text>
+  </g>
+</svg>
