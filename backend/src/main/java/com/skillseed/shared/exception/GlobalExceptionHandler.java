@@ -2,6 +2,7 @@ package com.skillseed.shared.exception;
 
 import com.skillseed.auth.exception.AuthException;
 import com.skillseed.booking.exception.BookingException;
+import com.skillseed.rating.exception.RatingException;
 import com.skillseed.session.exception.SessionException;
 import com.skillseed.skill.exception.SkillException;
 import com.skillseed.user.exception.UserException;
@@ -60,6 +61,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BookingException.class)
     public ResponseEntity<ApiErrorResponse> handleBooking(BookingException ex) {
+        return ResponseEntity.status(ex.getStatus())
+                .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(RatingException.class)
+    public ResponseEntity<ApiErrorResponse> handleRating(RatingException ex) {
         return ResponseEntity.status(ex.getStatus())
                 .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
     }

@@ -26,7 +26,7 @@ public class Rating {
     private UUID id;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "booking_id", nullable = false, unique = true)
+    @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -48,6 +48,9 @@ public class Rating {
 
     @Column(name = "respectfulness_score")
     private Short respectfulnessScore;
+
+    @Column(name = "auto_rated", nullable = false)
+    private boolean autoRated;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
@@ -124,6 +127,14 @@ public class Rating {
 
     public void setRespectfulnessScore(Short respectfulnessScore) {
         this.respectfulnessScore = respectfulnessScore;
+    }
+
+    public boolean isAutoRated() {
+        return autoRated;
+    }
+
+    public void setAutoRated(boolean autoRated) {
+        this.autoRated = autoRated;
     }
 
     public Instant getCreatedAt() {

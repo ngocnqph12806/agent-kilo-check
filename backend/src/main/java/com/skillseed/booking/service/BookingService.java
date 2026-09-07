@@ -238,6 +238,10 @@ public class BookingService {
                 payloadFor(booking));
         notificationService.publish(booking.getTeacher(), NotificationType.SESSION_COMPLETED,
                 payloadFor(booking));
+        notificationService.publish(booking.getLearner(), NotificationType.RATING_PROMPT,
+                payloadFor(booking));
+        notificationService.publish(booking.getTeacher(), NotificationType.RATING_PROMPT,
+                payloadFor(booking));
         return BookingResponse.from(booking);
     }
 
