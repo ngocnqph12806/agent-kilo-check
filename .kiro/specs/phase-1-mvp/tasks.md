@@ -210,7 +210,7 @@
   - Step 5: Learning style
   - Step 6: Availability
   - Step 7: Languages, country
-- [ ] [T-M71] **[P0]** Implement skills autocomplete (search API với debounce)
+- [x] [T-M71] **[P0]** Implement skills autocomplete (search API với debounce)
 - [ ] [T-M72] **[P0]** Implement availability picker (time grid theo day_of_week)
 
 ### Discover & Search
