@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { BookingModal } from '@/modules/booking/components/booking-modal';
+import { ReviewsTab } from '@/modules/rating';
 import { useWalletSummary } from '@/modules/wallet/hooks/use-wallet';
 
 import {
@@ -94,6 +95,9 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
               {user.sessionsCompleted === 1 ? '' : 's'} ·{' '}
               {user.ratingAvg > 0 ? `${user.ratingAvg.toFixed(1)} ⭐ average` : 'no rating yet'}
             </p>
+            <div className="mt-4">
+              <ReviewsTab userId={user.id} />
+            </div>
           </Block>
         </div>
 

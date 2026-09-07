@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { RatingModal } from '@/modules/rating';
+import { SessionPanel } from '@/modules/session';
 
 import {
   statusToBadgeClasses,
@@ -14,7 +16,6 @@ import {
   useStartBooking
 } from '../hooks/use-bookings';
 import type { BookingStatus } from '../lib/schemas';
-import { SessionPanel } from '@/modules/session';
 
 export interface BookingDetailViewProps {
   bookingId: string;
@@ -52,6 +53,7 @@ export function BookingDetailView({
   const cancel = useCancelBooking();
   const start = useStartBooking();
   const complete = useCompleteBooking();
+  const [ratingOpen, setRatingOpen] = useState(false);
 
   if (isLoading) {
     return <CenteredMessage>Loading booking…</CenteredMessage>;
@@ -87,6 +89,10 @@ export function BookingDetailView({
     isParticipant(data, currentUserId) &&
     (data.status === ('confirmed' as BookingStatus) ||
       data.status === ('in_progress' as BookingStatus));
+  const canRate =
+    isParticipant(data, currentUserId) &&
+    (data.status === ('completed' as BookingStatus) ||
+      data.status === ('rated' as BookingStatus));
 
   return (
     <main className="container mx-auto max-w-3xl space-y-8 py-10">
@@ -193,10 +199,27 @@ export function BookingDetailView({
             {cancel.isPending ? 'Cancelling…' : 'Cancel booking'}
           </Button>
         ) : null}
+        {canRate ? (
+          <Button
+            variant="default"
+            onClick={() => setRatingOpen(true)}
+          >
+            Rate session
+          </Button>
+        ) : null}
         <Button variant="outline" onClick={() => refetch()}>
           Refresh
         </Button>
       </section>
+
+      <RatingModal
+        open={ratingOpen}
+        onOpenChange={setRatingOpen}
+        bookingId={data.id}
+        direction={isTeacher ? 'teacher_to_learner' : 'learner_to_teacher'}
+        rateeName={counterparty.fullName}
+        onRated={() => refetch()}
+      />
 
       <StatusTimeline current={data.status as BookingStatus} />
     </main>
