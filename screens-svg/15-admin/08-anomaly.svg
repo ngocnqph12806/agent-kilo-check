@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🔍 Anomaly Detection</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">AI-powered fraud &amp; abuse detection · Auto-flagged for review</text>
+  </g>
+
+  <!-- Stats -->
+  <g transform="translate(80, 200)">
+    <rect width="290" height="100" rx="12" bg fill="url(#adminGrad)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#FECACA" font-size="11" font-weight="700">🚨 CRITICAL ALERTS</text>
+      <text x="0" y="50" fill="#FFFFFF" font-size="32" font-weight="800">3</text>
+      <text x="0" y="76" fill="#FCA5A5" font-size="11">Last 24 hours</text>
+    </g>
+  </g>
+  <g transform="translate(390, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📊 TOTAL FLAGGED (7d)</text>
+      <text x="0" y="50" fill="#111827" font-size="32" font-weight="800">147</text>
+      <text x="0" y="76" fill="#F59E0B" font-size="11">↑ 18% · Investigating</text>
+    </g>
+  </g>
+  <g transform="translate(700, 200)">
+    <rect width="290" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">✅ TRUE POSITIVES</text>
+      <text x="0" y="50" fill="#10B981" font-size="32" font-weight="800">142</text>
+      <text x="0" y="76" fill="#10B981" font-size="11">96.6% precision</text>
+    </g>
+  </g>
+  <g transform="translate(1010, 200)">
+    <rect width="350" height="100" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⚠️ FALSE POSITIVES</text>
+      <text x="0" y="50" fill="#F59E0B" font-size="32" font-weight="800">5</text>
+      <text x="0" y="76" fill="#9CA3AF" font-size="11">3.4% rate · Improving</text>
+    </g>
+  </g>
+
+  <!-- Anomaly 1: Critical -->
+  <g transform="translate(80, 330)">
+    <rect width="1280" height="160" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <rect width="6" height="160" rx="3" fill="#EF4444"/>
+
+    <g transform="translate(28, 24)">
+      <g>
+        <rect width="80" height="22" rx="11" bg fill="#EF4444"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">🚨 CRITICAL</text>
+      </g>
+      <g transform="translate(88, 0)">
+        <rect width="100" height="22" rx="11" bg fill="#FEE2E2"/>
+        <text x="50" y="16" text-anchor="middle" fill="#991B1B" font-size="11" font-weight="700">💳 Payment fraud</text>
+      </g>
+      <text x="0" y="44" fill="#111827" font-size="16" font-weight="700">47 chargeback attempts from 3 cards in 24h · Same device fingerprint</text>
+      <g transform="translate(0, 66)" fill="#6B7280" font-size="11">
+        <text x="0" y="0">📊 Confidence: 99% · Auto-flagged by ML · Affected: $2,847 in disputed charges</text>
+        <text x="0" y="18">🏷️ Pattern: Multiple cards · Same IP · Velocity attack · Cross-account</text>
+      </g>
+
+      <g transform="translate(900, 50)">
+        <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+        <text x="60" y="26" text-anchor="middle" fill="#374151" font-size="13">Dismiss</text>
+      </g>
+      <g transform="translate(1030, 50)">
+        <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#F59E0B" stroke-width="2"/>
+        <text x="60" y="26" text-anchor="middle" fill="#F59E0B" font-size="13" font-weight="600">🔒 Suspend</text>
+      </g>
+      <g transform="translate(1160, 50)">
+        <rect width="120" height="40" rx="20" bg fill="#DC2626"/>
+        <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">🚫 Ban + refund</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Anomaly 2: Warning -->
+  <g transform="translate(80, 510)">
+    <rect width="1280" height="120" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <rect width="6" height="120" rx="3" fill="#F59E0B"/>
+
+    <g transform="translate(28, 24)">
+      <g>
+        <rect width="80" height="22" rx="11" bg fill="#F59E0B"/>
+        <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">⚠️ WARNING</text>
+      </g>
+      <g transform="translate(88, 0)">
+        <rect width="120" height="22" rx="11" bg fill="#FEF3C7"/>
+        <text x="60" y="16" text-anchor="middle" fill="#92400E" font-size="11" font-weight="700">🤖 Bot pattern</text>
+      </g>
+      <text x="0" y="42" fill="#111827" font-size="14" font-weight="700">142 bookings created in 1 hour · Identical user agent · Booking automation</text>
+      <g transform="translate(0, 62)" fill="#6B7280" font-size="11">
+        <text x="0" y="0">📊 Confidence: 87% · 🏷️ Pattern: Booking bot · 14 affected accounts</text>
+      </g>
+
+      <g transform="translate(900, 40)">
+        <rect width="240" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+        <text x="120" y="26" text-anchor="middle" fill="#374151" font-size="13">View affected accounts →</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Pattern stats -->
+  <g transform="translate(80, 660)">
+    <rect width="1280" height="200" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📊 Detection patterns (last 30 days)</text>
+    </g>
+    <g transform="translate(24, 50)">
+      <text x="0" y="0" fill="#374151" font-size="12">🤖 Booking bot</text>
+      <rect x="160" y="-8" width="1080" height="14" rx="7" fill="#E5E7EB"/>
+      <rect x="160" y="-8" width="320" height="14" rx="7" fill="#EF4444"/>
+      <text x="1260" y="0" text-anchor="end" fill="#111827" font-size="11" font-weight="700">42</text>
+    </g>
+    <g transform="translate(24, 80)">
+      <text x="0" y="0" fill="#374151" font-size="12">💳 Payment fraud</text>
+      <rect x="160" y="-8" width="1080" height="14" rx="7" fill="#E5E7EB"/>
+      <rect x="160" y="-8" width="180" height="14" rx="7" fill="#EF4444"/>
+      <text x="1260" y="0" text-anchor="end" fill="#111827" font-size="11" font-weight="700">24</text>
+    </g>
+    <g transform="translate(24, 110)">
+      <text x="0" y="0" fill="#374151" font-size="12">📧 Spam messages</text>
+      <rect x="160" y="-8" width="1080" height="14" rx="7" fill="#E5E7EB"/>
+      <rect x="160" y="-8" width="420" height="14" rx="7" fill="#F59E0B"/>
+      <text x="1260" y="0" text-anchor="end" fill="#111827" font-size="11" font-weight="700">56</text>
+    </g>
+    <g transform="translate(24, 140)">
+      <text x="0" y="0" fill="#374151" font-size="12">📧 Multiple accounts (sybil)</text>
+      <rect x="160" y="-8" width="1080" height="14" rx="7" fill="#E5E7EB"/>
+      <rect x="160" y="-8" width="100" height="14" rx="7" fill="#EF4444"/>
+      <text x="1260" y="0" text-anchor="end" fill="#111827" font-size="11" font-weight="700">14</text>
+    </g>
+  </g>
+</svg>
