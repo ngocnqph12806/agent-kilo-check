@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 100)" fill="#374151" font-size="13">
+    <text x="0" y="0">Pods</text>
+    <text x="40" y="0">›</text>
+    <text x="55" y="0">Italian Cooking Crew</text>
+    <text x="200" y="0">›</text>
+    <text x="215" y="0" fill="#10B981" font-weight="600">Analytics</text>
+  </g>
+
+  <g transform="translate(80, 140)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">📊 Pod Analytics</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Track engagement, growth, and learning outcomes</text>
+    <g transform="translate(1140, -10)">
+      <rect width="140" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="26" text-anchor="middle" fill="#374151" font-size="13">📥 Export PDF</text>
+    </g>
+  </g>
+
+  <!-- KPI cards -->
+  <g transform="translate(80, 230)">
+    <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">👥 ACTIVE MEMBERS</text>
+      <text x="0" y="50" fill="#111827" font-size="36" font-weight="800">8/12</text>
+      <text x="120" y="50" fill="#10B981" font-size="14" font-weight="600">+2</text>
+      <text x="0" y="80" fill="#10B981" font-size="11">↑ 25% this month</text>
+    </g>
+  </g>
+
+  <g transform="translate(390, 230)">
+    <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">📅 SESSIONS HELD</text>
+      <text x="0" y="50" fill="#111827" font-size="36" font-weight="800">23</text>
+      <text x="0" y="80" fill="#10B981" font-size="11">↑ 4 this month · 100% on time</text>
+    </g>
+  </g>
+
+  <g transform="translate(700, 230)">
+    <rect width="290" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⏱️ AVG ATTENDANCE</text>
+      <text x="0" y="50" fill="#111827" font-size="36" font-weight="800">87%</text>
+      <text x="0" y="80" fill="#10B981" font-size="11">↑ 8% vs last month</text>
+    </g>
+  </g>
+
+  <g transform="translate(1010, 230)">
+    <rect width="350" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">⭐ AVG SATISFACTION</text>
+      <text x="0" y="50" fill="#111827" font-size="36" font-weight="800">4.8</text>
+      <text x="80" y="50" fill="#F59E0B" font-size="14">⭐⭐⭐⭐⭐</text>
+      <text x="0" y="80" fill="#6B7280" font-size="11">Based on 47 session ratings</text>
+    </g>
+  </g>
+
+  <!-- Attendance chart -->
+  <g transform="translate(80, 380)">
+    <rect width="800" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📈 Attendance over time</text>
+      <text x="0" y="20" fill="#6B7280" font-size="11">Last 12 weeks</text>
+    </g>
+    <g transform="translate(60, 80)">
+      <!-- Grid -->
+      <line x1="0" y1="0" x2="700" y2="0" stroke="#F3F4F6"/>
+      <line x1="0" y1="50" x2="700" y2="50" stroke="#F3F4F6"/>
+      <line x1="0" y1="100" x2="700" y2="100" stroke="#F3F4F6"/>
+      <line x1="0" y1="150" x2="700" y2="150" stroke="#E5E7EB"/>
+
+      <!-- Y labels -->
+      <g transform="translate(-32, 0)" fill="#9CA3AF" font-size="10">
+        <text x="0" y="4">100%</text>
+        <text x="0" y="54">75%</text>
+        <text x="0" y="104">50%</text>
+        <text x="0" y="154">25%</text>
+      </g>
+
+      <!-- Bars -->
+      <g transform="translate(0, 0)" fill="url(#ctaGrad)">
+        <rect x="10" y="50" width="40" height="100" rx="4"/>
+        <rect x="70" y="40" width="40" height="110" rx="4"/>
+        <rect x="130" y="30" width="40" height="120" rx="4"/>
+        <rect x="190" y="45" width="40" height="105" rx="4"/>
+        <rect x="250" y="20" width="40" height="130" rx="4"/>
+        <rect x="310" y="35" width="40" height="115" rx="4"/>
+        <rect x="370" y="15" width="40" height="135" rx="4"/>
+        <rect x="430" y="25" width="40" height="125" rx="4"/>
+        <rect x="490" y="10" width="40" height="140" rx="4"/>
+        <rect x="550" y="20" width="40" height="130" rx="4"/>
+        <rect x="610" y="5" width="40" height="145" rx="4"/>
+        <rect x="670" y="15" width="40" height="135" rx="4"/>
+      </g>
+
+      <!-- X labels -->
+      <g transform="translate(0, 170)" fill="#9CA3AF" font-size="9" text-anchor="middle">
+        <text x="30" y="0">W1</text>
+        <text x="90" y="0">W2</text>
+        <text x="150" y="0">W3</text>
+        <text x="210" y="0">W4</text>
+        <text x="270" y="0">W5</text>
+        <text x="330" y="0">W6</text>
+        <text x="390" y="0">W7</text>
+        <text x="450" y="0">W8</text>
+        <text x="510" y="0">W9</text>
+        <text x="570" y="0">W10</text>
+        <text x="630" y="0">W11</text>
+        <text x="690" y="0">W12</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Top contributors -->
+  <g transform="translate(900, 380)">
+    <rect width="460" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">🏆 Top contributors</text>
+      <text x="0" y="20" fill="#6B7280" font-size="11">By sessions attended &amp; posts</text>
+
+      <g transform="translate(0, 40)">
+        <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="700">Mai Tran</text>
+        <text x="56" y="38" fill="#6B7280" font-size="11">22 sessions · 18 posts</text>
+        <rect x="280" y="14" width="120" height="12" rx="6" fill="#E5E7EB"/>
+        <rect x="280" y="14" width="115" height="12" rx="6" fill="url(#ctaGrad)"/>
+        <text x="420" y="24" fill="#10B981" font-size="11" font-weight="600">⭐</text>
+      </g>
+
+      <g transform="translate(0, 80)">
+        <circle cx="20" cy="20" r="20" fill="#DBEAFE"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨‍🍳</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="700">Marco (Mentor)</text>
+        <text x="56" y="38" fill="#6B7280" font-size="11">23 sessions · 12 posts</text>
+        <rect x="280" y="14" width="120" height="12" rx="6" fill="#E5E7EB"/>
+        <rect x="280" y="14" width="115" height="12" rx="6" fill="url(#ctaGrad)"/>
+        <text x="420" y="24" fill="#10B981" font-size="11" font-weight="600">⭐</text>
+      </g>
+
+      <g transform="translate(0, 120)">
+        <circle cx="20" cy="20" r="20" fill="#FCE7F3"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👩</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="700">Anna Kim</text>
+        <text x="56" y="38" fill="#6B7280" font-size="11">14 sessions · 8 posts</text>
+        <rect x="280" y="14" width="120" height="12" rx="6" fill="#E5E7EB"/>
+        <rect x="280" y="14" width="75" height="12" rx="6" fill="url(#ctaGrad)"/>
+      </g>
+
+      <g transform="translate(0, 160)">
+        <circle cx="20" cy="20" r="20" fill="#D1FAE5"/>
+        <text x="20" y="28" text-anchor="middle" font-size="16">👨</text>
+        <text x="56" y="20" fill="#111827" font-size="13" font-weight="700">David Lee</text>
+        <text x="56" y="38" fill="#6B7280" font-size="11">9 sessions · 4 posts</text>
+        <rect x="280" y="14" width="120" height="12" rx="6" fill="#E5E7EB"/>
+        <rect x="280" y="14" width="50" height="12" rx="6" fill="url(#ctaGrad)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Skill progress -->
+  <g transform="translate(80, 690)">
+    <rect width="1280" height="160" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(24, 24)">
+      <text x="0" y="0" fill="#111827" font-size="16" font-weight="800">📚 Skills mastered by pod members</text>
+
+      <g transform="translate(0, 24)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">🍝 Italian Cooking (Beginner → Intermediate)</text>
+        <g transform="translate(280, 4)">
+          <rect width="900" height="14" rx="7" fill="#E5E7EB"/>
+          <rect width="720" height="14" rx="7" fill="url(#ctaGrad)"/>
+        </g>
+        <text x="1200" y="14" fill="#10B981" font-size="12" font-weight="700">72%</text>
+      </g>
+
+      <g transform="translate(0, 56)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">🍕 Pizza (Beginner)</text>
+        <g transform="translate(280, 4)">
+          <rect width="900" height="14" rx="7" fill="#E5E7EB"/>
+          <rect width="450" height="14" rx="7" fill="url(#ctaGrad)"/>
+        </g>
+        <text x="1200" y="14" fill="#10B981" font-size="12" font-weight="700">45%</text>
+      </g>
+
+      <g transform="translate(0, 88)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">🥘 Risotto (Beginner)</text>
+        <g transform="translate(280, 4)">
+          <rect width="900" height="14" rx="7" fill="#E5E7EB"/>
+          <rect width="270" height="14" rx="7" fill="url(#ctaGrad)"/>
+        </g>
+        <text x="1200" y="14" fill="#10B981" font-size="12" font-weight="700">27%</text>
+      </g>
+
+      <g transform="translate(0, 120)">
+        <text x="0" y="14" fill="#374151" font-size="12" font-weight="600">🍰 Italian Desserts (Beginner)</text>
+        <g transform="translate(280, 4)">
+          <rect width="900" height="14" rx="7" fill="#E5E7EB"/>
+          <rect width="180" height="14" rx="7" fill="url(#ctaGrad)"/>
+        </g>
+        <text x="1200" y="14" fill="#10B981" font-size="12" font-weight="700">18%</text>
+      </g>
+    </g>
+  </g>
+</svg>
