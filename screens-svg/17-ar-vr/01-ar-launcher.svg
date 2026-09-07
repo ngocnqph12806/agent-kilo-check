@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="arGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.10"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#0F172A"/>
+
+  <!-- Gradient overlay -->
+  <rect x="0" y="0" width="1440" height="900" fill="url(#arGrad)" opacity="0.3"/>
+
+  <!-- Grid pattern -->
+  <g stroke="#FFFFFF" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="100" x2="1440" y2="100"/>
+    <line x1="0" y1="200" x2="1440" y2="200"/>
+    <line x1="0" y1="300" x2="1440" y2="300"/>
+    <line x1="0" y1="400" x2="1440" y2="400"/>
+    <line x1="0" y1="500" x2="1440" y2="500"/>
+    <line x1="0" y1="600" x2="1440" y2="600"/>
+    <line x1="0" y1="700" x2="1440" y2="700"/>
+    <line x1="0" y1="800" x2="1440" y2="800"/>
+    <line x1="200" y1="0" x2="200" y2="900"/>
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="600" y1="0" x2="600" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1000" y1="0" x2="1000" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+  </g>
+
+  <!-- Top -->
+  <g transform="translate(60, 60)">
+    <text x="0" y="0" fill="#FFFFFF" font-size="18" font-weight="700">🌱 SkillSeed AR</text>
+  </g>
+  <g transform="translate(1300, 60)">
+    <text x="80" y="0" text-anchor="middle" fill="#FFFFFF" font-size="20">×</text>
+  </g>
+
+  <!-- Center -->
+  <g transform="translate(720, 280)" text-anchor="middle">
+    <!-- Floating AR cube -->
+    <g opacity="0.9">
+      <rect x="-60" y="-60" width="120" height="120" rx="12" fill="rgba(99, 102, 241, 0.4)" stroke="#A5B4FC" stroke-width="2"/>
+      <rect x="-50" y="-70" width="100" height="100" rx="12" fill="rgba(139, 92, 246, 0.5)" stroke="#C4B5FD" stroke-width="2"/>
+      <rect x="-40" y="-50" width="80" height="80" rx="12" fill="rgba(255,255,255,0.15)"/>
+    </g>
+    <text x="0" y="100" fill="#FFFFFF" font-size="48" font-weight="800">🥽</text>
+  </g>
+
+  <g transform="translate(720, 460)" text-anchor="middle">
+    <text x="0" y="0" fill="#FFFFFF" font-size="56" font-weight="800">Launch AR Session</text>
+    <text x="0" y="50" fill="#C7D2FE" font-size="18">Point your camera at your workspace to begin</text>
+  </g>
+
+  <!-- Skill selection -->
+  <g transform="translate(420, 600)">
+    <text x="0" y="0" fill="#C7D2FE" font-size="14" font-weight="700" letter-spacing="2">CHOOSE YOUR SKILL</text>
+  </g>
+
+  <g transform="translate(420, 630)">
+    <rect width="180" height="100" rx="12" fill="rgba(255,255,255,0.08)" stroke="#10B981" stroke-width="2"/>
+    <text x="90" y="36" text-anchor="middle" font-size="32">🧘</text>
+    <text x="90" y="66" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Yoga &amp; Stretching</text>
+    <text x="90" y="86" text-anchor="middle" fill="#10B981" font-size="11">✓ Selected</text>
+  </g>
+
+  <g transform="translate(620, 630)">
+    <rect width="180" height="100" rx="12" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/>
+    <text x="90" y="36" text-anchor="middle" font-size="32">🍳</text>
+    <text x="90" y="66" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Cooking</text>
+  </g>
+
+  <g transform="translate(820, 630)">
+    <rect width="180" height="100" rx="12" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/>
+    <text x="90" y="36" text-anchor="middle" font-size="32">🔧</text>
+    <text x="90" y="66" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Repair</text>
+  </g>
+
+  <!-- CTA -->
+  <g transform="translate(620, 770)">
+    <rect width="200" height="56" rx="28" fill="url(#ctaGrad)"/>
+    <text x="100" y="36" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700">🚀 Start AR session</text>
+  </g>
+
+  <!-- Status -->
+  <g transform="translate(60, 850)" fill="#94A3B8" font-size="11">
+    <text x="0" y="0">📱 Device: iPhone 15 Pro · iOS 17 · Camera ready</text>
+  </g>
+  <g transform="translate(1380, 850)" text-anchor="end" fill="#94A3B8" font-size="11">
+    <text x="0" y="0">🌐 Online · Wi-Fi stable · Battery 84%</text>
+  </g>
+</svg>
