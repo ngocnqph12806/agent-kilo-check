@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">⚙️ Settings · Account</text>
+  </g>
+
+  <!-- Sidebar -->
+  <g transform="translate(80, 180)">
+    <rect width="240" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(20, 20)" fill="#374151" font-size="14">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">ACCOUNT</text>
+      <g transform="translate(0, 20)">
+        <rect width="200" height="36" rx="8" fill="#ECFDF5"/>
+        <text x="20" y="23" fill="#10B981" font-size="13" font-weight="600">👤 Account</text>
+      </g>
+      <g transform="translate(0, 60)"><text x="20" y="20">🔔 Notifications</text></g>
+      <g transform="translate(0, 100)"><text x="20" y="20">🔒 Privacy</text></g>
+      <g transform="translate(0, 140)"><text x="20" y="20">💳 Payments</text></g>
+
+      <text x="0" y="200" fill="#9CA3AF" font-size="11" font-weight="700">PREFERENCES</text>
+      <g transform="translate(0, 220)"><text x="20" y="20">🌍 Locale</text></g>
+      <g transform="translate(0, 260)"><text x="20" y="20">🔗 Wallet</text></g>
+      <g transform="translate(0, 300)"><text x="20" y="20">📅 Calendars</text></g>
+      <g transform="translate(0, 340)"><text x="20" y="20">💻 Devices</text></g>
+
+      <text x="0" y="400" fill="#9CA3AF" font-size="11" font-weight="700">DATA</text>
+      <g transform="translate(0, 420)"><text x="20" y="20">📥 Export</text></g>
+      <g transform="translate(0, 460)"><text x="20" y="20">🚫 Blocked</text></g>
+      <g transform="translate(0, 500)"><text x="20" y="20" fill="#EF4444" font-weight="600">⚠️ Delete account</text></g>
+    </g>
+  </g>
+
+  <!-- Main -->
+  <g transform="translate(360, 180)">
+    <rect width="1000" height="660" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(40, 40)">
+      <text x="0" y="0" fill="#111827" font-size="24" font-weight="800">Personal information</text>
+      <text x="0" y="28" fill="#6B7280" font-size="13">Update your name, email, and contact details</text>
+
+      <!-- Name -->
+      <g transform="translate(0, 70)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Full name</text>
+        <rect x="0" y="14" width="450" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="14">Mai Tran</text>
+      </g>
+
+      <g transform="translate(480, 70)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Display name</text>
+        <rect x="0" y="14" width="450" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="14">@mai_tran</text>
+      </g>
+
+      <g transform="translate(0, 160)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Email</text>
+        <rect x="0" y="14" width="450" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="14">mai.tran@example.com</text>
+        <text x="430" y="42" text-anchor="end" fill="#10B981" font-size="11" font-weight="700">✓ Verified</text>
+      </g>
+
+      <g transform="translate(480, 160)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Phone</text>
+        <rect x="0" y="14" width="450" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="14">🇻🇳 +84 901 234 567</text>
+        <text x="430" y="42" text-anchor="end" fill="#10B981" font-size="11" font-weight="700">✓ Verified</text>
+      </g>
+
+      <!-- Birthday -->
+      <g transform="translate(0, 250)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Date of birth</text>
+        <rect x="0" y="14" width="450" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="14">📅 March 15, 1995</text>
+      </g>
+
+      <g transform="translate(480, 250)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Gender (optional)</text>
+        <rect x="0" y="14" width="450" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#111827" font-size="14">Female</text>
+        <text x="430" y="42" fill="#9CA3AF" font-size="13">▼</text>
+      </g>
+
+      <!-- Login providers -->
+      <g transform="translate(0, 340)">
+        <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Connected accounts</text>
+        <g transform="translate(0, 20)">
+          <rect width="930" height="56" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 12)">
+            <rect width="32" height="32" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="16" y="22" text-anchor="middle" font-size="16">G</text>
+          </g>
+          <text x="68" y="34" fill="#111827" font-size="13" font-weight="600">Google</text>
+          <text x="68" y="48" fill="#6B7280" font-size="11">mai.tran@gmail.com · Connected</text>
+          <g transform="translate(820, 18)">
+            <rect width="80" height="24" rx="12" fill="transparent" stroke="#EF4444"/>
+            <text x="40" y="16" text-anchor="middle" fill="#EF4444" font-size="11" font-weight="600">Disconnect</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 88)">
+          <rect width="930" height="56" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 12)">
+            <rect width="32" height="32" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+            <text x="16" y="22" text-anchor="middle" font-size="16">🍎</text>
+          </g>
+          <text x="68" y="34" fill="#111827" font-size="13" font-weight="600">Apple</text>
+          <text x="68" y="48" fill="#6B7280" font-size="11">Not connected</text>
+          <g transform="translate(820, 18)">
+            <rect width="80" height="24" rx="12" fill="url(#ctaGrad)"/>
+            <text x="40" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600">Connect</text>
+          </g>
+        </g>
+
+        <g transform="translate(0, 176)">
+          <rect width="930" height="56" rx="10" fill="#F9FAFB"/>
+          <g transform="translate(20, 12)">
+            <rect width="32" height="32" rx="8" fill="#6366F1"/>
+            <text x="16" y="22" text-anchor="middle" fill="#FFFFFF" font-size="16">🔗</text>
+          </g>
+          <text x="68" y="34" fill="#111827" font-size="13" font-weight="600">Web3 Wallet</text>
+          <text x="68" y="48" fill="#6B7280" font-size="11" font-family="monospace">0x7F3A...8E2d · Connected</text>
+          <g transform="translate(820, 18)">
+            <rect width="80" height="24" rx="12" fill="transparent" stroke="#EF4444"/>
+            <text x="40" y="16" text-anchor="middle" fill="#EF4444" font-size="11" font-weight="600">Disconnect</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- Save -->
+      <g transform="translate(0, 600)">
+        <rect width="140" height="44" rx="22" fill="url(#ctaGrad)"/>
+        <text x="70" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Save changes</text>
+      </g>
+    </g>
+  </g>
+</svg>
