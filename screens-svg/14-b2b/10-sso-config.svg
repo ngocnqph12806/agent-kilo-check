@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+      <text x="160" y="20" fill="#9CA3AF" font-size="13">· Acme Corp</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 100)" fill="#374151" font-size="13">
+    <text x="0" y="0">Org Settings</text>
+    <text x="100" y="0">›</text>
+    <text x="115" y="0" fill="#10B981" font-weight="600">SSO Configuration</text>
+  </g>
+
+  <g transform="translate(80, 140)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🔌 Single Sign-On</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Configure your identity provider for secure access</text>
+  </g>
+
+  <!-- Status -->
+  <g transform="translate(80, 220)">
+    <rect width="1280" height="100" rx="12" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+    <g transform="translate(24, 20)">
+      <circle cx="20" cy="20" r="20" fill="#10B981"/>
+      <path d="M14 20 L18 24 L26 16" stroke="#FFFFFF" stroke-width="3" fill="none"/>
+    </g>
+    <g transform="translate(80, 22)">
+      <text x="0" y="0" fill="#047857" font-size="16" font-weight="800">SSO is configured and active</text>
+      <text x="0" y="22" fill="#065F46" font-size="13">SAML 2.0 via Microsoft Entra ID · All 142 members using SSO</text>
+    </g>
+    <g transform="translate(1080, 28)">
+      <rect width="160" height="40" rx="20" fill="transparent" stroke="#EF4444"/>
+      <text x="80" y="26" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">Disable SSO</text>
+    </g>
+  </g>
+
+  <!-- Provider config -->
+  <g transform="translate(80, 350)">
+    <rect width="800" height="500" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="800">Identity provider</text>
+
+      <g transform="translate(0, 32)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Provider type</text>
+        <g transform="translate(0, 16)">
+          <rect width="240" height="44" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+          <text x="20" y="28" fill="#111827" font-size="13">🔐 Microsoft Entra ID</text>
+          <text x="220" y="28" fill="#10B981" font-size="13">▼</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 110)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Entity ID</text>
+        <rect x="0" y="14" width="736" height="44" rx="10" fill="#F9FAFB"/>
+        <text x="16" y="42" fill="#111827" font-size="12" font-family="monospace">https://skillseed.app/sso/acme-corp</text>
+      </g>
+
+      <g transform="translate(0, 180)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">ACS URL (reply URL)</text>
+        <rect x="0" y="14" width="736" height="44" rx="10" fill="#F9FAFB"/>
+        <text x="16" y="42" fill="#111827" font-size="12" font-family="monospace">https://api.skillseed.app/auth/saml/callback</text>
+      </g>
+
+      <g transform="translate(0, 250)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">IdP Metadata URL</text>
+        <rect x="0" y="14" width="640" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="42" fill="#9CA3AF" font-size="12" font-family="monospace">https://login.microsoftonline.com/acme-corp/federationmetadata</text>
+        <g transform="translate(652, 14)">
+          <rect width="80" height="44" rx="10" fill="url(#ctaGrad)"/>
+          <text x="40" y="28" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600">Test</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 320)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Just-in-time provisioning</text>
+        <rect x="0" y="14" width="736" height="44" rx="10" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+        <text x="16" y="28" fill="#111827" font-size="13">✓ Enabled · New users auto-created from IdP</text>
+        <g transform="translate(680, 22)">
+          <rect width="40" height="20" rx="10" fill="#10B981"/>
+          <circle cx="30" cy="10" r="8" fill="#FFFFFF"/>
+        </g>
+      </g>
+
+      <g transform="translate(0, 380)">
+        <text x="0" y="0" fill="#374151" font-size="13" font-weight="700">Default role for new SSO users</text>
+        <rect x="0" y="14" width="736" height="44" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="16" y="28" fill="#111827" font-size="13">👤 Member (non-admin)</text>
+        <text x="716" y="28" fill="#9CA3AF" font-size="13">▼</text>
+      </g>
+
+      <g transform="translate(0, 440)">
+        <rect width="180" height="40" rx="20" fill="url(#ctaGrad)"/>
+        <text x="90" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Save changes</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right: Test & help -->
+  <g transform="translate(900, 350)">
+    <rect width="460" height="500" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <g transform="translate(28, 28)">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="800">🧪 Test SSO connection</text>
+      <text x="0" y="22" fill="#6B7280" font-size="13">Verify your IdP setup before enforcing</text>
+
+      <g transform="translate(0, 60)">
+        <rect width="404" height="120" rx="10" fill="#ECFDF5"/>
+        <g transform="translate(20, 20)">
+          <text x="0" y="14" fill="#047857" font-size="13" font-weight="700">✅ Last test: 5 minutes ago</text>
+          <text x="0" y="34" fill="#065F46" font-size="11">✓ Metadata fetched successfully</text>
+          <text x="0" y="50" fill="#065F46" font-size="11">✓ Sign-on flow completed in 1.2s</text>
+          <text x="0" y="66" fill="#065F46" font-size="11">✓ All assertions validated</text>
+          <text x="0" y="86" fill="#10B981" font-size="11" font-weight="700">→ Ready for production</text>
+        </g>
+      </g>
+
+      <g transform="translate(0, 200)">
+        <rect width="404" height="44" rx="22" fill="url(#ctaGrad)"/>
+        <text x="202" y="28" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">Run test now</text>
+      </g>
+
+      <g transform="translate(0, 270)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📚 Setup guides</text>
+        <g transform="translate(0, 16)" fill="#374151" font-size="12">
+          <text x="0" y="0" fill="#10B981">📘 Microsoft Entra ID setup</text>
+          <text x="0" y="20" fill="#10B981">📗 Okta SAML configuration</text>
+          <text x="0" y="40" fill="#10B981">📙 Google Workspace SSO</text>
+          <text x="0" y="60" fill="#10B981">📕 Custom SAML 2.0 setup</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
