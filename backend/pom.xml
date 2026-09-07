@@ -29,6 +29,7 @@
         <testcontainers.version>1.20.3</testcontainers.version>
         <lombok.version>1.18.34</lombok.version>
         <jjwt.version>0.12.6</jjwt.version>
+        <aws.sdk.version>2.28.16</aws.sdk.version>
     </properties>
 
     <dependencies>
@@ -107,6 +108,12 @@
             <groupId>com.resend</groupId>
             <artifactId>resend-java</artifactId>
             <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>${aws.sdk.version}</version>
         </dependency>
 
         <dependency>

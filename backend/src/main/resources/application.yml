@@ -29,6 +29,11 @@ spring:
       url: ${REDIS_URL:redis://:skillseed_dev_password@localhost:6379}
       timeout: 5s
 
+  servlet:
+    multipart:
+      max-file-size: 6MB
+      max-request-size: 6MB
+
 server:
   port: 8080
   forward-headers-strategy: framework
@@ -61,6 +66,31 @@ jwt:
   secret: ${JWT_SECRET:local_dev_secret_min_256_bits_long_enough_for_security_requirements_xyz}
   access-token-ttl-minutes: 15
   refresh-token-ttl-days: 30
+
+app:
+  public-base-url: ${APP_PUBLIC_BASE_URL:http://localhost:3000}
+
+notification:
+  resend:
+    api-key: ${RESEND_API_KEY:}
+    from: ${RESEND_FROM:no-reply@skillseed.app}
+
+oauth:
+  google:
+    client-id: ${GOOGLE_OAUTH_CLIENT_ID:}
+  apple:
+    client-id: ${APPLE_OAUTH_CLIENT_ID:}
+    issuer: ${APPLE_OAUTH_ISSUER:https://appleid.apple.com}
+
+storage:
+  local-dir: ${STORAGE_LOCAL_DIR:/tmp/skillseed-avatars}
+  r2:
+    endpoint: ${R2_ENDPOINT:}
+    bucket: ${R2_BUCKET:}
+    access-key: ${R2_ACCESS_KEY:}
+    secret-key: ${R2_SECRET_KEY:}
+    public-base-url: ${R2_PUBLIC_BASE_URL:}
+    region: ${R2_REGION:auto}
 
 logging:
   level:

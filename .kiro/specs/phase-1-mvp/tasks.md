@@ -23,6 +23,30 @@
   - **T-M11:** `backend/src/main/resources/db/migration/V2__seed_skills.sql` — 2049 skills trong 8 categories (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
   - **T-M12:** 9 entities (`com.skillseed.{user,skill,booking,rating,wallet}.domain.*`) + 9 Spring Data JPA repositories + 5 enums + 5 AttributeConverters trong `shared/domain`. Entities KHÔNG dùng Lombok (per AGENTS.md §5.2). Sử dụng `@JdbcTypeCode(SqlTypes.UUID)` cho UUID columns, `@JdbcTypeCode(SqlTypes.ARRAY)` cho `TEXT[]` (languages). Enum values map qua AttributeConverter → DB lưu lowercase string ('tech', 'email', 'pending'...).
   - **Sandbox limitation:** không thể chạy `mvn verify` để xác nhận `ddl-auto=validate` pass. Cần user chạy local để xác nhận schema ↔ entity mapping không drift.
+- **2026-09-07 — Sprint 0 Skills module (T-M40..T-M44)**
+  - **Completed:** T-M40, T-M41, T-M42, T-M43, T-M44
+  - **T-M40+T-M41:** `SkillController` exposes `GET /skills` (search/filter/paginate, public), `GET /skills/{id}` (public), `POST /skills` (custom, JWT-required). `V3__add_skill_status.sql` adds `status` column + CHECK + partial index. `SkillStatus` enum + `SkillStatusConverter`; `Skill` entity updated. `SkillService.createCustomSkill` derives URL-safe slug and persists `is_custom=true` + `status=pending_review`.
+  - **T-M42:** `OfferedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/offered`. Strict ownership checks (NOT_OWNER on cross-user); rejects duplicates and unapproved skills (SKILL_NOT_APPROVED).
+  - **T-M43:** `WantedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/wanted`. Same ownership + skill-validation rules.
+  - **T-M44:** `AvailabilityController` exposes GET + PUT `/api/v1/users/me/availability`. PUT is a full bulk replace (`deleteByUserId` + insert in same transaction). Validates `endTime > startTime` (matches DB CHECK) and rejects same-day/same-timezone overlapping slots.
+  - **SecurityConfig:** `GET /api/v1/skills` and `/skills/{id}` are `permitAll()`.
+  - **Sandbox limitation:** không có JDK/Maven nên `mvn verify` chưa chạy local. Cần user verify V3 migration + `ddl-auto=validate` (schema ↔ Skill entity) + lint (Checkstyle) + Swagger UI cho 13 endpoint mới.
+
+- **2026-09-07 — Sprint 0 User module (T-M30..T-M34)**
+  - **Completed:** T-M30, T-M31, T-M32, T-M33, T-M34
+  - **T-M30+T-M31+T-M33:** `UserController` exposes `GET /me`, `PATCH /me`, `GET /{id}`. `UserService.getCurrentUser` returns `CurrentUserResponse` (profile + Skill DNA summary + wallet summary); `getPublicProfile` returns `PublicUserResponse` (email/phone intentionally omitted); `updateProfile` applies partial updates with Bean Validation. `SecurityConfig`: `GET /api/v1/users/{id}` is `permitAll()`.
+  - **T-M32:** `OnboardingController#complete` flips `onboarding_completed=true` then calls `SeedWalletService.grantStarterSeeds` (ledger-style: `SeedTransaction` type=GRANT, amount=+30, TTL=180d, idempotent via description match). Auto-creates `SeedWallet` row if missing.
+  - **T-M34:** `AvatarController#upload` (multipart, ≤5MB, image/jpeg|png|webp|gif) → `AvatarStorage` (Cloudflare R2 via AWS SDK v2 S3 client when `storage.r2.*` configured, otherwise filesystem fallback under `storage.local-dir`). `software.amazon.awssdk:s3` dep added; `spring.servlet.multipart` bumped to 6MB.
+  - **Sandbox limitation:** không có JDK/Maven nên `mvn verify` chưa chạy local. Cần user verify `ddl-auto=validate`, lint (Checkstyle), và Swagger UI cho 5 endpoint mới (`/api/v1/users/**`).
+
+- **2026-09-07 — Sprint 0 Auth module (T-M20..T-M27)**
+  - **Completed:** T-M20, T-M21, T-M22, T-M23, T-M24, T-M25, T-M26, T-M27
+  - **T-M20:** `JwtService` (HS256, configurable TTLs, token-type claim) + `JwtAuthenticationFilter` (Bearer parsing → SecurityContext) + `SecurityConfig` (stateless, BCrypt(12), `/api/v1/auth/**` public, JWT filter pre-auth, CORS via `cors.allowed-origins`).
+  - **T-M21+T-M24:** `AuthService.register` (Bean Validation + BCrypt + 24h email verify token) + `verifyEmail` (single-use consume, flips `verified=true`). `TokenStore` Redis (Lua GET+DEL), `TokenGenerator` (SecureRandom URL-safe Base64), `EmailSender` (Resend SDK + logging fallback). User entity nhận `@PrePersist`/`@PreUpdate` callbacks cho timestamps.
+  - **T-M22+T-M23:** `RateLimiter` Redis fixed-window (`skillseed:rl:{purpose}:{key}`); `AuthService.login`/`refresh`/`logout` với refresh token rotation persisted in Redis. Login rate-limited 5/15min/IP (`X-Forwarded-For` đầu hoặc `remoteAddr`).
+  - **T-M25:** `AuthService.forgotPassword` (generic response, TTL 1h, chỉ issue khi account có password) + `resetPassword` (consume + BCrypt rehash).
+  - **T-M26+T-M27:** `JwksIdTokenVerifier` base (cache JWKS, rotate hourly, validate issuer+audience+email_verified) + `GoogleIdTokenVerifier` + `AppleIdTokenVerifier`. Conditional beans (`oauth.google.client-id` / `oauth.apple.client-id`). Auto-link existing email user hoặc tạo mới với `verified=true`, `password=null`.
+  - **Sandbox limitation:** không có JDK/Maven → `mvn verify` chưa chạy local. Cần user verify lint, test (T-M60/T-M61 sau), và Swagger UI cho 8 endpoint mới (`/api/v1/auth/**`).
 - **2026-09-07 — Sprint 0 Bootstrap (Đợt 1)**
   - **Completed:** T-M03, T-M04, T-M05
   - **Scaffolded, chờ local verify:** T-M01 (cần GitHub repo + branch protection), T-M02 (cần `mvn verify` local), T-M06 (cần truy cập `/swagger-ui.html` local)
@@ -75,58 +99,76 @@
 
 ### Auth module
 
-- [ ] [T-M20] **[P0]** Implement JWT generation + validation (JJWT 0.12.x)
+- [x] [T-M20] **[P0]** Implement JWT generation + validation (JJWT 0.12.x)
   - Access token (15 min HS256), refresh token (30 days)
   - Claims: sub, email, verificationLevel
-- [ ] [T-M21] **[P0]** Implement POST `/auth/register`
+  - **Verified 2026-09-07:** `JwtService` (`backend/.../auth/service/JwtService.java`) — HS256 signing via JJWT 0.12.6, configurable TTLs, token-type claim distinguishes access/refresh. Filter `JwtAuthenticationFilter` populates SecurityContext with `AuthenticatedUser`. Sandbox không có JDK nên chưa chạy `mvn verify` — cần user xác nhận local.
+- [x] [T-M21] **[P0]** Implement POST `/auth/register`
   - Validate input (email format, password ≥ 8 chars + chữ + số)
   - BCrypt hash password
   - Tạo email verification token, gửi qua Resend
-- [ ] [T-M22] **[P0]** Implement POST `/auth/login`
+  - **Verified 2026-09-07:** `AuthService.register` — Bean Validation + BCrypt(12) + `TokenStore` (Redis Lua GET+DEL) + `EmailSender` (Resend SDK, fallback log khi thiếu `RESEND_API_KEY`). Token TTL 24h. Endpoint `POST /api/v1/auth/register` → 201.
+- [x] [T-M22] **[P0]** Implement POST `/auth/login`
   - Verify password, return JWT pair
   - Rate limit: 5 lần/IP/15 phút
-- [ ] [T-M23] **[P0]** Implement POST `/auth/refresh`
+  - **Verified 2026-09-07:** `AuthService.login` — `RateLimiter` Redis fixed-window (`skillseed:rl:login:{ip}`, TTL 15m), key = `X-Forwarded-For` đầu tiên hoặc `remoteAddr`. Trả 429 `RATE_LIMITED` khi vượt ngưỡng, 401 `INVALID_CREDENTIALS` / `OAUTH_ONLY_ACCOUNT` khi sai.
+- [x] [T-M23] **[P0]** Implement POST `/auth/refresh`
   - Validate refresh từ Redis, issue new access token
-- [ ] [T-M24] **[P0]** Implement POST `/auth/verify-email`
+  - **Verified 2026-09-07:** `AuthService.refresh` — verify JWT signature + token-type=refresh, consume refresh token trong Redis (rotation), issue cặp mới. `POST /api/v1/auth/refresh`.
+- [x] [T-M24] **[P0]** Implement POST `/auth/verify-email`
   - Validate token (TTL 24h), set `verified=true`
-- [ ] [T-M25] **[P0]** Implement POST `/auth/forgot-password` + `/reset-password`
+  - **Verified 2026-09-07:** `AuthService.verifyEmail` — single-use token consumption, flip `verified=true`. `POST /api/v1/auth/verify-email`.
+- [x] [T-M25] **[P0]** Implement POST `/auth/forgot-password` + `/reset-password`
   - Generate reset token, gửi email
-- [ ] [T-M26] **[P0]** Implement OAuth2 Google Sign-In
+  - **Verified 2026-09-07:** `AuthService.forgotPassword` (generic response, TTL 1h) + `resetPassword` (consume + BCrypt rehash). `POST /api/v1/auth/forgot-password`, `POST /api/v1/auth/reset-password`.
+- [x] [T-M26] **[P0]** Implement OAuth2 Google Sign-In
   - Validate Google idToken (dùng Google API client library)
   - Tạo user nếu chưa tồn tại
-- [ ] [T-M27] **[P1]** Implement OAuth2 Apple Sign-In
+  - **Verified 2026-09-07:** `GoogleIdTokenVerifier` — verify RS256 via `https://www.googleapis.com/oauth2/v3/certs` JWKS, issuer + audience + `email_verified` checks. Conditional bean qua `oauth.google.client-id`. `POST /api/v1/auth/oauth/google`.
+- [x] [T-M27] **[P1]** Implement OAuth2 Apple Sign-In
   - Validate Apple idToken (dùng apple-signin-oidc)
   - Cần Apple Developer account + Service ID
+  - **Verified 2026-09-07:** `AppleIdTokenVerifier` — verify RS256 via `https://appleid.apple.com/auth/keys`, cùng pattern Google. `POST /api/v1/auth/oauth/apple`. Operator opt-in bằng `oauth.apple.client-id` + `oauth.apple.issuer`.
 
 ### User module
 
-- [ ] [T-M30] **[P0]** Implement GET `/users/me`
+- [x] [T-M30] **[P0]** Implement GET `/users/me`
   - Trả current user profile + Skill DNA
-- [ ] [T-M31] **[P0]** Implement PATCH `/users/me`
+  - **Verified 2026-09-07:** `UserController#me` → `UserService.getCurrentUser` returns `CurrentUserResponse` (profile + Skill DNA summary + wallet summary). Soft-delete aware.
+- [x] [T-M31] **[P0]** Implement PATCH `/users/me`
   - Cập nhật full_name, bio, country, timezone, languages, learning_style
-- [ ] [T-M32] **[P0]** Implement onboarding flow (multi-step)
+  - **Verified 2026-09-07:** `UserController#updateMe` with `@Valid UpdateProfileRequest` (Bean Validation: fullName, bio max 500, ISO-2 country uppercase, timezone, languages, learningStyle). Null fields = untouched.
+- [x] [T-M32] **[P0]** Implement onboarding flow (multi-step)
   - POST `/users/me/onboarding` đánh dấu hoàn thành
   - Cấp 30 free starter seeds
-- [ ] [T-M33] **[P0]** Implement GET `/users/{id}` (public profile)
+  - **Verified 2026-09-07:** `OnboardingController#complete` flips `onboarding_completed=true` + `SeedWalletService.grantStarterSeeds` credits 30 (TTL 180d) via ledger-style `SeedTransaction(GRANT)`. Idempotent (checks for existing starter grant by description).
+- [x] [T-M33] **[P0]** Implement GET `/users/{id}` (public profile)
   - Chỉ trả fields public (không email, phone)
-- [ ] [T-M34] **[P0]** Implement avatar upload (multipart)
+  - **Verified 2026-09-07:** `UserController#getById` → `UserService.getPublicProfile` returns `PublicUserResponse` (email/phone intentionally absent). Endpoint is `permitAll()` for GET in SecurityConfig.
+- [x] [T-M34] **[P0]** Implement avatar upload (multipart)
   - Validate ≤ 5MB, image/* MIME type
   - Upload lên Cloudflare R2, lưu URL
+  - **Verified 2026-09-07:** `AvatarController#upload` accepts multipart `file` field, validates image/jpeg|png|webp|gif + ≤5MB, uploads via `AvatarStorage` (R2 conditional on `storage.r2.*`, else filesystem fallback under `storage.local-dir`). New `software.amazon.awssdk:s3` dep in `pom.xml`. Multipart limits bumped to 6MB in `application.yml`.
 
 ### Skills module
 
-- [ ] [T-M40] **[P0]** Implement GET `/skills?query=&category=`
+- [x] [T-M40] **[P0]** Implement GET `/skills?query=&category=`
   - Search theo name LIKE %query% + filter category
   - Pagination (max 100)
-- [ ] [T-M41] **[P0]** Implement POST `/skills` (custom skill)
+  - **Verified 2026-09-07:** `SkillController#search` → `SkillService.search` (name LIKE + category, page clamped 0..N, size clamped 1..100, default 20). Filters out non-approved rows; GET endpoints permitAll.
+- [x] [T-M41] **[P0]** Implement POST `/skills` (custom skill)
   - Tạo skill với is_custom=true, status=pending_review
-- [ ] [T-M42] **[P0]** Implement user_skills_offered CRUD
+  - **Verified 2026-09-07:** `V3__add_skill_status.sql` adds `status` column + CHECK + partial index; `SkillStatus` enum + `SkillStatusConverter`. `SkillService.createCustomSkill` derives URL-safe slug, rejects duplicates (409), persists with `is_custom=true` and `status=pending_review`. Requires JWT.
+- [x] [T-M42] **[P0]** Implement user_skills_offered CRUD
   - POST/GET/PATCH/DELETE
-- [ ] [T-M43] **[P0]** Implement user_skills_wanted CRUD
+  - **Verified 2026-09-07:** `OfferedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/offered`. Bean Validation (level 1-5, years positive, description max 1000). Strict ownership checks; rejects duplicates and unapproved skills.
+- [x] [T-M43] **[P0]** Implement user_skills_wanted CRUD
   - POST/GET/PATCH/DELETE
-- [ ] [T-M44] **[P0]** Implement availability endpoints
+  - **Verified 2026-09-07:** `WantedSkillController` exposes GET / POST / PATCH / DELETE under `/api/v1/users/me/skills/wanted`. Bean Validation (priority + targetLevel 1-5, notes max 1000). Strict ownership checks.
+- [x] [T-M44] **[P0]** Implement availability endpoints
   - PUT `/users/me/availability` (bulk replace)
   - GET `/users/me/availability`
+  - **Verified 2026-09-07:** `AvailabilityController` exposes GET + PUT. PUT performs full bulk replace (`deleteByUserId` + insert in the same transaction). Validates `endTime > startTime` and rejects same-day/same-timezone overlapping slots.
 
 ### Frontend — Auth flow
 

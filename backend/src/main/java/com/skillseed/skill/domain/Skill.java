@@ -2,6 +2,8 @@ package com.skillseed.skill.domain;
 
 import com.skillseed.shared.domain.SkillCategory;
 import com.skillseed.shared.domain.SkillCategoryConverter;
+import com.skillseed.shared.domain.SkillStatus;
+import com.skillseed.shared.domain.SkillStatusConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -37,6 +39,10 @@ public class Skill {
 
     @Column(name = "is_custom", nullable = false)
     private boolean custom = false;
+
+    @Convert(converter = SkillStatusConverter.class)
+    @Column(name = "status", nullable = false, length = 20)
+    private SkillStatus status = SkillStatus.APPROVED;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
@@ -93,6 +99,14 @@ public class Skill {
 
     public void setCustom(boolean custom) {
         this.custom = custom;
+    }
+
+    public SkillStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SkillStatus status) {
+        this.status = status;
     }
 
     public Skill getParent() {
