@@ -1,6 +1,7 @@
 package com.skillseed.shared.exception;
 
 import com.skillseed.auth.exception.AuthException;
+import com.skillseed.user.exception.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthException.class)
     public ResponseEntity<ApiErrorResponse> handleAuth(AuthException ex) {
+        return ResponseEntity.status(ex.getHttpStatus())
+                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<ApiErrorResponse> handleUser(UserException ex) {
         return ResponseEntity.status(ex.getHttpStatus())
                 .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
     }
