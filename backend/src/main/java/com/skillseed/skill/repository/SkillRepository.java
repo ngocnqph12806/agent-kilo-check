@@ -1,6 +1,7 @@
 package com.skillseed.skill.repository;
 
 import com.skillseed.shared.domain.SkillCategory;
+import com.skillseed.shared.domain.SkillStatus;
 import com.skillseed.skill.domain.Skill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,4 +21,9 @@ public interface SkillRepository extends JpaRepository<Skill, UUID> {
     Page<Skill> findByCategory(SkillCategory category, Pageable pageable);
 
     Page<Skill> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    Page<Skill> findByNameContainingIgnoreCaseAndCategory(
+            String name, SkillCategory category, Pageable pageable);
+
+    Page<Skill> findByStatus(SkillStatus status, Pageable pageable);
 }

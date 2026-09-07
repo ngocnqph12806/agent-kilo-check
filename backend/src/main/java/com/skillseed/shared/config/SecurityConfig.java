@@ -53,7 +53,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
-                                new AntPathRequestMatcher("/api/v1/users/{id}")
+                                new AntPathRequestMatcher("/api/v1/users/{id}"),
+                                new AntPathRequestMatcher("/api/v1/skills"),
+                                new AntPathRequestMatcher("/api/v1/skills/{id}")
                         ).permitAll()
                         .requestMatchers(PUBLIC_PATHS).permitAll()
                         .anyRequest().authenticated())

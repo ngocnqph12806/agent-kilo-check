@@ -1,6 +1,7 @@
 package com.skillseed.shared.exception;
 
 import com.skillseed.auth.exception.AuthException;
+import com.skillseed.skill.exception.SkillException;
 import com.skillseed.user.exception.UserException;
 import com.skillseed.wallet.exception.WalletException;
 import org.slf4j.Logger;
@@ -39,6 +40,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(WalletException.class)
     public ResponseEntity<ApiErrorResponse> handleWallet(WalletException ex) {
+        return ResponseEntity.status(ex.getHttpStatus())
+                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(SkillException.class)
+    public ResponseEntity<ApiErrorResponse> handleSkill(SkillException ex) {
         return ResponseEntity.status(ex.getHttpStatus())
                 .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
     }
