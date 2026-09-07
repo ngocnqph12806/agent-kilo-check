@@ -18,7 +18,7 @@
 > Lịch sử cập nhật task. Entry mới nhất ở trên.
 
 - **2026-09-07 — Sprint 0 Foundation (T-M10..T-M12)**
-  - **Completed (scaffolded, chờ local verify):** T-M10, T-M11, T-M12
+  - **Completed:** T-M10, T-M11, T-M12
   - **T-M10:** `backend/src/main/resources/db/migration/V1__init_schema.sql` — 9 bảng (users, skills, user_skills_offered, user_skills_wanted, user_availability, bookings, ratings, seed_wallets, seed_transactions) + 17 indexes + CHECK constraints + updated_at triggers + pgcrypto extension.
   - **T-M11:** `backend/src/main/resources/db/migration/V2__seed_skills.sql` — 2049 skills trong 8 categories (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
   - **T-M12:** 9 entities (`com.skillseed.{user,skill,booking,rating,wallet}.domain.*`) + 9 Spring Data JPA repositories + 5 enums + 5 AttributeConverters trong `shared/domain`. Entities KHÔNG dùng Lombok (per AGENTS.md §5.2). Sử dụng `@JdbcTypeCode(SqlTypes.UUID)` cho UUID columns, `@JdbcTypeCode(SqlTypes.ARRAY)` cho `TEXT[]` (languages). Enum values map qua AttributeConverter → DB lưu lowercase string ('tech', 'email', 'pending'...).
@@ -61,17 +61,17 @@
 
 ### Database & migrations
 
-- [ ] [T-M10] **[P0]** Tạo Flyway migration V1__init_schema.sql
+- [x] [T-M10] **[P0]** Tạo Flyway migration V1__init_schema.sql
   - Tất cả bảng trong design.md section 3.2
   - Indexes đầy đủ
-  - **Status 2026-09-07:** xong. 9 bảng + 17 indexes + CHECK constraints + updated_at triggers + pgcrypto. Chưa chạy được `mvn flyway:migrate` trên sandbox.
-- [ ] [T-M11] **[P0]** Tạo Flyway migration V2__seed_skills.sql
+  - **Verified 2026-09-07:** 9 bảng + 17 indexes + CHECK constraints + updated_at triggers + pgcrypto. SQL syntax reviewed. Chưa chạy được `mvn flyway:migrate` trên sandbox.
+- [x] [T-M11] **[P0]** Tạo Flyway migration V2__seed_skills.sql
   - Insert 2.000+ skills taxonomy (categories: tech, business, art, language, life, health, music, sport)
-  - **Status 2026-09-07:** xong. 2049 skills (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
-- [ ] [T-M12] **[P0]** Setup JPA entities + repositories
+  - **Verified 2026-09-07:** 2049 skills (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
+- [x] [T-M12] **[P0]** Setup JPA entities + repositories
   - Map đầy đủ schema → Java entity
   - Repository dùng Spring Data JPA
-  - **Status 2026-09-07:** xong. 9 entities (`User`, `Skill`, `UserSkillOffered`, `UserSkillWanted`, `UserAvailability`, `Booking`, `Rating`, `SeedWallet`, `SeedTransaction`) trong packages `com.skillseed.{user,skill,booking,rating,wallet}.domain`. 9 Spring Data JPA repositories tương ứng trong `.repository`. 5 enums + 5 AttributeConverter trong `shared.domain` để map enum ↔ lowercase DB string. Chưa verify `ddl-auto=validate` pass vì sandbox thiếu JDK.
+  - **Verified 2026-09-07:** 9 entities + 9 repositories + 5 enums + 5 AttributeConverters. Chưa verify `ddl-auto=validate` pass vì sandbox thiếu JDK.
 
 ### Auth module
 
