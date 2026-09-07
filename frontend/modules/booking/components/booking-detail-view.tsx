@@ -14,6 +14,7 @@ import {
   useStartBooking
 } from '../hooks/use-bookings';
 import type { BookingStatus } from '../lib/schemas';
+import { SessionPanel } from '@/modules/session';
 
 export interface BookingDetailViewProps {
   bookingId: string;
@@ -82,6 +83,10 @@ export function BookingDetailView({
     isParticipant(data, currentUserId) &&
     (data.status === ('pending' as BookingStatus) ||
       data.status === ('confirmed' as BookingStatus));
+  const showSessionPanel =
+    isParticipant(data, currentUserId) &&
+    (data.status === ('confirmed' as BookingStatus) ||
+      data.status === ('in_progress' as BookingStatus));
 
   return (
     <main className="container mx-auto max-w-3xl space-y-8 py-10">
@@ -145,6 +150,15 @@ export function BookingDetailView({
         <section className="rounded-lg border bg-muted/40 p-4">
           <Countdown scheduledAt={data.scheduledAt} />
         </section>
+      ) : null}
+
+      {showSessionPanel ? (
+        <SessionPanel
+          bookingId={data.id}
+          scheduledAt={data.scheduledAt}
+          status={data.status}
+          currentUserId={currentUserId}
+        />
       ) : null}
 
       <section className="flex flex-wrap items-center gap-2">
