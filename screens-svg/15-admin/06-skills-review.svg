@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="adminGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <rect width="1440" height="72" fill="url(#adminGrad)"/>
+  <g transform="translate(80, 22)">
+    <text x="0" y="20" fill="#FFFFFF" font-size="20" font-weight="700">🌱 SkillSeed Admin</text>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🎯 Skills Review Queue</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Approve new skills submitted by users · 12 pending</text>
+  </g>
+
+  <!-- Tabs -->
+  <g transform="translate(80, 200)">
+    <rect width="160" height="40" rx="20" bg fill="#10B981"/>
+    <text x="80" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">⏳ Pending (12)</text>
+    <g transform="translate(170, 0)">
+      <rect width="140" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="26" text-anchor="middle" fill="#374151" font-size="13">Approved</text>
+    </g>
+    <g transform="translate(320, 0)">
+      <rect width="140" height="40" rx="20" bg fill="transparent" stroke="#D1D5DB"/>
+      <text x="70" y="26" text-anchor="middle" fill="#374151" font-size="13">Rejected</text>
+    </g>
+  </g>
+
+  <!-- Skill 1 -->
+  <g transform="translate(80, 270)">
+    <rect width="1280" height="140" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <rect width="6" height="140" rx="3" fill="#10B981"/>
+    <g transform="translate(28, 20)">
+      <text x="0" y="32" font-size="40">🔐</text>
+      <text x="60" y="22" fill="#111827" font-size="16" font-weight="700">Zero-Knowledge Proofs</text>
+      <text x="60" y="42" fill="#6B7280" font-size="13">Cryptography · 4 sessions requested · 0 sessions completed</text>
+
+      <g transform="translate(0, 60)">
+        <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">SUBMITTED BY</text>
+        <g transform="translate(120, -10)">
+          <circle cx="14" cy="14" r="14" fill="#FEF3C7"/>
+          <text x="14" y="22" text-anchor="middle" font-size="14">👨</text>
+        </g>
+        <text x="140" y="14" fill="#111827" font-size="13" font-weight="700">Dr. James Wilson</text>
+        <text x="140" y="30" fill="#6B7280" font-size="11">PhD Cryptography · 142 sessions</text>
+      </g>
+      <g transform="translate(420, -10)">
+        <text x="0" y="14" fill="#9CA3AF" font-size="11" font-weight="600">CREDENTIALS</text>
+        <text x="0" y="34" fill="#374151" font-size="12">✓ Verified PhD · ⚠️ SBT pending</text>
+      </g>
+    </g>
+
+    <g transform="translate(900, 30)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#EF4444" stroke-width="2"/>
+      <text x="60" y="26" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">✕ Reject</text>
+    </g>
+    <g transform="translate(1030, 30)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#10B981"/>
+      <text x="60" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">💬 Request info</text>
+    </g>
+    <g transform="translate(1160, 30)">
+      <rect width="120" height="40" rx="20" fill="url(#ctaGrad)"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">✓ Approve</text>
+    </g>
+  </g>
+
+  <!-- Skill 2 -->
+  <g transform="translate(80, 430)">
+    <rect width="1280" height="140" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <rect width="6" height="140" rx="3" fill="#F59E0B"/>
+    <g transform="translate(28, 20)">
+      <text x="0" y="32" font-size="40">☯️</text>
+      <text x="60" y="22" fill="#111827" font-size="16" font-weight="700">Traditional Chinese Medicine</text>
+      <text x="60" y="42" fill="#6B7280" font-size="13">Healthcare · Missing credentials</text>
+
+      <g transform="translate(0, 60)">
+        <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">SUBMITTED BY</text>
+        <g transform="translate(120, -10)">
+          <circle cx="14" cy="14" r="14" fill="#FCE7F3"/>
+          <text x="14" y="22" text-anchor="middle" font-size="14">👨</text>
+        </g>
+        <text x="140" y="14" fill="#111827" font-size="13" font-weight="700">Robert Liu</text>
+        <text x="140" y="30" fill="#6B7280" font-size="11">No verified credentials · ⚠️ 12 sessions</text>
+      </g>
+    </g>
+
+    <g transform="translate(900, 30)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#EF4444" stroke-width="2"/>
+      <text x="60" y="26" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">✕ Reject</text>
+    </g>
+    <g transform="translate(1030, 30)">
+      <rect width="120" height="40" rx="20" bg fill="transparent" stroke="#10B981"/>
+      <text x="60" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">💬 Request info</text>
+    </g>
+    <g transform="translate(1160, 30)">
+      <rect width="120" height="40" rx="20" fill="#10B981"/>
+      <text x="60" y="26" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">⚠️ Conditional</text>
+    </g>
+  </g>
+
+  <!-- Skill 3 -->
+  <g transform="translate(80, 590)">
+    <rect width="1280" height="120" rx="12" bg fill="#FFFFFF" filter="url(#cardShadow)"/>
+    <rect width="6" height="120" rx="3" fill="#EF4444"/>
+    <g transform="translate(28, 20)">
+      <text x="0" y="32" font-size="40">💰</text>
+      <text x="60" y="22" fill="#111827" font-size="16" font-weight="700">Day Trading Crypto Signals</text>
+      <text x="60" y="42" fill="#6B7280" font-size="13">⚠️ Conflicts with platform policy · High-risk content</text>
+
+      <g transform="translate(0, 60)">
+        <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="600">SUBMITTED BY</text>
+        <g transform="translate(120, -10)">
+          <circle cx="14" cy="14" r="14" fill="#FED7AA"/>
+          <text x="14" y="22" text-anchor="middle" font-size="14">👨</text>
+        </g>
+        <text x="140" y="14" fill="#111827" font-size="13" font-weight="700">CryptoTrader22</text>
+        <text x="140" y="30" fill="#991B1B" font-size="11">⚠️ Flagged by auto-moderator</text>
+      </g>
+    </g>
+
+    <g transform="translate(900, 30)">
+      <rect width="240" height="40" rx="20" bg fill="transparent" stroke="#EF4444" stroke-width="2"/>
+      <text x="120" y="26" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">✕ Reject (policy)</text>
+    </g>
+  </g>
+</svg>
