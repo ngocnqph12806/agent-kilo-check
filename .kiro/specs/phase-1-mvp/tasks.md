@@ -47,6 +47,16 @@
   - **T-M25:** `AuthService.forgotPassword` (generic response, TTL 1h, chỉ issue khi account có password) + `resetPassword` (consume + BCrypt rehash).
   - **T-M26+T-M27:** `JwksIdTokenVerifier` base (cache JWKS, rotate hourly, validate issuer+audience+email_verified) + `GoogleIdTokenVerifier` + `AppleIdTokenVerifier`. Conditional beans (`oauth.google.client-id` / `oauth.apple.client-id`). Auto-link existing email user hoặc tạo mới với `verified=true`, `password=null`.
   - **Sandbox limitation:** không có JDK/Maven → `mvn verify` chưa chạy local. Cần user verify lint, test (T-M60/T-M61 sau), và Swagger UI cho 8 endpoint mới (`/api/v1/auth/**`).
+- **2026-09-07 — Sprint 0 Frontend Auth flow (T-M50..T-M56)**
+  - **Completed:** T-M50, T-M51, T-M52, T-M53, T-M54, T-M55, T-M56
+  - **T-M50:** axios `apiClient` với 401 unauthorized hook + auto xoá access token; zod schemas cho mọi auth payload; `token-storage` (localStorage access + SameSite=Lax cookie refresh — production nên đổi sang httpOnly do BE set); Zustand `authStore` hydrate từ localStorage; React Query mutations cho login/register/logout/verify/forgot/reset/google/apple/me; `AuthInitializer` mount trong RootLayout + QueryProvider wrap children; shared `AuthShell`, `FormError`, `FormAlert`; shadcn primitives `Input`, `Label`, `Alert`.
+  - **T-M51:** `/login` page (react-hook-form + zod + `useLoginMutation`). Toàn bộ page trong `Suspense` để pass Next 15 prerender cho `useSearchParams`. Banner cho `?registered=1`, `?reset=1`, `?verified=1`.
+  - **T-M52:** `/register` page với password match refinement + password hint (≥8 chars, có chữ + số); `useRegisterMutation` redirect sang `/login?registered=1`.
+  - **T-M53:** `/verify-email/[token]` dynamic route (Next 15 async `params`) — auto-fire mutation on mount, 3 states (pending / success / error). Success → link sang `/login?verified=1` và `/onboarding`.
+  - **T-M54:** `/forgot-password` (email-only, success banner "If an account exists…") + `/reset-password` (?token= → new password + confirm). Buttons disable sau khi submit thành công.
+  - **T-M55:** `google-sign-in-button.tsx` dùng Google Identity Services (`accounts.google.com/gsi/client`, không thêm npm dep). Tự detect `NEXT_PUBLIC_GOOGLE_CLIENT_ID`; fallback sang disabled button. Wired vào `/login` (signin) và `/register` (signup). `useAppleLoginMutation` hook đã có sẵn ở T-M50 — Apple button được dành cho phase polish khi cần Sign in with Apple JS SDK.
+  - **T-M56:** `AuthGuard` (client component, optional `requireVerified` + `requireOnboarding`, redirect tới `/login` hoặc `/onboarding` với `?next=`) + `GuestGuard` (redirect authed users ra khỏi `/login` `/register`). `(app)` route group với `(app)/layout.tsx` wrap AuthGuard; `(app)/discover/page.tsx` stub chứa logout mutation.
+  - **Sandbox limitation:** không có JDK/Maven nên BE chưa chạy local; FE verify đầy đủ bằng `npm run typecheck` + `npm run lint` + `npm run build` (8 routes prerendered, /verify-email/[token] dynamic). End-to-end Google / OAuth flow cần user set `NEXT_PUBLIC_GOOGLE_CLIENT_ID` + bật BE OAuth bean trước khi manual QA.
 - **2026-09-07 — Sprint 0 Bootstrap (Đợt 1)**
   - **Completed:** T-M03, T-M04, T-M05
   - **Scaffolded, chờ local verify:** T-M01 (cần GitHub repo + branch protection), T-M02 (cần `mvn verify` local), T-M06 (cần truy cập `/swagger-ui.html` local)
