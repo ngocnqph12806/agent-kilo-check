@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="videoBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1F2937"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#videoBg)"/>
+
+  <!-- Top bar -->
+  <g>
+    <rect width="1440" height="56" fill="rgba(0,0,0,0.5)"/>
+    <text x="32" y="34" fill="#FFFFFF" font-size="14" font-weight="600">🍝 Italian Pasta Masterclass</text>
+    <text x="280" y="34" fill="#9CA3AF" font-size="13">with Chef Marco Rossi</text>
+    <g transform="translate(640, 18)">
+      <rect width="160" height="24" rx="12" fill="rgba(255,255,255,0.1)"/>
+      <text x="80" y="17" text-anchor="middle" fill="#FFFFFF" font-size="12">⏱️ 18:42 / 45:00</text>
+    </g>
+  </g>
+
+  <!-- Main video (smaller) -->
+  <rect x="32" y="80" width="800" height="640" rx="12" fill="#000000"/>
+  <text x="432" y="380" text-anchor="middle" font-size="160">👨‍🍳</text>
+  <text x="432" y="440" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="600">Chef Marco Rossi</text>
+
+  <!-- Self video -->
+  <g transform="translate(680, 100)">
+    <rect width="140" height="180" rx="10" fill="#374151"/>
+    <text x="70" y="100" text-anchor="middle" font-size="64">👩</text>
+    <rect x="8" y="148" width="60" height="20" rx="10" fill="rgba(0,0,0,0.5)"/>
+    <text x="38" y="162" text-anchor="middle" fill="#FFFFFF" font-size="10">You</text>
+  </g>
+
+  <!-- Chat panel (right) -->
+  <g transform="translate(852, 80)">
+    <rect width="556" height="640" rx="12" fill="#FFFFFF"/>
+
+    <!-- Header -->
+    <g>
+      <rect width="556" height="56" rx="12" fill="#F9FAFB"/>
+      <text x="20" y="34" fill="#111827" font-size="15" font-weight="700">💬 Session chat</text>
+      <g transform="translate(450, 16)">
+        <rect width="40" height="24" rx="6" fill="#10B981"/>
+        <text x="20" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600">EN</text>
+        <text x="50" y="16" fill="#9CA3AF" font-size="11">🌐 Auto-translate</text>
+      </g>
+    </g>
+
+    <!-- Messages -->
+    <g transform="translate(20, 76)">
+      <!-- System -->
+      <g>
+        <rect x="100" y="0" width="316" height="36" rx="18" fill="#FEF3C7"/>
+        <text x="258" y="22" text-anchor="middle" fill="#92400E" font-size="11">📌 Session started 18 minutes ago</text>
+      </g>
+
+      <!-- Mentor -->
+      <g transform="translate(0, 56)">
+        <circle cx="16" cy="16" r="16" fill="#DBEAFE"/>
+        <text x="16" y="22" text-anchor="middle" font-size="14">👨‍🍳</text>
+        <rect x="40" y="0" width="320" height="76" rx="12" fill="#F3F4F6"/>
+        <text x="56" y="22" fill="#111827" font-size="11" font-weight="600">Chef Marco</text>
+        <text x="56" y="22" text-anchor="middle" fill="#9CA3AF" font-size="10" dx="80">19:12</text>
+        <text x="56" y="42" fill="#374151" font-size="12">Make sure your dough is well-kneaded.</text>
+        <text x="56" y="58" fill="#374151" font-size="12">It should feel smooth and elastic ✨</text>
+      </g>
+
+      <!-- Me -->
+      <g transform="translate(196, 152)">
+        <rect x="0" y="0" width="320" height="56" rx="12" fill="#10B981"/>
+        <text x="16" y="22" fill="#FFFFFF" font-size="11" font-weight="600">You</text>
+        <text x="304" y="22" text-anchor="end" fill="#FFFFFF" font-size="10" opacity="0.8">19:13</text>
+        <text x="16" y="42" fill="#FFFFFF" font-size="12">Thanks! Can I use a stand mixer?</text>
+      </g>
+
+      <!-- Mentor -->
+      <g transform="translate(0, 228)">
+        <circle cx="16" cy="16" r="16" fill="#DBEAFE"/>
+        <text x="16" y="22" text-anchor="middle" font-size="14">👨‍🍳</text>
+        <rect x="40" y="0" width="340" height="92" rx="12" fill="#F3F4F6"/>
+        <text x="56" y="22" fill="#111827" font-size="11" font-weight="600">Chef Marco</text>
+        <text x="56" y="22" text-anchor="middle" fill="#9CA3AF" font-size="10" dx="80">19:14</text>
+        <text x="56" y="42" fill="#374151" font-size="12">Yes! Use the dough hook attachment.</text>
+        <text x="56" y="58" fill="#374151" font-size="12">Knead for 8-10 minutes on medium.</text>
+        <text x="56" y="74" fill="#374151" font-size="12">Watch for it to pull away from sides.</text>
+      </g>
+
+      <!-- Me -->
+      <g transform="translate(196, 340)">
+        <rect x="0" y="0" width="320" height="36" rx="12" fill="#10B981"/>
+        <text x="16" y="22" fill="#FFFFFF" font-size="12">Got it! Trying now 👍</text>
+        <text x="304" y="22" text-anchor="end" fill="#FFFFFF" font-size="10" opacity="0.8">19:15</text>
+      </g>
+
+      <!-- Mentor attachment -->
+      <g transform="translate(0, 396)">
+        <circle cx="16" cy="16" r="16" fill="#DBEAFE"/>
+        <text x="16" y="22" text-anchor="middle" font-size="14">👨‍🍳</text>
+        <rect x="40" y="0" width="260" height="76" rx="12" fill="#F3F4F6"/>
+        <g transform="translate(56, 12)">
+          <rect width="228" height="56" rx="8" fill="#DBEAFE"/>
+          <text x="114" y="32" text-anchor="middle" font-size="20">📄</text>
+          <text x="114" y="48" text-anchor="middle" fill="#1E40AF" font-size="10" font-weight="600">pasta-recipe.pdf</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Input -->
+    <g transform="translate(20, 580)">
+      <rect width="516" height="44" rx="22" fill="#F3F4F6"/>
+      <text x="20" y="28" fill="#9CA3AF" font-size="13">Type a message...</text>
+      <g transform="translate(460, 10)">
+        <circle cx="12" cy="12" r="12" fill="#10B981"/>
+        <text x="12" y="18" text-anchor="middle" fill="#FFFFFF" font-size="14">↑</text>
+      </g>
+      <g transform="translate(420, 10)">
+        <text x="12" y="18" text-anchor="middle" font-size="16">📎</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom toolbar -->
+  <g transform="translate(360, 760)">
+    <g>
+      <circle cx="32" cy="32" r="32" fill="#374151"/>
+      <text x="32" y="42" text-anchor="middle" fill="#FFFFFF" font-size="20">🎤</text>
+    </g>
+    <g transform="translate(80, 0)">
+      <circle cx="32" cy="32" r="32" fill="#374151"/>
+      <text x="32" y="42" text-anchor="middle" fill="#FFFFFF" font-size="20">📹</text>
+    </g>
+    <g transform="translate(160, 0)">
+      <circle cx="32" cy="32" r="32" fill="#374151"/>
+      <text x="32" y="42" text-anchor="middle" fill="#FFFFFF" font-size="20">🖥️</text>
+    </g>
+    <g transform="translate(240, 0)">
+      <circle cx="32" cy="32" r="32" fill="#10B981"/>
+      <text x="32" y="42" text-anchor="middle" fill="#FFFFFF" font-size="20">💬</text>
+    </g>
+    <g transform="translate(320, 0)">
+      <circle cx="32" cy="32" r="32" fill="#374151"/>
+      <text x="32" y="42" text-anchor="middle" fill="#FFFFFF" font-size="20">📝</text>
+    </g>
+    <g transform="translate(400, 0)">
+      <circle cx="32" cy="32" r="32" fill="#6366F1"/>
+      <text x="32" y="42" text-anchor="middle" fill="#FFFFFF" font-size="20">✨</text>
+    </g>
+    <g transform="translate(520, 0)">
+      <rect width="120" height="64" rx="32" fill="#EF4444"/>
+      <text x="60" y="40" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">End</text>
+    </g>
+  </g>
+</svg>
