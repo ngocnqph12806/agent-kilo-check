@@ -1,7 +1,7 @@
 # ---------- BUILD STAGE ----------
 # Multi-stage build để giữ image cuối cùng nhỏ gọn.
 
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM eclipse-temurin:25-jdk-alpine AS builder
 WORKDIR /workspace
 
 # Cache Maven deps
@@ -21,7 +21,7 @@ RUN cd backend && \
     fi
 
 # ---------- RUNTIME STAGE ----------
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 
 # Non-root user cho security
