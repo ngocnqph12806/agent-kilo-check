@@ -9,7 +9,7 @@ import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.UserSummaryResponse;
 import com.skillseed.auth.exception.AuthException;
-import com.skillseed.notification.EmailSender;
+import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
@@ -55,7 +55,7 @@ class AuthServiceTest {
     private PasswordEncoder passwordEncoder;
     private JwtService jwtService;
     private TokenStore tokenStore;
-    private EmailSender emailSender;
+    private EmailTemplateService emailTemplateService;
     private RateLimiter rateLimiter;
     private AuthService authService;
     private OAuthIdTokenVerifier googleVerifier;
@@ -66,7 +66,7 @@ class AuthServiceTest {
         passwordEncoder = mock(PasswordEncoder.class);
         jwtService = mock(JwtService.class);
         tokenStore = mock(TokenStore.class);
-        emailSender = mock(EmailSender.class);
+        emailTemplateService = mock(EmailTemplateService.class);
         rateLimiter = mock(RateLimiter.class);
 
         googleVerifier = mock(OAuthIdTokenVerifier.class);
@@ -82,7 +82,7 @@ class AuthServiceTest {
                 passwordEncoder,
                 jwtService,
                 tokenStore,
-                emailSender,
+                emailTemplateService,
                 rateLimiter,
                 provider,
                 "https://app.skillseed.test");
@@ -116,8 +116,7 @@ class AuthServiceTest {
 
             verify(tokenStore).store(eq(AuthService.PURPOSE_EMAIL_VERIFY), anyString(),
                     eq(saved.getId().toString()), eq(Duration.ofHours(24)));
-            verify(emailSender).send(eq("alice@example.com"), anyString(),
-                    anyString(), anyString());
+            verify(emailTemplateService).sendVerificationEmail(eq(saved), anyString());
         }
 
         @Test
@@ -152,17 +151,20 @@ class AuthServiceTest {
     class VerifyEmail {
 
         @Test
-        void flipsVerifiedOnValidToken() {
+        void flipsVerifiedOnValidTokenAndSendsWelcome() {
             UUID id = UUID.randomUUID();
+            User user = existingEmailUser(id);
+            user.setVerified(false);
             when(tokenStore.consume(AuthService.PURPOSE_EMAIL_VERIFY, "tok")).thenReturn(
                     Optional.of(id.toString()));
-            when(userRepository.findById(id)).thenReturn(Optional.of(existingEmailUser(id)));
+            when(userRepository.findById(id)).thenReturn(Optional.of(user));
 
             authService.verifyEmail("tok");
 
             ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
             verify(userRepository).save(captor.capture());
             assertThat(captor.getValue().isVerified()).isTrue();
+            verify(emailTemplateService).sendWelcomeEmail(user);
         }
 
         @Test
@@ -362,8 +364,7 @@ class AuthServiceTest {
 
             verify(tokenStore).store(eq(AuthService.PURPOSE_PASSWORD_RESET), anyString(),
                     eq(id.toString()), eq(Duration.ofHours(1)));
-            verify(emailSender).send(eq("alice@example.com"), anyString(),
-                    anyString(), anyString());
+            verify(emailTemplateService).sendPasswordResetEmail(any(User.class), anyString());
         }
 
         @Test
@@ -374,8 +375,9 @@ class AuthServiceTest {
 
             verify(tokenStore, never()).store(anyString(), anyString(),
                     anyString(), any(Duration.class));
-            verify(emailSender, never()).send(anyString(), anyString(),
-                    anyString(), anyString());
+            verify(emailTemplateService, never()).sendPasswordResetEmail(any(), anyString());
+            verify(emailTemplateService, never()).sendVerificationEmail(any(), anyString());
+            verify(emailTemplateService, never()).sendWelcomeEmail(any());
         }
 
         @Test

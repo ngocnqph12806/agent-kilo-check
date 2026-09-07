@@ -10,7 +10,7 @@ import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.UserSummaryResponse;
 import com.skillseed.auth.exception.AuthException;
-import com.skillseed.notification.EmailSender;
+import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
@@ -54,7 +54,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final TokenStore tokenStore;
-    private final EmailSender emailSender;
+    private final EmailTemplateService emailTemplateService;
     private final RateLimiter rateLimiter;
     private final Map<String, OAuthIdTokenVerifier> oauthVerifiers;
     private final String publicBaseUrl;
@@ -64,7 +64,7 @@ public class AuthService {
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
             TokenStore tokenStore,
-            EmailSender emailSender,
+            EmailTemplateService emailTemplateService,
             RateLimiter rateLimiter,
             ObjectProvider<List<OAuthIdTokenVerifier>> oauthProvider,
             @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
@@ -72,7 +72,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.tokenStore = tokenStore;
-        this.emailSender = emailSender;
+        this.emailTemplateService = emailTemplateService;
         this.rateLimiter = rateLimiter;
         this.oauthVerifiers = oauthProvider.getIfAvailable(List::of).stream()
                 .collect(Collectors.toMap(
@@ -129,10 +129,14 @@ public class AuthService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> AuthException.badRequest("USER_NOT_FOUND",
                         "User no longer exists"));
+        boolean wasUnverified = !user.isVerified();
         user.setVerified(true);
         user.setUpdatedAt(Instant.now());
         userRepository.save(user);
         log.info("Verified email for user id={}", userId);
+        if (wasUnverified) {
+            emailTemplateService.sendWelcomeEmail(user);
+        }
     }
 
     /**
@@ -227,21 +231,7 @@ public class AuthService {
         String token = TokenGenerator.generate();
         tokenStore.store(PURPOSE_PASSWORD_RESET, token, user.getId().toString(),
                 Duration.ofHours(1));
-        String link = publicBaseUrl + "/reset-password/" + token;
-        String subject = "Reset your SkillSeed password";
-        String text = "We received a request to reset your SkillSeed password.\n\n"
-                + "Open the link below to choose a new password (expires in 1 hour):\n"
-                + link + "\n\n"
-                + "If you did not request this, you can safely ignore this email.";
-        String html = "<p>We received a request to reset your SkillSeed password.</p>"
-                + "<p>Open the link below to choose a new password (expires in 1 hour):</p>"
-                + "<p><a href=\"" + link + "\">Reset password</a></p>"
-                + "<p>If you did not request this, you can safely ignore this email.</p>";
-        try {
-            emailSender.send(user.getEmail(), subject, html, text);
-        } catch (Exception ex) {
-            log.warn("Failed to send reset email to {}: {}", user.getEmail(), ex.getMessage());
-        }
+        emailTemplateService.sendPasswordResetEmail(user, token);
     }
 
     /**
@@ -366,19 +356,7 @@ public class AuthService {
         String token = TokenGenerator.generate();
         tokenStore.store(PURPOSE_EMAIL_VERIFY, token, user.getId().toString(),
                 TokenGenerator.defaultTtl());
-        String link = publicBaseUrl + "/verify-email/" + token;
-        String subject = "Verify your SkillSeed email";
-        String text = "Welcome to SkillSeed!\n\n"
-                + "Confirm your email by opening: " + link + "\n\n"
-                + "This link expires in 24 hours.";
-        String html = "<p>Welcome to SkillSeed!</p>"
-                + "<p>Confirm your email by clicking the link below (expires in 24h):</p>"
-                + "<p><a href=\"" + link + "\">Verify email</a></p>";
-        try {
-            emailSender.send(user.getEmail(), subject, html, text);
-        } catch (Exception ex) {
-            log.warn("Failed to send verification email to {}: {}", user.getEmail(),
-                    ex.getMessage());
-        }
+        emailTemplateService.sendVerificationEmail(user, token);
+    }
     }
 }

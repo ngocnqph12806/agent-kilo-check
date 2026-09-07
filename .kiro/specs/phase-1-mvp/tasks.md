@@ -48,11 +48,24 @@
   - **T-M26+T-M27:** `JwksIdTokenVerifier` base (cache JWKS, rotate hourly, validate issuer+audience+email_verified) + `GoogleIdTokenVerifier` + `AppleIdTokenVerifier`. Conditional beans (`oauth.google.client-id` / `oauth.apple.client-id`). Auto-link existing email user hoặc tạo mới với `verified=true`, `password=null`.
   - **Sandbox limitation:** không có JDK/Maven → `mvn verify` chưa chạy local. Cần user verify lint, test (T-M60/T-M61 sau), và Swagger UI cho 8 endpoint mới (`/api/v1/auth/**`).
 - **2026-09-07 — Sprint 0 Testing & QA (T-M60..T-M62)**
-  - **Completed:** T-M60, T-M61, T-M62
   - **T-M60:** 4 JUnit 5 + Mockito + AssertJ unit test classes — `JwtServiceTest` (HS256 round-trip, claim shape, type-mismatch, tampered signature, short-secret guard), `AuthServiceTest` (15 cases across register / verify / login / refresh / logout / forgot / reset / Google OAuth), `UserServiceTest` (current + public profile, partial update, onboarding idempotency, soft-delete), `SkillServiceTest` (search pagination + status filtering, custom skill create with slug derivation, duplicate / empty-slug / unknown-category / parent-link guards). JaCoCo 0.8.12 plugin emits coverage report on `mvn verify`; Surefire picked up `*Test.java`, Failsafe picks up `*IT.java`. H2 + `application-test.yml` added for future slice tests.
   - **T-M61:** `AuthControllerIT` — full Spring Boot context against ephemeral PostgreSQL 16 + Redis 7 (Testcontainers `@Testcontainers` + `@DynamicPropertySource`). 14 scenarios: register (201/409/400), login (200/401/429 with 5/15min/IP rate limit + `X-Forwarded-For`), refresh (rotation + replay rejection), forgot/reset (generic 200 on known + unknown email, 400 invalid verify token), OAuth (400 OAUTH_PROVIDER_DISABLED when client-id empty), logout (revoke + subsequent refresh 401). `application-it.yml` mirrors staging config so Flyway + ddl-auto=validate exercise the real schema. Existing `SkillseedApplicationTests#contextLoads` disabled — requires Docker.
   - **T-M62:** `docs/MANUAL_E2E_AUTH.md` — 10-section operator QA checklist (prerequisites, registration + verify, login + JWT pair + rate limit, refresh + rotation, forgot/reset, logout, Google sign-in, Apple sign-in, FE route guards, sign-off template, known gaps). Cross-linked from `AGENTS.md` §3.
   - **Sandbox limitation:** không có JDK/Maven nên `mvn test` / `mvn verify` chưa chạy local; cần user/CI với Docker để confirm integration tests pass. Unit tests compile clean theo Java 21 + JUnit 5 conventions và dùng đúng Spring Boot starter-test dependencies đã có sẵn trong `pom.xml`.
+- **2026-09-07 — Sprint 1 Profile + Discover + Email/Notification (T-M70..T-M92)**
+  - **Completed:** T-M70, T-M71, T-M72, T-M80, T-M81, T-M82, T-M83, T-M84, T-M90, T-M91, T-M92 (11 tasks)
+  - **T-M90:** `EmailTemplateService` extracts verify / reset / welcome email bodies (HTML + plain text) out of `AuthService`. Welcome email is sent once when an unverified user verifies their email. Wrapped in `safeSend()` so an email outage never fails the auth flow.
+  - **T-M91:** V4__add_notifications.sql migration creates `notifications(id, user_id FK, type, payload jsonb, read_at, created_at)` + CHECK constraint covering all booking + rating event types reserved for Sprint 2/3 + two indexes (full + partial WHERE read_at IS NULL for the polling query). New `notification` module: entity (no Lombok), `NotificationType` enum, repository, service (publish + list + unreadOnly + markRead + markAllRead with ownership check), controller under `/api/v1/notifications` (GET /me, GET /me/unread-count, POST /me/{id}/read, POST /me/read-all). 8 unit tests.
+  - **T-M80:** New `discover` module. `DiscoverRepositoryImpl` uses a single JPQL DISTINCT-user query joining `user_skills_offered` with the caller's `user_skills_wanted`, applies optional skill/language/country/minRating filters, then a single batched `findAll` on offered skills for the candidate set to build the top-3 matched-skills per card (avoids N+1). Hard-coded ORDER BY rating_avg DESC, sessions_completed DESC per spec §4.5. `DiscoverService` clamps page (>=0) and size (1..50). 4 unit tests.
+  - **T-M81:** `FreeSlotResponse` DTO + `UserService.getFreeSlots()` materialises the user's recurring weekly availability into UTC `Instant` intervals over `[from, from+days)`. day_of_week follows the schema convention (0..6, 0=Sunday); Java's `DayOfWeek` is re-encoded. Clamps days to 1..60. `SecurityConfig` allowlists `GET /api/v1/users/{id}/availability` as public so the booking flow can render slots pre-sign-in.
+  - **T-M71:** `modules/skills` FE module with `schemas` + `skills-api` + `use-skill-search` (RQ hook, 30s staleTime) + `SkillsAutocomplete` combobox (250ms debounce, click-outside, role=listbox, clear button, empty-state hint). Consumed by onboarding + the top-bar search.
+  - **T-M72:** `modules/availability` FE module: `schemas` + `availability-api` + `use-availability` (RQ query + replace mutation) + `AvailabilityPicker` (7-day grid, per-day slot editor with start/end time pickers, end>start validation, remove button, IANA timezone dropdown). Consumed by onboarding step 6.
+  - **T-M70:** `modules/onboarding` FE module with 6 visible step components (skills teach / skills want / goals / learning style / availability / languages+country). 'Level per skill' folded into the offered-skill form so the spec's 7 conceptual steps are all covered. `useOnboardingWizard` Zustand store with `persist` middleware (localStorage key `skillseed.onboarding-draft`) so refresh / tab close doesn't lose progress. `useSubmitOnboarding` orchestrates the chain: PATCH /users/me → POST offered + wanted → PUT availability → POST /users/me/onboarding (grants 30 Starter Seeds server-side) → redirect `/discover?welcome=1`. Wizard shell with progress bar, per-step validation hints, Back/Next. AuthGuard fix: skip the onboarding-required check when pathname === '/onboarding' to avoid an infinite redirect loop.
+  - **T-M82:** `modules/discover` FE module replaces the T-M56 stub. `DiscoverCard` with avatar-or-initials, top-3 skill pills, rating + sessions completed, 'View profile' CTA. `DiscoverFiltersPanel` with language / country / minRating + Reset. `DiscoverView` 2-column layout with collapsible mobile filter drawer, loading/error/empty states. Wired into `/discover?skill=...` (used by the top-bar search).
+  - **T-M83:** `modules/profile` FE module + `/users/[id]` dynamic route (Next 15 async params). `PublicProfileView` shows the public profile (avatar header, bio, offered skills, reviews placeholder) + a sidebar `BookSessionPanel` that previews the next 8 free slots from `/users/{id}/availability` and renders a disabled 'Book session' CTA pointing to T-M130.
+  - **T-M92:** `modules/notifications` FE module + `NotificationBell` mounted in the shared `AppTopBar` (added to `(app)/layout.tsx`). RQ hooks refetch `/notifications/me` + `/notifications/me/unread-count` every 60s per spec; bell shows a clamped 99+ badge; dropdown lists items with type→title mapping and a 'Mark all read' button.
+  - **T-M84:** `TopBarSearch` button in the shared top bar expands into the SkillsAutocomplete (T-M71). Selecting a skill pushes `/discover?skill={id}` which T-M82's new `?skill=` reader picks up — round-trip search → filtered discover.
+  - **Sandbox limitation:** không có JDK/Maven nên `mvn verify` chưa chạy (BE unit tests for DiscoverService + NotificationService + UserService.getFreeSlots chưa chạy local); FE verify đầy đủ bằng `npm run typecheck` + `npm run lint` + `npm run build` (10 routes prerendered, /onboarding + /users/[id] + /verify-email dynamic). End-to-end discover + onboarding flow cần user bật Docker + `mvn verify` để confirm Flyway V4 + ddl-auto=validate không drift.
 - **2026-09-07 — Sprint 0 Frontend Auth flow (T-M50..T-M56)**
   - **Completed:** T-M50, T-M51, T-M52, T-M53, T-M54, T-M55, T-M56
   - **Completed:** T-M03, T-M04, T-M05
@@ -201,7 +214,7 @@
 
 ### Frontend — Onboarding
 
-- [ ] [T-M70] **[P0]** Implement `/onboarding` 7-step wizard
+- [x] [T-M70] **[P0]** Implement `/onboarding` 7-step wizard
   - Progress bar, autosave mỗi step
   - Step 1: Skills I can teach
   - Step 2: Skills I want to learn
@@ -210,35 +223,35 @@
   - Step 5: Learning style
   - Step 6: Availability
   - Step 7: Languages, country
-- [ ] [T-M71] **[P0]** Implement skills autocomplete (search API với debounce)
-- [ ] [T-M72] **[P0]** Implement availability picker (time grid theo day_of_week)
+- [x] [T-M71] **[P0]** Implement skills autocomplete (search API với debounce)
+- [x] [T-M72] **[P0]** Implement availability picker (time grid theo day_of_week)
 
 ### Discover & Search
 
-- [ ] [T-M80] **[P0]** Backend: GET `/discover` (filter-based matching)
+- [x] [T-M80] **[P0]** Backend: GET `/discover` (filter-based matching)
   - Query: JOIN user_skills_offered với user_skills_wanted của current user
   - Filter: skill_id (from wanted), language, country, min_rating
   - Sort: rating DESC, sessions_completed DESC
 - [ ] [T-M81] **[P0]** Backend: GET `/users/{id}/availability?from=now&days=7`
   - Trả về free slots trong N ngày tới
-- [ ] [T-M82] **[P0]** Frontend: `/discover` page
+- [x] [T-M82] **[P0]** Frontend: `/discover` page
   - Card grid (avatar, name, top skills, rating, "Match" button)
   - Filter sidebar
-- [ ] [T-M83] **[P0]** Frontend: User profile page `/users/{id}`
+- [x] [T-M83] **[P0]** Frontend: User profile page `/users/{id}`
   - Public profile view + offered skills + reviews
   - "Book Session" CTA
-- [ ] [T-M84] **[P1]** Frontend: Search bar với autocomplete skills
+- [x] [T-M84] **[P1]** Frontend: Search bar với autocomplete skills
 
 ### Email & Notification
 
-- [ ] [T-M90] **[P0]** Setup Resend SDK + email templates
+- [x] [T-M90] **[P0]** Setup Resend SDK + email templates
   - Welcome email (sau register)
   - Verify email
   - Reset password
-- [ ] [T-M91] **[P0]** Implement In-app notification table
+- [x] [T-M91] **[P0]** Implement In-app notification table
   - Table: `notifications(id, user_id, type, payload, read_at, created_at)`
   - GET `/notifications/me?unreadOnly=true`
-- [ ] [T-M92] **[P0]** Implement notification polling ở frontend (mỗi 60s)
+- [x] [T-M92] **[P0]** Implement notification polling ở frontend (mỗi 60s)
 
 ---
 

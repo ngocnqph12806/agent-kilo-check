@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 new AntPathRequestMatcher("/api/v1/users/{id}"),
+                                new AntPathRequestMatcher("/api/v1/users/{id}/availability"),
                                 new AntPathRequestMatcher("/api/v1/skills"),
                                 new AntPathRequestMatcher("/api/v1/skills/{id}")
                         ).permitAll()
