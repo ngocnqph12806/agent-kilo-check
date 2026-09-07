@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="web3Grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12"/>
+      <feOffset dx="0" dy="6"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB" opacity="1"/>
+  <rect width="1440" height="900" fill="#000000" opacity="0.4"/>
+
+  <g transform="translate(420, 130)">
+    <rect width="600" height="640" rx="16" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <g>
+      <rect width="600" height="72" rx="16" fill="url(#web3Grad)"/>
+      <g transform="translate(32, 22)">
+        <circle cx="14" cy="14" r="14" fill="rgba(255,255,255,0.2)"/>
+        <text x="14" y="20" text-anchor="middle" fill="#FFFFFF" font-size="14">🔗</text>
+      </g>
+      <text x="68" y="40" fill="#FFFFFF" font-size="20" font-weight="800">Connect Web3 Wallet</text>
+      <text x="568" y="40" text-anchor="end" fill="#FFFFFF" font-size="20">×</text>
+    </g>
+
+    <g transform="translate(40, 100)">
+      <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">Choose your wallet</text>
+      <text x="0" y="22" fill="#6B7280" font-size="12">Connect to mint SBTs, claim seed rewards, and verify on-chain.</text>
+    </g>
+
+    <g transform="translate(40, 160)">
+      <!-- MetaMask -->
+      <g>
+        <rect width="520" height="72" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <g transform="translate(20, 20)">
+          <rect width="36" height="36" rx="8" fill="#FEF3C7"/>
+          <text x="18" y="26" text-anchor="middle" font-size="20">🦊</text>
+        </g>
+        <g transform="translate(72, 16)">
+          <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">MetaMask</text>
+          <text x="0" y="32" fill="#6B7280" font-size="11">Most popular browser wallet</text>
+        </g>
+        <g transform="translate(450, 28)">
+          <rect width="60" height="24" rx="12" fill="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">Connect</text>
+        </g>
+      </g>
+
+      <!-- WalletConnect -->
+      <g transform="translate(0, 88)">
+        <rect width="520" height="72" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <g transform="translate(20, 20)">
+          <rect width="36" height="36" rx="8" fill="#DBEAFE"/>
+          <text x="18" y="26" text-anchor="middle" font-size="20">🔗</text>
+        </g>
+        <g transform="translate(72, 16)">
+          <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">WalletConnect</text>
+          <text x="0" y="32" fill="#6B7280" font-size="11">Mobile wallets &amp; hardware wallets</text>
+        </g>
+        <g transform="translate(450, 28)">
+          <rect width="60" height="24" rx="12" fill="#FFFFFF" stroke="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#10B981" font-size="11" font-weight="700">Connect</text>
+        </g>
+      </g>
+
+      <!-- Coinbase -->
+      <g transform="translate(0, 176)">
+        <rect width="520" height="72" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <g transform="translate(20, 20)">
+          <rect width="36" height="36" rx="8" fill="#DBEAFE"/>
+          <text x="18" y="26" text-anchor="middle" font-size="20">🔵</text>
+        </g>
+        <g transform="translate(72, 16)">
+          <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Coinbase Wallet</text>
+          <text x="0" y="32" fill="#6B7280" font-size="11">Easy onboarding for beginners</text>
+        </g>
+        <g transform="translate(450, 28)">
+          <rect width="60" height="24" rx="12" fill="#FFFFFF" stroke="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#10B981" font-size="11" font-weight="700">Connect</text>
+        </g>
+      </g>
+
+      <!-- Phantom -->
+      <g transform="translate(0, 264)">
+        <rect width="520" height="72" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <g transform="translate(20, 20)">
+          <rect width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+          <text x="18" y="26" text-anchor="middle" font-size="20">👻</text>
+        </g>
+        <g transform="translate(72, 16)">
+          <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Phantom (Solana)</text>
+          <text x="0" y="32" fill="#6B7280" font-size="11">Solana network support</text>
+        </g>
+        <g transform="translate(450, 28)">
+          <rect width="60" height="24" rx="12" fill="#FFFFFF" stroke="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#10B981" font-size="11" font-weight="700">Connect</text>
+        </g>
+      </g>
+
+      <!-- Trust Wallet -->
+      <g transform="translate(0, 352)">
+        <rect width="520" height="72" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <g transform="translate(20, 20)">
+          <rect width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+          <text x="18" y="26" text-anchor="middle" font-size="20">🛡️</text>
+        </g>
+        <g transform="translate(72, 16)">
+          <text x="0" y="14" fill="#111827" font-size="14" font-weight="700">Trust Wallet</text>
+          <text x="0" y="32" fill="#6B7280" font-size="11">Multi-chain mobile wallet</text>
+        </g>
+        <g transform="translate(450, 28)">
+          <rect width="60" height="24" rx="12" fill="#FFFFFF" stroke="#10B981"/>
+          <text x="30" y="16" text-anchor="middle" fill="#10B981" font-size="11" font-weight="700">Connect</text>
+        </g>
+      </g>
+    </g>
+
+    <g transform="translate(40, 580)">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11">By connecting, you agree to our <tspan fill="#10B981" font-weight="600">Terms</tspan> &amp; <tspan fill="#10B981" font-weight="600">Privacy Policy</tspan></text>
+      <text x="0" y="20" fill="#9CA3AF" font-size="11">New to wallets? <tspan fill="#10B981" font-weight="600">Learn more</tspan></text>
+    </g>
+
+    <g transform="translate(40, 620)">
+      <rect width="180" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="26" text-anchor="middle" fill="#374151" font-size="13">Skip for now</text>
+    </g>
+  </g>
+</svg>
