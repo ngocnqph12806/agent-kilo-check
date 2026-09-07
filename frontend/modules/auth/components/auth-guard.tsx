@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { useAuth } from '../hooks/use-auth';
 import { useCurrentUser } from '../hooks/use-auth-mutations';
@@ -26,8 +26,13 @@ export function AuthGuard({
   onboardingPath = '/onboarding'
 }: AuthGuardProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isHydrated } = useAuth();
   const meQuery = useCurrentUser(Boolean(isHydrated && user));
+
+  // /onboarding is the destination of the onboarding-required redirect;
+  // it must remain reachable even when onboardingCompleted=false.
+  const onboardingRequired = requireOnboarding && pathname !== '/onboarding';
 
   useEffect(() => {
     if (!isHydrated) return;
@@ -51,7 +56,7 @@ export function AuthGuard({
       return;
     }
 
-    if (requireOnboarding && !user.onboardingCompleted) {
+    if (onboardingRequired && !user.onboardingCompleted) {
       router.replace(`${onboardingPath}?next=${encodeURIComponent(window.location.pathname)}`);
       return;
     }
@@ -59,7 +64,7 @@ export function AuthGuard({
     isHydrated,
     user,
     requireVerified,
-    requireOnboarding,
+    onboardingRequired,
     redirectIfAuthenticated,
     loginPath,
     verifyPath,
@@ -84,7 +89,8 @@ export function AuthGuard({
   }
 
   if (requireVerified && !user.verified) return null;
-  if (requireOnboarding && !user.onboardingCompleted) return null;
+  if (onboardingRequired && !user.onboardingCompleted) return null;
 
   return <>{children}</>;
 }
+
