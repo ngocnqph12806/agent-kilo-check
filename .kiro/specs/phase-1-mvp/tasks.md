@@ -173,7 +173,7 @@
 ### Frontend — Auth flow
 
 - [x] [T-M50] **[P0]** Setup React Query + API client (axios + interceptor)
-- [ ] [T-M51] **[P0]** Implement `/login` page (email/password form)
+- [x] [T-M51] **[P0]** Implement `/login` page (email/password form)
 - [ ] [T-M52] **[P0]** Implement `/register` page
 - [ ] [T-M53] **[P0]** Implement `/verify-email/[token]` page
 - [ ] [T-M54] **[P0]** Implement `/forgot-password` + `/reset-password` pages
