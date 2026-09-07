@@ -1,0 +1,46 @@
+# ---------- DEPS STAGE ----------
+FROM node:20-alpine AS deps
+WORKDIR /app
+
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm ci
+
+# ---------- BUILD STAGE ----------
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY frontend/ .
+
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+# ---------- RUNTIME STAGE ----------
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN addgroup -S skillseed && adduser -S skillseed -G skillseed
+
+# Copy built artifacts
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=skillseed:skillseed /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER skillseed
+
+EXPOSE 3000
+
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# Health check (Next.js exposes /api/health)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD wget -q --spider http://localhost:3000/ || exit 1
+
+CMD ["npm", "start"]
+
+LABEL org.opencontainers.image.title="skillseed-frontend"
+LABEL org.opencontainers.image.source="https://github.com/skillseed/skillseed"

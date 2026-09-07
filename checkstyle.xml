@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+  "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+  "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+  SkillSeed — Checkstyle Configuration
+  Based on Google Java Style + Spring Boot best practices.
+  Reference: AGENTS.md §5.2
+
+  Severity:
+    - error   : CI fails
+    - warning : CI passes, log warning (review later)
+    - info    : informational only
+
+  Quy tắc tiêu biểu được enforce:
+    - Line length ≤ 120
+    - Indent = 4 spaces (no tabs)
+    - CamelCase class / method, UPPER_SNAKE constants
+    - No wildcard import
+    - No Lombok @Data on entities (gây bug JPA lazy)
+    - Javadoc bắt buộc cho public API
+-->
+
+<module name="Checker">
+  <property name="charset" value="UTF-8"/>
+  <property name="severity" value="error"/>
+  <property name="fileExtensions" value="java, properties, xml"/>
+
+  <!-- Line endings + final newline -->
+  <module name="FileTabCharacter">
+    <property name="eachLine" value="true"/>
+  </module>
+  <module name="NewlineAtEndOfFile">
+    <property name="lineSeparator" value="lf_cr_crlf"/>
+  </module>
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$"/>
+    <property name="message" value="Line has trailing whitespace."/>
+  </module>
+
+  <!-- Line length -->
+  <module name="LineLength">
+    <property name="max" value="120"/>
+    <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+  </module>
+
+  <module name="TreeWalker">
+    <!-- Naming conventions -->
+    <module name="ConstantName"/>
+    <module name="LocalFinalVariableName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="MethodName"/>
+    <module name="PackageName"/>
+    <module name="ParameterName"/>
+    <module name="StaticVariableName"/>
+    <module name="TypeName"/>
+
+    <!-- Imports -->
+    <module name="AvoidStarImport">
+      <property name="severity" value="error"/>
+    </module>
+    <module name="IllegalImport">
+      <property name="illegalClasses" value="org.junit.jupiter.api.Assertions.*"/>
+    </module>
+    <module name="RedundantImport"/>
+    <module name="UnusedImports">
+      <property name="processJavadoc" value="true"/>
+    </module>
+
+    <!-- Size / complexity -->
+    <module name="MethodLength">
+      <property name="max" value="150"/>
+    </module>
+    <module name="ParameterNumber">
+      <property name="max" value="7"/>
+    </module>
+
+    <!-- Whitespace -->
+    <module name="GenericWhitespace"/>
+    <module name="MethodParamPad"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+
+    <!-- Blocks -->
+    <module name="LeftCurly"/>
+    <module name="NeedBraces"/>
+    <module name="RightCurly"/>
+
+    <!-- Coding -->
+    <module name="EmptyStatement"/>
+    <module name="EqualsHashCode"/>
+    <module name="HiddenField">
+      <property name="ignoreConstructorParameter" value="true"/>
+      <property name="ignoreSetter" value="true"/>
+    </module>
+    <module name="IllegalInstantiation"/>
+    <module name="InnerAssignment"/>
+    <module name="MissingSwitchDefault"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="StringLiteralEquality"/>
+    <module name="UnnecessaryParentheses"/>
+
+    <!-- Class design -->
+    <module name="FinalClass"/>
+    <module name="InterfaceIsType"/>
+    <module name="VisibilityModifier"/>
+
+    <!-- Javadoc -->
+    <module name="JavadocMethod">
+      <property name="scope" value="public"/>
+      <property name="allowMissingJavadoc" value="false"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+    </module>
+    <module name="JavadocStyle"/>
+    <module name="JavadocType">
+      <property name="scope" value="public"/>
+    </module>
+    <module name="JavadocVariable">
+      <property name="scope" value="public"/>
+    </module>
+
+    <!-- Lombok abuse on JPA entities (gotcha thường gặp) -->
+    <module name="RegexpSinglelineJava">
+      <property name="format" value="@Data\s*\n\s*public\s+class"/>
+      <property name="message" value="Không dùng @Data trên entity class — gây bug JPA lazy load. Dùng @Getter @Setter + manual equals/hashCode."/>
+      <property name="severity" value="error"/>
+    </module>
+
+    <!-- Modifiers -->
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+
+    <!-- Common gotchas -->
+    <module name="ArrayTypeStyle"/>
+    <module name="UpperEll"/>
+
+    <!-- Logging -->
+    <module name="RegexpSinglelineJava">
+      <property name="format" value="System\.out\.print|System\.err\.print"/>
+      <property name="message" value="Không dùng System.out/err. Dùng SLF4J logger."/>
+      <property name="severity" value="warning"/>
+    </module>
+  </module>
+
+  <!-- Suppress cho migrations / generated code -->
+  <module name="SuppressionFilter">
+    <property name="file" value="${config_loc}-suppressions.xml"/>
+    <property name="optional" value="true"/>
+  </module>
+</module>

@@ -1,0 +1,48 @@
+# Git attributes — SkillSeed
+# Đảm bảo line endings + diff đúng cho mọi file.
+
+# Text files — normalize to LF (Unix), không để Windows CRLF
+*               text=auto eol=lf
+
+# Explicit text types
+*.java          text eol=lf
+*.ts            text eol=lf
+*.tsx           text eol=lf
+*.js            text eol=lf
+*.jsx           text eol=lf
+*.json          text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+*.md            text eol=lf
+*.xml           text eol=lf
+*.sql           text eol=lf
+*.sh            text eol=lf
+*.css           text eol=lf
+*.scss          text eol=lf
+*.html          text eol=lf
+*.properties    text eol=lf
+
+# Binary (không diff)
+*.jar           binary
+*.class         binary
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.ico           binary
+*.pdf           binary
+*.zip           binary
+*.tar.gz        binary
+*.woff          binary
+*.woff2         binary
+
+# Diff tốt hơn cho một số loại file
+*.sql           diff=sql
+*.xml           diff=xml
+*.html          diff=html
+
+# Lockfiles — không review (chỉ update khi upgrade dep)
+package-lock.json    -diff
+yarn.lock            -diff
+pnpm-lock.yaml       -diff
+*.lock               -diff

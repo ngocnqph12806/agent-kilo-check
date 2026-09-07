@@ -1,0 +1,34 @@
+{
+  "name": "skillseed",
+  "default_agent": "code",
+  "instructions": [
+    "AGENTS.md",
+    "docs/GLOSSARY.md"
+  ],
+  "permission": {
+    "read": "allow",
+    "edit": {
+      "mockups/**": "allow",
+      "screens-svg/**": "allow",
+      ".kiro/specs/**/requirements.md": "allow",
+      ".kiro/specs/**/tasks.md": "allow",
+      "docs/**": "allow",
+      ".kilo/**": "allow",
+      "README.md": "allow",
+      "*.md": "ask",
+      "*": "ask"
+    },
+    "bash": {
+      "ls": "allow",
+      "cat": "allow",
+      "grep": "allow",
+      "rg": "allow",
+      "git status": "allow",
+      "git diff": "allow",
+      "git log*": "allow",
+      "*": "ask"
+    },
+    "webfetch": "allow",
+    "websearch": "allow"
+  }
+}

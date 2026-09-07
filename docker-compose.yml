@@ -1,0 +1,93 @@
+# SkillSeed — Local Development Stack
+# Single command to spin up Postgres + Redis + Backend + Frontend.
+# Reference: .kiro/specs/phase-1-mvp/tasks.md (T-M04)
+
+services:
+
+  # ---------- POSTGRES ----------
+  postgres:
+    image: postgres:16-alpine
+    container_name: skillseed-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: skillseed
+      POSTGRES_USER: skillseed
+      POSTGRES_PASSWORD: skillseed_dev_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/main/resources/db/migration:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skillseed -d skillseed"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------- REDIS ----------
+  redis:
+    image: redis:7-alpine
+    container_name: skillseed-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass skillseed_dev_password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "skillseed_dev_password", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------- BACKEND (Spring Boot) ----------
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: skillseed-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      DATABASE_URL: jdbc:postgresql://postgres:5432/skillseed
+      DATABASE_USERNAME: skillseed
+      DATABASE_PASSWORD: skillseed_dev_password
+      REDIS_URL: redis://:skillseed_dev_password@redis:6379
+      DAILY_API_KEY: ${DAILY_API_KEY:-dev_placeholder}
+      RESEND_API_KEY: ${RESEND_API_KEY:-dev_placeholder}
+      JWT_SECRET: ${JWT_SECRET:-local_dev_secret_min_256_bits_long_enough_for_security_requirements_xyz}
+      CORS_ALLOWED_ORIGINS: http://localhost:3000
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------- FRONTEND (Next.js) ----------
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: skillseed-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
+    name: skillseed_postgres_data
+  redis_data:
+    name: skillseed_redis_data

@@ -1,0 +1,34 @@
+# SkillSeed — CODEOWNERS
+# Mỗi khu vực có owner chịu trách nhiệm review.
+# Khi agent tạo PR, GitHub tự động request review từ owner.
+
+# Default: Product team
+*                                       @skillseed/product-team
+
+# Backend (Spring Boot)
+/backend/**                             @skillseed/backend-lead
+/backend/**/db/migration/**             @skillseed/backend-lead @skillseed/db-admin
+
+# Frontend (Next.js)
+/frontend/**                            @skillseed/frontend-lead
+
+# API contract (master)
+/SKILLSEED_API_AND_DB.md                @skillseed/backend-lead @skillseed/api-owner
+
+# Specs (chỉ product team mới được sửa design.md)
+/.kiro/specs/**/design.md               @skillseed/product-team
+/.kiro/specs/**/requirements.md         @skillseed/product-team
+/.kiro/specs/**/tasks.md                @skillseed/product-team
+
+# CI/CD & infra (chỉ tech lead)
+/.github/**                             @skillseed/tech-lead
+/docker/**                             @skillseed/tech-lead
+/docker-compose.yml                    @skillseed/tech-lead
+/docs/CI_CD.md                         @skillseed/tech-lead
+
+# Agent config
+/.kilo/**                              @skillseed/tech-lead
+
+# Sensitive (no one — must go through tech lead)
+*.env                                   @skillseed/tech-lead
+**/secrets.*                            @skillseed/tech-lead
