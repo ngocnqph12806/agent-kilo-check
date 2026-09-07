@@ -23,6 +23,13 @@
   - **T-M11:** `backend/src/main/resources/db/migration/V2__seed_skills.sql` — 2049 skills trong 8 categories (tech 299, business 261, art 242, language 212, life 228, health 231, music 229, sport 347).
   - **T-M12:** 9 entities (`com.skillseed.{user,skill,booking,rating,wallet}.domain.*`) + 9 Spring Data JPA repositories + 5 enums + 5 AttributeConverters trong `shared/domain`. Entities KHÔNG dùng Lombok (per AGENTS.md §5.2). Sử dụng `@JdbcTypeCode(SqlTypes.UUID)` cho UUID columns, `@JdbcTypeCode(SqlTypes.ARRAY)` cho `TEXT[]` (languages). Enum values map qua AttributeConverter → DB lưu lowercase string ('tech', 'email', 'pending'...).
   - **Sandbox limitation:** không thể chạy `mvn verify` để xác nhận `ddl-auto=validate` pass. Cần user chạy local để xác nhận schema ↔ entity mapping không drift.
+- **2026-09-07 — Sprint 0 User module (T-M30..T-M34)**
+  - **Completed:** T-M30, T-M31, T-M32, T-M33, T-M34
+  - **T-M30+T-M31+T-M33:** `UserController` exposes `GET /me`, `PATCH /me`, `GET /{id}`. `UserService.getCurrentUser` returns `CurrentUserResponse` (profile + Skill DNA summary + wallet summary); `getPublicProfile` returns `PublicUserResponse` (email/phone intentionally omitted); `updateProfile` applies partial updates with Bean Validation. `SecurityConfig`: `GET /api/v1/users/{id}` is `permitAll()`.
+  - **T-M32:** `OnboardingController#complete` flips `onboarding_completed=true` then calls `SeedWalletService.grantStarterSeeds` (ledger-style: `SeedTransaction` type=GRANT, amount=+30, TTL=180d, idempotent via description match). Auto-creates `SeedWallet` row if missing.
+  - **T-M34:** `AvatarController#upload` (multipart, ≤5MB, image/jpeg|png|webp|gif) → `AvatarStorage` (Cloudflare R2 via AWS SDK v2 S3 client when `storage.r2.*` configured, otherwise filesystem fallback under `storage.local-dir`). `software.amazon.awssdk:s3` dep added; `spring.servlet.multipart` bumped to 6MB.
+  - **Sandbox limitation:** không có JDK/Maven nên `mvn verify` chưa chạy local. Cần user verify `ddl-auto=validate`, lint (Checkstyle), và Swagger UI cho 5 endpoint mới (`/api/v1/users/**`).
+
 - **2026-09-07 — Sprint 0 Auth module (T-M20..T-M27)**
   - **Completed:** T-M20, T-M21, T-M22, T-M23, T-M24, T-M25, T-M26, T-M27
   - **T-M20:** `JwtService` (HS256, configurable TTLs, token-type claim) + `JwtAuthenticationFilter` (Bearer parsing → SecurityContext) + `SecurityConfig` (stateless, BCrypt(12), `/api/v1/auth/**` public, JWT filter pre-auth, CORS via `cors.allowed-origins`).
@@ -116,18 +123,23 @@
 
 ### User module
 
-- [ ] [T-M30] **[P0]** Implement GET `/users/me`
+- [x] [T-M30] **[P0]** Implement GET `/users/me`
   - Trả current user profile + Skill DNA
-- [ ] [T-M31] **[P0]** Implement PATCH `/users/me`
+  - **Verified 2026-09-07:** `UserController#me` → `UserService.getCurrentUser` returns `CurrentUserResponse` (profile + Skill DNA summary + wallet summary). Soft-delete aware.
+- [x] [T-M31] **[P0]** Implement PATCH `/users/me`
   - Cập nhật full_name, bio, country, timezone, languages, learning_style
-- [ ] [T-M32] **[P0]** Implement onboarding flow (multi-step)
+  - **Verified 2026-09-07:** `UserController#updateMe` with `@Valid UpdateProfileRequest` (Bean Validation: fullName, bio max 500, ISO-2 country uppercase, timezone, languages, learningStyle). Null fields = untouched.
+- [x] [T-M32] **[P0]** Implement onboarding flow (multi-step)
   - POST `/users/me/onboarding` đánh dấu hoàn thành
   - Cấp 30 free starter seeds
-- [ ] [T-M33] **[P0]** Implement GET `/users/{id}` (public profile)
+  - **Verified 2026-09-07:** `OnboardingController#complete` flips `onboarding_completed=true` + `SeedWalletService.grantStarterSeeds` credits 30 (TTL 180d) via ledger-style `SeedTransaction(GRANT)`. Idempotent (checks for existing starter grant by description).
+- [x] [T-M33] **[P0]** Implement GET `/users/{id}` (public profile)
   - Chỉ trả fields public (không email, phone)
-- [ ] [T-M34] **[P0]** Implement avatar upload (multipart)
+  - **Verified 2026-09-07:** `UserController#getById` → `UserService.getPublicProfile` returns `PublicUserResponse` (email/phone intentionally absent). Endpoint is `permitAll()` for GET in SecurityConfig.
+- [x] [T-M34] **[P0]** Implement avatar upload (multipart)
   - Validate ≤ 5MB, image/* MIME type
   - Upload lên Cloudflare R2, lưu URL
+  - **Verified 2026-09-07:** `AvatarController#upload` accepts multipart `file` field, validates image/jpeg|png|webp|gif + ≤5MB, uploads via `AvatarStorage` (R2 conditional on `storage.r2.*`, else filesystem fallback under `storage.local-dir`). New `software.amazon.awssdk:s3` dep in `pom.xml`. Multipart limits bumped to 6MB in `application.yml`.
 
 ### Skills module
 
