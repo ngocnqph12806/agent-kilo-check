@@ -5,7 +5,7 @@
 >
 > **Nguyên tắc vàng:** File này là **navigation layer** — trỏ đến spec gốc. **KHÔNG duplicate nội dung spec.** Khi có conflict, spec thắng.
 
-**Last updated:** 2026-09-07 (added §5.3 Frontend components reusability)
+**Last updated:** 2026-09-07 (added §5.3 FE reusability, §5.4 BE shared logic)
 **Maintainer:** SkillSeed Product Team
 
 ---
@@ -151,12 +151,61 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
   - [ ] Component tái sử dụng có story/example trong `src/modules/{module}/components/__examples__/` (khi có Storybook) hoặc ít nhất 1 usage thực tế ở screen khác.
   - [ ] Không có prop thừa / hardcoded text cố định trong component generic.
 
-### 5.4. Branch & commit
+### 5.4. Backend shared logic (tái sử dụng)
+
+> **Nguyên tắc:** Mọi logic / constant / exception / validator / DTO / helper **dùng ở ≥ 2 module khác nhau** PHẢI được đưa vào lớp shared. Không copy-paste code giữa các module nghiệp vụ.
+
+**Quy tắc bắt buộc:**
+
+- **Vị trí đặt theo loại shared logic:**
+
+  | Loại | Vị trí | Ví dụ |
+  |---|---|---|
+  | **Cross-module service / business logic** | `com.skillseed.shared.{domain}` — chia nhỏ theo domain: `shared.payment`, `shared.notification`, `shared.audit` | `SharedPricingService`, `SharedNotificationService` |
+  | **Utility / static helper** | `com.skillseed.shared.util` | `DateUtils`, `SeedMath`, `StringUtils` |
+  | **Custom exception** | `com.skillseed.shared.exception` (+ `GlobalExceptionHandler` ở `com.skillseed.shared.web`) | `WalletInsufficientException`, `BookingStateException` |
+  | **Validator / annotation** | `com.skillseed.shared.validation` | `@ValidSeedAmount`, `@ValidTimezone` |
+  | **DTO chung / page wrapper** | `com.skillseed.shared.dto` | `PageResponse<T>`, `ErrorResponse`, `AuditDto` |
+  | **Constants / enums** | `com.skillseed.shared.constants` hoặc `com.skillseed.shared.enums` | `SeedTransactionType`, `ApiPaths` |
+  | **Common config (Spring)** | `com.skillseed.shared.config` | `RedisConfig`, `SecurityConfig`, `OpenApiConfig` |
+  | **Interceptor / filter / aspect** | `com.skillseed.shared.web` | `RequestLoggingFilter`, `RateLimitInterceptor` |
+  | **Mapper chung (entity ↔ DTO)** | `com.skillseed.shared.mapper` (chỉ khi map entity thuộc nhiều module) | `UserMapper` |
+
+- **Phân biệt rõ 3 lớp:**
+  - **Module-specific** (`com.skillseed.{module}.*`) — chỉ module đó dùng. KHÔNG để module khác import trực tiếp.
+  - **Shared** (`com.skillseed.shared.*`) — ≥ 2 module dùng. Mọi module đều được phép import.
+  - **Common / cross-cutting** (config, exception handler, filter) — áp dụng toàn hệ thống, thường là `@Component` / `@Configuration` autoloaded.
+
+- **Phát hiện trùng lặp:**
+  - Khi viết service / controller mới, **trước khi** tạo method mới → grep `com.skillseed` (`rg "methodName"` hoặc mở IDE outline) xem đã có chỗ nào làm chưa.
+  - Nếu 2 module cùng pattern → extract vào `shared.{domain}` ngay từ đầu, đừng để "duplicate-cân-nhắc-sau".
+
+- **API của shared service:**
+  - Phải **interface + implementation** khi có khả năng thay thế / mock: `interface SharedPricingService` + `SharedPricingServiceImpl`.
+  - Constructor injection, **không** `@Autowired` field.
+  - Method phải **idempotent** nếu có thể, hoặc document rõ side-effect trong JavaDoc (nhưng KHÔNG thêm comment trừ khi được yêu cầu — xem §5.2).
+  - Transaction boundary: ghi rõ `@Transactional` ở service layer, không lan xuống shared util.
+
+- **Quy ước file:**
+  - 1 public class / interface = 1 file, tên file = class name (`PascalCase`).
+  - Interface **không** prefix `I` (chuẩn Java + Spring): `PricingService`, không `IPricingService`.
+  - Implementation suffix `Impl`: `PricingServiceImpl`.
+  - KHÔNG để business logic trong `controller/`, `repository/`, `entity/` — chỉ giữ ở `service/`.
+  - DTO **immutable** (Java record khi có thể), không Lombok `@Data` trên entity.
+
+- **Checklist trước khi merge module mới:**
+  - [ ] Không có method / constant / exception copy-paste từ module khác.
+  - [ ] Mọi logic dùng ≥ 2 module đã được tách vào `com.skillseed.shared.*`.
+  - [ ] Shared service dùng constructor injection + interface (khi cần mock).
+  - [ ] Không có shared logic phụ thuộc vào entity của 1 module cụ thể (shared phải module-agnostic, hoặc tách sub-domain `shared.{domain}`).
+  - [ ] Test cho shared service có ở `src/test/java/com/skillseed/shared/...` (độc lập với test module).
+
+### 5.5. Branch & commit
 - **Branch:** `{type}/{phase}-{short-desc}` — `feat/M01-booking-flow`, `fix/M02-wallet-double-spend`
 - **Commit:** Conventional Commits với **scope** khi thuộc 1 module — `feat(booking): cancel refund logic`.
 - **PR:** Title = Conventional Commit. Body: link issue + mô tả + cách test + ảnh/video (nếu UI).
 
-### 5.5. Mockup file naming
+### 5.6. Mockup file naming
 ```
 mockups/{category}/{NN}-{screen-name}.md
 ```
@@ -165,7 +214,7 @@ mockups/{category}/{NN}-{screen-name}.md
 - `screen-name`: kebab-case
 - Convention đầy đủ: `mockups/README.md`
 
-### 5.6. Spec ID pattern (Kiro)
+### 5.7. Spec ID pattern (Kiro)
 - **FR / NFR:** `FR-{PhaseCode}##` — `FR-M01` (Phase 1, FR #1)
 - **US:** `US-{PhaseCode}##`
 - **Task:** `T-{PhaseLetter}{Serial}` — `T-M01`, `T-A12`, `T-5-01`
