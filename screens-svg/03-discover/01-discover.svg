@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Top nav -->
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(540, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0" fill="#10B981" font-weight="600">Discover</text>
+      <text x="100" y="0">Bookings</text>
+      <text x="200" y="0">Pods</text>
+      <text x="280" y="0">Events</text>
+      <text x="360" y="0">Wallet</text>
+    </g>
+    <!-- Search -->
+    <g transform="translate(960, 16)">
+      <rect width="280" height="40" rx="20" fill="#F3F4F6"/>
+      <text x="20" y="26" fill="#9CA3AF" font-size="13">🔍 Search skills or people</text>
+    </g>
+    <!-- Right icons -->
+    <g transform="translate(1280, 18)">
+      <text x="0" y="22" font-size="20">🔔</text>
+      <circle cx="20" cy="14" r="8" fill="#EF4444"/>
+      <text x="20" y="18" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="700">3</text>
+    </g>
+    <g transform="translate(1340, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <!-- Sidebar -->
+  <g transform="translate(80, 110)">
+    <rect width="240" height="600" rx="12" fill="#FFFFFF"/>
+    <g transform="translate(20, 24)" fill="#374151" font-size="14">
+      <text x="0" y="0" fill="#9CA3AF" font-size="11" font-weight="700">FILTERS</text>
+
+      <text x="0" y="40" fill="#111827" font-weight="600">Category</text>
+      <g transform="translate(0, 50)">
+        <text x="0" y="20">💻 Tech &amp; Code</text>
+        <text x="0" y="44">🗣 Languages</text>
+        <text x="0" y="68">🍳 Cooking</text>
+        <text x="0" y="92">🎨 Arts</text>
+        <text x="0" y="116">📚 Academics</text>
+      </g>
+
+      <text x="0" y="200" fill="#111827" font-weight="600">Level</text>
+      <g transform="translate(0, 210)">
+        <text x="0" y="20">⭐ Beginner</text>
+        <text x="0" y="44">⭐⭐ Intermediate</text>
+        <text x="0" y="68">⭐⭐⭐ Expert</text>
+      </g>
+
+      <text x="0" y="320" fill="#111827" font-weight="600">Availability</text>
+      <g transform="translate(0, 330)">
+        <text x="0" y="20">🌅 Morning</text>
+        <text x="0" y="44">☀️ Afternoon</text>
+        <text x="0" y="68">🌙 Evening</text>
+        <text x="0" y="92">🌍 Weekend</text>
+      </g>
+
+      <g transform="translate(0, 460)">
+        <rect width="200" height="40" rx="20" fill="transparent" stroke="#10B981" stroke-width="2"/>
+        <text x="100" y="26" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Reset filters</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Main content -->
+  <g transform="translate(360, 110)">
+    <!-- Hero banner -->
+    <rect width="1000" height="120" rx="12" fill="url(#ctaGrad)"/>
+    <g transform="translate(40, 36)">
+      <text x="0" y="0" fill="#FFFFFF" font-size="22" font-weight="700">Welcome back, Mai! 🌱</text>
+      <text x="0" y="28" fill="#A7F3D0" font-size="14">12 new matches today · 3 unread messages</text>
+    </g>
+    <g transform="translate(700, 30)">
+      <rect width="260" height="60" rx="12" fill="rgba(255,255,255,0.2)"/>
+      <text x="130" y="28" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">🌱 Your balance</text>
+      <text x="130" y="50" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="800">142 seeds</text>
+    </g>
+
+    <!-- Section header -->
+    <g transform="translate(0, 150)">
+      <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">AI-picked for you</text>
+      <text x="1000" y="0" text-anchor="end" fill="#10B981" font-size="13" font-weight="600">See all →</text>
+    </g>
+
+    <!-- Cards row 1 -->
+    <g transform="translate(0, 170)">
+      <g>
+        <rect width="320" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+        <rect width="320" height="120" rx="12" fill="#DBEAFE"/>
+        <circle cx="160" cy="60" r="40" fill="#FFFFFF"/>
+        <circle cx="160" cy="60" r="36" fill="#FEF3C7"/>
+        <text x="160" y="74" text-anchor="middle" font-size="36">👨‍🍳</text>
+        <g transform="translate(20, 120)">
+          <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Chef Marco</text>
+          <text x="280" y="0" text-anchor="end" fill="#F59E0B" font-size="12">⭐ 4.9</text>
+          <text x="0" y="20" fill="#6B7280" font-size="12">🍝 Italian Cooking · Beginner</text>
+          <text x="0" y="42" fill="#6B7280" font-size="11">🇮🇹 Italy · GMT+1 · English, Italian</text>
+          <g transform="translate(0, 60)">
+            <rect width="60" height="22" rx="11" fill="#ECFDF5"/>
+            <text x="30" y="15" text-anchor="middle" fill="#047857" font-size="10" font-weight="600">96% match</text>
+          </g>
+          <g transform="translate(0, 100)">
+            <rect width="280" height="36" rx="18" fill="url(#ctaGrad)"/>
+            <text x="140" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Book session</text>
+          </g>
+        </g>
+      </g>
+
+      <g transform="translate(340, 0)">
+        <rect width="320" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+        <rect width="320" height="120" rx="12" fill="#FEF3C7"/>
+        <circle cx="160" cy="60" r="40" fill="#FFFFFF"/>
+        <circle cx="160" cy="60" r="36" fill="#DBEAFE"/>
+        <text x="160" y="74" text-anchor="middle" font-size="36">👩‍💻</text>
+        <g transform="translate(20, 120)">
+          <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Sarah Lin</text>
+          <text x="280" y="0" text-anchor="end" fill="#F59E0B" font-size="12">⭐ 4.8</text>
+          <text x="0" y="20" fill="#6B7280" font-size="12">💻 React.js · Intermediate</text>
+          <text x="0" y="42" fill="#6B7280" font-size="11">🇸🇬 Singapore · GMT+8 · English</text>
+          <g transform="translate(0, 60)">
+            <rect width="60" height="22" rx="11" fill="#ECFDF5"/>
+            <text x="30" y="15" text-anchor="middle" fill="#047857" font-size="10" font-weight="600">92% match</text>
+          </g>
+          <g transform="translate(0, 100)">
+            <rect width="280" height="36" rx="18" fill="url(#ctaGrad)"/>
+            <text x="140" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Book session</text>
+          </g>
+        </g>
+      </g>
+
+      <g transform="translate(680, 0)">
+        <rect width="320" height="280" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+        <rect width="320" height="120" rx="12" fill="#FCE7F3"/>
+        <circle cx="160" cy="60" r="40" fill="#FFFFFF"/>
+        <circle cx="160" cy="60" r="36" fill="#D1FAE5"/>
+        <text x="160" y="74" text-anchor="middle" font-size="36">🧘</text>
+        <g transform="translate(20, 120)">
+          <text x="0" y="0" fill="#111827" font-size="16" font-weight="700">Aiko Tanaka</text>
+          <text x="280" y="0" text-anchor="end" fill="#F59E0B" font-size="12">⭐ 5.0</text>
+          <text x="0" y="20" fill="#6B7280" font-size="12">🧘 Meditation · All levels</text>
+          <text x="0" y="42" fill="#6B7280" font-size="11">🇯🇵 Japan · GMT+9 · English, JP</text>
+          <g transform="translate(0, 60)">
+            <rect width="60" height="22" rx="11" fill="#ECFDF5"/>
+            <text x="30" y="15" text-anchor="middle" fill="#047857" font-size="10" font-weight="600">89% match</text>
+          </g>
+          <g transform="translate(0, 100)">
+            <rect width="280" height="36" rx="18" fill="url(#ctaGrad)"/>
+            <text x="140" y="23" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Book session</text>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- Section header 2 -->
+    <g transform="translate(0, 470)">
+      <text x="0" y="0" fill="#111827" font-size="20" font-weight="800">Trending in your region</text>
+      <text x="1000" y="0" text-anchor="end" fill="#10B981" font-size="13" font-weight="600">See all →</text>
+    </g>
+  </g>
+</svg>
