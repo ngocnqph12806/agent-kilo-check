@@ -12,5 +12,7 @@ public interface UserAvailabilityRepository extends JpaRepository<UserAvailabili
 
     List<UserAvailability> findByUserId(UUID userId);
 
+    List<UserAvailability> findByUserIdAndDayOfWeek(UUID userId, short dayOfWeek);
+
     void deleteByUserId(UUID userId);
 }

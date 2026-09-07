@@ -17,6 +17,12 @@
 
 > Lịch sử cập nhật task. Entry mới nhất ở trên.
 
+- **2026-09-07 — Sprint 2 Tests (T-M140, T-M141) — Part 3**
+  - **Completed:** T-M140, T-M141 (unit coverage; full Testcontainers IT left for follow-up since same Docker constraint as T-M61)
+  - **T-M140:** `SeedWalletServiceTest` (13 cases) — starter idempotency, escrow debit (happy + insufficient balance + idempotent re-escrow), release escrow (happy + idempotent re-release), full refund + half refund net-spent accounting, forfeit (happy + idempotent), expiry sweep emitting EXPIRE rows, wallet summary tier/expiring calculations.
+  - **T-M141:** `BookingServiceTest` (14 cases) — create success + escrow wiring + booking-request notification, self-booking / past schedule / invalid duration / insufficient balance rejection, accept only by teacher + state-machine guard, decline issues full refund + declined notification, cancel ≥24h vs <24h applies 100% vs 50% refund, cancel by non-participant rejected, complete releases escrow + notifies both parties, scheduled jobs `expirePendingBookings` and `markNoShows` flip status, forfeit escrow, and notify.
+  - **Sandbox limitation:** JDK/Maven/Docker missing → `mvn test` not executed. Tests follow the same JUnit 5 + Mockito + AssertJ style already used by AuthServiceTest / JwtServiceTest.
+
 - **2026-09-07 — Sprint 2 Booking + Wallet (T-M100..T-M108, T-M120..T-M126) — Part 1: BE**
   - **Completed:** T-M100, T-M101, T-M102, T-M103, T-M104, T-M105, T-M106, T-M107, T-M108, T-M120, T-M121, T-M122, T-M123, T-M124, T-M125, T-M126
   - **V5__add_booking_lifecycle.sql:** partial unique index `(teacher_id, scheduled_at) WHERE status IN ('pending','confirmed','in_progress')` to prevent double-booking at the same slot + BRIN on `scheduled_at` for reminder/no-show scans.
