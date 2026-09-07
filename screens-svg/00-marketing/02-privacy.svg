@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Header -->
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB" stroke-width="1"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="14" y="20" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">S</text>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1100, 26)" fill="#374151" font-size="15">
+      <text x="0" y="0">Back to home</text>
+    </g>
+    <g transform="translate(1280, 22)">
+      <rect width="80" height="40" rx="20" fill="url(#ctaGrad)"/>
+      <text x="40" y="26" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Login</text>
+    </g>
+  </g>
+
+  <!-- Breadcrumb -->
+  <g transform="translate(220, 110)" fill="#6B7280" font-size="13">
+    <text x="0" y="0">Home</text>
+    <text x="50" y="0">›</text>
+    <text x="65" y="0" fill="#10B981" font-weight="600">Privacy Policy</text>
+  </g>
+
+  <!-- Main Content Card -->
+  <g transform="translate(220, 140)">
+    <rect width="1000" height="700" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+
+    <!-- Header inside -->
+    <g transform="translate(40, 40)">
+      <g transform="translate(0, 0)">
+        <rect width="60" height="60" rx="30" fill="#DBEAFE"/>
+        <text x="30" y="40" text-anchor="middle" font-size="32">🔒</text>
+      </g>
+      <text x="80" y="28" fill="#111827" font-size="32" font-weight="800">Privacy Policy</text>
+      <text x="80" y="56" fill="#6B7280" font-size="14">Last updated: September 1, 2026 · Effective immediately</text>
+    </g>
+
+    <line x1="40" y1="130" x2="960" y2="130" stroke="#E5E7EB" stroke-width="1"/>
+
+    <!-- TOC -->
+    <g transform="translate(40, 150)" fill="#374151" font-size="13">
+      <text x="0" y="0" fill="#111827" font-weight="700">Table of Contents</text>
+      <g transform="translate(0, 18)">
+        <text x="0" y="0" fill="#10B981">1. Information We Collect</text>
+        <text x="0" y="20" fill="#10B981">2. How We Use Your Information</text>
+        <text x="0" y="40" fill="#10B981">3. Data Sharing &amp; Third Parties</text>
+        <text x="0" y="60" fill="#10B981">4. Cookies &amp; Tracking</text>
+        <text x="0" y="80" fill="#10B981">5. Your Rights (GDPR / CCPA)</text>
+        <text x="0" y="100" fill="#10B981">6. Data Retention</text>
+        <text x="0" y="120" fill="#10B981">7. Security Measures</text>
+        <text x="0" y="140" fill="#10B981">8. Contact &amp; DPO</text>
+      </g>
+    </g>
+
+    <line x1="40" y1="320" x2="960" y2="320" stroke="#E5E7EB" stroke-width="1"/>
+
+    <!-- Body text -->
+    <g transform="translate(40, 350)" fill="#374151" font-size="14">
+      <text x="0" y="0" fill="#111827" font-size="18" font-weight="700">1. Information We Collect</text>
+      <text x="0" y="24">We collect information you provide directly: name, email, profile photo, skills you teach,</text>
+      <text x="0" y="44">skills you want to learn, timezone, language preferences, and payment information</text>
+      <text x="0" y="64">(processed by Stripe — we never store card numbers).</text>
+
+      <text x="0" y="100" fill="#111827" font-size="18" font-weight="700">2. How We Use Your Information</text>
+      <text x="0" y="124">• Match you with compatible learning partners via AI</text>
+      <text x="0" y="144">• Enable video sessions, messaging, and calendar booking</text>
+      <text x="0" y="164">• Issue Soulbound Tokens (SBTs) to your Skill Passport</text>
+      <text x="0" y="184">• Prevent fraud and enforce community guidelines</text>
+
+      <text x="0" y="220" fill="#111827" font-size="18" font-weight="700">5. Your Rights</text>
+      <text x="0" y="244">You can access, export, correct, or delete your data at any time from Settings → Privacy.</text>
+      <text x="0" y="264">EU/UK users: GDPR rights apply. CA users: CCPA rights apply.</text>
+    </g>
+
+    <!-- Right side info card -->
+    <g transform="translate(720, 150)">
+      <rect width="240" height="160" rx="10" fill="#ECFDF5" stroke="#A7F3D0"/>
+      <text x="20" y="32" fill="#047857" font-size="14" font-weight="700">🛡️ Data Protection</text>
+      <text x="20" y="56" fill="#065F46" font-size="12">Encrypted at rest (AES-256)</text>
+      <text x="20" y="76" fill="#065F46" font-size="12">TLS 1.3 in transit</text>
+      <text x="20" y="96" fill="#065F46" font-size="12">SOC 2 Type II certified</text>
+      <text x="20" y="116" fill="#065F46" font-size="12">GDPR &amp; CCPA compliant</text>
+      <text x="20" y="140" fill="#065F46" font-size="12">zK-proofs for verification</text>
+    </g>
+  </g>
+</svg>
