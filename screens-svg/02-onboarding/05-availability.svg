@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g transform="translate(80, 40)">
+    <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+    <text x="38" y="20" fill="#111827" font-size="18" font-weight="700">SkillSeed</text>
+    <text x="1280" y="20" fill="#6B7280" font-size="14" text-anchor="end">Step 5 of 7</text>
+    <text x="1280" y="40" fill="#10B981" font-size="13" font-weight="600" text-anchor="end">71% complete</text>
+  </g>
+
+  <g transform="translate(80, 100)">
+    <rect width="1280" height="6" rx="3" fill="#E5E7EB"/>
+    <rect width="910" height="6" rx="3" fill="url(#ctaGrad)"/>
+  </g>
+
+  <g transform="translate(220, 180)">
+    <text x="0" y="0" fill="#111827" font-size="40" font-weight="800">When are you free?</text>
+    <text x="0" y="38" fill="#6B7280" font-size="16">Click slots to mark your availability. Your local time (GMT+7).</text>
+  </g>
+
+  <!-- Timezone -->
+  <g transform="translate(220, 250)">
+    <rect width="280" height="40" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="20" y="26" fill="#374151" font-size="13">🌍 Asia/Ho_Chi_Minh (GMT+7)</text>
+    <text x="260" y="26" fill="#9CA3AF" font-size="13">▼</text>
+  </g>
+
+  <!-- Weekly calendar -->
+  <g transform="translate(220, 320)">
+    <rect width="1000" height="500" rx="12" fill="#FFFFFF" stroke="#E5E7EB"/>
+
+    <!-- Header -->
+    <g transform="translate(0, 0)">
+      <rect width="1000" height="40" rx="12" fill="#F9FAFB"/>
+      <g transform="translate(80, 0)" fill="#6B7280" font-size="12" font-weight="600">
+        <text x="0" y="26">MON</text>
+        <text x="130" y="26">TUE</text>
+        <text x="260" y="26">WED</text>
+        <text x="390" y="26">THU</text>
+        <text x="520" y="26">FRI</text>
+        <text x="650" y="26">SAT</text>
+        <text x="780" y="26">SUN</text>
+      </g>
+    </g>
+
+    <!-- Time slots -->
+    <g transform="translate(0, 50)">
+      <!-- Each row: time + 7 days -->
+      <g>
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">8 AM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+      </g>
+      <g transform="translate(0, 50)">
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">10 AM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+      </g>
+      <g transform="translate(0, 100)">
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">12 PM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+      </g>
+      <g transform="translate(0, 150)">
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">2 PM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+      </g>
+      <g transform="translate(0, 200)">
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">4 PM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#FFFFFF" stroke="#E5E7EB"/></g>
+      </g>
+      <g transform="translate(0, 250)">
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">6 PM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+      </g>
+      <g transform="translate(0, 300)">
+        <text x="20" y="20" fill="#9CA3AF" font-size="11">8 PM</text>
+        <g transform="translate(80, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(210, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(340, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(470, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(600, 0)"><rect width="120" height="40" rx="4" fill="#10B981"/></g>
+        <g transform="translate(730, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+        <g transform="translate(860, 0)"><rect width="120" height="40" rx="4" fill="#ECFDF5" stroke="#A7F3D0"/></g>
+      </g>
+    </g>
+
+    <!-- Legend -->
+    <g transform="translate(40, 460)">
+      <rect width="14" height="14" rx="3" fill="#10B981"/>
+      <text x="22" y="12" fill="#6B7280" font-size="12">Available</text>
+      <g transform="translate(120, 0)">
+        <rect width="14" height="14" rx="3" fill="#ECFDF5" stroke="#A7F3D0"/>
+        <text x="22" y="12" fill="#6B7280" font-size="12">Preferred</text>
+      </g>
+      <g transform="translate(240, 0)">
+        <rect width="14" height="14" rx="3" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <text x="22" y="12" fill="#6B7280" font-size="12">Unavailable</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(220, 850)">
+    <rect width="160" height="40" rx="20" fill="transparent" stroke="#D1D5DB"/>
+    <text x="80" y="26" text-anchor="middle" fill="#6B7280" font-size="14">← Back</text>
+  </g>
+  <g transform="translate(1060, 850)">
+    <rect width="160" height="40" rx="20" fill="url(#ctaGrad)"/>
+    <text x="80" y="26" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Continue →</text>
+  </g>
+</svg>
