@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <g>
+    <rect width="1440" height="72" fill="#FFFFFF"/>
+    <line x1="0" y1="72" x2="1440" y2="72" stroke="#E5E7EB"/>
+    <g transform="translate(80, 22)">
+      <circle cx="14" cy="14" r="14" fill="url(#ctaGrad)"/>
+      <text x="38" y="20" fill="#111827" font-size="20" font-weight="700">SkillSeed</text>
+    </g>
+    <g transform="translate(1280, 18)">
+      <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+      <text x="20" y="28" text-anchor="middle" font-size="18">👩</text>
+    </g>
+  </g>
+
+  <g transform="translate(80, 110)">
+    <text x="0" y="0" fill="#111827" font-size="32" font-weight="800">🎤 Voice History</text>
+    <text x="0" y="32" fill="#6B7280" font-size="14">Past voice conversations with SkillSeed AI</text>
+  </g>
+
+  <!-- Search -->
+  <g transform="translate(80, 200)">
+    <rect width="1280" height="44" rx="22" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="20" y="28" fill="#9CA3AF" font-size="13">🔍 Search by transcript...</text>
+    <g transform="translate(1080, 0)">
+      <rect width="180" height="44" rx="22" fill="transparent" stroke="#D1D5DB"/>
+      <text x="90" y="28" text-anchor="middle" fill="#374151" font-size="13">📅 Last 30 days</text>
+    </g>
+  </g>
+
+  <!-- History cards -->
+  <g transform="translate(80, 280)">
+    <!-- Card 1 -->
+    <g>
+      <rect width="1280" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="56" height="56" rx="28" fill="#6366F1"/>
+        <text x="28" y="40" text-anchor="middle" fill="#FFFFFF" font-size="22">🤖</text>
+      </g>
+      <g transform="translate(96, 20)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📅 Booked Italian cooking session with Chef Marco</text>
+        <text x="0" y="22" fill="#374151" font-size="12">"Find me an Italian cooking mentor" → Booked Tue 19:00 with Marco Rossi · 2 seeds</text>
+        <g transform="translate(0, 44)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">📅 Today, 14:32</text>
+          <text x="120" y="0">· ⏱️ 0:48</text>
+          <text x="200" y="0">· 3 actions taken</text>
+        </g>
+      </g>
+
+      <g transform="translate(960, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#10B981"/>
+        <text x="50" y="24" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Replay</text>
+      </g>
+      <g transform="translate(1080, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="40" y="24" text-anchor="middle" fill="#374151" font-size="13">Share</text>
+      </g>
+      <g transform="translate(1180, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#EF4444"/>
+        <text x="40" y="24" text-anchor="middle" fill="#EF4444" font-size="13">Delete</text>
+      </g>
+    </g>
+
+    <!-- Card 2 -->
+    <g transform="translate(0, 140)">
+      <rect width="1280" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="56" height="56" rx="28" fill="#6366F1"/>
+        <text x="28" y="40" text-anchor="middle" fill="#FFFFFF" font-size="22">🤖</text>
+      </g>
+      <g transform="translate(96, 20)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">🔍 Searched for React.js mentors</text>
+        <text x="0" y="22" fill="#374151" font-size="12">"Show me React experts near my timezone" → 12 matches · Sorted by rating</text>
+        <g transform="translate(0, 44)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">📅 Yesterday, 21:14</text>
+          <text x="120" y="0">· ⏱️ 1:12</text>
+          <text x="200" y="0">· No actions taken</text>
+        </g>
+      </g>
+
+      <g transform="translate(960, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#10B981"/>
+        <text x="50" y="24" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Replay</text>
+      </g>
+      <g transform="translate(1080, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="40" y="24" text-anchor="middle" fill="#374151" font-size="13">Share</text>
+      </g>
+      <g transform="translate(1180, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#EF4444"/>
+        <text x="40" y="24" text-anchor="middle" fill="#EF4444" font-size="13">Delete</text>
+      </g>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(0, 280)">
+      <rect width="1280" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="56" height="56" rx="28" fill="#6366F1"/>
+        <text x="28" y="40" text-anchor="middle" fill="#FFFFFF" font-size="22">🤖</text>
+      </g>
+      <g transform="translate(96, 20)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">📊 Reviewed my skill passport</text>
+        <text x="0" y="22" fill="#374151" font-size="12">"What SBTs have I earned this month?" → Listed 5 new tokens · Summary read out</text>
+        <g transform="translate(0, 44)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">📅 Sep 5, 09:15</text>
+          <text x="120" y="0">· ⏱️ 0:32</text>
+          <text x="200" y="0">· 5 SBTs reviewed</text>
+        </g>
+      </g>
+
+      <g transform="translate(960, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#10B981"/>
+        <text x="50" y="24" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Replay</text>
+      </g>
+      <g transform="translate(1080, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="40" y="24" text-anchor="middle" fill="#374151" font-size="13">Share</text>
+      </g>
+      <g transform="translate(1180, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#EF4444"/>
+        <text x="40" y="24" text-anchor="middle" fill="#EF4444" font-size="13">Delete</text>
+      </g>
+    </g>
+
+    <!-- Card 4 -->
+    <g transform="translate(0, 420)">
+      <rect width="1280" height="120" rx="12" fill="#FFFFFF" filter="url(#cardShadow)"/>
+      <g transform="translate(20, 20)">
+        <rect width="56" height="56" rx="28" fill="#6366F1"/>
+        <text x="28" y="40" text-anchor="middle" fill="#FFFFFF" font-size="22">🤖</text>
+      </g>
+      <g transform="translate(96, 20)">
+        <text x="0" y="0" fill="#111827" font-size="14" font-weight="700">⚙️ Updated availability</text>
+        <text x="0" y="22" fill="#374151" font-size="12">"I can't do Tuesday evenings anymore" → Updated calendar · 2 sessions rescheduled</text>
+        <g transform="translate(0, 44)" fill="#6B7280" font-size="11">
+          <text x="0" y="0">📅 Sep 3, 18:00</text>
+          <text x="120" y="0">· ⏱️ 0:55</text>
+          <text x="200" y="0">· 2 actions taken</text>
+        </g>
+      </g>
+
+      <g transform="translate(960, 30)">
+        <rect width="100" height="36" rx="18" fill="transparent" stroke="#10B981"/>
+        <text x="50" y="24" text-anchor="middle" fill="#10B981" font-size="13" font-weight="600">Replay</text>
+      </g>
+      <g transform="translate(1080, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#D1D5DB"/>
+        <text x="40" y="24" text-anchor="middle" fill="#374151" font-size="13">Share</text>
+      </g>
+      <g transform="translate(1180, 30)">
+        <rect width="80" height="36" rx="18" fill="transparent" stroke="#EF4444"/>
+        <text x="40" y="24" text-anchor="middle" fill="#EF4444" font-size="13">Delete</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Summary card -->
+  <g transform="translate(80, 800)">
+    <rect width="1280" height="60" rx="12" fill="#ECFDF5"/>
+    <g transform="translate(24, 12)">
+      <text x="0" y="14" fill="#047857" font-size="13" font-weight="700">📊 This month</text>
+      <text x="120" y="14" fill="#065F46" font-size="12">47 voice conversations</text>
+      <text x="280" y="14" fill="#065F46" font-size="12">· 12 sessions booked via voice</text>
+      <text x="480" y="14" fill="#065F46" font-size="12">· 84 actions taken</text>
+      <text x="640" y="14" fill="#065F46" font-size="12">· Avg duration 0:48</text>
+    </g>
+    <g transform="translate(1100, 12)">
+      <rect width="160" height="36" rx="18" fill="#10B981"/>
+      <text x="80" y="24" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">+ Start voice session</text>
+    </g>
+  </g>
+</svg>
