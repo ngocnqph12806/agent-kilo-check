@@ -18,4 +18,15 @@ public interface UserSkillOfferedRepository extends JpaRepository<UserSkillOffer
     Optional<UserSkillOffered> findByUserIdAndSkillId(UUID userId, UUID skillId);
 
     List<UserSkillOffered> findBySkillIdAndActiveTrue(UUID skillId);
+
+    /**
+     * Bulk-load the offered-skill rows for a page of users restricted to
+     * a specific skill set — used by Discover to avoid a {@code findAll()}
+     * scan of the whole table when projecting top skills per match.
+     */
+    List<UserSkillOffered> findByUserIdIn(java.util.Collection<UUID> userIds);
+
+    List<UserSkillOffered> findByUserIdInAndSkillIdIn(
+            java.util.Collection<UUID> userIds,
+            java.util.Collection<UUID> skillIds);
 }

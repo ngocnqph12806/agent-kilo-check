@@ -120,10 +120,15 @@ public class DiscoverRepositoryImpl implements DiscoverRepository {
         }
 
         List<UUID> userIds = users.stream().map(User::getId).toList();
-        Map<UUID, List<UserSkillOffered>> offeredByUser = userSkillOfferedRepository
-                .findAll().stream()
-                .filter(o -> userIds.contains(o.getUser().getId()))
-                .filter(o -> effectiveSkills.contains(o.getSkill().getId()))
+        // Bulk-load only the offered-skill rows we actually need. The
+        // previous findAll() scanned the entire user_skill_offered table
+        // and filtered in memory, which is fine for tiny dev datasets
+        // but blows up linearly with the user base.
+        List<UserSkillOffered> offered = effectiveSkills.isEmpty()
+                ? userSkillOfferedRepository.findByUserIdIn(userIds)
+                : userSkillOfferedRepository.findByUserIdInAndSkillIdIn(
+                        userIds, effectiveSkills);
+        Map<UUID, List<UserSkillOffered>> offeredByUser = offered.stream()
                 .collect(Collectors.groupingBy(o -> o.getUser().getId()));
 
         List<DiscoverMatchResponse> items = users.stream()
