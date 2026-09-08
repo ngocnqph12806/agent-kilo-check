@@ -51,7 +51,7 @@ public class WalletController {
     @Operation(summary = "Current user's transaction history, newest first; optional type filter")
     public ResponseEntity<SeedTransactionPageResponse> transactions(
             @RequestParam(name = "page", defaultValue = "0") @Min(0) int page,
-            @RequestParam(name = "size", defaultValue = "20") @Min(1) @Max(100) int size,
+            @RequestParam(name = "size", defaultValue = "10") @Min(1) @Max(50) int size,
             @RequestParam(name = "type", required = false) List<SeedTransactionType> types) {
         UUID userId = CurrentUser.requireId();
         return ResponseEntity.ok(

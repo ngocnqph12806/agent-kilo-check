@@ -61,7 +61,7 @@ const TYPE_META: Record<
 export function WalletView() {
   const summary = useWalletSummary();
   const [page, setPage] = useState<number>(0);
-  const tx = useWalletTransactions(page, 20);
+  const tx = useWalletTransactions(page, 10);
 
   if (summary.isLoading) {
     return (

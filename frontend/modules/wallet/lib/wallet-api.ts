@@ -9,7 +9,7 @@ export async function getWalletSummary(): Promise<WalletSummary> {
 
 export async function getWalletTransactions(
   page = 0,
-  size = 20
+  size = 10
 ): Promise<SeedTransactionPage> {
   const { data } = await apiClient.get<SeedTransactionPage>(
     '/wallet/me/transactions',

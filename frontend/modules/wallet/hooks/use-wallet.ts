@@ -20,7 +20,7 @@ export function useWalletSummary(enabled = true) {
   });
 }
 
-export function useWalletTransactions(page = 0, size = 20, enabled = true) {
+export function useWalletTransactions(page = 0, size = 10, enabled = true) {
   return useQuery({
     queryKey: [...TX_KEY, page, size],
     queryFn: () => getWalletTransactions(page, size),
