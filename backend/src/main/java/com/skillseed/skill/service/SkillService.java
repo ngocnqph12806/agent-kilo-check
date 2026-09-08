@@ -33,7 +33,7 @@ public class SkillService {
 
     private static final Logger log = LoggerFactory.getLogger(SkillService.class);
     private static final int DEFAULT_PAGE_SIZE = 20;
-    private static final int MAX_PAGE_SIZE = 100;
+    private static final int MAX_PAGE_SIZE = 50;
     private static final Pattern NON_SLUG = Pattern.compile("[^a-z0-9]+");
 
     private final SkillRepository skillRepository;

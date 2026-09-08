@@ -46,7 +46,7 @@ public class RatingService {
 
     private static final Logger log = LoggerFactory.getLogger(RatingService.class);
     private static final int DEFAULT_PAGE_SIZE = 20;
-    private static final int MAX_PAGE_SIZE = 100;
+    private static final int MAX_PAGE_SIZE = 50;
 
     private final RatingRepository ratingRepository;
     private final BookingRepository bookingRepository;

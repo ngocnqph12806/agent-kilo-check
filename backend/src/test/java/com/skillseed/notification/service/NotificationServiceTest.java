@@ -92,7 +92,7 @@ class NotificationServiceTest {
         verify(repo).findByUserOrderByCreatedAtDesc(eqUser(u), pageableCaptor.capture());
         Pageable used = pageableCaptor.getValue();
         assertThat(used.getPageNumber()).isZero();
-        assertThat(used.getPageSize()).isEqualTo(100);
+        assertThat(used.getPageSize()).isEqualTo(50);
     }
 
     @Test

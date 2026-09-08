@@ -77,7 +77,7 @@ class SkillServiceTest {
         verify(repo).findAll(captor.capture());
         Pageable pageable = captor.getValue();
         assertThat(pageable.getPageNumber()).isZero();
-        assertThat(pageable.getPageSize()).isEqualTo(100);
+        assertThat(pageable.getPageSize()).isEqualTo(50);
     }
 
     @Test
@@ -275,7 +275,7 @@ class SkillServiceTest {
         verify(repo).findByStatus(eq(SkillStatus.PENDING_REVIEW), pageableCaptor.capture());
         assertThat(pageableCaptor.getValue().getPageNumber()).isEqualTo(0);
         // SkillService.MAX_PAGE_SIZE = 100, so 9999 must clamp to 100.
-        assertThat(pageableCaptor.getValue().getPageSize()).isEqualTo(100);
+        assertThat(pageableCaptor.getValue().getPageSize()).isEqualTo(50);
     }
 
     @Test

@@ -50,6 +50,10 @@ public class BookingService {
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
     static final long REFUND_FULL_HOURS = 24;
     static final long NO_SHOW_GRACE_MINUTES = 10;
+    /** Hard cap on list-endpoint page size; matches S7.13's spec ceiling
+     *  and is enforced both via @Max(50) on controllers and clamped here
+     *  as a defence-in-depth measure. */
+    static final int MAX_PAGE_SIZE = 50;
     static final Duration PENDING_TTL = Duration.ofHours(24);
 
     /** Mirror of {@link #REFUND_FULL_HOURS} in minutes — used at the cancel
@@ -275,7 +279,7 @@ public class BookingService {
     public BookingPageResponse listForUser(UUID userId, String role, List<BookingStatus> statuses,
                                             int page, int size) {
         int safePage = Math.max(0, page);
-        int safeSize = size <= 0 ? 20 : Math.min(size, 100);
+        int safeSize = size <= 0 ? 20 : Math.min(size, MAX_PAGE_SIZE);
         Pageable pageable = PageRequest.of(safePage, safeSize,
                 Sort.by(Sort.Direction.DESC, "scheduledAt"));
         Page<Booking> result;

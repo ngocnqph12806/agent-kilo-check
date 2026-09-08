@@ -193,7 +193,7 @@ class RatingServiceTest {
 
         RatingPageResponse response = service.listForUser(TEACHER_ID, -5, 9999);
 
-        assertThat(response.getSize()).isEqualTo(100);
+        assertThat(response.getSize()).isEqualTo(50);
         assertThat(response.getPage()).isEqualTo(0);
         verify(ratingRepository).findByRateeId(eq(TEACHER_ID),
                 any(Pageable.class));

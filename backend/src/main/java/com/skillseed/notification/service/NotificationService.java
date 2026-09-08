@@ -27,7 +27,7 @@ import java.util.UUID;
 public class NotificationService {
 
     private static final int DEFAULT_PAGE_SIZE = 20;
-    private static final int MAX_PAGE_SIZE = 100;
+    private static final int MAX_PAGE_SIZE = 50;
 
     private final NotificationRepository notificationRepository;
 
