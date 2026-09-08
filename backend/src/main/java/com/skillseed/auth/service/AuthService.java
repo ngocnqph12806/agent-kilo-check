@@ -405,11 +405,24 @@ public class AuthService {
             throw AuthException.badRequest("EMAIL_REQUIRED",
                 provider + " did not return a verifiable email");
         }
+        boolean apple = "apple".equalsIgnoreCase(provider);
+        boolean profileHasName = profile.name() != null && !profile.name().isBlank();
+        boolean reqHasName = fallbackName != null && !fallbackName.isBlank();
+        // Apple only sends the display name on the FIRST sign-in. If the
+        // client skipped the consent screen (e.g. user tapped the button
+        // too quickly) we have neither the id_token `name` claim nor a
+        // value in the request body. Don't paper over it with an ugly
+        // email-prefix handle — surface a typed error so the FE can ask
+        // the user to re-authenticate with ?name=true and resubmit.
+        if (apple && !profileHasName && !reqHasName) {
+            throw AuthException.badRequest("APPLE_NAME_REQUIRED",
+                "Apple did not return a display name; please sign in again "
+                    + "and grant the name permission.");
+        }
         User user = new User(UUID.randomUUID(), profile.email().toLowerCase(Locale.ROOT),
-            profile.name() != null && !profile.name().isBlank() ? profile.name()
-                : (fallbackName != null && !fallbackName.isBlank()
-                ? fallbackName
-                : profile.email().split("@")[0]));
+            profileHasName ? profile.name()
+                : (reqHasName ? fallbackName
+                    : profile.email().split("@")[0]));
         user.setAuthProvider(AuthProvider.valueOf(provider.toUpperCase(Locale.ROOT)));
         user.setVerified(true);
         user.setVerificationLevel((short) 0);

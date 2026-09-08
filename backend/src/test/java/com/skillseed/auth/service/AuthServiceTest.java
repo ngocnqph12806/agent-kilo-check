@@ -3,6 +3,7 @@ package com.skillseed.auth.service;
 import com.skillseed.auth.dto.AuthTokenResponse;
 import com.skillseed.auth.dto.ForgotPasswordRequest;
 import com.skillseed.auth.dto.LoginRequest;
+import com.skillseed.auth.dto.OAuthAppleRequest;
 import com.skillseed.auth.dto.OAuthGoogleRequest;
 import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
@@ -59,6 +60,7 @@ class AuthServiceTest {
     private InMemoryRateLimiter inMemoryRateLimiter;
     private AuthService authService;
     private OAuthIdTokenVerifier googleVerifier;
+    private OAuthIdTokenVerifier appleVerifier;
 
     @BeforeEach
     void setUp() {
@@ -72,10 +74,12 @@ class AuthServiceTest {
 
         googleVerifier = mock(OAuthIdTokenVerifier.class);
         when(googleVerifier.configSummary()).thenReturn(Map.of("provider", "google"));
+        appleVerifier = mock(OAuthIdTokenVerifier.class);
+        when(appleVerifier.configSummary()).thenReturn(Map.of("provider", "apple"));
 
         @SuppressWarnings("unchecked")
         ObjectProvider<List<OAuthIdTokenVerifier>> provider = mock(ObjectProvider.class);
-        List<OAuthIdTokenVerifier> verifiers = List.of(googleVerifier);
+        List<OAuthIdTokenVerifier> verifiers = List.of(googleVerifier, appleVerifier);
         lenient().when(provider.getIfAvailable(any(Supplier.class))).thenAnswer(inv -> verifiers);
 
         authService = new AuthService(
@@ -533,6 +537,70 @@ class AuthServiceTest {
                     .isInstanceOf(AuthException.class)
                     .satisfies(ex -> assertThat(((AuthException) ex).getCode())
                             .isEqualTo("EMAIL_REQUIRED"));
+        }
+    }
+
+    @Nested
+    class AppleOAuth {
+
+        @Test
+        void firstLoginWithNameClaimSucceeds() {
+            when(appleVerifier.verify("apple-tok")).thenReturn(
+                    new OAuthIdTokenVerifier.VerifiedProfile(
+                            "apple", "apple-sub", "alice@icloud.com", "Alice Apple"));
+            when(userRepository.findByEmail("alice@icloud.com")).thenReturn(Optional.empty());
+            when(jwtService.generateAccessToken(any(), anyString(), any(), any())).thenReturn("access");
+            when(jwtService.generateRefreshToken(any())).thenReturn("refresh");
+            when(jwtService.getAccessTtlSeconds()).thenReturn(900L);
+
+            AuthTokenResponse response = authService.loginWithApple(
+                    new OAuthAppleRequest("apple-tok", null), false);
+
+            assertThat(response.accessToken()).isEqualTo("access");
+            ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
+            verify(userRepository).save(captor.capture());
+            assertThat(captor.getValue().getFullName()).isEqualTo("Alice Apple");
+        }
+
+        @Test
+        void reconsentFallbackThrowsWhenNoNameProvided() {
+            // Apple omitted the `name` claim (privacy relay / too-fast tap);
+            // client also passed null fullName. Spec (FR-M08) requires
+            // surfacing APPLE_NAME_REQUIRED so the FE can re-prompt.
+            when(appleVerifier.verify("apple-tok")).thenReturn(
+                    new OAuthIdTokenVerifier.VerifiedProfile(
+                            "apple", "apple-sub", "ghost@icloud.com", null));
+            when(userRepository.findByEmail("ghost@icloud.com")).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> authService.loginWithApple(
+                    new OAuthAppleRequest("apple-tok", null), false))
+                    .isInstanceOf(AuthException.class)
+                    .satisfies(ex -> {
+                        AuthException ae = (AuthException) ex;
+                        assertThat(ae.getCode()).isEqualTo("APPLE_NAME_REQUIRED");
+                        assertThat(ae.getHttpStatus()).isEqualTo(400);
+                    });
+
+            verify(userRepository, never()).save(any());
+        }
+
+        @Test
+        void nameFromRequestBodyIsHonouredWhenProfileNameMissing() {
+            // Apple id_token had no name (subsequent login), but the client
+            // captured the name during the FIRST consent and re-sent it.
+            when(appleVerifier.verify("apple-tok")).thenReturn(
+                    new OAuthIdTokenVerifier.VerifiedProfile(
+                            "apple", "apple-sub", "bob@icloud.com", null));
+            when(userRepository.findByEmail("bob@icloud.com")).thenReturn(Optional.empty());
+            when(jwtService.generateAccessToken(any(), anyString(), any(), any())).thenReturn("access");
+            when(jwtService.generateRefreshToken(any())).thenReturn("refresh");
+            when(jwtService.getAccessTtlSeconds()).thenReturn(900L);
+
+            authService.loginWithApple(new OAuthAppleRequest("apple-tok", "Bob Apple"), false);
+
+            ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
+            verify(userRepository).save(captor.capture());
+            assertThat(captor.getValue().getFullName()).isEqualTo("Bob Apple");
         }
     }
 }
