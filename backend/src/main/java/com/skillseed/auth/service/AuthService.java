@@ -60,14 +60,14 @@ public class AuthService {
     private final String publicBaseUrl;
 
     public AuthService(
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder,
-            JwtService jwtService,
-            TokenStore tokenStore,
-            EmailTemplateService emailTemplateService,
-            RateLimiter rateLimiter,
-            ObjectProvider<List<OAuthIdTokenVerifier>> oauthProvider,
-            @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        JwtService jwtService,
+        TokenStore tokenStore,
+        EmailTemplateService emailTemplateService,
+        RateLimiter rateLimiter,
+        ObjectProvider<List<OAuthIdTokenVerifier>> oauthProvider,
+        @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -75,9 +75,9 @@ public class AuthService {
         this.emailTemplateService = emailTemplateService;
         this.rateLimiter = rateLimiter;
         this.oauthVerifiers = oauthProvider.getIfAvailable(List::of).stream()
-                .collect(Collectors.toMap(
-                        v -> v.configSummary().get("provider"),
-                        v -> v));
+            .collect(Collectors.toMap(
+                v -> v.configSummary().get("provider"),
+                v -> v));
         this.publicBaseUrl = publicBaseUrl;
     }
 
@@ -86,14 +86,14 @@ public class AuthService {
      * issues an email verification token (TTL 24h).
      *
      * @throws AuthException with code EMAIL_ALREADY_EXISTS if the email
-     *     is already registered
+     *                       is already registered
      */
     @Transactional
     public void register(RegisterRequest req) {
         String email = req.email().trim().toLowerCase(Locale.ROOT);
         if (userRepository.existsByEmail(email)) {
             throw AuthException.conflict("EMAIL_ALREADY_EXISTS",
-                    "Email is already registered");
+                "Email is already registered");
         }
         UUID id = UUID.randomUUID();
         Instant now = Instant.now();
@@ -116,19 +116,19 @@ public class AuthService {
      * (email-level).
      *
      * @throws AuthException with code INVALID_TOKEN or TOKEN_EXPIRED if
-     *     the token is unknown, already consumed, or expired.
+     *                       the token is unknown, already consumed, or expired.
      */
     @Transactional
     public void verifyEmail(String token) {
         Optional<String> payload = tokenStore.consume(PURPOSE_EMAIL_VERIFY, token);
         if (payload.isEmpty()) {
             throw AuthException.badRequest("INVALID_TOKEN",
-                    "Verification token is invalid or expired");
+                "Verification token is invalid or expired");
         }
         UUID userId = UUID.fromString(payload.get());
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> AuthException.badRequest("USER_NOT_FOUND",
-                        "User no longer exists"));
+            .orElseThrow(() -> AuthException.badRequest("USER_NOT_FOUND",
+                "User no longer exists"));
         boolean wasUnverified = !user.isVerified();
         user.setVerified(true);
         user.setUpdatedAt(Instant.now());
@@ -147,25 +147,25 @@ public class AuthService {
      * be revoked on logout.
      *
      * @throws AuthException with one of {@code RATE_LIMITED},
-     *     {@code INVALID_CREDENTIALS}, or {@code OAUTH_ONLY_ACCOUNT}.
+     *                       {@code INVALID_CREDENTIALS}, or {@code OAUTH_ONLY_ACCOUNT}.
      */
     public AuthTokenResponse login(LoginRequest req, String clientKey) {
         String rateKey = clientKey == null || clientKey.isBlank() ? "unknown" : clientKey;
         if (!rateLimiter.tryAcquire("login", rateKey, LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW)) {
             long retry = rateLimiter.retryAfterSeconds("login", rateKey,
-                    LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW);
+                LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW);
             throw AuthException.tooManyRequests("RATE_LIMITED",
-                    "Too many login attempts; retry in " + retry + "s");
+                "Too many login attempts; retry in " + retry + "s");
         }
 
         String email = req.email().trim().toLowerCase(Locale.ROOT);
         User user = userRepository.findByEmail(email)
-                .orElseThrow(this::invalidCredentials);
+            .orElseThrow(this::invalidCredentials);
 
         if (user.getPasswordHash() == null || user.getPasswordHash().isBlank()) {
             log.warn("Login attempt on passwordless account id={}", user.getId());
             throw AuthException.unauthorized("OAUTH_ONLY_ACCOUNT",
-                    "This account uses social sign-in");
+                "This account uses social sign-in");
         }
         if (!passwordEncoder.matches(req.password(), user.getPasswordHash())) {
             throw invalidCredentials();
@@ -180,7 +180,7 @@ public class AuthService {
      * is consumed and a new refresh token is issued.
      *
      * @throws AuthException with code {@code INVALID_TOKEN} when the
-     *     refresh token is unknown, expired, or already used.
+     *                       refresh token is unknown, expired, or already used.
      */
     public AuthTokenResponse refresh(RefreshTokenRequest req) {
         Claims claims;
@@ -194,12 +194,12 @@ public class AuthService {
         Optional<String> stored = tokenStore.consume(PURPOSE_REFRESH_TOKEN, req.refreshToken());
         if (stored.isEmpty() || !userId.toString().equals(stored.get())) {
             throw AuthException.unauthorized("INVALID_TOKEN",
-                    "Refresh token is invalid or expired");
+                "Refresh token is invalid or expired");
         }
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> AuthException.unauthorized("USER_NOT_FOUND",
-                        "User no longer exists"));
+            .orElseThrow(() -> AuthException.unauthorized("USER_NOT_FOUND",
+                "User no longer exists"));
         return issueTokens(user);
     }
 
@@ -230,7 +230,7 @@ public class AuthService {
         User user = maybeUser.get();
         String token = TokenGenerator.generate();
         tokenStore.store(PURPOSE_PASSWORD_RESET, token, user.getId().toString(),
-                Duration.ofHours(1));
+            Duration.ofHours(1));
         emailTemplateService.sendPasswordResetEmail(user, token);
     }
 
@@ -244,15 +244,15 @@ public class AuthService {
         Optional<String> payload = tokenStore.consume(PURPOSE_PASSWORD_RESET, req.token());
         if (payload.isEmpty()) {
             throw AuthException.badRequest("INVALID_TOKEN",
-                    "Reset token is invalid or expired");
+                "Reset token is invalid or expired");
         }
         UUID userId = UUID.fromString(payload.get());
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> AuthException.badRequest("USER_NOT_FOUND",
-                        "User no longer exists"));
+            .orElseThrow(() -> AuthException.badRequest("USER_NOT_FOUND",
+                "User no longer exists"));
         if (user.getPasswordHash() == null || user.getPasswordHash().isBlank()) {
             throw AuthException.badRequest("OAUTH_ONLY_ACCOUNT",
-                    "This account uses social sign-in");
+                "This account uses social sign-in");
         }
         user.setPasswordHash(passwordEncoder.encode(req.newPassword()));
         user.setUpdatedAt(Instant.now());
@@ -285,7 +285,7 @@ public class AuthService {
         OAuthIdTokenVerifier verifier = oauthVerifiers.get(provider);
         if (verifier == null) {
             throw AuthException.badRequest("OAUTH_PROVIDER_DISABLED",
-                    provider + " sign-in is not configured");
+                provider + " sign-in is not configured");
         }
         OAuthIdTokenVerifier.VerifiedProfile profile = verifier.verify(idToken);
         Optional<User> existing = userRepository.findByEmail(profile.email());
@@ -302,16 +302,16 @@ public class AuthService {
     }
 
     private User createOAuthUser(String provider,
-            OAuthIdTokenVerifier.VerifiedProfile profile, String fallbackName) {
+                                 OAuthIdTokenVerifier.VerifiedProfile profile, String fallbackName) {
         if (profile.email() == null || profile.email().isBlank()) {
             throw AuthException.badRequest("EMAIL_REQUIRED",
-                    provider + " did not return a verifiable email");
+                provider + " did not return a verifiable email");
         }
         User user = new User(UUID.randomUUID(), profile.email().toLowerCase(Locale.ROOT),
-                profile.name() != null && !profile.name().isBlank() ? profile.name()
-                        : (fallbackName != null && !fallbackName.isBlank()
-                                ? fallbackName
-                                : profile.email().split("@")[0]));
+            profile.name() != null && !profile.name().isBlank() ? profile.name()
+                : (fallbackName != null && !fallbackName.isBlank()
+                ? fallbackName
+                : profile.email().split("@")[0]));
         user.setAuthProvider(AuthProvider.valueOf(provider.toUpperCase(Locale.ROOT)));
         user.setVerified(true);
         user.setVerificationLevel((short) 0);
@@ -329,34 +329,33 @@ public class AuthService {
 
     AuthTokenResponse issueTokens(User user) {
         String access = jwtService.generateAccessToken(
-                user.getId(), user.getEmail(), user.getVerificationLevel());
+            user.getId(), user.getEmail(), user.getVerificationLevel());
         String refresh = jwtService.generateRefreshToken(user.getId());
         tokenStore.store(PURPOSE_REFRESH_TOKEN, refresh, user.getId().toString(),
-                Duration.ofSeconds(jwtService.getRefreshTtlSeconds()));
+            Duration.ofSeconds(jwtService.getRefreshTtlSeconds()));
         return new AuthTokenResponse(
-                access,
-                refresh,
-                jwtService.getAccessTtlSeconds(),
-                "Bearer",
-                toSummary(user));
+            access,
+            refresh,
+            jwtService.getAccessTtlSeconds(),
+            "Bearer",
+            toSummary(user));
     }
 
     UserSummaryResponse toSummary(User user) {
         return new UserSummaryResponse(
-                user.getId(),
-                user.getEmail(),
-                user.getFullName(),
-                user.isVerified(),
-                user.getVerificationLevel(),
-                user.isOnboardingCompleted(),
-                user.getAuthProvider().name().toLowerCase(Locale.ROOT));
+            user.getId(),
+            user.getEmail(),
+            user.getFullName(),
+            user.isVerified(),
+            user.getVerificationLevel(),
+            user.isOnboardingCompleted(),
+            user.getAuthProvider().name().toLowerCase(Locale.ROOT));
     }
 
     private void sendVerificationEmail(User user) {
         String token = TokenGenerator.generate();
         tokenStore.store(PURPOSE_EMAIL_VERIFY, token, user.getId().toString(),
-                TokenGenerator.defaultTtl());
+            TokenGenerator.defaultTtl());
         emailTemplateService.sendVerificationEmail(user, token);
-    }
     }
 }

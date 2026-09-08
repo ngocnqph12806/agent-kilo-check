@@ -80,7 +80,8 @@ export interface AuthUserSummary {
 
 export interface AuthSession {
   user: AuthUserSummary;
-  tokens: AuthTokens;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface ApiErrorPayload {

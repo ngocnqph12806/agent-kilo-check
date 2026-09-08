@@ -137,7 +137,7 @@ class UserServiceTest {
 
         assertThat(response.skillDna().offered()).hasSize(1);
         CurrentUserResponse.OfferedSkill offered = response.skillDna().offered().get(0);
-        assertThat(offered.slug()).isEqualTo("java");
+        assertThat(offered.skillSlug()).isEqualTo("java");
         assertThat(offered.category()).isEqualTo("tech");
         assertThat(offered.level()).isEqualTo((short) 4);
         assertThat(offered.hourlySeedRate()).isEqualTo(60);

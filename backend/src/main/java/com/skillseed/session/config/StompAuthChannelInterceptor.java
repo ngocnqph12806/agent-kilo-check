@@ -1,7 +1,6 @@
 package com.skillseed.session.config;
 
 import com.skillseed.auth.service.JwtService;
-import com.skillseed.shared.security.AuthenticatedUser;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

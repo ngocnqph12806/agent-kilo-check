@@ -1,5 +1,6 @@
 package com.skillseed.user.domain;
 
+import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.shared.domain.AuthProviderConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -83,7 +84,7 @@ public class User {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    protected User() {
+    public User() {
     }
 
     @PrePersist

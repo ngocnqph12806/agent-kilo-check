@@ -1,5 +1,6 @@
 package com.skillseed.booking.domain;
 
+import com.skillseed.shared.domain.BookingStatus;
 import com.skillseed.shared.domain.BookingStatusConverter;
 import com.skillseed.skill.domain.Skill;
 import com.skillseed.user.domain.User;

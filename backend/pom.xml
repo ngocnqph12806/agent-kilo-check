@@ -184,6 +184,7 @@
                 <configuration>
                     <configLocation>${project.basedir}/../checkstyle.xml</configLocation>
                     <suppressionsLocation>${project.basedir}/../checkstyle-suppressions.xml</suppressionsLocation>
+                    <propertiesLocation>${project.basedir}/checkstyle.properties</propertiesLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>

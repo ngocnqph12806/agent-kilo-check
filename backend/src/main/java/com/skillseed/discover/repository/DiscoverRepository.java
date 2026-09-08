@@ -10,13 +10,23 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Spring Data marker interface so the custom impl
- * {@link DiscoverRepositoryImpl} is auto-detected by component scan.
+ * Read-only queries powering {@code GET /api/v1/discover}. Custom
+ * JPQL keeps the join between {@code user_skills_offered} (teachers)
+ * and {@code user_skills_wanted} (current user) in a single round trip.
  */
 @Repository
-public interface DiscoverRepository extends DiscoverRepositoryCustom {
+public interface DiscoverRepository {
 
-    @Override
+    /**
+     * @param currentUserId    the authenticated user (excluded from results)
+     * @param wantedSkillIds   skill ids the current user wants to learn
+     * @param filterSkillId    optional additional skill filter (intersection with wantedSkillIds)
+     * @param language         optional language code (matches {@code ANY(languages)})
+     * @param countryCode      optional 2-letter ISO country code
+     * @param minRating        optional minimum rating (inclusive)
+     * @param pageable         pagination + sort (sort is overridden internally to
+     *                         {@code rating_avg DESC, sessions_completed DESC})
+     */
     Page<DiscoverMatchResponse> findMatches(
             UUID currentUserId,
             List<UUID> wantedSkillIds,

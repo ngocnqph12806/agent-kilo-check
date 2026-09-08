@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -54,10 +53,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
-                                new AntPathRequestMatcher("/api/v1/users/{id}"),
-                                new AntPathRequestMatcher("/api/v1/users/{id}/availability"),
-                                new AntPathRequestMatcher("/api/v1/skills"),
-                                new AntPathRequestMatcher("/api/v1/skills/{id}")
+                                "/api/v1/users/{id}",
+                                "/api/v1/users/{id}/availability",
+                                "/api/v1/skills",
+                                "/api/v1/skills/{id}"
                         ).permitAll()
                         .requestMatchers(PUBLIC_PATHS).permitAll()
                         .anyRequest().authenticated())
@@ -71,8 +70,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(
-            org.springframework.beans.factory.annotation.Value("${cors.allowed-origins}") String origins) {
+    public CorsConfigurationSource corsConfigurationSource(@Value("${cors.allowed-origins}") String origins) {
         CorsConfiguration config = new CorsConfiguration();
         for (String origin : origins.split(",")) {
             String trimmed = origin.trim();

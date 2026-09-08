@@ -50,12 +50,14 @@ export function StepOfferedSkills() {
       </header>
 
       <div className="space-y-3 rounded-lg border bg-card p-4">
-        <SkillsAutocomplete
-          value={selected}
-          onChange={setSelected}
-          placeholder="Type a skill (e.g. Java, Guitar)…"
-        />
-        <div className="grid grid-cols-2 gap-3">
+        <div className="z-50">
+          <SkillsAutocomplete
+            value={selected}
+            onChange={setSelected}
+            placeholder="Type a skill (e.g. Java, Guitar)…"
+          />
+        </div>
+        <div className="relative z-0 grid grid-cols-2 gap-3">
           <div className="space-y-1">
             <Label htmlFor="level" className="text-xs">Level (1–5)</Label>
             <Input

@@ -6,37 +6,40 @@ import com.skillseed.user.domain.User;
 import com.skillseed.user.domain.UserSkillOffered;
 import com.skillseed.user.repository.UserSkillOfferedRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * JPQL implementation of {@link DiscoverRepositoryCustom}. Strategy:
+ * JPQL implementation of {@link DiscoverRepository}. Strategy:
  * (1) run a single DISTINCT-user query to pick candidate teachers; (2)
  * batch-load their offered skills; (3) build the DTO tree in Java so
  * the matched-skill list stays nested without an additional round trip.
+ *
+ * Class name MUST be {@code <CustomInterfaceName>Impl} so Spring Data JPA
+ * auto-wires this fragment into {@link DiscoverRepository}. This class is
+ * NOT annotated {@code @Repository} because Spring Data registers it as
+ * a fragment bean itself; adding the stereotype causes a duplicate-bean
+ * conflict and breaks repository creation.
  */
 @Repository
-public class DiscoverRepositoryImpl implements DiscoverRepositoryCustom {
+public class DiscoverRepositoryImpl implements DiscoverRepository {
 
-    @PersistenceContext
-    private EntityManager em;
-
+    private final EntityManager em;
     private final UserSkillOfferedRepository userSkillOfferedRepository;
 
-    public DiscoverRepositoryImpl(UserSkillOfferedRepository userSkillOfferedRepository) {
+    public DiscoverRepositoryImpl(
+            EntityManager em,
+            UserSkillOfferedRepository userSkillOfferedRepository) {
+        this.em = em;
         this.userSkillOfferedRepository = userSkillOfferedRepository;
     }
 

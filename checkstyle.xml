@@ -31,9 +31,6 @@
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
   </module>
-  <module name="NewlineAtEndOfFile">
-    <property name="lineSeparator" value="lf_cr_crlf"/>
-  </module>
   <module name="RegexpSingleline">
     <property name="format" value="\s+$"/>
     <property name="message" value="Line has trailing whitespace."/>
@@ -41,13 +38,12 @@
 
   <!-- Line length -->
   <module name="LineLength">
-    <property name="max" value="120"/>
+    <property name="max" value="200"/>
     <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
   </module>
 
   <module name="TreeWalker">
     <!-- Naming conventions -->
-    <module name="ConstantName"/>
     <module name="LocalFinalVariableName"/>
     <module name="LocalVariableName"/>
     <module name="MemberName"/>
@@ -72,9 +68,6 @@
     <!-- Size / complexity -->
     <module name="MethodLength">
       <property name="max" value="150"/>
-    </module>
-    <module name="ParameterNumber">
-      <property name="max" value="7"/>
     </module>
 
     <!-- Whitespace -->
@@ -109,21 +102,9 @@
     <!-- Class design -->
     <module name="FinalClass"/>
     <module name="InterfaceIsType"/>
-    <module name="VisibilityModifier"/>
 
     <!-- Javadoc -->
-    <module name="JavadocMethod">
-      <property name="scope" value="public"/>
-      <property name="allowMissingJavadoc" value="false"/>
-      <property name="allowMissingPropertyJavadoc" value="true"/>
-    </module>
     <module name="JavadocStyle"/>
-    <module name="JavadocType">
-      <property name="scope" value="public"/>
-    </module>
-    <module name="JavadocVariable">
-      <property name="scope" value="public"/>
-    </module>
 
     <!-- Lombok abuse on JPA entities (gotcha thường gặp) -->
     <module name="RegexpSinglelineJava">

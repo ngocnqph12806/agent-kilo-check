@@ -44,7 +44,7 @@ public class SeedWallet {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    protected SeedWallet() {
+    public SeedWallet() {
     }
 
     public SeedWallet(User user) {

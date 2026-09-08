@@ -13,7 +13,8 @@ import type {
 
 interface AuthEnvelope {
   user: AuthUserSummary;
-  tokens: AuthTokens;
+  accessToken: string;
+  refreshToken: string;
 }
 
 interface EmptyEnvelope {}

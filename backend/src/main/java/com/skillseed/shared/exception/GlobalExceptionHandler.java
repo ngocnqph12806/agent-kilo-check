@@ -56,19 +56,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SessionException.class)
     public ResponseEntity<ApiErrorResponse> handleSession(SessionException ex) {
         return ResponseEntity.status(ex.getStatus())
-                .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
+                .body(ApiErrorResponse.of(ex.getStatus().value(), ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(BookingException.class)
     public ResponseEntity<ApiErrorResponse> handleBooking(BookingException ex) {
         return ResponseEntity.status(ex.getStatus())
-                .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
+                .body(ApiErrorResponse.of(ex.getStatus().value(), ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(RatingException.class)
     public ResponseEntity<ApiErrorResponse> handleRating(RatingException ex) {
         return ResponseEntity.status(ex.getStatus())
-                .body(ApiErrorResponse.of(ex.getStatus(), ex.getCode(), ex.getMessage()));
+                .body(ApiErrorResponse.of(ex.getStatus().value(), ex.getCode(), ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -107,15 +107,15 @@ public class OAuthIdTokenVerifierConfig {
             try {
                 Jws<io.jsonwebtoken.Claims> jws = Jwts.parser()
                         .keyLocator(headers -> {
-                            String kid = headers.getKeyId();
+                            String kid = ((io.jsonwebtoken.JwsHeader) headers).getKeyId();
                             Key key = getKey(kid);
                             if (key == null) {
                                 throw new IllegalStateException("Unknown kid: " + kid);
                             }
                             return key;
                         })
-                        .requireIssuer(issuers().toArray(new String[0]))
-                        .requireAudience(audiences().toArray(new String[0]))
+                        .requireIssuer(issuers().get(0))
+                        .requireAudience(audiences().get(0))
                         .build()
                         .parseSignedClaims(idToken);
                 io.jsonwebtoken.Claims claims = jws.getPayload();

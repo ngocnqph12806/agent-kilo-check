@@ -2,7 +2,6 @@ package com.skillseed.notification.controller;
 
 import com.skillseed.notification.dto.NotificationPageResponse;
 import com.skillseed.notification.service.NotificationService;
-import com.skillseed.shared.exception.ApiErrorResponse;
 import com.skillseed.shared.security.CurrentUser;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.exception.UserException;

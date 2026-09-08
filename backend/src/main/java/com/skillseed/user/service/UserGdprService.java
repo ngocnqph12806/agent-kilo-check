@@ -2,7 +2,7 @@ package com.skillseed.user.service;
 
 import com.skillseed.booking.domain.Booking;
 import com.skillseed.booking.repository.BookingRepository;
-import com.skillseed.notification.repository.NotificationRepository;
+import com.skillseed.notification.domain.NotificationRepository;
 import com.skillseed.rating.domain.Rating;
 import com.skillseed.rating.repository.RatingRepository;
 import com.skillseed.user.domain.User;
@@ -18,6 +18,7 @@ import com.skillseed.user.dto.UserDataExportResponse.RatingSection;
 import com.skillseed.user.dto.UserDataExportResponse.SeedTransactionSection;
 import com.skillseed.user.dto.UserDataExportResponse.WalletSection;
 import com.skillseed.user.dto.UserDataExportResponse.WantedSkillSection;
+import com.skillseed.user.exception.UserException;
 import com.skillseed.user.repository.UserAvailabilityRepository;
 import com.skillseed.user.repository.UserRepository;
 import com.skillseed.user.repository.UserSkillOfferedRepository;
@@ -264,19 +265,20 @@ public class UserGdprService {
                 uso.getSkill().getSlug(),
                 uso.getSkill().getName(),
                 uso.getSkill().getCategory().getDbValue(),
-                uso.getLevel(),
+                Short.toString(uso.getLevel()),
                 uso.getYearsExperience(),
                 uso.getDescription(),
                 uso.getHourlySeedRate());
     }
 
     private WantedSkillSection toWantedSection(UserSkillWanted usw) {
+        Short targetLevel = usw.getTargetLevel();
         return new WantedSkillSection(
                 usw.getSkill().getSlug(),
                 usw.getSkill().getName(),
                 usw.getSkill().getCategory().getDbValue(),
-                usw.getLevel(),
-                usw.getDescription());
+                targetLevel == null ? null : Short.toString(targetLevel),
+                usw.getNotes());
     }
 
     private AvailabilitySection toAvailabilitySection(UserAvailability a) {
@@ -313,11 +315,12 @@ public class UserGdprService {
     }
 
     private RatingSection toRatingSection(Rating r) {
+        Short score = r.getOverallScore();
         return new RatingSection(
                 r.getBooking() == null ? null : r.getBooking().getId(),
                 r.getRater() == null ? null : r.getRater().getId(),
                 r.getRatee() == null ? null : r.getRatee().getId(),
-                r.getOverallScore(),
+                score == null ? null : score.intValue(),
                 r.getReviewText(),
                 r.isAutoRated(),
                 r.getCreatedAt());

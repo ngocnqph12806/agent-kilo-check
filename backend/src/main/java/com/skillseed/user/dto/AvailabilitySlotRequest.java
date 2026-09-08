@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalTime;
-import java.util.UUID;
 
 /**
  * A single recurring weekly availability slot. {@code dayOfWeek} is

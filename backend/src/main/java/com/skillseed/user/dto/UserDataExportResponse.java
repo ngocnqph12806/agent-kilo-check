@@ -2,6 +2,7 @@ package com.skillseed.user.dto;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * GDPR data export payload (T-M201). Aggregates every piece of personal

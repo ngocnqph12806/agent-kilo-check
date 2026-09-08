@@ -144,11 +144,11 @@ public class SessionService {
         }
     }
 
-    static String deriveRoomName(UUID bookingId) {
+    public static String deriveRoomName(UUID bookingId) {
         return ROOM_NAME_PREFIX + bookingId.toString().replace("-", "");
     }
 
-    static UUID extractBookingId(String roomName) {
+    public static UUID extractBookingId(String roomName) {
         if (roomName == null || !roomName.startsWith(ROOM_NAME_PREFIX)) {
             return null;
         }

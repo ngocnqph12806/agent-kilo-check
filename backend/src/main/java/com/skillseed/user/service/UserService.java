@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -168,7 +167,7 @@ public class UserService {
         // Group availability rows by (dow 0..6, timezone) — most users have one tz.
         Map<Integer, List<UserAvailability>> byDow = new HashMap<>();
         for (UserAvailability a : availability) {
-            byDow.computeIfAbsent(a.getDayOfWeek(), k -> new ArrayList<>()).add(a);
+            byDow.computeIfAbsent((int) a.getDayOfWeek(), k -> new ArrayList<>()).add(a);
         }
 
         Instant upperBound = from.plus(days, ChronoUnit.DAYS);
@@ -203,7 +202,7 @@ public class UserService {
         return slots;
     }
 
-    User loadActiveUser(UUID userId) {
+    public User loadActiveUser(UUID userId) {
         return userRepository.findById(userId)
                 .filter(u -> u.getDeletedAt() == null)
                 .orElseThrow(() -> UserException.notFound("USER_NOT_FOUND",

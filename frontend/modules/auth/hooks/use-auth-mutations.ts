@@ -66,7 +66,7 @@ export function useLoginMutation() {
       return response;
     },
     onSuccess: (response) => {
-      persistSession(setUser, response.user, response.tokens.accessToken, response.tokens.refreshToken);
+      persistSession(setUser, response.user, response.accessToken, response.refreshToken);
       queryClient.setQueryData(CURRENT_USER_QUERY_KEY, response.user);
       router.replace('/discover');
     },
@@ -165,7 +165,7 @@ export function useGoogleLoginMutation() {
   return useMutation({
     mutationFn: async (input: GoogleOAuthInput) => authApi.loginWithGoogle(input),
     onSuccess: (response) => {
-      persistSession(setUser, response.user, response.tokens.accessToken, response.tokens.refreshToken);
+      persistSession(setUser, response.user, response.accessToken, response.refreshToken);
       queryClient.setQueryData(CURRENT_USER_QUERY_KEY, response.user);
       router.replace(response.user.onboardingCompleted ? '/discover' : '/onboarding');
     },
@@ -183,7 +183,7 @@ export function useAppleLoginMutation() {
   return useMutation({
     mutationFn: async (idToken: string) => authApi.loginWithApple(idToken),
     onSuccess: (response) => {
-      persistSession(setUser, response.user, response.tokens.accessToken, response.tokens.refreshToken);
+      persistSession(setUser, response.user, response.accessToken, response.refreshToken);
       queryClient.setQueryData(CURRENT_USER_QUERY_KEY, response.user);
       router.replace(response.user.onboardingCompleted ? '/discover' : '/onboarding');
     },

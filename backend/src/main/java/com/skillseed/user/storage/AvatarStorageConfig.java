@@ -3,7 +3,7 @@ package com.skillseed.user.storage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -34,7 +34,10 @@ public class AvatarStorageConfig {
     private static final Logger log = LoggerFactory.getLogger(AvatarStorageConfig.class);
 
     @Bean
-    @ConditionalOnProperty(prefix = "storage.r2", name = "endpoint")
+    @ConditionalOnExpression(
+            "'${storage.r2.endpoint:}' != '' && '${storage.r2.bucket:}' != ''"
+                    + " && '${storage.r2.access-key:}' != ''"
+                    + " && '${storage.r2.secret-key:}' != ''")
     public AvatarStorage r2AvatarStorage(
             @Value("${storage.r2.endpoint}") String endpoint,
             @Value("${storage.r2.bucket}") String bucket,

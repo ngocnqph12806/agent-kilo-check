@@ -1,7 +1,7 @@
 package com.skillseed.user.service;
 
 import com.skillseed.booking.repository.BookingRepository;
-import com.skillseed.notification.repository.NotificationRepository;
+import com.skillseed.notification.domain.NotificationRepository;
 import com.skillseed.rating.repository.RatingRepository;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.dto.UserDataExportResponse;
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.time.Instant;
@@ -130,11 +129,12 @@ class UserGdprServiceTest {
         when(userAvailabilityRepository.findByUserId(USER_ID)).thenReturn(List.of());
         when(seedWalletRepository.findByUserId(USER_ID)).thenReturn(Optional.empty());
 
-        Page<com.skillseed.booking.domain.Booking> emptyPage = new PageImpl<>(List.of());
-        when(bookingRepository.findByTeacherId(eq(USER_ID), any(Pageable.class))).thenReturn(emptyPage);
-        when(bookingRepository.findByLearnerId(eq(USER_ID), any(Pageable.class))).thenReturn(emptyPage);
+        Page<com.skillseed.booking.domain.Booking> emptyBookingPage = new PageImpl<>(List.of());
+        when(bookingRepository.findByTeacherId(eq(USER_ID), any(Pageable.class))).thenReturn(emptyBookingPage);
+        when(bookingRepository.findByLearnerId(eq(USER_ID), any(Pageable.class))).thenReturn(emptyBookingPage);
         when(ratingRepository.findByRaterId(USER_ID)).thenReturn(List.of());
-        when(ratingRepository.findByRateeId(eq(USER_ID), any(Pageable.class))).thenReturn(emptyPage);
+        Page<com.skillseed.rating.domain.Rating> emptyRatingPage = new PageImpl<>(List.of());
+        when(ratingRepository.findByRateeId(eq(USER_ID), any(Pageable.class))).thenReturn(emptyRatingPage);
 
         UserDataExportResponse export = service.export(USER_ID);
 

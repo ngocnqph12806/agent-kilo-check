@@ -64,7 +64,7 @@ class RatingAutoRateJobTest {
                 cutoffCaptor.capture());
         Instant expectedCutoff = Instant.now().minus(7, ChronoUnit.DAYS);
         assertThat(cutoffCaptor.getValue()).isCloseTo(expectedCutoff,
-                org.assertj.core.api.Assertions.within(5, org.assertj.core.api.InstanceOfAssertFactories.INSTANT));
+                org.assertj.core.api.Assertions.within(5, ChronoUnit.SECONDS));
         verify(ratingService, times(1)).autoRateIfMissing(booking);
     }
 

@@ -373,7 +373,7 @@ public class BookingService {
     }
 
     private boolean hasActiveSlotConflict(UUID teacherId, Instant scheduledAt, int durationMinutes) {
-        Instant padding = Duration.ofMinutes(60);
+        Duration padding = Duration.ofMinutes(60);
         Instant windowStart = scheduledAt.minus(Duration.ofMinutes(durationMinutes)).minus(padding);
         Instant windowEnd = scheduledAt.plus(Duration.ofMinutes(durationMinutes)).plus(padding);
         List<Booking> nearby = bookingRepository.findByTeacherIdAndScheduledAtBetween(

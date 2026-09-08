@@ -74,7 +74,10 @@ export function SkillsAutocomplete({
   return (
     <div ref={containerRef} className={cn('relative', className)}>
       <Input
-        type="search"
+        type="text"
+        role="combobox"
+        autoComplete="off"
+        spellCheck={false}
         value={query}
         autoFocus={autoFocus}
         disabled={disabled}
@@ -87,6 +90,7 @@ export function SkillsAutocomplete({
         }}
         aria-autocomplete="list"
         aria-expanded={open}
+        aria-controls="skills-autocomplete-listbox"
       />
       {value && query === value.name ? (
         <button
@@ -101,8 +105,9 @@ export function SkillsAutocomplete({
 
       {open && suggestions.length > 0 ? (
         <ul
+          id="skills-autocomplete-listbox"
           role="listbox"
-          className="absolute z-50 mt-1 max-h-72 w-full overflow-auto rounded-md border bg-popover p-1 text-sm shadow-md"
+          className="absolute left-0 right-0 z-50 mt-1 max-h-72 overflow-auto rounded-md border bg-popover p-1 text-sm shadow-lg"
         >
           {suggestions.map((skill) => (
             <li
@@ -125,7 +130,7 @@ export function SkillsAutocomplete({
       ) : null}
 
       {open && debounced && !search.isLoading && suggestions.length === 0 ? (
-        <p className="absolute z-50 mt-1 w-full rounded-md border bg-popover px-3 py-2 text-sm text-muted-foreground shadow-md">
+        <p className="absolute left-0 right-0 z-50 mt-1 rounded-md border bg-popover px-3 py-2 text-sm text-muted-foreground shadow-lg">
           No skills match. Try a different keyword or submit a custom one below.
         </p>
       ) : null}
