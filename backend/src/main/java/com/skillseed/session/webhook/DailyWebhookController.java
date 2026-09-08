@@ -28,9 +28,15 @@ import java.io.IOException;
  * Defense against spoofed payloads: HMAC-SHA256 verification
  * of the raw body against the
  * {@code session.daily.webhook-signing-key} configuration
- * property, compared in constant time. When the signing
- * key is unset (e.g. local dev) the signature check is
- * skipped but a warning is logged so operators notice.
+ * property, compared in constant time.
+ *
+ * <p><b>Fail-closed:</b> if the signing key is unset the
+ * signature check rejects every request (401). The previous
+ * behaviour of skipping the check and logging a warning was a
+ * spoofing risk because the endpoint is publicly reachable —
+ * anyone who knew the room-name convention
+ * ({@code ss-<uuid>}) could trigger {@code markMeetingEnded}
+ * and credit a teacher's escrow.
  */
 @RestController
 @RequestMapping("/api/v1/webhooks/daily")
@@ -87,8 +93,11 @@ public class DailyWebhookController {
     private boolean verifySignature(byte[] rawBody, HttpServletRequest httpRequest) {
         String key = dailyProperties.getWebhookSigningKey();
         if (key == null || key.isBlank()) {
-            log.warn("Daily webhook signing key is not configured; skipping HMAC check");
-            return true;
+            // Fail-closed: rejecting every request is safer than
+            // letting unsigned payloads through on a public endpoint.
+            // Operators see this in logs and fix the configuration.
+            log.error("Daily webhook signing key is not configured; rejecting all webhooks");
+            return false;
         }
         String signature = httpRequest.getHeader(SIGNATURE_HEADER);
         return DailyWebhookSignatureVerifier.verify(rawBody, signature, key);
