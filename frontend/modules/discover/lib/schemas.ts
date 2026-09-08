@@ -33,6 +33,12 @@ export interface DiscoverFilters {
   language?: string;
   country?: string;
   minRating?: number;
+  /** UTC offset in whole hours (-12..14). Mirrors DiscoverController.timezoneOffset. */
+  timezoneOffset?: number;
+  /** Sort key: "rating" | "sessions" | "recent". Mirrors DiscoverSort enum. */
+  sort?: DiscoverSortKey;
   page?: number;
   size?: number;
 }
+
+export type DiscoverSortKey = 'rating' | 'sessions' | 'recent';
