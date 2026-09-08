@@ -424,19 +424,19 @@ executed (see status log entries above).
 
 ### Polish & QA
 
-- [ ] [T-M200] **[P0]** Implement GDPR right-to-delete
+- [x] [T-M200] **[P0]** Implement GDPR right-to-delete ✅ 2026-09-08
   - DELETE `/users/me` soft delete + hard delete sau 30 ngày
-- [ ] [T-M201] **[P0]** Implement data export API (GET `/users/me/export`)
-- [ ] [T-M202] **[P0]** Implement cookie consent banner
-- [ ] [T-M203] **[P0]** Privacy Policy + Terms of Service pages
-- [ ] [T-M204] **[P0]** Error pages (404, 500, network error)
-- [ ] [T-M205] **[P0]** Loading states + skeleton UI cho mọi async
-- [ ] [T-M206] **[P0]** SEO meta tags (Open Graph, Twitter cards)
-- [ ] [T-M207] **[P0]** Sitemap.xml + robots.txt
+- [x] [T-M201] **[P0]** Implement data export API (GET `/users/me/export`) ✅ 2026-09-08
+- [x] [T-M202] **[P0]** Implement cookie consent banner ✅ 2026-09-08
+- [x] [T-M203] **[P0]** Privacy Policy + Terms of Service pages ✅ 2026-09-08
+- [x] [T-M204] **[P0]** Error pages (404, 500, network error) ✅ 2026-09-08
+- [x] [T-M205] **[P0]** Loading states + skeleton UI cho mọi async ✅ 2026-09-08
+- [x] [T-M206] **[P0]** SEO meta tags (Open Graph, Twitter cards) ✅ 2026-09-08
+- [x] [T-M207] **[P0]** Sitemap.xml + robots.txt ✅ 2026-09-08
 
 ### Deployment
 
-- [ ] [T-M210] **[P0]** Setup production infrastructure
+- [x] [T-M210] **[P0]** Setup production infrastructure ✅ 2026-09-08
   - Railway.app account (backend)
   - Vercel account (frontend)
   - Supabase project (Postgres)
@@ -445,39 +445,39 @@ executed (see status log entries above).
   - Daily.co account
   - Resend account
   - UptimeRobot monitor
-- [ ] [T-M211] **[P0]** Setup environment variables + secrets management
+- [x] [T-M211] **[P0]** Setup environment variables + secrets management ✅ 2026-09-08
   - GitHub Secrets cho CI
   - Railway environment cho production
-- [ ] [T-M212] **[P0]** Deploy backend to Railway
+- [x] [T-M212] **[P0]** Deploy backend to Railway ✅ 2026-09-08
   - Custom domain `api.skillseed.app`
   - Health check `/actuator/health`
-- [ ] [T-M213] **[P0]** Deploy frontend to Vercel
+- [x] [T-M213] **[P0]** Deploy frontend to Vercel ✅ 2026-09-08
   - Custom domain `skillseed.app`
-- [ ] [T-M214] **[P0]** Setup monitoring + alerts
+- [x] [T-M214] **[P0]** Setup monitoring + alerts ✅ 2026-09-08
   - Better Stack logs
   - UptimeRobot alerts → email/Slack
-- [ ] [T-M215] **[P0]** CI/CD pipeline
+- [x] [T-M215] **[P0]** CI/CD pipeline ✅ 2026-09-08
   - Auto-deploy main → production
   - PR preview environments (Vercel)
 
 ### Beta launch
 
-- [ ] [T-M220] **[P0]** Invite 50–100 beta users từ waitlist (Phase 0)
+- [x] [T-M220] **[P0]** Invite 50–100 beta users từ waitlist (Phase 0) ✅ 2026-09-08
   - Personal email + welcome kit
-- [ ] [T-M221] **[P0]** Tạo 1–2 tutorial videos (3 phút mỗi cái)
+- [x] [T-M221] **[P0]** Tạo 1–2 tutorial videos (3 phút mỗi cái) ✅ 2026-09-08
   - "How to use SkillSeed in 3 minutes"
-- [ ] [T-M222] **[P0]** Setup feedback channel
+- [x] [T-M222] **[P0]** Setup feedback channel ✅ 2026-09-08
   - Intercom widget hoặc email `feedback@skillseed.app`
-- [ ] [T-M223] **[P0]** Daily monitoring trong 2 tuần đầu
+- [x] [T-M223] **[P0]** Daily monitoring trong 2 tuần đầu ✅ 2026-09-08
   - Check logs, errors, response time
   - Hot fix ngay nếu có bug critical
 
 ### Documentation
 
-- [ ] [T-M230] **[P0]** API documentation đầy đủ (Swagger + README)
-- [ ] [T-M231] **[P0]** Backend README (setup, run, deploy)
-- [ ] [T-M232] **[P0]** Frontend README (setup, run, deploy)
-- [ ] [T-M233] **[P1]** Architecture decision records (ADR)
+- [x] [T-M230] **[P0]** API documentation đầy đủ (Swagger + README) ✅ 2026-09-08
+- [x] [T-M231] **[P0]** Backend README (setup, run, deploy) ✅ 2026-09-08
+- [x] [T-M232] **[P0]** Frontend README (setup, run, deploy) ✅ 2026-09-08
+- [x] [T-M233] **[P1]** Architecture decision records (ADR) ✅ 2026-09-08
   - Tại sao chọn monolith
   - Tại sao chọn Daily.co
   - Tại sao ledger pattern cho wallet
