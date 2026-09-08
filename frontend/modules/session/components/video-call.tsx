@@ -13,11 +13,13 @@ import {
   Circle,
   X,
   Loader2,
-  AlertTriangle
+  AlertTriangle,
+  MessageSquare
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
+import { ChatPanel } from './chat-panel';
 import { NetworkIndicator, type ConnectionQuality } from './network-indicator';
 import { ReportIssueDialog } from './report-issue-dialog';
 import { WhiteboardPanel } from './whiteboard-panel';
@@ -80,6 +82,7 @@ export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpa
   const [recording] = useState(false);
   const [quality, setQuality] = useState<ConnectionQuality>('unknown');
   const [reportIssueOpen, setReportIssueOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -290,6 +293,14 @@ export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpa
         >
           <AlertTriangle className="h-5 w-5" />
         </ControlButton>
+        <ControlButton
+          active={chatOpen}
+          disabled={status !== 'joined'}
+          onClick={() => setChatOpen((v) => !v)}
+          label={chatOpen ? 'Hide chat' : 'Chat'}
+        >
+          <MessageSquare className="h-5 w-5" />
+        </ControlButton>
         <button
           type="button"
           onClick={leave}
@@ -308,6 +319,11 @@ export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpa
         bookingId={bookingId}
         open={reportIssueOpen}
         onClose={() => setReportIssueOpen(false)}
+      />
+      <ChatPanel
+        bookingId={bookingId}
+        open={chatOpen}
+        onClose={() => setChatOpen(false)}
       />
     </div>
   );
