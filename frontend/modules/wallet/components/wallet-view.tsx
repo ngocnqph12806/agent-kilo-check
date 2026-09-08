@@ -215,7 +215,7 @@ function StatCard({
         : 'bg-brand-pending-bg text-brand-pending';
 
   return (
-    <div className="rounded-2xl border border-[var(--brand-border)] bg-white p-5 shadow-brand-card">
+    <div className="rounded-2xl border border-[var(--brand-border)] bg-card p-5 shadow-brand-card">
       <div className="flex items-center gap-3">
         <span
           className={cn(
@@ -288,7 +288,7 @@ function TransactionHistory({
   const items = data?.content ?? [];
 
   return (
-    <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+    <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
       <div className="flex items-center justify-between gap-3">
         <div>
           <h2 className="text-lg font-extrabold text-[var(--brand-text-strong)]">

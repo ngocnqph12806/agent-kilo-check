@@ -39,7 +39,7 @@ export function NetworkErrorScreen({ onRetry, className }: NetworkErrorScreenPro
         <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[var(--brand-warn)] shadow-brand-card">
           <WifiOff className="h-12 w-12 text-[var(--brand-warn-text)]" aria-hidden />
         </div>
-        <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)] shadow-brand-card">
+        <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-card px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)] shadow-brand-card">
           <span aria-hidden>📶</span> Connection
         </p>
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">

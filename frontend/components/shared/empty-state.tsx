@@ -20,7 +20,7 @@ export function EmptyState({ icon: Icon, emoji, title, description, action, clas
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--brand-border)] bg-white px-6 py-16 text-center shadow-brand-card',
+        'flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--brand-border)] bg-card px-6 py-16 text-center shadow-brand-card',
         className
       )}
     >

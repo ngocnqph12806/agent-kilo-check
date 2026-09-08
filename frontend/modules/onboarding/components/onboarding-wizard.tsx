@@ -81,7 +81,7 @@ export function OnboardingWizard() {
       <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
         <ProgressHeader step={step + 1} progress={progress} />
 
-        <div className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card sm:p-8">
+        <div className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card sm:p-8">
           <ActiveStep />
 
           {serverError ? (

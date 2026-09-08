@@ -83,7 +83,7 @@ export function NotificationsPageView() {
         </div>
       </header>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
         {isLoading ? (
           <LoadingState label="Loading notifications…" rows={4} className="border-none p-0 shadow-none" />
         ) : isError ? (
@@ -134,7 +134,7 @@ function NotificationCard({ notification }: { notification: Notification }) {
       <Link
         href={meta.href ?? '#'}
           className={cn(
-          'flex items-start gap-4 rounded-2xl border bg-white p-4 shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]/40',
+          'flex items-start gap-4 rounded-2xl border bg-card p-4 shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]/40',
           notification.unread
             ? 'border-brand-credit ring-1 ring-brand-credit/40'
             : 'border-[var(--brand-border)]'

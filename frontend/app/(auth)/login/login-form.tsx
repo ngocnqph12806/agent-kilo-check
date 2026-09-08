@@ -122,7 +122,7 @@ export function LoginForm() {
           <div className="w-full border-t border-[var(--brand-border)]" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white px-2 text-[var(--brand-text-subtle)]">Or continue with</span>
+          <span className="bg-background px-2 text-[var(--brand-text-subtle)]">Or continue with</span>
         </div>
       </div>
 

@@ -126,7 +126,7 @@ export function WhiteboardPanel({ open, onClose }: WhiteboardPanelProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 z-40 flex w-full max-w-xl flex-col border-l border-zinc-200 bg-white shadow-xl">
+    <div className="fixed inset-y-0 right-0 z-40 flex w-full max-w-xl flex-col border-l border-zinc-200 bg-card shadow-xl">
       <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3">
         <h2 className="text-sm font-semibold">Whiteboard</h2>
         <button
@@ -183,7 +183,7 @@ export function WhiteboardPanel({ open, onClose }: WhiteboardPanelProps) {
         </div>
       </div>
 
-      <div className="relative flex-1 bg-white">
+      <div className="relative flex-1 bg-card">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 h-full w-full touch-none"

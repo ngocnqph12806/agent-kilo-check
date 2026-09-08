@@ -66,7 +66,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
       <div
-        className="relative w-full max-w-md rounded-2xl border border-[var(--brand-border)] bg-white p-8 shadow-brand-card"
+        className="relative w-full max-w-md rounded-2xl border border-[var(--brand-border)] bg-card p-8 shadow-brand-card"
         role="dialog"
         aria-modal="true"
         aria-label="Rate session"
@@ -99,7 +99,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
         </label>
         <textarea
           id="rating-review"
-          className="mt-1 w-full rounded-md border border-[var(--brand-border)] bg-white p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className="mt-1 w-full rounded-md border border-[var(--brand-border)] bg-background p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
           rows={3}
           value={reviewText}
           maxLength={2000}

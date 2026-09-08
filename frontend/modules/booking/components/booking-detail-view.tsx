@@ -170,7 +170,7 @@ export function BookingDetailView({
         </Button>
       </div>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
         <div className="flex flex-wrap items-start gap-4">
           <div
             aria-hidden
@@ -195,7 +195,7 @@ export function BookingDetailView({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
           <Calendar className="h-4 w-4" aria-hidden />
           Date &amp; time
@@ -221,7 +221,7 @@ export function BookingDetailView({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
           <Video className="h-4 w-4" aria-hidden />
           Meeting
@@ -246,7 +246,7 @@ export function BookingDetailView({
       </section>
 
       {data.notes ? (
-        <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+        <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
             Notes
           </p>
@@ -265,7 +265,7 @@ export function BookingDetailView({
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
         <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
           Payment
         </p>
@@ -416,7 +416,7 @@ export function BookingDetailView({
         </Button>
       </section>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
         <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
           Lifecycle
         </p>

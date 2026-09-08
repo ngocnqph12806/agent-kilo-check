@@ -23,21 +23,21 @@ export function StepWelcome() {
       </p>
 
       <ul className="mt-10 grid w-full max-w-2xl gap-4 text-left sm:grid-cols-3">
-        <li className="rounded-2xl border border-[var(--brand-border)] bg-white p-5 shadow-brand-card">
+        <li className="rounded-2xl border border-[var(--brand-border)] bg-card p-5 shadow-brand-card">
           <Users className="mb-3 h-6 w-6 text-primary" aria-hidden />
           <p className="font-semibold text-[var(--brand-text-strong)]">Match with 12+ partners</p>
           <p className="mt-1 text-sm text-[var(--brand-text-muted)]">
             We suggest people who want what you teach and offer what you want to learn.
           </p>
         </li>
-        <li className="rounded-2xl border border-[var(--brand-border)] bg-white p-5 shadow-brand-card">
+        <li className="rounded-2xl border border-[var(--brand-border)] bg-card p-5 shadow-brand-card">
           <Wallet className="mb-3 h-6 w-6 text-primary" aria-hidden />
           <p className="font-semibold text-[var(--brand-text-strong)]">Claim 50 starter seeds</p>
           <p className="mt-1 text-sm text-[var(--brand-text-muted)]">
             Use them to book sessions. Earn more by teaching.
           </p>
         </li>
-        <li className="rounded-2xl border border-[var(--brand-border)] bg-white p-5 shadow-brand-card">
+        <li className="rounded-2xl border border-[var(--brand-border)] bg-card p-5 shadow-brand-card">
           <Sparkles className="mb-3 h-6 w-6 text-primary" aria-hidden />
           <p className="font-semibold text-[var(--brand-text-strong)]">No money changes hands</p>
           <p className="mt-1 text-sm text-[var(--brand-text-muted)]">

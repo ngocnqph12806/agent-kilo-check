@@ -42,7 +42,7 @@ export function NotificationBell() {
       <button
         type="button"
         onClick={() => setOpen((state) => !state)}
-        className="relative rounded-full border border-[var(--brand-border)] bg-white p-2 text-[var(--brand-text-strong)] shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]"
+        className="relative rounded-full border border-[var(--brand-border)] bg-card p-2 text-[var(--brand-text-strong)] shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]"
         aria-label={`Notifications (${unreadCount} unread)`}
       >
         <Bell className="h-5 w-5" aria-hidden />
@@ -54,7 +54,7 @@ export function NotificationBell() {
       </button>
 
       {open ? (
-        <div className="absolute right-0 z-50 mt-2 w-96 overflow-hidden rounded-2xl border border-[var(--brand-border)] bg-white text-[var(--brand-text-strong)] shadow-brand-card">
+        <div className="absolute right-0 z-50 mt-2 w-96 overflow-hidden rounded-2xl border border-[var(--brand-border)] bg-card text-[var(--brand-text-strong)] shadow-brand-card">
           <div className="flex items-center justify-between border-b border-[var(--brand-border)] bg-[var(--brand-hero-soft)]/40 px-4 py-3">
             <div>
               <p className="text-sm font-bold">Notifications</p>
@@ -107,7 +107,7 @@ export function NotificationBell() {
             )}
           </div>
 
-          <div className="border-t border-[var(--brand-border)] bg-white px-4 py-2">
+          <div className="border-t border-[var(--brand-border)] bg-card px-4 py-2">
             <Link
               href="/notifications"
               onClick={() => setOpen(false)}

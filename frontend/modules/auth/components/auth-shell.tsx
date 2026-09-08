@@ -30,7 +30,7 @@ export function AuthShell({
       {hero ? <MarketingHero {...hero} /> : null}
 
       <section className="flex flex-1 items-center justify-center px-4 py-12 lg:py-16">
-        <div className="w-full max-w-[500px] rounded-2xl border border-[var(--brand-border)] bg-white p-8 shadow-brand-card sm:p-10">
+        <div className="w-full max-w-[500px] rounded-2xl border border-[var(--brand-border)] bg-card p-8 shadow-brand-card sm:p-10">
           {mobileLogo ? (
             <div className="mb-6 lg:hidden">
               <BrandLogo href="/" size="md" />

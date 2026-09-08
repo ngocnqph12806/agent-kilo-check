@@ -426,7 +426,7 @@ function BookSessionPanel({
             </label>
             <select
               id="book-skill"
-              className="flex h-10 w-full rounded-md border border-[var(--brand-border)] bg-white px-3 text-sm"
+              className="flex h-10 w-full rounded-md border border-[var(--brand-border)] bg-background px-3 text-sm"
               value={bookingSkill || user.offeredSkills[0]?.id || ''}
               onChange={(e) => setBookingSkill(e.target.value)}
             >
@@ -505,7 +505,7 @@ function Card({ children, className }: CardProps) {
   return (
     <section
       className={cn(
-        'rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card',
+        'rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card',
         className
       )}
     >

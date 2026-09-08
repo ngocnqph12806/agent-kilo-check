@@ -111,7 +111,7 @@ export function BookingModal({
       aria-labelledby="booking-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8"
     >
-      <div className="w-full max-w-2xl space-y-5 rounded-2xl border border-[var(--brand-border)] bg-white p-0 shadow-brand-card">
+      <div className="w-full max-w-2xl space-y-5 rounded-2xl border border-[var(--brand-border)] bg-card p-0 shadow-brand-card">
         <header className="flex items-center justify-between rounded-t-2xl bg-[var(--brand-divider)] px-6 py-4">
           <h2
             id="booking-modal-title"
@@ -153,7 +153,7 @@ export function BookingModal({
 
           <Field step={1} label="What do you want to learn?">
             <select
-              className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-white px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
               value={skillId}
               onChange={(e) => setSkillId(e.target.value)}
             >
@@ -180,7 +180,7 @@ export function BookingModal({
                     'flex h-16 flex-col items-center justify-center rounded-xl border text-sm font-medium transition',
                     duration === d
                       ? 'border-primary bg-primary/5 text-[var(--brand-text-strong)]'
-                      : 'border-[var(--brand-border)] bg-white text-[var(--brand-text-strong)] hover:bg-[var(--brand-divider)]'
+                      : 'border-[var(--brand-border)] bg-card text-[var(--brand-text-strong)] hover:bg-[var(--brand-divider)]'
                   )}
                 >
                   <span className="text-sm font-semibold">{d} min</span>
@@ -206,7 +206,7 @@ export function BookingModal({
               </p>
             ) : (
               <select
-                className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-white px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
                 value={slotValue}
                 onChange={(e) => setSlotValue(e.target.value)}
               >
@@ -231,7 +231,7 @@ export function BookingModal({
               maxLength={500}
               rows={3}
               placeholder="e.g. I'm vegetarian — would love to learn egg-free pasta options."
-              className="flex w-full rounded-xl border border-[var(--brand-border)] bg-white px-3 py-2 text-sm text-[var(--brand-text-strong)] placeholder:text-[var(--brand-text-subtle)] focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 py-2 text-sm text-[var(--brand-text-strong)] placeholder:text-[var(--brand-text-subtle)] focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </Field>
 

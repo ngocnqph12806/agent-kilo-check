@@ -37,7 +37,7 @@ export function ReviewsList({ userId }: ReviewsListProps) {
       {data.items.map((rating) => (
         <article
           key={rating.id}
-          className="rounded-lg border border-zinc-200 bg-white p-4"
+          className="rounded-lg border border-zinc-200 bg-card p-4"
         >
           <header className="flex items-center justify-between text-sm">
             <div>

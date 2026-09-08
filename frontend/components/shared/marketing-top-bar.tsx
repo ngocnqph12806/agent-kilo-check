@@ -21,7 +21,7 @@ export function MarketingTopBar({ current, authSlot, className }: MarketingTopBa
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 border-b border-[var(--brand-border)] bg-white/95 backdrop-blur',
+        'sticky top-0 z-40 border-b border-[var(--brand-border)] bg-background/95 backdrop-blur',
         className
       )}
     >

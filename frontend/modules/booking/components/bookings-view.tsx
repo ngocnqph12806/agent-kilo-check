@@ -108,7 +108,7 @@ export function BookingsView({ currentUserId }: BookingsViewProps) {
       <div
         role="tablist"
         aria-label="Booking status filter"
-        className="inline-flex items-center gap-1 rounded-full border border-[var(--brand-border)] bg-white p-1 shadow-brand-card"
+        className="inline-flex items-center gap-1 rounded-full border border-[var(--brand-border)] bg-card p-1 shadow-brand-card"
       >
         <TabButton
           active={tab === 'upcoming'}

@@ -31,7 +31,7 @@ export function StepGoalsStyle() {
                 type="button"
                 onClick={() => update({ profile: { ...profile, primaryGoal: goal.value } })}
                 className={cn(
-                  'relative flex h-24 flex-col items-start justify-between rounded-xl border bg-white p-4 text-left transition',
+                  'relative flex h-24 flex-col items-start justify-between rounded-xl border bg-card p-4 text-left transition',
                   active
                     ? 'border-primary ring-2 ring-primary/40'
                     : 'border-[var(--brand-border)] hover:border-primary/40'
@@ -67,7 +67,7 @@ export function StepGoalsStyle() {
                 type="button"
                 onClick={() => update({ profile: { ...profile, weeklyCommitment: slot.value } })}
                 className={cn(
-                  'rounded-xl border bg-white p-3 text-left transition',
+                  'rounded-xl border bg-card p-3 text-left transition',
                   active
                     ? 'border-primary ring-2 ring-primary/40'
                     : 'border-[var(--brand-border)] hover:border-primary/40'
@@ -100,7 +100,7 @@ export function StepGoalsStyle() {
                   'inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium transition',
                   active
                     ? 'border-transparent bg-brand-cta text-white shadow-brand-cta'
-                    : 'border-[var(--brand-border)] bg-white text-[var(--brand-text-strong)] hover:border-primary/40'
+                    : 'border-[var(--brand-border)] bg-card text-[var(--brand-text-strong)] hover:border-primary/40'
                 )}
               >
                 <span aria-hidden>{style.emoji}</span>
@@ -112,7 +112,7 @@ export function StepGoalsStyle() {
         </div>
       </section>
 
-      <section className="space-y-3 rounded-xl border border-[var(--brand-border)] bg-white p-4">
+      <section className="space-y-3 rounded-xl border border-[var(--brand-border)] bg-card p-4">
         <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--brand-text-muted)]">
           Goals &amp; interests
         </h3>

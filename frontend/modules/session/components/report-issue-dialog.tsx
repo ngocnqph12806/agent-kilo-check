@@ -97,7 +97,7 @@ export function ReportIssueDialog({ bookingId, open, onClose }: ReportIssueDialo
             <label className="block space-y-1 text-sm">
               <span className="font-semibold">Category</span>
               <select
-                className="flex h-10 w-full rounded-xl border border-[var(--brand-border)] bg-white px-3 text-sm"
+                className="flex h-10 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ReportIssueCategory)}
                 disabled={submitting}
@@ -112,7 +112,7 @@ export function ReportIssueDialog({ bookingId, open, onClose }: ReportIssueDialo
             <label className="block space-y-1 text-sm">
               <span className="font-semibold">What happened?</span>
               <textarea
-                className="flex w-full rounded-xl border border-[var(--brand-border)] bg-white px-3 py-2 text-sm"
+                className="flex w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 py-2 text-sm"
                 rows={4}
                 placeholder="e.g. Audio dropped for ~10 seconds around the 12-minute mark."
                 value={description}

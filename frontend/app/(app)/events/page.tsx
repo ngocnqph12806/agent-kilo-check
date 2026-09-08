@@ -56,7 +56,7 @@ export default function EventsPage() {
         </p>
         <Link
           href="/discover"
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary bg-white px-5 py-2 text-sm font-medium text-primary transition hover:bg-[var(--brand-hero-soft)]"
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary bg-card px-5 py-2 text-sm font-medium text-primary transition hover:bg-[var(--brand-hero-soft)]"
         >
           Browse individual sessions
         </Link>

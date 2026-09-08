@@ -34,7 +34,7 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
           We&apos;ve been notified. Please try again in a moment — most issues clear themselves quickly.
         </p>
         {error.digest ? (
-          <code className="mt-3 rounded bg-white px-2 py-1 text-xs text-[var(--brand-text-muted)] shadow-brand-card">
+          <code className="mt-3 rounded bg-muted px-2 py-1 text-xs text-[var(--brand-text-muted)] shadow-brand-card">
             Ref: {error.digest}
           </code>
         ) : null}

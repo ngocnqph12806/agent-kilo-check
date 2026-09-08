@@ -28,7 +28,7 @@ export function StepDone() {
           (item) => (
             <li
               key={item}
-              className="flex items-center gap-3 rounded-xl border border-[var(--brand-border)] bg-white p-3 text-sm shadow-brand-card"
+              className="flex items-center gap-3 rounded-xl border border-[var(--brand-border)] bg-card p-3 text-sm shadow-brand-card"
             >
               <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" aria-hidden />
               <span className="font-medium text-[var(--brand-text-strong)]">{item}</span>

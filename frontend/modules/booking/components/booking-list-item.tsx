@@ -73,7 +73,7 @@ export function BookingListItem({
   const onComplete = () => complete.mutate(booking.id);
 
   return (
-    <li className="flex flex-col gap-4 rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card sm:flex-row sm:items-center sm:justify-between">
+    <li className="flex flex-col gap-4 rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-1 items-start gap-4">
         <div
           aria-hidden

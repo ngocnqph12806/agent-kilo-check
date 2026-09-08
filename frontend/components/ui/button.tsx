@@ -13,7 +13,7 @@ const buttonVariants = cva(
         brand:
           'bg-brand-cta text-white shadow-brand-cta hover:opacity-95 focus-visible:ring-primary',
         'brand-outline':
-          'border border-primary bg-white text-primary hover:bg-[var(--brand-hero-soft)]',
+          'border border-primary bg-card text-primary hover:bg-[var(--brand-hero-soft)]',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         'destructive-soft':
           'bg-[var(--brand-rose)] text-white shadow-lg hover:opacity-95',
