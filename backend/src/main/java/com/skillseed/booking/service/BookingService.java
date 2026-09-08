@@ -233,7 +233,11 @@ public class BookingService {
 
     @Transactional
     public BookingResponse complete(UUID bookingId, UUID actorId) {
-        Booking booking = loadBooking(bookingId);
+        // Pessimistic lock to serialise against SessionService.markMeetingEnded
+        // (Daily webhook can fire concurrently with this "Mark complete" click).
+        Booking booking = bookingRepository.findByIdForUpdate(bookingId)
+                .orElseThrow(() -> BookingException.notFound("BOOKING_NOT_FOUND",
+                        "Booking not found"));
         ensureParticipant(booking, actorId);
         if (booking.getStatus() != BookingStatus.IN_PROGRESS
                 && booking.getStatus() != BookingStatus.CONFIRMED) {

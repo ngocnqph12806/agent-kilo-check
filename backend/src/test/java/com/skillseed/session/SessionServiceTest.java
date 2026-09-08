@@ -185,7 +185,7 @@ class SessionServiceTest {
     @Test
     void markMeetingEndedCompletesInProgressBooking() {
         Booking booking = bookingFixture(BookingStatus.IN_PROGRESS, TEACHER_ID, LEARNER_ID);
-        when(bookingRepository.findById(BOOKING_ID)).thenReturn(Optional.of(booking));
+        when(bookingRepository.findByIdForUpdate(BOOKING_ID)).thenReturn(Optional.of(booking));
 
         service.markMeetingEnded(SessionService.deriveRoomName(BOOKING_ID));
 
@@ -195,7 +195,7 @@ class SessionServiceTest {
     @Test
     void markMeetingEndedIsNoopForTerminalBooking() {
         Booking booking = bookingFixture(BookingStatus.COMPLETED, TEACHER_ID, LEARNER_ID);
-        when(bookingRepository.findById(BOOKING_ID)).thenReturn(Optional.of(booking));
+        when(bookingRepository.findByIdForUpdate(BOOKING_ID)).thenReturn(Optional.of(booking));
 
         service.markMeetingEnded(SessionService.deriveRoomName(BOOKING_ID));
 

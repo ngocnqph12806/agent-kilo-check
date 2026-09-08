@@ -286,7 +286,7 @@ class BookingServiceTest {
         UUID teacherId = UUID.randomUUID();
         UUID learnerId = UUID.randomUUID();
         BookingStub booking = bookingFixture(teacherId, learnerId, BookingStatus.IN_PROGRESS);
-        when(bookingRepository.findById(booking.id)).thenReturn(Optional.of(booking.entity));
+        when(bookingRepository.findByIdForUpdate(booking.id)).thenReturn(Optional.of(booking.entity));
 
         BookingResponse resp = service.complete(booking.id, teacherId);
 

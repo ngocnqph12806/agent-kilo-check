@@ -144,7 +144,11 @@ public class SessionService {
             log.warn("Ignoring meeting.ended for unparseable room name '{}'", roomName);
             return;
         }
-        Booking booking = bookingRepository.findById(bookingId).orElse(null);
+        // Pessimistic lock to serialise against BookingService.complete
+        // (user clicks "Mark complete" at almost the same moment Daily
+        // posts meeting.ended). Whichever transaction commits first wins;
+        // the loser observes the terminal state and exits gracefully.
+        Booking booking = bookingRepository.findByIdForUpdate(bookingId).orElse(null);
         if (booking == null) {
             log.warn("Ignoring meeting.ended for unknown booking {}", bookingId);
             return;
