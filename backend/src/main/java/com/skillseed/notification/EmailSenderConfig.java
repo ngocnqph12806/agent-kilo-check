@@ -14,6 +14,11 @@ import org.springframework.context.annotation.Configuration;
  * Email sender wiring. When {@code notification.resend.api-key} is set the
  * real Resend SDK is used; otherwise a logging fallback is registered so
  * the rest of the app boots without external dependencies.
+ *
+ * <p>Set {@code notification.email.fail-on-missing-key=true} in
+ * production profiles to crash boot instead of silently logging emails —
+ * the silent fallback would mask signup / verification / forgot-password
+ * flows in staging.
  */
 @Configuration
 public class EmailSenderConfig {
@@ -23,13 +28,28 @@ public class EmailSenderConfig {
     public EmailSender resendEmailSender(
             @Value("${notification.resend.api-key}") String apiKey,
             @Value("${notification.resend.from:no-reply@skillseed.app}") String from) {
+        if (apiKey == null || apiKey.isBlank()) {
+            // Defensive: an explicitly empty value would still satisfy
+            // @ConditionalOnProperty because Spring binds "" as a present
+            // value. Reject blank keys here so the Resend bean creation
+            // never silently mis-configures the SDK.
+            throw new IllegalStateException(
+                    "notification.resend.api-key is set but blank — refusing to send email");
+        }
         Resend resend = new Resend(apiKey);
         return new ResendEmailSender(resend, from);
     }
 
     @Bean
     @org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean(EmailSender.class)
-    public EmailSender loggingEmailSender() {
+    public EmailSender loggingEmailSender(
+            @Value("${notification.email.fail-on-missing-key:false}") boolean failOnMissingKey) {
+        if (failOnMissingKey) {
+            throw new IllegalStateException(
+                    "notification.resend.api-key is required but missing; refusing to fall back "
+                            + "to a logging stub. Set notification.email.fail-on-missing-key=false "
+                            + "explicitly if you really want the dev fallback.");
+        }
         return new LoggingEmailSender();
     }
 
