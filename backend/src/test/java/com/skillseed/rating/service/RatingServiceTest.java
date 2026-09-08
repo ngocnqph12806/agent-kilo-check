@@ -10,6 +10,8 @@ import com.skillseed.rating.exception.RatingException;
 import com.skillseed.rating.repository.RatingRepository;
 import com.skillseed.shared.domain.BookingStatus;
 import com.skillseed.skill.domain.Skill;
+
+import java.math.BigDecimal;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -95,6 +97,8 @@ class RatingServiceTest {
         when(existing.getOverallScore()).thenReturn((short) 5);
         when(ratingRepository.findByRateeIdAndOverallScoreIsNotNull(TEACHER_ID))
                 .thenReturn(List.of(existing, existing, existing, existing));
+        when(ratingRepository.averageOverallScoreForRatee(TEACHER_ID))
+                .thenReturn(new BigDecimal("5.00"));
 
         RatingResponse response = service.create(LEARNER_ID,
                 request(BOOKING_ID, (short) 5));

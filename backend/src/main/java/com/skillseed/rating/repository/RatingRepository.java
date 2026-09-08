@@ -4,8 +4,11 @@ import com.skillseed.rating.domain.Rating;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,4 +29,14 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
     List<Rating> findByRateeIdAndOverallScoreIsNotNull(UUID rateeId);
 
     boolean existsByBookingId(UUID bookingId);
+
+    /**
+     * Aggregate average for a ratee. Null when the ratee has no scored
+     * ratings yet; callers must guard. Replaces the old findAll +
+     * in-memory sum/divide which loaded every rating row into memory
+     * just to discard them.
+     */
+    @Query("SELECT AVG(r.overallScore) FROM Rating r "
+            + "WHERE r.rateeId = :rateeId AND r.overallScore IS NOT NULL")
+    BigDecimal averageOverallScoreForRatee(@Param("rateeId") UUID rateeId);
 }

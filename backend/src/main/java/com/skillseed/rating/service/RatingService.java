@@ -190,16 +190,12 @@ public class RatingService {
         if (ratee == null) {
             return;
         }
-        long totalRatings = ratingRepository.countByRateeIdAndOverallScoreIsNotNull(rateeId);
-        if (totalRatings == 0) {
-            return;
+        // Single aggregate query — no row materialisation. Old code loaded
+        // every rating row into memory just to sum a column.
+        BigDecimal newAvg = ratingRepository.averageOverallScoreForRatee(rateeId);
+        if (newAvg != null) {
+            ratee.setRatingAvg(newAvg.setScale(2, RoundingMode.HALF_UP));
         }
-        long sum = ratingRepository.findByRateeIdAndOverallScoreIsNotNull(rateeId).stream()
-                .mapToLong(r -> r.getOverallScore() == null ? 0L : r.getOverallScore().longValue())
-                .sum();
-        BigDecimal newAvg = BigDecimal.valueOf(sum)
-                .divide(BigDecimal.valueOf(totalRatings), 1, RoundingMode.HALF_UP);
-        ratee.setRatingAvg(newAvg);
         ratee.setSessionsCompleted(ratee.getSessionsCompleted() + 1);
         userRepository.save(ratee);
     }
