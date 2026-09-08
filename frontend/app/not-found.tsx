@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FileQuestion } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -9,24 +10,34 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <main className="container flex min-h-screen flex-col items-center justify-center gap-6 text-center">
-      <span className="rounded-full border bg-muted px-3 py-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        404
-      </span>
-      <h1 className="text-balance text-4xl font-bold tracking-tight">
-        We couldn&apos;t find that page.
-      </h1>
-      <p className="max-w-md text-balance text-muted-foreground">
-        The link might be broken, or the page may have moved. Head back home and try a different
-        route.
-      </p>
-      <div className="flex gap-3">
-        <Button asChild>
-          <Link href="/">Back to home</Link>
-        </Button>
-        <Button asChild variant="outline">
-          <Link href="/discover">Browse skills</Link>
-        </Button>
+    <main className="flex min-h-[80vh] flex-col items-center justify-center bg-[var(--brand-surface)] px-4">
+      <div className="flex max-w-md flex-col items-center text-center">
+        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[var(--brand-hero-soft)] text-6xl shadow-brand-card">
+          <FileQuestion className="h-12 w-12 text-[var(--brand-cta-from)]" aria-hidden />
+        </div>
+        <p className="mb-2 inline-flex items-center rounded-full border border-[var(--brand-border)] bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)] shadow-brand-card">
+          404
+        </p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+          Page not found
+        </h1>
+        <p className="mt-3 max-w-md text-base text-[var(--brand-text-muted)]">
+          The link you followed may be broken, or the page may have been removed.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Button asChild className="rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95">
+            <Link href="/">🏠 Back to home</Link>
+          </Button>
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/discover">🔍 Browse teachers</Link>
+          </Button>
+        </div>
+        <p className="mt-8 text-xs text-[var(--brand-text-subtle)]">
+          Need help?{' '}
+          <Link href="/support" className="font-semibold text-[var(--brand-cta-from)]">
+            Contact support
+          </Link>
+        </p>
       </div>
     </main>
   );
