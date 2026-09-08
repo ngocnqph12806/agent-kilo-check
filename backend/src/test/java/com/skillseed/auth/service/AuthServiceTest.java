@@ -10,6 +10,7 @@ import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.exception.AuthException;
 import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.shared.domain.AuthProvider;
+import com.skillseed.shared.security.InMemoryRateLimiter;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -55,6 +56,7 @@ class AuthServiceTest {
     private TokenStore tokenStore;
     private EmailTemplateService emailTemplateService;
     private RateLimiter rateLimiter;
+    private InMemoryRateLimiter inMemoryRateLimiter;
     private AuthService authService;
     private OAuthIdTokenVerifier googleVerifier;
 
@@ -66,6 +68,7 @@ class AuthServiceTest {
         tokenStore = mock(TokenStore.class);
         emailTemplateService = mock(EmailTemplateService.class);
         rateLimiter = mock(RateLimiter.class);
+        inMemoryRateLimiter = mock(InMemoryRateLimiter.class);
 
         googleVerifier = mock(OAuthIdTokenVerifier.class);
         when(googleVerifier.configSummary()).thenReturn(Map.of("provider", "google"));
@@ -82,6 +85,7 @@ class AuthServiceTest {
                 tokenStore,
                 emailTemplateService,
                 rateLimiter,
+                inMemoryRateLimiter,
                 provider,
                 "https://app.skillseed.test");
     }
@@ -186,6 +190,24 @@ class AuthServiceTest {
                     .isInstanceOf(AuthException.class)
                     .satisfies(ex -> assertThat(((AuthException) ex).getCode())
                             .isEqualTo("USER_NOT_FOUND"));
+        }
+
+        @Test
+        void rateLimiterIsConsultedPerClient() {
+            UUID id = UUID.randomUUID();
+            User user = existingEmailUser(id);
+            user.setVerified(false);
+            when(tokenStore.consume(anyString(), anyString())).thenReturn(
+                    Optional.of(id.toString()));
+            when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+            authService.verifyEmail("tok", "9.9.9.9");
+
+            verify(inMemoryRateLimiter).acquireOrThrow(
+                    eq("verify-email:9.9.9.9"),
+                    eq(AuthService.VERIFY_EMAIL_MAX_ATTEMPTS),
+                    eq(AuthService.VERIFY_EMAIL_WINDOW),
+                    eq("RATE_LIMIT_VERIFY_EMAIL"));
         }
     }
 
@@ -390,6 +412,23 @@ class AuthServiceTest {
 
             verify(tokenStore, never()).store(anyString(), anyString(),
                     anyString(), any(Duration.class));
+        }
+
+        @Test
+        void rateLimiterIsConsultedWithNormalisedEmail() {
+            UUID id = UUID.randomUUID();
+            when(userRepository.findByEmail("alice@example.com"))
+                    .thenReturn(Optional.of(existingEmailUser(id)));
+
+            authService.forgotPassword(
+                    new ForgotPasswordRequest("  Alice@Example.COM "),
+                    "203.0.113.5");
+
+            verify(inMemoryRateLimiter).acquireOrThrow(
+                    eq("forgot-password:alice@example.com"),
+                    eq(AuthService.FORGOT_PASSWORD_MAX_ATTEMPTS),
+                    eq(AuthService.FORGOT_PASSWORD_WINDOW),
+                    eq("RATE_LIMIT_FORGOT_PASSWORD"));
         }
     }
 

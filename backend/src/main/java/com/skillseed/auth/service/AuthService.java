@@ -13,6 +13,7 @@ import com.skillseed.auth.exception.AuthException;
 import com.skillseed.auth.security.RefreshTokenCookie;
 import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.shared.domain.AuthProvider;
+import com.skillseed.shared.security.InMemoryRateLimiter;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -52,12 +53,21 @@ public class AuthService {
     static final Duration LOGIN_WINDOW = Duration.ofMinutes(15);
     static final int LOGIN_MAX_ATTEMPTS = 5;
 
+    /** FR-M07: throttle forgot-password requests to discourage email bombing. */
+    static final Duration FORGOT_PASSWORD_WINDOW = Duration.ofHours(1);
+    static final int FORGOT_PASSWORD_MAX_ATTEMPTS = 5;
+
+    /** FR-M06: throttle verify-email attempts per client to block token spray. */
+    static final Duration VERIFY_EMAIL_WINDOW = Duration.ofMinutes(15);
+    static final int VERIFY_EMAIL_MAX_ATTEMPTS = 10;
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final TokenStore tokenStore;
     private final EmailTemplateService emailTemplateService;
     private final RateLimiter rateLimiter;
+    private final InMemoryRateLimiter inMemoryRateLimiter;
     private final Map<String, OAuthIdTokenVerifier> oauthVerifiers;
     private final String publicBaseUrl;
 
@@ -68,6 +78,7 @@ public class AuthService {
         TokenStore tokenStore,
         EmailTemplateService emailTemplateService,
         RateLimiter rateLimiter,
+        InMemoryRateLimiter inMemoryRateLimiter,
         ObjectProvider<List<OAuthIdTokenVerifier>> oauthProvider,
         @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
         this.userRepository = userRepository;
@@ -76,6 +87,7 @@ public class AuthService {
         this.tokenStore = tokenStore;
         this.emailTemplateService = emailTemplateService;
         this.rateLimiter = rateLimiter;
+        this.inMemoryRateLimiter = inMemoryRateLimiter;
         this.oauthVerifiers = oauthProvider.getIfAvailable(List::of).stream()
             .collect(Collectors.toMap(
                 v -> v.configSummary().get("provider"),
@@ -138,6 +150,22 @@ public class AuthService {
      */
     @Transactional
     public void verifyEmail(String token) {
+        verifyEmail(token, "unknown");
+    }
+
+    /**
+     * Verify-email overload that additionally accepts a stable client key
+     * (typically the originating IP) so the call can be rate-limited
+     * against token-spraying and email-bombing (FR-M06). The previous
+     * single-arg form remains for callers that don't have a key yet.
+     */
+    @Transactional
+    public void verifyEmail(String token, String clientKey) {
+        inMemoryRateLimiter.acquireOrThrow(
+                "verify-email:" + clientKey,
+                VERIFY_EMAIL_MAX_ATTEMPTS,
+                VERIFY_EMAIL_WINDOW,
+                "RATE_LIMIT_VERIFY_EMAIL");
         Optional<String> payload = tokenStore.consume(PURPOSE_EMAIL_VERIFY, token);
         if (payload.isEmpty()) {
             throw AuthException.badRequest("INVALID_TOKEN",
@@ -274,7 +302,19 @@ public class AuthService {
      * reset email is queued.
      */
     public void forgotPassword(ForgotPasswordRequest req) {
+        forgotPassword(req, "unknown");
+    }
+
+    public void forgotPassword(ForgotPasswordRequest req, String clientKey) {
         String email = req.email().trim().toLowerCase(Locale.ROOT);
+        // Throttle BEFORE the user lookup so an attacker can't probe
+        // account existence via timing, and so email-bombing a real
+        // account is capped (FR-M07).
+        inMemoryRateLimiter.acquireOrThrow(
+                "forgot-password:" + email,
+                FORGOT_PASSWORD_MAX_ATTEMPTS,
+                FORGOT_PASSWORD_WINDOW,
+                "RATE_LIMIT_FORGOT_PASSWORD");
         Optional<User> maybeUser = userRepository.findByEmail(email);
         if (maybeUser.isEmpty() || maybeUser.get().getPasswordHash() == null) {
             log.info("forgotPassword: no actionable account for email");

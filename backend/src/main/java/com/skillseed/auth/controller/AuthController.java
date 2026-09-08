@@ -70,8 +70,9 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Token invalid or expired")
     })
     public ResponseEntity<SimpleMessageResponse> verifyEmail(
-            @Valid @RequestBody VerifyEmailRequest req) {
-        authService.verifyEmail(req.token());
+            @Valid @RequestBody VerifyEmailRequest req,
+            @Parameter(hidden = true) HttpServletRequest httpRequest) {
+        authService.verifyEmail(req.token(), clientKey(httpRequest));
         return ResponseEntity.ok(new SimpleMessageResponse("Email verified"));
     }
 
@@ -122,9 +123,15 @@ public class AuthController {
 
     @PostMapping("/forgot-password")
     @Operation(summary = "Request a password-reset email (always returns success)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Accepted (always)"),
+            @ApiResponse(responseCode = "429",
+                    description = "Too many attempts for this email (5 / hour)")
+    })
     public ResponseEntity<SimpleMessageResponse> forgotPassword(
-            @Valid @RequestBody ForgotPasswordRequest req) {
-        authService.forgotPassword(req);
+            @Valid @RequestBody ForgotPasswordRequest req,
+            @Parameter(hidden = true) HttpServletRequest httpRequest) {
+        authService.forgotPassword(req, clientKey(httpRequest));
         return ResponseEntity.ok(new SimpleMessageResponse(
                 "If the email exists, a reset link has been sent"));
     }
