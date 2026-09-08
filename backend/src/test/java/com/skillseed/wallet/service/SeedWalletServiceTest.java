@@ -222,6 +222,25 @@ class SeedWalletServiceTest {
     }
 
     @Test
+    void refundRoundsHalfUp() {
+        // FR-M77: 25 seeds × 50% = 12.5 seeds. Half-up → refund 13, not 12.
+        UUID learnerId = UUID.randomUUID();
+        Booking booking = bookingStub(learnerId, UUID.randomUUID(), 25);
+        SeedWallet wallet = newWallet(learnerId, 0);
+        SeedTransaction spend = new SeedTransaction(UUID.randomUUID(), wallet,
+                SeedTransactionType.SPEND, -25, 25);
+        spend.setStatus(SeedTransactionStatus.PENDING);
+
+        when(walletRepository.findByUserId(learnerId)).thenReturn(Optional.of(wallet));
+        when(txRepository.findByBookingId(booking.getId())).thenReturn(List.of(spend));
+
+        SeedTransaction refund = service.refundEscrow(booking, 50);
+
+        assertThat(refund.getAmount()).isEqualTo(13);
+        assertThat(wallet.getBalanceCached()).isEqualTo(13);
+    }
+
+    @Test
     void forfeitEscrowMarksSpendCancelledAndIncrementsTotalSpent() {
         UUID learnerId = UUID.randomUUID();
         Booking booking = bookingStub(learnerId, UUID.randomUUID(), 30);

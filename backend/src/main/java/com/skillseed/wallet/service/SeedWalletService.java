@@ -181,7 +181,11 @@ public class SeedWalletService {
     public SeedTransaction refundEscrow(Booking booking, int refundPercent) {
         int amount = booking.getSeedAmount();
         int percent = Math.max(0, Math.min(100, refundPercent));
-        int refundAmount = Math.multiplyExact(amount, percent) / 100;
+        // FR-M77: round refund HALF_UP so e.g. 25 seeds × 50% → 13 (not 12).
+        // Math.round(double) uses floor(x + 0.5) for positive values, which
+        // is half-up to the nearest int — exactly what we need without
+        // pulling in BigDecimal arithmetic on the hot path.
+        int refundAmount = (int) Math.round((double) amount * percent / 100.0);
 
         SeedTransaction spend = seedTransactionRepository.findByBookingId(booking.getId()).stream()
                 .filter(t -> t.getType() == SeedTransactionType.SPEND)
