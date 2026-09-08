@@ -40,7 +40,7 @@ export function VerifyEmailPromptForm() {
       <div className="space-y-2">
         <Button
           type="button"
-          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+          variant="brand" className="h-12 w-full rounded-full text-base font-semibold"
           onClick={handleResend}
         >
           Resend verification email

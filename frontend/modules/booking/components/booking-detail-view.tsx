@@ -293,7 +293,7 @@ export function BookingDetailView({
             </div>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
-            <Button
+            <Button type="button"
               variant="outline"
               className="h-11 rounded-full"
               onClick={() => setConfirmingCancel(false)}
@@ -302,8 +302,9 @@ export function BookingDetailView({
               Keep booking
             </Button>
             <Button
-              variant="destructive"
-              className="h-11 rounded-full bg-[var(--brand-rose)] px-8 font-semibold text-white hover:opacity-95"
+              type="button"
+              variant="destructive-soft"
+              className="h-11 rounded-full px-8 font-semibold"
               onClick={() =>
                 cancel.mutate({
                   id: bookingId,
@@ -333,8 +334,8 @@ export function BookingDetailView({
           />
         ) : null}
         {canStart ? (
-          <Button
-            className="h-11 rounded-full bg-brand-cta px-8 font-semibold text-white shadow-brand-cta hover:opacity-95"
+          <Button type="button"
+            variant="brand" className="h-11 rounded-full px-8 font-semibold"
             onClick={() => start.mutate(bookingId)}
             disabled={start.isPending}
           >
@@ -352,8 +353,8 @@ export function BookingDetailView({
           </Button>
         ) : null}
         {canAccept ? (
-          <Button
-            className="h-11 rounded-full bg-brand-cta px-8 font-semibold text-white shadow-brand-cta hover:opacity-95"
+          <Button type="button"
+            variant="brand" className="h-11 rounded-full px-8 font-semibold"
             onClick={() => accept.mutate(bookingId)}
             disabled={accept.isPending}
           >
@@ -362,7 +363,7 @@ export function BookingDetailView({
           </Button>
         ) : null}
         {canDecline ? (
-          <Button
+          <Button type="button"
             variant="outline"
             className="h-11 rounded-full"
             onClick={() =>
@@ -375,7 +376,7 @@ export function BookingDetailView({
           </Button>
         ) : null}
         {canCancel && !confirmingCancel ? (
-          <Button
+          <Button type="button"
             variant="ghost"
             className="h-11 rounded-full text-[var(--brand-rose)]"
             onClick={() => setConfirmingCancel(true)}
@@ -384,7 +385,7 @@ export function BookingDetailView({
           </Button>
         ) : null}
         {canComplete ? (
-          <Button
+          <Button type="button"
             variant="outline"
             className="h-11 rounded-full"
             onClick={() => complete.mutate(bookingId)}
@@ -402,7 +403,7 @@ export function BookingDetailView({
             }}
           />
         ) : null}
-        <Button
+        <Button type="button"
           variant="ghost"
           size="sm"
           className="ml-auto text-[var(--brand-text-muted)]"

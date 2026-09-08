@@ -52,7 +52,7 @@ export function VerifyEmailForm({ token }: VerifyEmailFormProps) {
           <div className="flex w-full flex-col gap-2">
             <Button
               asChild
-              className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+              variant="brand" className="h-12 w-full rounded-full text-base font-semibold"
             >
               <Link href="/login?verified=1">Go to sign in</Link>
             </Button>

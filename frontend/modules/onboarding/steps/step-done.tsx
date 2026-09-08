@@ -40,9 +40,10 @@ export function StepDone() {
       <div className="mt-10 flex flex-col gap-3 sm:flex-row">
         <Button
           type="button"
+          variant="brand"
           size="lg"
           onClick={() => router.replace('/discover')}
-          className="h-12 rounded-full bg-brand-cta px-10 text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+          className="h-12 rounded-full px-10 text-base font-semibold"
         >
           Meet your matches →
         </Button>

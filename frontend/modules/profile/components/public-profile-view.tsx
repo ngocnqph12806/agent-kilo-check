@@ -246,10 +246,10 @@ function ProfileHero({ user, isSelf, isAuthenticated, canBook, onBookClick }: Pr
 
           <div className="flex flex-wrap gap-2 pb-2">
             <Button
+              type="button"
               variant="outline"
               className="rounded-full"
               disabled={!isAuthenticated}
-              type="button"
               onClick={onBookClick}
             >
               <MessageSquare className="mr-2 h-4 w-4" aria-hidden />
@@ -257,9 +257,11 @@ function ProfileHero({ user, isSelf, isAuthenticated, canBook, onBookClick }: Pr
             </Button>
             {!isSelf && canBook ? (
               <Button
+                type="button"
+                variant="brand"
+                className="rounded-full"
                 onClick={onBookClick}
                 disabled={!isAuthenticated}
-                className="rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95"
               >
                 {isAuthenticated ? 'Book a session →' : 'Sign in to book'}
               </Button>
@@ -465,7 +467,9 @@ function BookSessionPanel({
           </div>
 
           <Button
-            className="w-full rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95"
+            type="button"
+            variant="brand"
+            className="w-full rounded-full"
             disabled={!isAuthenticated}
             onClick={onOpenBooking}
           >

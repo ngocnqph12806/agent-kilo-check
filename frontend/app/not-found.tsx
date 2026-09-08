@@ -25,7 +25,7 @@ export default function NotFound() {
           The link you followed may be broken, or the page may have been removed.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Button asChild className="rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95">
+          <Button asChild variant="brand" className="rounded-full">
             <Link href="/">🏠 Back to home</Link>
           </Button>
           <Button asChild variant="outline" className="rounded-full">

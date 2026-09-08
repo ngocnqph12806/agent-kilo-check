@@ -114,13 +114,13 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
         ) : null}
 
         <div className="mt-6 flex items-center justify-end gap-2">
-          <Button variant="ghost" onClick={onClose} disabled={createRating.isPending}>
+          <Button type="button" variant="ghost" onClick={onClose} disabled={createRating.isPending}>
             Skip
           </Button>
-          <Button
+          <Button type="button"
             onClick={submit}
             disabled={!canSubmit || createRating.isPending}
-            className="h-11 rounded-full bg-brand-cta px-6 font-semibold text-white shadow-brand-cta hover:opacity-95"
+            variant="brand" className="h-11 rounded-full px-6 font-semibold"
           >
             {createRating.isPending ? (
               <>

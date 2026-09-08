@@ -5,7 +5,7 @@
 >
 > **Nguyên tắc vàng:** File này là **navigation layer** — trỏ đến spec gốc. **KHÔNG duplicate nội dung spec.** Khi có conflict, spec thắng.
 
-**Last updated:** 2026-09-07 (Sprint 3 video + rating complete; added docs/MANUAL_E2E_SPRINT3.md cross-link)
+**Last updated:** 2026-09-08 (Added §5.3 Visual Fidelity Rule + docs/VISUAL_FIDELITY.md after G0–G3 sprint retrospective)
 **Maintainer:** SkillSeed Product Team
 
 ---
@@ -62,6 +62,7 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 | **Booking / Wallet / Session state machine** | **`docs/STATE_MACHINES.md`** ← transitions hợp lệ, anti-patterns |
 | **Manual e2e auth test plan (T-M62)** | **`docs/MANUAL_E2E_AUTH.md`** ← sign-off checklist cho staging |
 | **Manual e2e Sprint 3 test plan (T-M180)** | **`docs/MANUAL_E2E_SPRINT3.md`** ← video + rating + auto-rate + load test sign-off |
+| **Visual fidelity rule (FE + BE phải tham chiếu SVG)** | **`docs/VISUAL_FIDELITY.md`** ← bắt buộc đọc trước khi code UI / DTO / status enum |
 
 **Quy tắc xung đột:** Phase spec hiện tại thắng master doc. Phát hiện mâu thuẫn → flag trong `tasks.md` của phase, KHÔNG tự sửa.
 
@@ -117,7 +118,22 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 - **Imports:** KHÔNG wildcard (`import java.util.*`). Group: builtin → external → internal → relative.
 - **Comments:** KHÔNG thêm comment trừ khi được yêu cầu hoặc giải thích quyết định phức tạp.
 
-### 5.3. Frontend components (tái sử dụng)
+### 5.3. Visual Fidelity Rule — phải tham chiếu `screens-svg/` trước khi code
+
+> **BẮT BUỘC cho cả Frontend và Backend.** Mọi thay đổi ảnh hưởng đến UI (FE: layout/component, BE: DTO field / status enum / error message / validation copy) PHẢI đối chiếu SVG mockup trong `screens-svg/` tương ứng TRƯỚC khi viết code.
+
+**Tại sao:** Sprint 3 retrospective cho thấy code Phase 1 lệch ~40% so với mockup (sai header, empty state, status badge, hardcode màu ngoài palette) → phải refactor lại toàn bộ. Rule này ngăn lặp lại.
+
+**Quy trình:**
+1. Xác định screen bị ảnh hưởng → mở `screens-svg/{category}/{NN}-{name}.svg` + Mermaid gốc `mockups/{category}/{NN}-{name}.md`.
+2. Đối chiếu: layout, màu (dùng design tokens — KHÔNG hardcode hex), status badge, empty/loading/error state, copy text.
+3. **FE:** dùng shared components (`BrandLogo`, `MarketingHero`, `AuthShell`, `AppTopBar`, `EmptyState`, `LoadingState`, `ErrorState`) + Button variants (`brand`, `brand-outline`, `destructive-soft`).
+4. **BE:** đảm bảo DTO field name / status value / error copy khớp với label trong SVG.
+5. **Document** trong PR description: `Matches screens-svg/01-auth/02-login.svg`. Nếu có lệch chủ động, giải thích lý do.
+
+**Xem chi tiết + checklist:** [`docs/VISUAL_FIDELITY.md`](docs/VISUAL_FIDELITY.md)
+
+### 5.4. Frontend components (tái sử dụng)
 
 > **Nguyên tắc:** Mọi UI element dùng ở **≥ 2 màn hình / chỗ khác nhau** PHẢI được tách thành component tái sử dụng. Không copy-paste JSX giữa các screen.
 
@@ -153,7 +169,7 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
   - [ ] Component tái sử dụng có story/example trong `src/modules/{module}/components/__examples__/` (khi có Storybook) hoặc ít nhất 1 usage thực tế ở screen khác.
   - [ ] Không có prop thừa / hardcoded text cố định trong component generic.
 
-### 5.4. Backend shared logic (tái sử dụng)
+### 5.5. Backend shared logic (tái sử dụng)
 
 > **Nguyên tắc:** Mọi logic / constant / exception / validator / DTO / helper **dùng ở ≥ 2 module khác nhau** PHẢI được đưa vào lớp shared. Không copy-paste code giữa các module nghiệp vụ.
 
@@ -202,12 +218,12 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
   - [ ] Không có shared logic phụ thuộc vào entity của 1 module cụ thể (shared phải module-agnostic, hoặc tách sub-domain `shared.{domain}`).
   - [ ] Test cho shared service có ở `src/test/java/com/skillseed/shared/...` (độc lập với test module).
 
-### 5.5. Branch & commit
+### 5.6. Branch & commit
 - **Branch:** `{type}/{phase}-{short-desc}` — `feat/M01-booking-flow`, `fix/M02-wallet-double-spend`
 - **Commit:** Conventional Commits với **scope** khi thuộc 1 module — `feat(booking): cancel refund logic`.
-- **PR:** Title = Conventional Commit. Body: link issue + mô tả + cách test + ảnh/video (nếu UI).
+- **PR:** Title = Conventional Commit. Body: link issue + mô tả + cách test + ảnh/video (nếu UI) + **đường dẫn SVG mockup đã tham chiếu** (xem §5.3).
 
-### 5.6. Mockup file naming
+### 5.7. Mockup file naming
 ```
 mockups/{category}/{NN}-{screen-name}.md
 ```
@@ -216,7 +232,7 @@ mockups/{category}/{NN}-{screen-name}.md
 - `screen-name`: kebab-case
 - Convention đầy đủ: `mockups/README.md`
 
-### 5.7. Spec ID pattern (Kiro)
+### 5.8. Spec ID pattern (Kiro)
 - **FR / NFR:** `FR-{PhaseCode}##` — `FR-M01` (Phase 1, FR #1)
 - **US:** `US-{PhaseCode}##`
 - **Task:** `T-{PhaseLetter}{Serial}` — `T-M01`, `T-A12`, `T-5-01`
@@ -263,6 +279,13 @@ mockups/{category}/{NN}-{screen-name}.md
 - [ ] API mới/sửa → OpenAPI + `SKILLSEED_API_AND_DB.md` đã update
 - [ ] DB schema đổi → Flyway migration mới + test rollback
 - [ ] UI đổi → mockup tương ứng đã update
+- [ ] **Visual fidelity (xem §5.3 + `docs/VISUAL_FIDELITY.md`):**
+  - [ ] PR có UI / DTO change → đã mở SVG mockup tương ứng trong `screens-svg/` trước khi code
+  - [ ] Đường dẫn SVG được liệt kê trong PR description (VD: `Matches screens-svg/01-auth/02-login.svg`)
+  - [ ] **FE:** dùng design tokens (không hardcode hex), dùng shared components + Button variants (`brand` / `brand-outline` / `destructive-soft`)
+  - [ ] **FE:** empty / loading / error state dùng `EmptyState` / `LoadingState` / `ErrorState` từ `components/shared/`
+  - [ ] **BE:** DTO field name + status enum value + error message khớp label trong SVG
+  - [ ] Nếu có lệch chủ động so với SVG, đã giải thích lý do trong commit body
 - [ ] Không còn TODO/FIXME/debug log
 - [ ] PR description đầy đủ + review approved
 

@@ -109,7 +109,7 @@ export function ResetPasswordForm() {
 
         <Button
           type="submit"
-          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+          variant="brand" className="h-12 w-full rounded-full text-base font-semibold"
           disabled={!hasToken || isSubmitting || resetMutation.isPending}
         >
           {resetMutation.isPending ? 'Updating…' : 'Update password'}

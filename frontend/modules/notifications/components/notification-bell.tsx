@@ -63,10 +63,10 @@ export function NotificationBell() {
               </p>
             </div>
             <Button
+              type="button"
               variant="ghost"
               size="sm"
-              type="button"
-              className="rounded-full text-emerald-700 hover:bg-emerald-50"
+              className="rounded-full text-brand-credit hover:bg-brand-credit-bg"
               disabled={unreadCount === 0 || markAll.isPending}
               onClick={() => markAll.mutate()}
             >

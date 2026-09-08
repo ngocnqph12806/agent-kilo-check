@@ -59,6 +59,27 @@ const config: Config = {
         'brand-hero-soft': 'linear-gradient(135deg, var(--brand-hero-from), var(--brand-hero-to))',
         'brand-hero-strong': 'linear-gradient(135deg, var(--brand-cta-from), var(--brand-cta-to))'
       },
+      backgroundColor: {
+        'brand-credit': 'var(--brand-credit)',
+        'brand-credit-bg': 'var(--brand-credit-bg)',
+        'brand-debit': 'var(--brand-debit)',
+        'brand-debit-bg': 'var(--brand-debit-bg)',
+        'brand-pending': 'var(--brand-pending)',
+        'brand-pending-bg': 'var(--brand-pending-bg)',
+        'brand-info-bg': 'var(--brand-info-bg)'
+      },
+      textColor: {
+        'brand-credit': 'var(--brand-credit-text)',
+        'brand-debit': 'var(--brand-debit-text)',
+        'brand-pending': 'var(--brand-pending-text)',
+        'brand-info': 'var(--brand-info-text)'
+      },
+      borderColor: {
+        'brand-credit': 'var(--brand-credit)',
+        'brand-debit': 'var(--brand-debit)',
+        'brand-pending': 'var(--brand-pending)',
+        'brand-info': 'var(--brand-info)'
+      },
       boxShadow: {
         'brand-card': '0 6px 24px -6px rgb(17 24 39 / 0.08), 0 4px 8px -4px rgb(17 24 39 / 0.06)',
         'brand-cta': '0 8px 24px -8px rgb(16 185 129 / 0.45)'

@@ -161,7 +161,7 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
   }, [onLeave]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[#111827] text-zinc-50">
+    <div className="fixed inset-0 z-50 flex flex-col bg-[var(--brand-text-strong)] text-zinc-50">
       <header className="flex h-14 items-center justify-between border-b border-white/5 bg-black/40 px-4 backdrop-blur">
         <div className="flex items-center gap-3 truncate">
           <span className="text-sm font-semibold truncate">{sessionTitle}</span>
@@ -176,13 +176,13 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
         <div className="hidden items-center gap-3 sm:flex">
           {status === 'joined' ? (
             <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs">
-              <Clock className="h-3.5 w-3.5" />
+              <Clock className="h-3.5 w-3.5" aria-hidden />
               {formatElapsed(elapsed)}
             </div>
           ) : null}
           {recording ? (
             <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs">
-              <Circle className="h-2.5 w-2.5 fill-[var(--brand-rose)] text-[var(--brand-rose)]" />
+              <Circle className="h-2.5 w-2.5 fill-[var(--brand-rose)] text-[var(--brand-rose)]" aria-hidden />
               REC {formatElapsed(elapsed)}
             </div>
           ) : null}

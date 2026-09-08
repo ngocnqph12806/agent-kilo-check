@@ -191,18 +191,18 @@ function ActionButtons({
   onComplete
 }: ActionButtonsProps) {
   const buttons: React.ReactNode[] = [];
-  if (booking.status === ('pending' as BookingStatus) && perspective === 'teacher') {
+  if (booking.status === 'pending' && perspective === 'teacher') {
     buttons.push(
-      <Button
+      <Button type="button"
         key="accept"
-        className="h-10 rounded-full bg-brand-cta px-5 font-semibold text-white shadow-brand-cta hover:opacity-95"
+        variant="brand" className="h-10 rounded-full px-5 font-semibold"
         onClick={onAccept}
         disabled={busy}
       >
         <CheckCircle2 className="mr-1 h-4 w-4" aria-hidden />
         Accept
       </Button>,
-      <Button
+      <Button type="button"
         key="decline"
         variant="outline"
         className="h-10 rounded-full"
@@ -215,12 +215,12 @@ function ActionButtons({
     );
   }
   if (
-    (booking.status === ('pending' as BookingStatus) ||
-      booking.status === ('confirmed' as BookingStatus)) &&
+    (booking.status === 'pending' ||
+      booking.status === 'confirmed') &&
     (perspective === 'teacher' || perspective === 'learner')
   ) {
     buttons.push(
-      <Button
+      <Button type="button"
         key="cancel"
         variant="ghost"
         className="h-10 rounded-full text-[var(--brand-rose)]"
@@ -232,13 +232,13 @@ function ActionButtons({
     );
   }
   if (
-    booking.status === ('confirmed' as BookingStatus) &&
+    booking.status === 'confirmed' &&
     withinJoinWindow(booking.scheduledAt)
   ) {
     buttons.push(
-      <Button
+      <Button type="button"
         key="start"
-        className="h-10 rounded-full bg-brand-cta px-5 font-semibold text-white shadow-brand-cta hover:opacity-95"
+        variant="brand" className="h-10 rounded-full px-5 font-semibold"
         onClick={onStart}
         disabled={busy}
       >
@@ -248,11 +248,11 @@ function ActionButtons({
     );
   }
   if (
-    (booking.status === ('in_progress' as BookingStatus) ||
-      booking.status === ('confirmed' as BookingStatus))
+    (booking.status === 'in_progress' ||
+      booking.status === 'confirmed')
   ) {
     buttons.push(
-      <Button
+      <Button type="button"
         key="complete"
         variant="outline"
         className="h-10 rounded-full"

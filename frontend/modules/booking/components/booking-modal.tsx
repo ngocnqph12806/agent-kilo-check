@@ -119,7 +119,7 @@ export function BookingModal({
           >
             Book a session
           </h2>
-          <Button
+          <Button type="button"
             variant="ghost"
             size="icon"
             className="h-9 w-9 rounded-full text-[var(--brand-text-muted)]"
@@ -271,7 +271,7 @@ export function BookingModal({
           ) : null}
 
           <div className="flex flex-wrap items-center justify-end gap-2 pt-2">
-            <Button
+            <Button type="button"
               variant="outline"
               className="h-11 rounded-full"
               onClick={onClose}
@@ -279,8 +279,8 @@ export function BookingModal({
             >
               Cancel
             </Button>
-            <Button
-              className="h-11 rounded-full bg-brand-cta px-8 font-semibold text-white shadow-brand-cta hover:opacity-95"
+            <Button type="button"
+              variant="brand" className="h-11 rounded-full px-8 font-semibold"
               onClick={submit}
               disabled={
                 create.isPending ||

@@ -3,7 +3,8 @@
   "default_agent": "code",
   "instructions": [
     "AGENTS.md",
-    "docs/GLOSSARY.md"
+    "docs/GLOSSARY.md",
+    "docs/VISUAL_FIDELITY.md"
   ],
   "permission": {
     "read": "allow",

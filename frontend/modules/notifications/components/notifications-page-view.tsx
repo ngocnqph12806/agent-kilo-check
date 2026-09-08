@@ -25,6 +25,8 @@ import type { Notification } from '../lib/schemas';
 
 type GroupKey = 'today' | 'yesterday' | 'thisWeek' | 'earlier';
 
+const GROUP_ORDER: GroupKey[] = ['today', 'yesterday', 'thisWeek', 'earlier'];
+
 const GROUP_LABEL: Record<GroupKey, string> = {
   today: 'Today',
   yesterday: 'Yesterday',
@@ -99,8 +101,7 @@ export function NotificationsPageView() {
           />
         ) : (
           <div className="space-y-6">
-            {(['today', 'yesterday', 'thisWeek', 'earlier'] as GroupKey[]).map(
-              (key) => {
+            {GROUP_ORDER.map((key) => {
                 const list = grouped[key];
                 if (!list || list.length === 0) return null;
                 return (

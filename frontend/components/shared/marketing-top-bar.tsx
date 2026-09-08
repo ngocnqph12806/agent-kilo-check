@@ -60,8 +60,9 @@ export function MarketingTopBar({ current, authSlot, className }: MarketingTopBa
               </Button>
               <Button
                 asChild
+                variant="brand"
                 size="sm"
-                className="rounded-full bg-brand-cta px-5 text-sm font-semibold text-white shadow-brand-cta hover:opacity-95"
+                className="rounded-full px-5 text-sm font-semibold"
               >
                 <Link href="/register">Sign up free</Link>
               </Button>
