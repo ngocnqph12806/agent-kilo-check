@@ -15,7 +15,7 @@ interface WizardState {
   reset: () => void;
 }
 
-export const TOTAL_STEPS = 7;
+export const TOTAL_STEPS = 8;
 
 export const useOnboardingWizard = create<WizardState>()(
   persist(

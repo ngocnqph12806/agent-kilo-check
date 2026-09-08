@@ -1,7 +1,6 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 import {
   completeOnboarding,
@@ -17,10 +16,7 @@ import type { OnboardingDraft } from '../lib/schemas';
 import { useOnboardingWizard } from './use-onboarding-wizard';
 
 export function useSubmitOnboarding() {
-  const router = useRouter();
   const qc = useQueryClient();
-  const reset = useOnboardingWizard((s) => s.reset);
-  const draft = useOnboardingWizard((s) => s.draft);
 
   return useMutation({
     mutationFn: async (input: OnboardingDraft) => {
@@ -63,8 +59,6 @@ export function useSubmitOnboarding() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['auth', 'me'] });
       qc.invalidateQueries({ queryKey: ['users', 'me'] });
-      reset();
-      router.replace('/discover?welcome=1');
     }
   });
 }

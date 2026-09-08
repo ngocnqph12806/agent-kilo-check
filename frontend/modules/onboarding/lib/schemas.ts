@@ -25,6 +25,9 @@ export interface OnboardingProfile {
   learningStyle: 'visual' | 'auditory' | 'reading' | 'kinesthetic' | '';
   goals: string;
   interests: string;
+  primaryGoal?: 'career' | 'hobby' | 'academic' | 'curious' | '';
+  weeklyCommitment?: 'lt1' | '1to3' | '3to5' | 'gt5' | '';
+  avatarUrl?: string | null;
 }
 
 export interface OnboardingDraft {
@@ -75,10 +78,24 @@ export const COUNTRY_OPTIONS = [
 ];
 
 export const LEARNING_STYLES = [
-  { value: 'visual', label: 'Visual' },
-  { value: 'auditory', label: 'Auditory' },
-  { value: 'reading', label: 'Reading / writing' },
-  { value: 'kinesthetic', label: 'Hands-on' }
+  { value: 'visual', label: 'Visual', emoji: '📺', sub: 'Diagrams, demos, videos' },
+  { value: 'auditory', label: 'Auditory', emoji: '🎧', sub: 'Talk it through live' },
+  { value: 'reading', label: 'Reading', emoji: '📖', sub: 'Articles & docs' },
+  { value: 'kinesthetic', label: 'Hands-on', emoji: '🛠️', sub: 'Build together' }
+] as const;
+
+export const PRIMARY_GOALS = [
+  { value: 'career', label: 'Career growth', emoji: '💼' },
+  { value: 'hobby', label: 'Personal hobby', emoji: '🌱' },
+  { value: 'academic', label: 'Academic study', emoji: '🎓' },
+  { value: 'curious', label: 'Just curious', emoji: '🌍' }
+] as const;
+
+export const WEEKLY_COMMITMENTS = [
+  { value: 'lt1', label: '< 1 hour', sub: 'Casual' },
+  { value: '1to3', label: '1–3 hours', sub: 'Regular' },
+  { value: '3to5', label: '3–5 hours', sub: 'Dedicated' },
+  { value: 'gt5', label: '5+ hours', sub: 'Intensive' }
 ] as const;
 
 export const SKILL_CATEGORIES_FOR_ONBOARDING: SkillCategory[] = [
