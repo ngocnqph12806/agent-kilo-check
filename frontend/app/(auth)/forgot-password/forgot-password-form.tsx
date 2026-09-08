@@ -41,15 +41,16 @@ export function ForgotPasswordForm() {
   return (
     <AuthShell
       title="Reset your password"
-      description="Enter your email and we will send you a reset link."
+      subtitle="Enter your email and we will send you a reset link."
       footer={
         <p>
           Remembered it?{' '}
-          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link href="/login" className="font-semibold text-primary underline-offset-4 hover:underline">
             Back to sign in
           </Link>
         </p>
       }
+      hero={{ variant: 'auth' }}
     >
       {submitted ? (
         <FormAlert message="If an account exists for that email, we have sent a reset link. Check your inbox." />
@@ -73,7 +74,7 @@ export function ForgotPasswordForm() {
 
         <Button
           type="submit"
-          className="w-full"
+          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
           disabled={isSubmitting || forgotMutation.isPending || submitted}
         >
           {forgotMutation.isPending ? 'Sending…' : submitted ? 'Email sent' : 'Send reset link'}

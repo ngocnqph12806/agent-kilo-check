@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { Star, Loader2, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -22,6 +23,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
   const [helpfulness, setHelpfulness] = useState<number>(0);
   const [respectfulness, setRespectfulness] = useState<number>(0);
   const [reviewText, setReviewText] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const createRating = useCreateRating();
 
   useEffect(() => {
@@ -30,6 +32,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
       setHelpfulness(0);
       setRespectfulness(0);
       setReviewText('');
+      setError(null);
     }
   }, [open]);
 
@@ -39,6 +42,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
 
   const submit = () => {
     if (!canSubmit) return;
+    setError(null);
     createRating.mutate(
       {
         bookingId,
@@ -53,29 +57,40 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
           onClose();
         },
         onError: (err) => {
-          // eslint-disable-next-line no-alert
-          alert(err.message);
+          setError(err instanceof Error ? err.message : 'Could not submit rating.');
         }
       }
     );
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
       <div
-        className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl"
+        className="relative w-full max-w-md rounded-2xl border border-[var(--brand-border)] bg-white p-8 shadow-brand-card"
         role="dialog"
         aria-modal="true"
         aria-label="Rate session"
       >
-        <header className="mb-4">
-          <h2 className="text-lg font-semibold">Rate your session</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            How was your session with {rateeName}?
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--brand-text-muted)] transition hover:bg-[var(--brand-surface)] hover:text-[var(--brand-text-strong)]"
+        >
+          <X className="h-4 w-4" />
+        </button>
+
+        <header className="mb-6 text-center">
+          <div className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-hero-soft)] text-primary">
+            <Star className="h-6 w-6 fill-primary text-primary" />
+          </div>
+          <h2 className="text-xl font-bold text-[var(--brand-text-strong)]">Rate your session</h2>
+          <p className="mt-1 text-sm text-[var(--brand-text-muted)]">
+            How was your session with <span className="font-semibold text-[var(--brand-text-strong)]">{rateeName}</span>?
           </p>
         </header>
 
-        <ScorePicker label="Overall" value={overall} onChange={setOverall} />
+        <ScorePicker label="Overall" value={overall} onChange={setOverall} required />
         <ScorePicker label="Helpfulness" value={helpfulness} onChange={setHelpfulness} />
         <ScorePicker label="Respectfulness" value={respectfulness} onChange={setRespectfulness} />
 
@@ -84,7 +99,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
         </label>
         <textarea
           id="rating-review"
-          className="mt-1 w-full rounded-md border border-zinc-200 p-2 text-sm"
+          className="mt-1 w-full rounded-md border border-[var(--brand-border)] bg-white p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
           rows={3}
           value={reviewText}
           maxLength={2000}
@@ -92,12 +107,29 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
           placeholder="What did you learn? Anything that could be improved?"
         />
 
-        <div className="mt-5 flex items-center justify-end gap-2">
+        {error ? (
+          <p className="mt-3 rounded-md border border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 p-2 text-sm text-[var(--brand-rose)]">
+            {error}
+          </p>
+        ) : null}
+
+        <div className="mt-6 flex items-center justify-end gap-2">
           <Button variant="ghost" onClick={onClose} disabled={createRating.isPending}>
             Skip
           </Button>
-          <Button onClick={submit} disabled={!canSubmit || createRating.isPending}>
-            {createRating.isPending ? 'Submitting…' : 'Submit rating'}
+          <Button
+            onClick={submit}
+            disabled={!canSubmit || createRating.isPending}
+            className="h-11 rounded-full bg-brand-cta px-6 font-semibold text-white shadow-brand-cta hover:opacity-95"
+          >
+            {createRating.isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Submitting…
+              </>
+            ) : (
+              'Submit rating'
+            )}
           </Button>
         </div>
       </div>
@@ -109,29 +141,33 @@ interface ScorePickerProps {
   label: string;
   value: number;
   onChange: (n: number) => void;
+  required?: boolean;
 }
 
-function ScorePicker({ label, value, onChange }: ScorePickerProps) {
+function ScorePicker({ label, value, onChange, required }: ScorePickerProps) {
   return (
     <div className="mb-3">
-      <p className="text-sm font-medium">{label}</p>
+      <p className="text-sm font-medium text-[var(--brand-text-strong)]">
+        {label} {required ? <span className="text-[var(--brand-rose)]">*</span> : null}
+      </p>
       <div className="mt-1 flex items-center gap-1">
-        {SCORE_VALUES.map((n) => (
-          <button
-            key={n}
-            type="button"
-            aria-label={`${n} star${n > 1 ? 's' : ''}`}
-            onClick={() => onChange(n)}
-            className={cn(
-              'h-9 w-9 rounded-md border text-sm transition-colors',
-              value === n
-                ? 'border-amber-400 bg-amber-50 text-amber-700'
-                : 'border-zinc-200 hover:bg-zinc-50'
-            )}
-          >
-            {n}★
-          </button>
-        ))}
+        {SCORE_VALUES.map((n) => {
+          const active = value >= n;
+          return (
+            <button
+              key={n}
+              type="button"
+              aria-label={`${n} star${n > 1 ? 's' : ''}`}
+              onClick={() => onChange(n)}
+              className={cn(
+                'rounded-md p-1.5 transition hover:bg-amber-50',
+                active ? 'text-amber-500' : 'text-zinc-300'
+              )}
+            >
+              <Star className={cn('h-7 w-7', active && 'fill-current')} />
+            </button>
+          );
+        })}
       </div>
     </div>
   );

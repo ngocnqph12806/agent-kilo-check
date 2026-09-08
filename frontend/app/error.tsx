@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import { AlertTriangle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -18,25 +19,45 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <main className="container flex min-h-screen flex-col items-center justify-center gap-6 text-center">
-      <span className="rounded-full border border-destructive/40 bg-destructive/10 px-3 py-1 text-xs font-medium uppercase tracking-wide text-destructive">
-        500 · Server error
-      </span>
-      <h1 className="text-balance text-4xl font-bold tracking-tight">Something went sideways.</h1>
-      <p className="max-w-md text-balance text-muted-foreground">
-        We&apos;ve been notified. You can try again, or come back in a few minutes — most issues
-        clear themselves quickly.
-      </p>
-      {error.digest && (
-        <code className="rounded bg-muted px-2 py-1 text-xs text-muted-foreground">
-          Ref: {error.digest}
-        </code>
-      )}
-      <div className="flex gap-3">
-        <Button onClick={() => reset()}>Try again</Button>
-        <Button asChild variant="outline">
-          <Link href="/">Back to home</Link>
-        </Button>
+    <main className="flex min-h-[80vh] flex-col items-center justify-center bg-[var(--brand-surface)] px-4">
+      <div className="flex max-w-md flex-col items-center text-center">
+        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[var(--brand-rose)]/15 shadow-brand-card">
+          <AlertTriangle className="h-12 w-12 text-[var(--brand-rose)]" aria-hidden />
+        </div>
+        <p className="mb-2 inline-flex items-center rounded-full border border-[var(--brand-rose)]/40 bg-[var(--brand-rose)]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-rose)]">
+          500 · Server error
+        </p>
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+          Something went wrong
+        </h1>
+        <p className="mt-3 max-w-md text-base text-[var(--brand-text-muted)]">
+          We&apos;ve been notified. Please try again in a moment — most issues clear themselves quickly.
+        </p>
+        {error.digest ? (
+          <code className="mt-3 rounded bg-white px-2 py-1 text-xs text-[var(--brand-text-muted)] shadow-brand-card">
+            Ref: {error.digest}
+          </code>
+        ) : null}
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Button
+            onClick={() => reset()}
+            className="rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95"
+          >
+            ↻ Reload page
+          </Button>
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/">🏠 Back to home</Link>
+          </Button>
+        </div>
+        <p className="mt-8 text-xs text-[var(--brand-text-subtle)]">
+          If this persists, contact{' '}
+          <a
+            href="mailto:support@skillseed.app"
+            className="font-semibold text-[var(--brand-cta-from)]"
+          >
+            support@skillseed.app
+          </a>
+        </p>
       </div>
     </main>
   );

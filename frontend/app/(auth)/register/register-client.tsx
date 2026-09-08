@@ -39,15 +39,16 @@ export default function RegisterClient() {
   return (
     <AuthShell
       title="Create your account"
-      description="Trade skills, not money. Free starter seeds included."
+      subtitle="Trade skills, not money. Free starter seeds included."
       footer={
         <p>
           Already have an account?{' '}
-          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link href="/login" className="font-semibold text-primary underline-offset-4 hover:underline">
             Sign in
           </Link>
         </p>
       }
+      hero={{ variant: 'auth' }}
     >
       <FormError message={serverError} />
 
@@ -109,17 +110,21 @@ export default function RegisterClient() {
           ) : null}
         </div>
 
-        <Button type="submit" className="w-full" disabled={isSubmitting || registerMutation.isPending}>
+        <Button
+          type="submit"
+          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+          disabled={isSubmitting || registerMutation.isPending}
+        >
           {registerMutation.isPending || isSubmitting ? 'Creating account…' : 'Create account'}
         </Button>
       </form>
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t" />
+          <div className="w-full border-t border-[var(--brand-border)]" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-2 text-muted-foreground">Or sign up with</span>
+          <span className="bg-white px-2 text-[var(--brand-text-subtle)]">Or sign up with</span>
         </div>
       </div>
 

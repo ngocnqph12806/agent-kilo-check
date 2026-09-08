@@ -2,6 +2,25 @@
 
 import { useState } from 'react';
 
+import {
+  AlertCircle,
+  ArrowDownLeft,
+  ArrowUpRight,
+  Bell,
+  CheckCircle2,
+  Clock,
+  CreditCard,
+  Loader2,
+  Sparkles,
+  TrendingDown,
+  TrendingUp,
+  Wallet
+} from 'lucide-react';
+
+import { EmptyState } from '@/components/shared/empty-state';
+import { ErrorState } from '@/components/shared/error-state';
+import { LoadingState } from '@/components/shared/loading-state';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import {
@@ -15,20 +34,28 @@ import {
   type WalletSummary as WalletSummaryType
 } from '../lib/schemas';
 
-const TYPE_LABEL: Record<SeedTransactionType, string> = {
-  earn: 'Earned',
-  spend: 'Spent',
-  grant: 'Grant',
-  expire: 'Expired',
-  refund: 'Refund'
+const NUMBER_FORMAT = new Intl.NumberFormat('en-US');
+
+const TIER_PILL_LABEL: Record<WalletSummaryType['tier'], string> = {
+  bronze: 'Sprout',
+  silver: 'Seedling',
+  gold: 'Sapling',
+  platinum: 'Oak'
 };
 
-const TYPE_COLOR: Record<SeedTransactionType, string> = {
-  earn: 'text-emerald-700',
-  spend: 'text-rose-700',
-  grant: 'text-sky-700',
-  expire: 'text-zinc-500',
-  refund: 'text-amber-700'
+const TYPE_META: Record<
+  SeedTransactionType,
+  {
+    label: string;
+    tone: 'credit' | 'debit' | 'escrow';
+    Icon: typeof ArrowDownLeft;
+  }
+> = {
+  earn: { label: 'Earned', tone: 'credit', Icon: ArrowDownLeft },
+  spend: { label: 'Spent', tone: 'debit', Icon: ArrowUpRight },
+  grant: { label: 'Grant', tone: 'escrow', Icon: Sparkles },
+  expire: { label: 'Expired', tone: 'debit', Icon: Clock },
+  refund: { label: 'Refund', tone: 'escrow', Icon: CheckCircle2 }
 };
 
 export function WalletView() {
@@ -36,106 +63,176 @@ export function WalletView() {
   const [page, setPage] = useState<number>(0);
   const tx = useWalletTransactions(page, 20);
 
-  if (summary.isLoading || !summary.data) {
-    return <CenteredMessage>Loading wallet…</CenteredMessage>;
-  }
-  if (summary.error) {
+  if (summary.isLoading) {
     return (
-      <CenteredMessage variant="error">
-        {summary.error instanceof Error
-          ? summary.error.message
-          : 'Could not load wallet.'}
-      </CenteredMessage>
+      <div className="container mx-auto max-w-4xl py-10">
+        <LoadingState label="Loading wallet…" rows={4} />
+      </div>
     );
   }
 
+  if (summary.error) {
+    return (
+      <div className="container mx-auto max-w-4xl py-10">
+        <ErrorState
+          title="Could not load wallet"
+          message={
+            summary.error instanceof Error
+              ? summary.error.message
+              : 'Please try again in a moment.'
+          }
+          onRetry={() => summary.refetch()}
+        />
+      </div>
+    );
+  }
+
+  if (!summary.data) {
+    return null;
+  }
+
   return (
-    <main className="container mx-auto max-w-3xl space-y-8 py-10">
+    <main className="container mx-auto max-w-4xl space-y-8 py-10">
       <header className="space-y-1">
-        <h1 className="text-2xl font-bold tracking-tight">Seed wallet</h1>
-        <p className="text-sm text-muted-foreground">
-          Track your balance, ledger, and upcoming expiry.
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+          Wallet
+        </h1>
+        <p className="text-sm text-[var(--brand-text-muted)]">
+          Track your seeds, transactions, and what&rsquo;s expiring soon.
         </p>
       </header>
 
-      <SummaryCards summary={summary.data} />
+      <BalanceHero summary={summary.data} />
+
+      <SummaryRow summary={summary.data} />
 
       <ExpiryCallout summary={summary.data} />
 
-      <section className="space-y-3">
-        <h2 className="text-base font-semibold">Transaction history</h2>
-        {tx.isLoading ? (
-          <p className="text-sm text-muted-foreground">Loading…</p>
-        ) : tx.data && tx.data.content.length > 0 ? (
-          <ul className="divide-y rounded-lg border bg-card">
-            {tx.data.content.map((row) => (
-              <TransactionRow key={row.id} tx={row} />
-            ))}
-          </ul>
-        ) : (
-          <p className="text-sm text-muted-foreground">
-            No transactions yet.
-          </p>
-        )}
-        {tx.data && tx.data.totalPages > 1 ? (
-          <Pagination
-            page={page}
-            totalPages={tx.data.totalPages}
-            onChange={setPage}
-          />
-        ) : null}
-      </section>
+      <TransactionHistory page={page} onPageChange={setPage} txQuery={tx} />
     </main>
   );
 }
 
-function SummaryCards({ summary }: { summary: WalletSummaryType }) {
+function BalanceHero({ summary }: { summary: WalletSummaryType }) {
   return (
-    <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      <Card label="Balance" value={summary.balance} accent />
-      <Card label="Total earned" value={summary.totalEarned} />
-      <Card label="Total spent" value={summary.totalSpent} />
-      <Card label="Tier" value={WALLET_TIER_LABEL[summary.tier]} />
+    <section className="bg-brand-hero-strong text-white shadow-brand-cta rounded-3xl p-8">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <div className="space-y-3">
+          <p className="text-xs font-bold uppercase tracking-widest text-emerald-100">
+            <Wallet className="mr-2 inline h-4 w-4" aria-hidden />
+            Total balance
+          </p>
+          <div className="flex items-baseline gap-3">
+            <span className="text-5xl font-extrabold leading-none">
+              {NUMBER_FORMAT.format(summary.balance)}
+            </span>
+            <span className="text-lg font-semibold text-emerald-100">seeds</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white">
+              <Sparkles className="mr-1 inline h-3 w-3" aria-hidden />
+              {TIER_PILL_LABEL[summary.tier]}
+            </span>
+            <span className="text-xs text-emerald-100">
+              {WALLET_TIER_LABEL[summary.tier]} tier
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2 sm:items-end">
+          <Button
+            type="button"
+            className="gap-2 rounded-full bg-white text-emerald-700 hover:bg-white/90"
+          >
+            <CreditCard className="h-4 w-4" aria-hidden />
+            Buy seeds
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="gap-2 rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20"
+          >
+            <ArrowUpRight className="h-4 w-4" aria-hidden />
+            Send / Gift
+          </Button>
+        </div>
+      </div>
     </section>
   );
 }
 
-function Card({
+function SummaryRow({ summary }: { summary: WalletSummaryType }) {
+  return (
+    <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <StatCard
+        label="Total earned"
+        value={summary.totalEarned}
+        Icon={TrendingUp}
+        tone="credit"
+      />
+      <StatCard
+        label="Total spent"
+        value={summary.totalSpent}
+        Icon={TrendingDown}
+        tone="debit"
+      />
+      <StatCard
+        label="Tier"
+        value={WALLET_TIER_LABEL[summary.tier]}
+        Icon={Sparkles}
+        tone="neutral"
+        suffix=""
+      />
+      <StatCard
+        label="Total expired"
+        value={summary.totalExpired}
+        Icon={Clock}
+        tone="neutral"
+      />
+    </section>
+  );
+}
+
+function StatCard({
   label,
   value,
-  accent
+  Icon,
+  tone,
+  suffix = 'seeds'
 }: {
   label: string;
   value: number | string;
-  accent?: boolean;
+  Icon: typeof ArrowDownLeft;
+  tone: 'credit' | 'debit' | 'neutral';
+  suffix?: string;
 }) {
+  const toneStyles =
+    tone === 'credit'
+      ? 'bg-emerald-100 text-emerald-700'
+      : tone === 'debit'
+        ? 'bg-rose-100 text-rose-700'
+        : 'bg-amber-100 text-amber-700';
+
   return (
-    <div
-      className={cn(
-        'rounded-lg border p-4 shadow-sm',
-        accent
-          ? 'border-primary bg-primary text-primary-foreground'
-          : 'bg-card'
-      )}
-    >
-      <p
-        className={cn(
-          'text-xs uppercase tracking-wide',
-          accent ? 'text-primary-foreground/80' : 'text-muted-foreground'
-        )}
-      >
-        {label}
-      </p>
-      <p className="mt-1 text-2xl font-semibold">{value}</p>
-      {typeof value === 'number' ? (
-        <p
+    <div className="rounded-2xl border border-[var(--brand-border)] bg-white p-5 shadow-brand-card">
+      <div className="flex items-center gap-3">
+        <span
           className={cn(
-            'text-xs',
-            accent ? 'text-primary-foreground/80' : 'text-muted-foreground'
+            'flex h-10 w-10 items-center justify-center rounded-full',
+            toneStyles
           )}
         >
-          seeds
+          <Icon className="h-5 w-5" aria-hidden />
+        </span>
+        <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+          {label}
         </p>
+      </div>
+      <p className="mt-3 text-2xl font-extrabold text-[var(--brand-text-strong)]">
+        {typeof value === 'number' ? NUMBER_FORMAT.format(value) : value}
+      </p>
+      {suffix ? (
+        <p className="text-xs text-[var(--brand-text-muted)]">{suffix}</p>
       ) : null}
     </div>
   );
@@ -143,43 +240,151 @@ function Card({
 
 function ExpiryCallout({ summary }: { summary: WalletSummaryType }) {
   if (summary.expiringSoon.amount <= 0) return null;
+
   const expiresAt = summary.expiringSoon.oldestExpiresAt;
+  const expiryDate = expiresAt ? new Date(expiresAt) : null;
+  const expiryLabel = expiryDate
+    ? expiryDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      })
+    : 'soon';
+
   return (
-    <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-      <p>
-        <strong>{summary.expiringSoon.amount} seeds</strong> will expire
-        {expiresAt ? ` by ${new Date(expiresAt).toLocaleDateString()}` : ' soon'}
-        . Spend them on a session before they vanish.
-      </p>
-    </div>
+    <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5 shadow-brand-card">
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+          <AlertCircle className="h-5 w-5" aria-hidden />
+        </span>
+        <div className="space-y-1">
+          <p className="text-sm font-bold text-amber-900">
+            <strong>{NUMBER_FORMAT.format(summary.expiringSoon.amount)} seeds</strong>{' '}
+            expiring by {expiryLabel}
+          </p>
+          <p className="text-xs text-amber-800">
+            Book a session or gift them to a friend before they vanish.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TransactionHistory({
+  page,
+  onPageChange,
+  txQuery
+}: {
+  page: number;
+  onPageChange: (next: number) => void;
+  txQuery: ReturnType<typeof useWalletTransactions>;
+}) {
+  const { data, isLoading, isError, error, refetch, isFetching } = txQuery;
+
+  const totalElements = data?.totalElements ?? 0;
+  const totalPages = data?.totalPages ?? 0;
+  const items = data?.content ?? [];
+
+  return (
+    <section className="rounded-2xl border border-[var(--brand-border)] bg-white p-6 shadow-brand-card">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-extrabold text-[var(--brand-text-strong)]">
+            Recent activity
+          </h2>
+          <p className="text-xs text-[var(--brand-text-muted)]">
+            {NUMBER_FORMAT.format(totalElements)}{' '}
+            {totalElements === 1 ? 'transaction' : 'transactions'}
+          </p>
+        </div>
+        {isFetching && !isLoading ? (
+          <Loader2 className="h-4 w-4 animate-spin text-[var(--brand-text-muted)]" aria-hidden />
+        ) : null}
+      </div>
+
+      <div className="mt-5">
+        {isLoading ? (
+          <LoadingState label="Loading transactions…" rows={4} className="border-none p-0 shadow-none" />
+        ) : isError ? (
+          <ErrorState
+            title="Could not load transactions"
+            message={error instanceof Error ? error.message : undefined}
+            onRetry={() => refetch()}
+          />
+        ) : items.length === 0 ? (
+          <EmptyState
+            emoji="💰"
+            icon={Wallet}
+            title="No transactions yet"
+            description="Your transactions will appear here once you earn or spend your first seeds."
+            action={{ label: 'Browse teachers', href: '/discover' }}
+          />
+        ) : (
+          <ul className="divide-y divide-[var(--brand-border)]">
+            {items.map((row) => (
+              <TransactionRow key={row.id} tx={row} />
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {totalPages > 1 ? (
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onChange={onPageChange}
+        />
+      ) : null}
+    </section>
   );
 }
 
 function TransactionRow({ tx }: { tx: SeedTransaction }) {
+  const meta = TYPE_META[tx.type];
+  const Icon = meta.Icon;
+  const isCredit = tx.amount > 0;
+
+  const toneStyles =
+    meta.tone === 'credit'
+      ? 'bg-emerald-100 text-emerald-700'
+      : meta.tone === 'debit'
+        ? 'bg-rose-100 text-rose-700'
+        : 'bg-amber-100 text-amber-700';
+
+  const amountStyles = isCredit ? 'text-emerald-700' : 'text-rose-700';
+
   return (
-    <li className="flex items-start justify-between px-4 py-3 text-sm">
-      <div className="space-y-1">
-        <p className="font-medium">{TYPE_LABEL[tx.type]}</p>
-        <p className="text-xs text-muted-foreground">
-          {tx.description ?? '—'}
+    <li className="flex items-center gap-4 py-3">
+      <span
+        className={cn(
+          'flex h-10 w-10 shrink-0 items-center justify-center rounded-full',
+          toneStyles
+        )}
+      >
+        <Icon className="h-5 w-5" aria-hidden />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-semibold text-[var(--brand-text-strong)]">
+          {tx.description ?? meta.label}
         </p>
-        <p className="text-xs text-muted-foreground">
-          {new Date(tx.createdAt).toLocaleString()}
+        <p className="text-xs text-[var(--brand-text-muted)]">
+          {meta.label} ·{' '}
+          {new Date(tx.createdAt).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+          })}
         </p>
       </div>
       <div className="text-right">
-        <p className={cn('font-semibold', TYPE_COLOR[tx.type])}>
-          {tx.amount > 0 ? '+' : ''}
-          {tx.amount}
+        <p className={cn('text-sm font-bold', amountStyles)}>
+          {isCredit ? '+' : ''}
+          {NUMBER_FORMAT.format(tx.amount)} seeds
         </p>
-        <p className="text-xs text-muted-foreground">
-          Balance: {tx.balanceAfter}
+        <p className="text-xs text-[var(--brand-text-muted)]">
+          Balance {NUMBER_FORMAT.format(tx.balanceAfter)}
         </p>
-        {tx.expiresAt ? (
-          <p className="text-xs text-muted-foreground">
-            Expires {new Date(tx.expiresAt).toLocaleDateString()}
-          </p>
-        ) : null}
       </div>
     </li>
   );
@@ -195,49 +400,30 @@ function Pagination({
   onChange: (next: number) => void;
 }) {
   return (
-    <div className="flex items-center justify-end gap-2 text-xs">
-      <button
+    <div className="mt-5 flex items-center justify-end gap-2 text-xs">
+      <Button
         type="button"
-        className="rounded border border-input px-2 py-1 disabled:opacity-50"
+        variant="outline"
+        size="sm"
+        className="rounded-full"
         onClick={() => onChange(Math.max(0, page - 1))}
         disabled={page === 0}
       >
         Previous
-      </button>
-      <span className="text-muted-foreground">
+      </Button>
+      <span className="px-2 text-[var(--brand-text-muted)]">
         Page {page + 1} of {totalPages}
       </span>
-      <button
+      <Button
         type="button"
-        className="rounded border border-input px-2 py-1 disabled:opacity-50"
+        variant="outline"
+        size="sm"
+        className="rounded-full"
         onClick={() => onChange(Math.min(totalPages - 1, page + 1))}
         disabled={page >= totalPages - 1}
       >
         Next
-      </button>
+      </Button>
     </div>
-  );
-}
-
-function CenteredMessage({
-  children,
-  variant
-}: {
-  children: React.ReactNode;
-  variant?: 'error';
-}) {
-  return (
-    <main className="container mx-auto max-w-3xl py-20 text-center text-sm">
-      <p
-        className={cn(
-          'rounded-md border p-4',
-          variant === 'error'
-            ? 'border-destructive/30 bg-destructive/5 text-destructive'
-            : 'text-muted-foreground'
-        )}
-      >
-        {children}
-      </p>
-    </main>
   );
 }

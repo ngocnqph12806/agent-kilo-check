@@ -53,6 +53,18 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
+      },
+      backgroundImage: {
+        'brand-cta': 'linear-gradient(to right, var(--brand-cta-from), var(--brand-cta-to))',
+        'brand-hero-soft': 'linear-gradient(135deg, var(--brand-hero-from), var(--brand-hero-to))',
+        'brand-hero-strong': 'linear-gradient(135deg, var(--brand-cta-from), var(--brand-cta-to))'
+      },
+      boxShadow: {
+        'brand-card': '0 6px 24px -6px rgb(17 24 39 / 0.08), 0 4px 8px -4px rgb(17 24 39 / 0.06)',
+        'brand-cta': '0 8px 24px -8px rgb(16 185 129 / 0.45)'
+      },
+      fontSize: {
+        'display': ['32px', { lineHeight: '40px', fontWeight: '800' }]
       }
     }
   },

@@ -45,15 +45,15 @@ export function LoginForm() {
   return (
     <AuthShell
       title="Welcome back"
-      description="Sign in to keep trading skills."
-      footer={
-        <p>
-          New here?{' '}
-          <Link href="/register" className="font-medium text-primary underline-offset-4 hover:underline">
+      subtitle={
+        <>
+          New to SkillSeed?{' '}
+          <Link href="/register" className="font-semibold text-primary underline-offset-4 hover:underline">
             Create an account
           </Link>
-        </p>
+        </>
       }
+      hero={{ variant: 'auth' }}
     >
       {registered ? (
         <p className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
@@ -92,7 +92,7 @@ export function LoginForm() {
             <Label htmlFor="password">Password</Label>
             <Link
               href="/forgot-password"
-              className="text-xs font-medium text-primary underline-offset-4 hover:underline"
+              className="text-xs font-semibold text-primary underline-offset-4 hover:underline"
             >
               Forgot password?
             </Link>
@@ -107,25 +107,35 @@ export function LoginForm() {
           {errors.password ? <p className="text-sm text-destructive">{errors.password.message}</p> : null}
         </div>
 
-        <Button type="submit" className="w-full" disabled={isSubmitting || loginMutation.isPending}>
-          {loginMutation.isPending || isSubmitting ? 'Signing in…' : 'Sign in'}
+        <Button
+          type="submit"
+          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+          disabled={isSubmitting || loginMutation.isPending}
+        >
+          {loginMutation.isPending || isSubmitting ? 'Signing in…' : 'Log in'}
         </Button>
       </form>
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t" />
+          <div className="w-full border-t border-[var(--brand-border)]" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-white px-2 text-[var(--brand-text-subtle)]">Or continue with</span>
         </div>
       </div>
 
-      <GoogleSignInButton mode="signin" />
-
-      <Button variant="outline" type="button" className="w-full" onClick={() => router.push('/register')}>
-        Create a new account
-      </Button>
+      <div className="grid grid-cols-2 gap-3">
+        <GoogleSignInButton mode="signin" />
+        <Button
+          variant="outline"
+          type="button"
+          className="h-11 rounded-xl text-sm"
+          onClick={() => router.push('/register')}
+        >
+          Create a new account
+        </Button>
+      </div>
     </AuthShell>
   );
 }
