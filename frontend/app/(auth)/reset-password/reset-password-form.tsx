@@ -51,15 +51,16 @@ export function ResetPasswordForm() {
   return (
     <AuthShell
       title="Set a new password"
-      description={hasToken ? undefined : 'Missing or invalid reset link.'}
+      subtitle={hasToken ? undefined : 'Missing or invalid reset link.'}
       footer={
         <p>
           Changed your mind?{' '}
-          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link href="/login" className="font-semibold text-primary underline-offset-4 hover:underline">
             Back to sign in
           </Link>
         </p>
       }
+      hero={{ variant: 'auth' }}
     >
       <FormError message={serverError} />
 
@@ -108,7 +109,7 @@ export function ResetPasswordForm() {
 
         <Button
           type="submit"
-          className="w-full"
+          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
           disabled={!hasToken || isSubmitting || resetMutation.isPending}
         >
           {resetMutation.isPending ? 'Updating…' : 'Update password'}

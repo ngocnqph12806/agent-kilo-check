@@ -18,15 +18,16 @@ export function VerifyEmailPromptForm() {
   return (
     <AuthShell
       title="Verify your email"
-      description="Check your inbox for the SkillSeed welcome email and click the verification link to activate your account."
+      subtitle="Check your inbox for the SkillSeed welcome email and click the verification link to activate your account."
       footer={
         <p>
           Already verified?{' '}
-          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link href="/login" className="font-semibold text-primary underline-offset-4 hover:underline">
             Back to sign in
           </Link>
         </p>
       }
+      hero={{ variant: 'auth' }}
     >
       <FormAlert message="We sent a verification link to your email right after you signed up. The link expires after 24 hours." />
 
@@ -37,10 +38,14 @@ export function VerifyEmailPromptForm() {
       <ErrorResendHint visible={!resent} />
 
       <div className="space-y-2">
-        <Button type="button" className="w-full" onClick={handleResend}>
+        <Button
+          type="button"
+          className="h-12 w-full rounded-full bg-brand-cta text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+          onClick={handleResend}
+        >
           Resend verification email
         </Button>
-        <Button asChild variant="outline" className="w-full">
+        <Button asChild variant="outline" className="h-11 w-full rounded-full">
           <Link href="/login">Back to sign in</Link>
         </Button>
       </div>
