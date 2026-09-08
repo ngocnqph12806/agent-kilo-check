@@ -1,5 +1,6 @@
 package com.skillseed.auth.service;
 
+import com.skillseed.shared.domain.Role;
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,13 +38,15 @@ class JwtServiceTest {
     @Test
     void accessTokenRoundTripContainsExpectedClaims() {
         UUID userId = UUID.randomUUID();
-        String token = jwtService.generateAccessToken(userId, "user@example.com", (short) 1);
+        String token = jwtService.generateAccessToken(userId, "user@example.com", (short) 1, Role.ADMIN);
 
         Claims claims = jwtService.parseAndValidate(token, "access");
 
         assertThat(claims.getSubject()).isEqualTo(userId.toString());
         assertThat(claims.get("email", String.class)).isEqualTo("user@example.com");
         assertThat(claims.get("verificationLevel", Short.class)).isEqualTo((short) 1);
+        assertThat(claims.get("role", String.class)).isEqualTo("admin");
+        assertThat(jwtService.parseRole(claims)).isEqualTo(Role.ADMIN);
         assertThat(claims.get("tokenType", String.class)).isEqualTo("access");
         assertThat(claims.getExpiration()).isAfter(claims.getIssuedAt());
     }
@@ -62,7 +65,7 @@ class JwtServiceTest {
 
     @Test
     void parsingWithWrongTypeFails() {
-        String access = jwtService.generateAccessToken(UUID.randomUUID(), "x@y.com", (short) 0);
+        String access = jwtService.generateAccessToken(UUID.randomUUID(), "x@y.com", (short) 0, Role.USER);
         assertThatThrownBy(() -> jwtService.parseAndValidate(access, "refresh"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("token type");
@@ -76,7 +79,7 @@ class JwtServiceTest {
 
     @Test
     void tamperedSignatureFailsValidation() {
-        String token = jwtService.generateAccessToken(UUID.randomUUID(), "x@y.com", (short) 0);
+        String token = jwtService.generateAccessToken(UUID.randomUUID(), "x@y.com", (short) 0, Role.USER);
         String tampered = token.substring(0, token.length() - 4) + "AAAA";
         assertThatThrownBy(() -> jwtService.parseAndValidate(tampered, "access"))
                 .isInstanceOf(Exception.class);

@@ -200,7 +200,7 @@ class AuthServiceTest {
             when(userRepository.findByEmail("alice@example.com"))
                     .thenReturn(Optional.of(existingEmailUser(id)));
             when(passwordEncoder.matches("Password1", "$2a$12$hash")).thenReturn(true);
-            when(jwtService.generateAccessToken(eq(id), anyString(), any())).thenReturn("access");
+            when(jwtService.generateAccessToken(eq(id), anyString(), any(), any())).thenReturn("access");
             when(jwtService.generateRefreshToken(id)).thenReturn("refresh");
             when(jwtService.getAccessTtlSeconds()).thenReturn(900L);
 
@@ -292,7 +292,7 @@ class AuthServiceTest {
             when(tokenStore.consume(AuthService.PURPOSE_REFRESH_TOKEN, "refresh-old"))
                     .thenReturn(Optional.of(id.toString()));
             when(userRepository.findById(id)).thenReturn(Optional.of(existingEmailUser(id)));
-            when(jwtService.generateAccessToken(eq(id), anyString(), any())).thenReturn("access");
+            when(jwtService.generateAccessToken(eq(id), anyString(), any(), any())).thenReturn("access");
             when(jwtService.generateRefreshToken(id)).thenReturn("refresh-new");
 
             AuthTokenResponse response = authService.refresh(
@@ -452,7 +452,7 @@ class AuthServiceTest {
                     new OAuthIdTokenVerifier.VerifiedProfile(
                             "google", "google-sub-123", "alice@example.com", "Alice"));
             when(userRepository.findByEmail("alice@example.com")).thenReturn(Optional.of(existing));
-            when(jwtService.generateAccessToken(eq(id), anyString(), any())).thenReturn("access");
+            when(jwtService.generateAccessToken(eq(id), anyString(), any(), any())).thenReturn("access");
             when(jwtService.generateRefreshToken(id)).thenReturn("refresh");
 
             AuthTokenResponse response = authService.loginWithGoogle(
@@ -468,7 +468,7 @@ class AuthServiceTest {
                     new OAuthIdTokenVerifier.VerifiedProfile(
                             "google", "sub-1", "new@example.com", "New User"));
             when(userRepository.findByEmail("new@example.com")).thenReturn(Optional.empty());
-            when(jwtService.generateAccessToken(any(), anyString(), any())).thenReturn("access");
+            when(jwtService.generateAccessToken(any(), anyString(), any(), any())).thenReturn("access");
             when(jwtService.generateRefreshToken(any())).thenReturn("refresh");
 
             authService.loginWithGoogle(new OAuthGoogleRequest("id-token"));

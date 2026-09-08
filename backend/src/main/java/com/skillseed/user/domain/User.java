@@ -2,6 +2,8 @@ package com.skillseed.user.domain;
 
 import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.shared.domain.AuthProviderConverter;
+import com.skillseed.shared.domain.Role;
+import com.skillseed.shared.domain.RoleConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -59,6 +61,10 @@ public class User {
     @Convert(converter = AuthProviderConverter.class)
     @Column(name = "auth_provider", nullable = false, length = 20)
     private AuthProvider authProvider = AuthProvider.EMAIL;
+
+    @Convert(converter = RoleConverter.class)
+    @Column(name = "role", nullable = false, length = 20)
+    private Role role = Role.USER;
 
     @Column(name = "verified", nullable = false)
     private boolean verified = false;
@@ -203,6 +209,14 @@ public class User {
 
     public void setAuthProvider(AuthProvider authProvider) {
         this.authProvider = authProvider;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isVerified() {

@@ -69,7 +69,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             short verificationLevel = level == null ? 0 : level;
 
             AuthenticatedUser principal =
-                    new AuthenticatedUser(userId, email, verificationLevel, true);
+                    new AuthenticatedUser(userId, email, verificationLevel, true,
+                            jwtService.parseRole(claims));
 
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(

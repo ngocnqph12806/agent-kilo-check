@@ -388,7 +388,7 @@ public class AuthService {
 
     AuthTokenResponse issueTokens(User user, boolean secureCookie) {
         String access = jwtService.generateAccessToken(
-            user.getId(), user.getEmail(), user.getVerificationLevel());
+            user.getId(), user.getEmail(), user.getVerificationLevel(), user.getRole());
         String refresh = jwtService.generateRefreshToken(user.getId());
         tokenStore.store(PURPOSE_REFRESH_TOKEN, refresh, user.getId().toString(),
             Duration.ofSeconds(jwtService.getRefreshTtlSeconds()));

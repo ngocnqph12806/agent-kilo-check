@@ -1,5 +1,6 @@
 package com.skillseed.auth.service;
 
+import com.skillseed.shared.domain.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -25,6 +26,7 @@ public class JwtService {
 
     private static final String CLAIM_EMAIL = "email";
     private static final String CLAIM_VERIFICATION_LEVEL = "verificationLevel";
+    private static final String CLAIM_ROLE = "role";
     private static final String CLAIM_TOKEN_TYPE = "tokenType";
     private static final String TYPE_ACCESS = "access";
     private static final String TYPE_REFRESH = "refresh";
@@ -54,13 +56,14 @@ public class JwtService {
         this.signingKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateAccessToken(UUID userId, String email, Short verificationLevel) {
+    public String generateAccessToken(UUID userId, String email, Short verificationLevel, Role role) {
         Instant now = Instant.now();
         Instant exp = now.plus(Duration.ofMinutes(accessTtlMinutes));
         return Jwts.builder()
                 .subject(userId.toString())
                 .claim(CLAIM_EMAIL, email)
                 .claim(CLAIM_VERIFICATION_LEVEL, verificationLevel)
+                .claim(CLAIM_ROLE, role == null ? Role.USER.getDbValue() : role.getDbValue())
                 .claim(CLAIM_TOKEN_TYPE, TYPE_ACCESS)
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(exp))
@@ -78,6 +81,19 @@ public class JwtService {
                 .expiration(Date.from(exp))
                 .signWith(signingKey, Jwts.SIG.HS256)
                 .compact();
+    }
+
+    public Role parseRole(Claims claims) {
+        String raw = claims.get(CLAIM_ROLE, String.class);
+        if (raw == null) {
+            return Role.USER;
+        }
+        for (Role r : Role.values()) {
+            if (r.getDbValue().equals(raw)) {
+                return r;
+            }
+        }
+        return Role.USER;
     }
 
     public Claims parseAndValidate(String token, String expectedType) {
