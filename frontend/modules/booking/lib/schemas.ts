@@ -38,12 +38,30 @@ export const TERMINAL_BOOKING_STATUSES: BookingStatus[] = [
 
 export const BOOKING_DURATIONS: number[] = [15, 30, 45, 60];
 
-export const CANCEL_REASONS: string[] = [
+/**
+ * Stable enum mirroring backend {@code com.skillseed.booking.domain.CancelReason}.
+ * The wire form is the lowercase dbValue; the UI uses the SCREAMING_SNAKE_CASE
+ * variant for readability.
+ */
+export type CancelReason =
+  | 'TEACHER_UNAVAILABLE'
+  | 'LEARNER_UNAVAILABLE'
+  | 'TECHNICAL_ISSUE'
+  | 'OTHER';
+
+export const CANCEL_REASONS: readonly CancelReason[] = [
   'TEACHER_UNAVAILABLE',
   'LEARNER_UNAVAILABLE',
   'TECHNICAL_ISSUE',
   'OTHER'
-];
+] as const;
+
+export const CANCEL_REASON_LABELS: Record<CancelReason, string> = {
+  TEACHER_UNAVAILABLE: 'Teacher unavailable',
+  LEARNER_UNAVAILABLE: "I'm unavailable",
+  TECHNICAL_ISSUE: 'Technical issue',
+  OTHER: 'Other'
+};
 
 export interface BookingParticipant {
   id: string;
@@ -108,6 +126,6 @@ export interface CreateBookingInput {
 }
 
 export interface CancelBookingInput {
-  reason: string;
+  reason: CancelReason;
   message?: string;
 }

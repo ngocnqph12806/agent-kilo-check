@@ -32,7 +32,8 @@ import {
   useDeclineBooking,
   useStartBooking
 } from '../hooks/use-bookings';
-import type { BookingStatus } from '../lib/schemas';
+import type { BookingStatus, CancelReason } from '../lib/schemas';
+import { CANCEL_REASONS, CANCEL_REASON_LABELS } from '../lib/schemas';
 
 export interface BookingDetailViewProps {
   bookingId: string;
@@ -95,6 +96,7 @@ export function BookingDetailView({
   const start = useStartBooking();
   const complete = useCompleteBooking();
   const [confirmingCancel, setConfirmingCancel] = useState(false);
+  const [cancelReason, setCancelReason] = useState<CancelReason>('OTHER');
 
   if (isLoading) {
     return (
@@ -292,36 +294,56 @@ export function BookingDetailView({
               </p>
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Button type="button"
-              variant="outline"
-              className="h-11 rounded-full"
-              onClick={() => setConfirmingCancel(false)}
-              disabled={cancel.isPending}
-            >
-              Keep booking
-            </Button>
-            <Button
-              type="button"
-              variant="destructive-soft"
-              className="h-11 rounded-full px-8 font-semibold"
-              onClick={() =>
-                cancel.mutate({
-                  id: bookingId,
-                  input: { reason: 'OTHER', message: 'Cancelled by user' }
-                })
-              }
-              disabled={cancel.isPending}
-            >
-              {cancel.isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />
-                  Cancelling…
-                </>
-              ) : (
-                'Cancel booking'
-              )}
-            </Button>
+          <div className="mt-4 space-y-3">
+            <label className="block">
+              <span className="mb-1 block text-sm font-medium text-[var(--brand-text-strong)]">
+                Reason
+              </span>
+              <select
+                aria-label="Cancellation reason"
+                className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
+                value={cancelReason}
+                onChange={(e) => setCancelReason(e.target.value as CancelReason)}
+                disabled={cancel.isPending}
+              >
+                {CANCEL_REASONS.map((r) => (
+                  <option key={r} value={r}>
+                    {CANCEL_REASON_LABELS[r]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="flex flex-wrap gap-2">
+              <Button type="button"
+                variant="outline"
+                className="h-11 rounded-full"
+                onClick={() => setConfirmingCancel(false)}
+                disabled={cancel.isPending}
+              >
+                Keep booking
+              </Button>
+              <Button
+                type="button"
+                variant="destructive-soft"
+                className="h-11 rounded-full px-8 font-semibold"
+                onClick={() =>
+                  cancel.mutate({
+                    id: bookingId,
+                    input: { reason: cancelReason }
+                  })
+                }
+                disabled={cancel.isPending}
+              >
+                {cancel.isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />
+                    Cancelling…
+                  </>
+                ) : (
+                  'Cancel booking'
+                )}
+              </Button>
+            </div>
           </div>
         </section>
       ) : null}
