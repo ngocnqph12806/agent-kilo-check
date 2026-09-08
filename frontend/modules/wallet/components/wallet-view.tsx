@@ -142,7 +142,8 @@ function BalanceHero({ summary }: { summary: WalletSummaryType }) {
         <div className="flex flex-col gap-2 sm:items-end">
           <Button
             type="button"
-            className="gap-2 rounded-full bg-white text-emerald-700 hover:bg-white/90"
+            variant="brand-outline"
+            className="gap-2 rounded-full"
           >
             <CreditCard className="h-4 w-4" aria-hidden />
             Buy seeds
@@ -208,10 +209,10 @@ function StatCard({
 }) {
   const toneStyles =
     tone === 'credit'
-      ? 'bg-emerald-100 text-emerald-700'
+      ? 'bg-brand-credit-bg text-brand-credit'
       : tone === 'debit'
-        ? 'bg-rose-100 text-rose-700'
-        : 'bg-amber-100 text-amber-700';
+        ? 'bg-brand-debit-bg text-brand-debit'
+        : 'bg-brand-pending-bg text-brand-pending';
 
   return (
     <div className="rounded-2xl border border-[var(--brand-border)] bg-white p-5 shadow-brand-card">
@@ -252,13 +253,13 @@ function ExpiryCallout({ summary }: { summary: WalletSummaryType }) {
     : 'soon';
 
   return (
-    <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5 shadow-brand-card">
+    <section className="rounded-2xl border border-brand-pending bg-brand-pending-bg p-5 shadow-brand-card">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-pending text-white">
           <AlertCircle className="h-5 w-5" aria-hidden />
         </span>
         <div className="space-y-1">
-          <p className="text-sm font-bold text-amber-900">
+          <p className="text-sm font-bold text-brand-pending">
             <strong>{NUMBER_FORMAT.format(summary.expiringSoon.amount)} seeds</strong>{' '}
             expiring by {expiryLabel}
           </p>
@@ -347,10 +348,10 @@ function TransactionRow({ tx }: { tx: SeedTransaction }) {
 
   const toneStyles =
     meta.tone === 'credit'
-      ? 'bg-emerald-100 text-emerald-700'
+      ? 'bg-brand-credit-bg text-brand-credit'
       : meta.tone === 'debit'
-        ? 'bg-rose-100 text-rose-700'
-        : 'bg-amber-100 text-amber-700';
+        ? 'bg-brand-debit-bg text-brand-debit'
+        : 'bg-brand-pending-bg text-brand-pending';
 
   const amountStyles = isCredit ? 'text-emerald-700' : 'text-rose-700';
 

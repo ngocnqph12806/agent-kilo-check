@@ -101,9 +101,10 @@ export function OnboardingWizard() {
             </Button>
             <Button
               type="button"
+              variant="brand"
+              className="h-11 rounded-full px-8 font-semibold"
               onClick={onNext}
               disabled={!canAdvance || submit.isPending}
-              className="h-11 rounded-full bg-brand-cta px-8 font-semibold text-white shadow-brand-cta hover:opacity-95"
             >
               {submit.isPending
                 ? 'Finishing…'

@@ -60,7 +60,7 @@ export default function MaintenancePage() {
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button asChild className="rounded-full bg-white text-amber-700 hover:bg-white/90">
+          <Button asChild variant="brand-outline" className="rounded-full">
             <Link href="https://status.skillseed.app" target="_blank" rel="noreferrer">
               📊 Status page
             </Link>

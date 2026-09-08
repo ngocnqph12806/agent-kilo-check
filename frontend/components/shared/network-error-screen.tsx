@@ -53,9 +53,10 @@ export function NetworkErrorScreen({ onRetry, className }: NetworkErrorScreenPro
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button
             type="button"
+            variant="brand"
+            className="rounded-full"
             disabled={retrying}
             onClick={handleRetry}
-            className="rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95"
           >
             {retrying ? 'Retrying…' : '↻ Retry'}
           </Button>

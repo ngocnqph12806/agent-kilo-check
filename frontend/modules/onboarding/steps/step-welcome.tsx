@@ -48,9 +48,10 @@ export function StepWelcome() {
 
       <Button
         type="button"
+        variant="brand"
         size="lg"
         onClick={next}
-        className="mt-10 h-12 rounded-full bg-brand-cta px-10 text-base font-semibold text-white shadow-brand-cta hover:opacity-95"
+        className="mt-10 h-12 rounded-full px-10 text-base font-semibold"
       >
         Let&rsquo;s go →
       </Button>

@@ -41,6 +41,19 @@
     --brand-warn-text: #92400E;
     --brand-indigo: #6366F1;
     --brand-rose: #EF4444;
+
+    /* Semantic status tokens (used by wallet tx, alerts, badges) */
+    --brand-credit: #10B981;
+    --brand-credit-bg: #ECFDF5;
+    --brand-credit-text: #065F46;
+    --brand-debit: #DC2626;
+    --brand-debit-bg: #FEF2F2;
+    --brand-debit-text: #991B1B;
+    --brand-pending: #F59E0B;
+    --brand-pending-bg: #FFFBEB;
+    --brand-pending-text: #92400E;
+    --brand-info-bg: #EFF6FF;
+    --brand-info-text: #1E40AF;
   }
 
   .dark {

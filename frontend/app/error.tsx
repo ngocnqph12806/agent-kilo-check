@@ -39,9 +39,10 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
           </code>
         ) : null}
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Button
+          <Button type="button"
             onClick={() => reset()}
-            className="rounded-full bg-brand-cta shadow-brand-cta hover:opacity-95"
+            variant="brand"
+            className="rounded-full"
           >
             ↻ Reload page
           </Button>
