@@ -62,8 +62,8 @@ export function AppTopBar() {
           <TopBarSearch />
           <NotificationBell />
           <Link
-            href="/users/me"
-            aria-label="Your profile"
+            href="/settings"
+            aria-label="Your account"
             className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-warn)] text-sm font-semibold text-[var(--brand-warn-text)]"
           >
             {getInitials(user?.fullName, user?.email)}
