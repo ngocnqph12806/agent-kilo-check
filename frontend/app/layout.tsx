@@ -4,15 +4,16 @@ import './globals.css';
 
 import { CookieConsentBanner } from '@/components/shared/cookie-consent-banner';
 import { AuthInitializer } from '@/modules/auth/components/auth-initializer';
+import { buildPageMetadata } from '@/lib/metadata';
 import { QueryProvider } from '@/lib/query-provider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'SkillSeed',
   description: 'P2P skill-exchange platform — teach what you know, learn what you love.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000')
-};
+  path: '/'
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
