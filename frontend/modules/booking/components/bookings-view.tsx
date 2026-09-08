@@ -1,6 +1,14 @@
 'use client';
 
-import { useMemo } from 'react';
+import { Calendar } from 'lucide-react';
+import { useMemo, useState } from 'react';
+
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState
+} from '@/components/shared';
+import { cn } from '@/lib/utils';
 
 import { useMyBookings } from '../hooks/use-bookings';
 import {
@@ -17,10 +25,16 @@ export interface BookingsViewProps {
   currentUserId: string;
 }
 
+type Buckets = {
+  upcoming: Array<{ booking: BookingSummary; perspective: 'teacher' | 'learner' }>;
+  past: Array<{ booking: BookingSummary; perspective: 'teacher' | 'learner' }>;
+  cancelled: Array<{ booking: BookingSummary; perspective: 'teacher' | 'learner' }>;
+};
+
 export function BookingsView({ currentUserId }: BookingsViewProps) {
-  const { data, isLoading, error } = useMyBookings({ role: 'learner', size: 50 });
   const teacherData = useMyBookings({ role: 'teacher', size: 50 });
   const learnerData = useMyBookings({ role: 'learner', size: 50 });
+  const [tab, setTab] = useState<BookingsTab>('upcoming');
 
   const merged = useMemo(() => {
     const items: Array<{ booking: BookingSummary; perspective: 'teacher' | 'learner' }> = [];
@@ -41,11 +55,11 @@ export function BookingsView({ currentUserId }: BookingsViewProps) {
     return items;
   }, [teacherData.data, learnerData.data]);
 
-  const buckets = useMemo(() => {
+  const buckets: Buckets = useMemo(() => {
     const now = Date.now();
-    const upcoming: typeof merged = [];
-    const past: typeof merged = [];
-    const cancelled: typeof merged = [];
+    const upcoming: Buckets['upcoming'] = [];
+    const past: Buckets['past'] = [];
+    const cancelled: Buckets['cancelled'] = [];
     for (const item of merged) {
       const scheduled = new Date(item.booking.scheduledAt).getTime();
       const isCancelled = (
@@ -65,65 +79,92 @@ export function BookingsView({ currentUserId }: BookingsViewProps) {
     return { upcoming, past, cancelled };
   }, [merged]);
 
+  const isLoading = teacherData.isLoading || learnerData.isLoading;
+  const error = teacherData.error ?? learnerData.error;
+  const refetch = () => {
+    void teacherData.refetch();
+    void learnerData.refetch();
+  };
+
+  const counts = {
+    upcoming: buckets.upcoming.length,
+    past: buckets.past.length,
+    cancelled: buckets.cancelled.length
+  };
+
+  const visibleItems = buckets[tab];
+
   return (
-    <main className="container mx-auto max-w-3xl space-y-8 py-10">
+    <div className="container mx-auto max-w-4xl space-y-6 py-10">
       <header className="space-y-2">
-        <h1 className="text-2xl font-bold tracking-tight">My bookings</h1>
-        <p className="text-sm text-muted-foreground">
-          Sessions where you're the teacher or the learner. Newest first.
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+          My bookings
+        </h1>
+        <p className="text-sm text-[var(--brand-text-muted)]">
+          Manage your upcoming and past sessions.
         </p>
       </header>
 
-      <Section
-        title="Upcoming"
-        emptyMessage="No upcoming sessions. Browse the discover page to find a teacher."
-        loading={isLoading && !data}
-        items={buckets.upcoming}
-        currentUserId={currentUserId}
-      />
-      <Section
-        title="Past"
-        emptyMessage="No completed sessions yet."
-        loading={isLoading && !data}
-        items={buckets.past}
-        currentUserId={currentUserId}
-      />
-      <Section
-        title="Cancelled"
-        emptyMessage="Nothing cancelled yet."
-        loading={isLoading && !data}
-        items={buckets.cancelled}
-        currentUserId={currentUserId}
-      />
+      <div
+        role="tablist"
+        aria-label="Booking status filter"
+        className="inline-flex items-center gap-1 rounded-full border border-[var(--brand-border)] bg-white p-1 shadow-brand-card"
+      >
+        <TabButton
+          active={tab === 'upcoming'}
+          onClick={() => setTab('upcoming')}
+          label="Upcoming"
+          count={counts.upcoming}
+        />
+        <TabButton
+          active={tab === 'past'}
+          onClick={() => setTab('past')}
+          label="Past"
+          count={counts.past}
+        />
+        <TabButton
+          active={tab === 'cancelled'}
+          onClick={() => setTab('cancelled')}
+          label="Cancelled"
+          count={counts.cancelled}
+        />
+      </div>
 
-      {error ? (
-        <p className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-          {error instanceof Error ? error.message : 'Could not load bookings.'}
-        </p>
-      ) : null}
-    </main>
-  );
-}
-
-interface SectionProps {
-  title: string;
-  emptyMessage: string;
-  loading: boolean;
-  items: Array<{ booking: BookingSummary; perspective: 'teacher' | 'learner' }>;
-  currentUserId: string;
-}
-
-function Section({ title, emptyMessage, loading, items, currentUserId }: SectionProps) {
-  return (
-    <section className="space-y-3">
-      <h2 className="text-base font-semibold">{title}</h2>
-      {loading ? (
-        <p className="text-sm text-muted-foreground">Loading…</p>
-      ) : items.length === 0 ? (
-        <p className="text-sm text-muted-foreground">{emptyMessage}</p>
+      {isLoading ? (
+        <LoadingState label="Loading bookings…" rows={4} />
+      ) : error ? (
+        <ErrorState
+          title="Could not load bookings"
+          message={error instanceof Error ? error.message : 'Unknown error'}
+          onRetry={refetch}
+        />
+      ) : visibleItems.length === 0 ? (
+        <EmptyState
+          icon={Calendar}
+          emoji="📅"
+          title={
+            tab === 'upcoming'
+              ? 'No upcoming sessions'
+              : tab === 'past'
+                ? 'No past sessions yet'
+                : 'Nothing cancelled'
+          }
+          description={
+            tab === 'upcoming'
+              ? 'Browse the discover page to find a teacher and book your first session.'
+              : tab === 'past'
+                ? 'Completed sessions will appear here once they wrap up.'
+                : 'Cancelled and declined bookings will appear here.'
+          }
+          {...(tab === 'upcoming'
+            ? {
+                action: { label: 'Browse teachers', href: '/discover' }
+              }
+            : {})}
+        />
       ) : (
-        <ul className="space-y-2">
-          {items.map(({ booking, perspective }) => (
+        <ul className="space-y-3">
+          {visibleItems.map(({ booking, perspective }) => (
             <BookingListItem
               key={booking.id}
               booking={booking}
@@ -133,6 +174,44 @@ function Section({ title, emptyMessage, loading, items, currentUserId }: Section
           ))}
         </ul>
       )}
-    </section>
+    </div>
+  );
+}
+
+function TabButton({
+  active,
+  onClick,
+  label,
+  count
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  count: number;
+}) {
+  return (
+    <button
+      role="tab"
+      aria-selected={active}
+      onClick={onClick}
+      className={cn(
+        'inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-medium transition',
+        active
+          ? 'bg-brand-cta text-white shadow-brand-cta'
+          : 'text-[var(--brand-text-muted)] hover:bg-[var(--brand-divider)]'
+      )}
+    >
+      {label}
+      <span
+        className={cn(
+          'inline-flex items-center justify-center rounded-full px-2 py-0.5 text-xs',
+          active
+            ? 'bg-white/20 text-white'
+            : 'bg-[var(--brand-divider)] text-[var(--brand-text-muted)]'
+        )}
+      >
+        {count}
+      </span>
+    </button>
   );
 }
