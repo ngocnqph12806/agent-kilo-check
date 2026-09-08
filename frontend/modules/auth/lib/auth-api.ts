@@ -61,10 +61,8 @@ export const authApi = {
     return data;
   },
 
-  async refresh(refreshToken: string): Promise<BackendRefreshResponse> {
-    const { data } = await apiClient.post<BackendRefreshResponse>('/auth/refresh', {
-      refreshToken
-    });
+  async refresh(): Promise<BackendRefreshResponse> {
+    const { data } = await apiClient.post<BackendRefreshResponse>('/auth/refresh', {});
     return data;
   },
 

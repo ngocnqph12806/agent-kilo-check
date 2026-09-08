@@ -10,11 +10,13 @@ import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.UserSummaryResponse;
 import com.skillseed.auth.exception.AuthException;
+import com.skillseed.auth.security.RefreshTokenCookie;
 import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
@@ -85,11 +87,13 @@ public class AuthService {
      * Registers a new email+password user, stores a hashed password, and
      * issues an email verification token (TTL 24h).
      *
+     * @return the freshly created {@link User} so the caller can build a
+     *         {@code RegisterResponse} summary.
      * @throws AuthException with code EMAIL_ALREADY_EXISTS if the email
      *                       is already registered
      */
     @Transactional
-    public void register(RegisterRequest req) {
+    public User register(RegisterRequest req) {
         String email = req.email().trim().toLowerCase(Locale.ROOT);
         if (userRepository.existsByEmail(email)) {
             throw AuthException.conflict("EMAIL_ALREADY_EXISTS",
@@ -102,12 +106,26 @@ public class AuthService {
         user.setAuthProvider(AuthProvider.EMAIL);
         user.setVerified(false);
         user.setVerificationLevel((short) 0);
+        if (req.phone() != null && !req.phone().isBlank()) {
+            user.setPhone(req.phone().trim());
+        }
+        if (req.countryCode() != null && !req.countryCode().isBlank()) {
+            user.setCountryCode(req.countryCode().trim().toUpperCase(Locale.ROOT));
+        }
+        if (req.timezone() != null && !req.timezone().isBlank()) {
+            user.setTimezone(req.timezone().trim());
+        }
         user.setCreatedAt(now);
         user.setUpdatedAt(now);
         userRepository.save(user);
 
         sendVerificationEmail(user);
-        log.info("Registered new user id={} email={}", id, email);
+        log.info("Registered new user id={} email={} (country={}, tz={}, invite={})",
+                id, email,
+                user.getCountryCode(),
+                user.getTimezone(),
+                req.inviteCode() != null ? "yes" : "no");
+        return user;
     }
 
     /**
@@ -144,12 +162,17 @@ public class AuthService {
      * (5 attempts / 15 minutes by default — see {@link #LOGIN_WINDOW} and
      * {@link #LOGIN_MAX_ATTEMPTS}). On success, returns a fresh access +
      * refresh token pair and stores the refresh token in Redis so it can
-     * be revoked on logout.
+     * be revoked on logout. The cookie flag is computed from the request
+     * scheme (HTTPS in production).
      *
      * @throws AuthException with one of {@code RATE_LIMITED},
      *                       {@code INVALID_CREDENTIALS}, or {@code OAUTH_ONLY_ACCOUNT}.
      */
     public AuthTokenResponse login(LoginRequest req, String clientKey) {
+        return login(req, clientKey, false);
+    }
+
+    public AuthTokenResponse login(LoginRequest req, String clientKey, boolean secureCookie) {
         String rateKey = clientKey == null || clientKey.isBlank() ? "unknown" : clientKey;
         if (!rateLimiter.tryAcquire("login", rateKey, LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW)) {
             long retry = rateLimiter.retryAfterSeconds("login", rateKey,
@@ -171,7 +194,7 @@ public class AuthService {
             throw invalidCredentials();
         }
         log.info("User login id={}", user.getId());
-        return issueTokens(user);
+        return issueTokens(user, secureCookie);
     }
 
     /**
@@ -179,19 +202,37 @@ public class AuthService {
      * new access token. The refresh token itself is rotated: the old value
      * is consumed and a new refresh token is issued.
      *
+     * <p>Token source precedence: {@code HttpOnly} cookie
+     * ({@link RefreshTokenCookie#NAME}) first, then request body. This
+     * lets hardened clients omit the token from the JSON body.
+     *
      * @throws AuthException with code {@code INVALID_TOKEN} when the
      *                       refresh token is unknown, expired, or already used.
      */
     public AuthTokenResponse refresh(RefreshTokenRequest req) {
+        return refresh(null, req, false);
+    }
+
+    public AuthTokenResponse refresh(HttpServletRequest httpRequest,
+                                     RefreshTokenRequest req,
+                                     boolean secureCookie) {
+        String cookieToken = RefreshTokenCookie.read(httpRequest);
+        String token = cookieToken != null
+                ? cookieToken
+                : (req == null ? null : req.refreshToken());
+        if (token == null || token.isBlank()) {
+            throw AuthException.unauthorized("INVALID_TOKEN",
+                "Refresh token is required (cookie or body)");
+        }
         Claims claims;
         try {
-            claims = jwtService.parseAndValidate(req.refreshToken(), "refresh");
+            claims = jwtService.parseAndValidate(token, "refresh");
         } catch (Exception ex) {
             throw AuthException.unauthorized("INVALID_TOKEN", "Refresh token is invalid");
         }
         UUID userId = UUID.fromString(claims.getSubject());
 
-        Optional<String> stored = tokenStore.consume(PURPOSE_REFRESH_TOKEN, req.refreshToken());
+        Optional<String> stored = tokenStore.consume(PURPOSE_REFRESH_TOKEN, token);
         if (stored.isEmpty() || !userId.toString().equals(stored.get())) {
             throw AuthException.unauthorized("INVALID_TOKEN",
                 "Refresh token is invalid or expired");
@@ -200,18 +241,30 @@ public class AuthService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> AuthException.unauthorized("USER_NOT_FOUND",
                 "User no longer exists"));
-        return issueTokens(user);
+        return issueTokens(user, secureCookie);
     }
 
     /**
-     * Revokes the supplied refresh token. Idempotent: revoking an unknown
-     * token is a no-op.
+     * Revokes the supplied refresh token (cookie or body) and clears
+     * the cookie. Idempotent: revoking an unknown token is a no-op.
      */
     public void logout(String refreshToken) {
         if (refreshToken == null || refreshToken.isBlank()) {
             return;
         }
         tokenStore.delete(PURPOSE_REFRESH_TOKEN, refreshToken);
+    }
+
+    public void logout(HttpServletRequest httpRequest,
+                       RefreshTokenRequest req) {
+        String cookieToken = RefreshTokenCookie.read(httpRequest);
+        String token = cookieToken != null
+                ? cookieToken
+                : (req == null ? null : req.refreshToken());
+        if (token == null || token.isBlank()) {
+            return;
+        }
+        tokenStore.delete(PURPOSE_REFRESH_TOKEN, token);
     }
 
     /**
@@ -268,7 +321,11 @@ public class AuthService {
      */
     @Transactional
     public AuthTokenResponse loginWithGoogle(OAuthGoogleRequest req) {
-        return oauthLogin("google", req.idToken(), null);
+        return loginWithGoogle(req, false);
+    }
+
+    public AuthTokenResponse loginWithGoogle(OAuthGoogleRequest req, boolean secureCookie) {
+        return oauthLogin("google", req.idToken(), null, secureCookie);
     }
 
     /**
@@ -277,11 +334,12 @@ public class AuthService {
      * sign-in and is applied to newly created accounts.
      */
     @Transactional
-    public AuthTokenResponse loginWithApple(OAuthAppleRequest req) {
-        return oauthLogin("apple", req.idToken(), req.fullName());
+    public AuthTokenResponse loginWithApple(OAuthAppleRequest req, boolean secureCookie) {
+        return oauthLogin("apple", req.idToken(), req.fullName(), secureCookie);
     }
 
-    private AuthTokenResponse oauthLogin(String provider, String idToken, String fallbackName) {
+    private AuthTokenResponse oauthLogin(String provider, String idToken,
+                                         String fallbackName, boolean secureCookie) {
         OAuthIdTokenVerifier verifier = oauthVerifiers.get(provider);
         if (verifier == null) {
             throw AuthException.badRequest("OAUTH_PROVIDER_DISABLED",
@@ -298,7 +356,7 @@ public class AuthService {
         }
         user.setUpdatedAt(Instant.now());
         userRepository.save(user);
-        return issueTokens(user);
+        return issueTokens(user, secureCookie);
     }
 
     private User createOAuthUser(String provider,
@@ -318,7 +376,8 @@ public class AuthService {
         user.setPasswordHash(null);
         user.setCreatedAt(Instant.now());
         user.setUpdatedAt(Instant.now());
-        userRepository.save(user);
+        // Persistence happens in oauthLogin so the call site issues exactly
+        // one save() per login (regardless of existing vs new account).
         log.info("Created OAuth user id={} provider={}", user.getId(), provider);
         return user;
     }
@@ -327,7 +386,7 @@ public class AuthService {
         return AuthException.unauthorized("INVALID_CREDENTIALS", "Invalid email or password");
     }
 
-    AuthTokenResponse issueTokens(User user) {
+    AuthTokenResponse issueTokens(User user, boolean secureCookie) {
         String access = jwtService.generateAccessToken(
             user.getId(), user.getEmail(), user.getVerificationLevel());
         String refresh = jwtService.generateRefreshToken(user.getId());
@@ -338,18 +397,22 @@ public class AuthService {
             refresh,
             jwtService.getAccessTtlSeconds(),
             "Bearer",
-            toSummary(user));
+            toSummary(user),
+            secureCookie);
     }
 
-    UserSummaryResponse toSummary(User user) {
+    public UserSummaryResponse toSummary(User user) {
         return new UserSummaryResponse(
             user.getId(),
             user.getEmail(),
             user.getFullName(),
+            user.getAvatarUrl(),
             user.isVerified(),
             user.getVerificationLevel(),
             user.isOnboardingCompleted(),
-            user.getAuthProvider().name().toLowerCase(Locale.ROOT));
+            user.getAuthProvider().name().toLowerCase(Locale.ROOT),
+            user.getCountryCode(),
+            user.getTimezone());
     }
 
     private void sendVerificationEmail(User user) {

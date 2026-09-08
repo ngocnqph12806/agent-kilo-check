@@ -7,16 +7,20 @@ import com.skillseed.auth.dto.OAuthAppleRequest;
 import com.skillseed.auth.dto.OAuthGoogleRequest;
 import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
+import com.skillseed.auth.dto.RegisterResponse;
 import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.SimpleMessageResponse;
 import com.skillseed.auth.dto.VerifyEmailRequest;
+import com.skillseed.auth.security.RefreshTokenCookie;
 import com.skillseed.auth.service.AuthService;
+import com.skillseed.user.domain.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +34,10 @@ import org.springframework.web.bind.annotation.RestController;
  * logout, forgot/reset password, OAuth (Google/Apple).
  *
  * <p>All endpoints are mounted under {@code /api/v1/auth} and are public
- * (see {@code SecurityConfig#PUBLIC_PATHS}).
+ * (see {@code SecurityConfig#PUBLIC_PATHS}). Login + refresh responses
+ * also set a {@code HttpOnly} refresh-token cookie
+ * (see {@link RefreshTokenCookie}) so hardened clients can avoid
+ * sending the refresh token in the JSON body.
  */
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -50,10 +57,10 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "409", description = "Email already registered")
     })
-    public ResponseEntity<SimpleMessageResponse> register(@Valid @RequestBody RegisterRequest req) {
-        authService.register(req);
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest req) {
+        User user = authService.register(req);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new SimpleMessageResponse("Verification email sent"));
+                .body(new RegisterResponse(authService.toSummary(user)));
     }
 
     @PostMapping("/verify-email")
@@ -77,9 +84,13 @@ public class AuthController {
     })
     public ResponseEntity<AuthTokenResponse> login(
             @Valid @RequestBody LoginRequest req,
-            @Parameter(hidden = true) HttpServletRequest httpRequest) {
+            @Parameter(hidden = true) HttpServletRequest httpRequest,
+            @Parameter(hidden = true) HttpServletResponse httpResponse) {
         String clientKey = clientKey(httpRequest);
-        return ResponseEntity.ok(authService.login(req, clientKey));
+        boolean secure = isSecure(httpRequest);
+        AuthTokenResponse tokens = authService.login(req, clientKey, secure);
+        RefreshTokenCookie.write(httpResponse, tokens.refreshToken(), secure);
+        return ResponseEntity.ok(tokens);
     }
 
     @PostMapping("/refresh")
@@ -88,16 +99,24 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "Token rotated"),
             @ApiResponse(responseCode = "401", description = "Refresh token invalid or expired")
     })
-    public ResponseEntity<AuthTokenResponse> refresh(@Valid @RequestBody RefreshTokenRequest req) {
-        return ResponseEntity.ok(authService.refresh(req));
+    public ResponseEntity<AuthTokenResponse> refresh(
+            @Parameter(hidden = true) HttpServletRequest httpRequest,
+            @Parameter(hidden = true) HttpServletResponse httpResponse,
+            @RequestBody(required = false) RefreshTokenRequest req) {
+        boolean secure = isSecure(httpRequest);
+        AuthTokenResponse tokens = authService.refresh(httpRequest, req, secure);
+        RefreshTokenCookie.write(httpResponse, tokens.refreshToken(), secure);
+        return ResponseEntity.ok(tokens);
     }
 
     @PostMapping("/logout")
     @Operation(summary = "Revoke the supplied refresh token (idempotent)")
-    public ResponseEntity<SimpleMessageResponse> logout(@RequestBody(required = false) RefreshTokenRequest req) {
-        if (req != null) {
-            authService.logout(req.refreshToken());
-        }
+    public ResponseEntity<SimpleMessageResponse> logout(
+            @Parameter(hidden = true) HttpServletRequest httpRequest,
+            @Parameter(hidden = true) HttpServletResponse httpResponse,
+            @RequestBody(required = false) RefreshTokenRequest req) {
+        authService.logout(httpRequest, req);
+        RefreshTokenCookie.clear(httpResponse, isSecure(httpRequest));
         return ResponseEntity.ok(new SimpleMessageResponse("Logged out"));
     }
 
@@ -129,8 +148,13 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "id_token invalid or provider disabled")
     })
     public ResponseEntity<AuthTokenResponse> oauthGoogle(
-            @Valid @RequestBody OAuthGoogleRequest req) {
-        return ResponseEntity.ok(authService.loginWithGoogle(req));
+            @Valid @RequestBody OAuthGoogleRequest req,
+            @Parameter(hidden = true) HttpServletRequest httpRequest,
+            @Parameter(hidden = true) HttpServletResponse httpResponse) {
+        boolean secure = isSecure(httpRequest);
+        AuthTokenResponse tokens = authService.loginWithGoogle(req, secure);
+        RefreshTokenCookie.write(httpResponse, tokens.refreshToken(), secure);
+        return ResponseEntity.ok(tokens);
     }
 
     @PostMapping("/oauth/apple")
@@ -140,8 +164,13 @@ public class AuthController {
             @ApiResponse(responseCode = "400", description = "id_token invalid or provider disabled")
     })
     public ResponseEntity<AuthTokenResponse> oauthApple(
-            @Valid @RequestBody OAuthAppleRequest req) {
-        return ResponseEntity.ok(authService.loginWithApple(req));
+            @Valid @RequestBody OAuthAppleRequest req,
+            @Parameter(hidden = true) HttpServletRequest httpRequest,
+            @Parameter(hidden = true) HttpServletResponse httpResponse) {
+        boolean secure = isSecure(httpRequest);
+        AuthTokenResponse tokens = authService.loginWithApple(req, secure);
+        RefreshTokenCookie.write(httpResponse, tokens.refreshToken(), secure);
+        return ResponseEntity.ok(tokens);
     }
 
     private String clientKey(HttpServletRequest request) {
@@ -151,5 +180,13 @@ public class AuthController {
             return comma > 0 ? forwarded.substring(0, comma).trim() : forwarded.trim();
         }
         return request.getRemoteAddr();
+    }
+
+    private boolean isSecure(HttpServletRequest request) {
+        if (request.isSecure()) {
+            return true;
+        }
+        String forwardedProto = request.getHeader("X-Forwarded-Proto");
+        return forwardedProto != null && forwardedProto.equalsIgnoreCase("https");
     }
 }

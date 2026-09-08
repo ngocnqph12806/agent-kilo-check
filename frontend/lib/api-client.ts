@@ -23,6 +23,7 @@ export function setOnUnauthorized(handler: (() => void) | null) {
 export const apiClient: AxiosInstance = axios.create({
   baseURL: `${API_BASE_URL}/api/v1`,
   timeout: 15000,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }

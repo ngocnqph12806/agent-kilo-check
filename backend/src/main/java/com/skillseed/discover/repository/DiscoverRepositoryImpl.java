@@ -51,6 +51,7 @@ public class DiscoverRepositoryImpl implements DiscoverRepository {
             String language,
             String countryCode,
             BigDecimal minRating,
+            Integer timezoneOffset,
             Pageable pageable) {
 
         if (wantedSkillIds == null || wantedSkillIds.isEmpty()) {
@@ -85,7 +86,12 @@ public class DiscoverRepositoryImpl implements DiscoverRepository {
         if (minRating != null) {
             jpql.append(" AND u.ratingAvg >= :minRating ");
         }
-        jpql.append(" ORDER BY u.ratingAvg DESC, u.sessionsCompleted DESC ");
+        if (timezoneOffset != null) {
+            jpql.append(" AND u.timezone IN :tzBuckets ");
+        }
+        if (pageable.getSort().isUnsorted()) {
+            jpql.append(" ORDER BY u.ratingAvg DESC, u.sessionsCompleted DESC ");
+        }
 
         var query = em.createQuery(jpql.toString(), User.class)
                 .setParameter("currentUserId", currentUserId)
@@ -98,6 +104,9 @@ public class DiscoverRepositoryImpl implements DiscoverRepository {
         }
         if (minRating != null) {
             query.setParameter("minRating", minRating);
+        }
+        if (timezoneOffset != null) {
+            query.setParameter("tzBuckets", timezoneBuckets(timezoneOffset));
         }
 
         long total = query.getResultList().size();
@@ -122,6 +131,33 @@ public class DiscoverRepositoryImpl implements DiscoverRepository {
                 .toList();
 
         return new PageImpl<>(items, pageable, total);
+    }
+
+    /**
+     * Build the set of IANA timezone ids that share the requested UTC
+     * offset at the current instant. Empty list disables the filter.
+     */
+    private static List<String> timezoneBuckets(int utcOffsetHours) {
+        if (utcOffsetHours < -12 || utcOffsetHours > 14) {
+            return List.of();
+        }
+        java.time.ZoneId.systemDefault();
+        java.time.Instant now = java.time.Instant.now();
+        java.util.Set<String> zones = java.time.ZoneId.getAvailableZoneIds();
+        java.util.List<String> matches = new java.util.ArrayList<>();
+        for (String zone : zones) {
+            try {
+                java.time.ZoneId zid = java.time.ZoneId.of(zone);
+                int offsetSeconds = now.atZone(zid).getOffset().getTotalSeconds();
+                int offsetHours = offsetSeconds / 3600;
+                if (offsetHours == utcOffsetHours) {
+                    matches.add(zone);
+                }
+            } catch (Exception ignored) {
+                // not a valid IANA id
+            }
+        }
+        return matches.isEmpty() ? List.of("UTC") : matches;
     }
 
     private DiscoverMatchResponse toMatchResponse(User user, List<UserSkillOffered> offered) {

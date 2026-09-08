@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { useAuth } from '../hooks/use-auth';
 import { useCurrentUser } from '../hooks/use-auth-mutations';
+import { getAccessToken } from '../lib/token-storage';
 
 export interface AuthGuardProps {
   children: React.ReactNode;
@@ -38,7 +39,7 @@ export function AuthGuard({
     if (!isHydrated) return;
 
     const accessToken =
-      typeof window !== 'undefined' ? window.localStorage.getItem('skillseed.access-token') : null;
+      getAccessToken();
 
     if (!accessToken || !user) {
       if (redirectIfAuthenticated) return;
@@ -81,7 +82,7 @@ export function AuthGuard({
   }
 
   const accessToken =
-    typeof window !== 'undefined' ? window.localStorage.getItem('skillseed.access-token') : null;
+    getAccessToken();
 
   if (!accessToken || !user) {
     if (redirectIfAuthenticated) return null;

@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -204,12 +205,13 @@ public class SeedWalletService {
 
         learnerWallet.setBalanceCached(balanceAfter);
         if (percent == 100) {
+            // Full refund: the original spend never counts against the user.
             learnerWallet.setTotalSpent(Math.max(0, learnerWallet.getTotalSpent() - amount));
         } else if (percent > 0) {
-            int spentDelta = amount - refundAmount;
-            if (spentDelta > 0) {
-                learnerWallet.setTotalSpent(learnerWallet.getTotalSpent() + spentDelta);
-            }
+            // Partial refund: only the refunded portion comes off totalSpent;
+            // the rest stays as a "kept" spend.
+            learnerWallet.setTotalSpent(
+                    Math.max(0, learnerWallet.getTotalSpent() - refundAmount));
         }
         learnerWallet.setUpdatedAt(now);
         seedWalletRepository.save(learnerWallet);
@@ -278,13 +280,15 @@ public class SeedWalletService {
     }
 
     @Transactional(readOnly = true)
-    public SeedTransactionPageResponse listTransactions(UUID userId, int page, int size) {
+    public SeedTransactionPageResponse listTransactions(UUID userId, int page, int size,
+                                                        List<SeedTransactionType> types) {
         int safePage = Math.max(0, page);
         int safeSize = size <= 0 ? 20 : Math.min(size, 100);
         Pageable pageable = PageRequest.of(safePage, safeSize,
                 Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<SeedTransaction> result = seedTransactionRepository
-                .findByWalletUserId(userId, pageable);
+        Page<SeedTransaction> result = (types == null || types.isEmpty())
+                ? seedTransactionRepository.findByWalletUserId(userId, pageable)
+                : seedTransactionRepository.findByWalletUserIdAndTypeIn(userId, types, pageable);
         return new SeedTransactionPageResponse(
                 result.getContent().stream().map(SeedTransactionResponse::from).toList(),
                 safePage,

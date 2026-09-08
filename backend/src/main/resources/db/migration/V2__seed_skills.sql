@@ -58,7 +58,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('maple', 'Maple', 'tech', false),
     ('nim', 'Nim', 'tech', false),
     ('ocaml', 'OCaml', 'tech', false),
-    ('oz', 'Oz', 'tech', false);
+    ('oz', 'Oz', 'tech', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('pike', 'Pike', 'tech', false),
     ('postscript', 'PostScript', 'tech', false),
@@ -109,7 +109,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('mobx', 'MobX', 'tech', false),
     ('zustand', 'Zustand', 'tech', false),
     ('tanstack-query', 'TanStack Query', 'tech', false),
-    ('rxjs', 'RxJS', 'tech', false);
+    ('rxjs', 'RxJS', 'tech', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('xstate', 'XState', 'tech', false),
     ('tailwind-css', 'Tailwind CSS', 'tech', false),
@@ -160,7 +160,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('elk-stack', 'ELK Stack', 'tech', false),
     ('datadog', 'Datadog', 'tech', false),
     ('new-relic', 'New Relic', 'tech', false),
-    ('sentry', 'Sentry', 'tech', false);
+    ('sentry', 'Sentry', 'tech', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('gitlab-ci', 'GitLab CI', 'tech', false),
     ('github-actions', 'GitHub Actions', 'tech', false),
@@ -211,7 +211,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('a-b-testing', 'A/B Testing', 'tech', false),
     ('data-engineering', 'Data Engineering', 'tech', false),
     ('etl-pipelines', 'ETL Pipelines', 'tech', false),
-    ('data-warehousing', 'Data Warehousing', 'tech', false);
+    ('data-warehousing', 'Data Warehousing', 'tech', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('stream-processing', 'Stream Processing', 'tech', false),
     ('apache-spark', 'Apache Spark', 'tech', false),
@@ -262,7 +262,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('siem', 'SIEM', 'tech', false),
     ('soc', 'SOC', 'tech', false),
     ('burp-suite', 'Burp Suite', 'tech', false),
-    ('metasploit', 'Metasploit', 'tech', false);
+    ('metasploit', 'Metasploit', 'tech', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('nmap', 'Nmap', 'tech', false),
     ('wireshark', 'Wireshark', 'tech', false),
@@ -312,7 +312,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('bit', 'Bit', 'tech', false),
     ('chroma', 'Chroma', 'tech', false),
     ('chromatic', 'Chromatic', 'tech', false),
-    ('percy', 'Percy', 'tech', false);
+    ('percy', 'Percy', 'tech', false) ON CONFLICT (slug) DO NOTHING;
 
 -- BUSINESS (261 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -365,7 +365,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('financial-modeling', 'Financial Modeling', 'business', false),
     ('valuation', 'Valuation', 'business', false),
     ('m-a', 'M&A', 'business', false),
-    ('due-diligence', 'Due Diligence', 'business', false);
+    ('due-diligence', 'Due Diligence', 'business', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('ipo-process', 'IPO Process', 'business', false),
     ('fundraising', 'Fundraising', 'business', false),
@@ -416,7 +416,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('conflict-resolution', 'Conflict Resolution', 'business', false),
     ('mediation', 'Mediation', 'business', false),
     ('facilitation', 'Facilitation', 'business', false),
-    ('public-speaking', 'Public Speaking', 'business', false);
+    ('public-speaking', 'Public Speaking', 'business', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('storytelling', 'Storytelling', 'business', false),
     ('executive-coaching', 'Executive Coaching', 'business', false),
@@ -467,7 +467,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('reseller-programs', 'Reseller Programs', 'business', false),
     ('franchise-management', 'Franchise Management', 'business', false),
     ('licensing', 'Licensing', 'business', false),
-    ('joint-ventures', 'Joint Ventures', 'business', false);
+    ('joint-ventures', 'Joint Ventures', 'business', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('strategic-alliances', 'Strategic Alliances', 'business', false),
     ('customer-segmentation', 'Customer Segmentation', 'business', false),
@@ -518,7 +518,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('rsu', 'RSU', 'business', false),
     ('iso', 'ISO', 'business', false),
     ('nso', 'NSO', 'business', false),
-    ('workforce-planning', 'Workforce Planning', 'business', false);
+    ('workforce-planning', 'Workforce Planning', 'business', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('succession-planning', 'Succession Planning', 'business', false),
     ('talent-reviews', 'Talent Reviews', 'business', false),
@@ -569,7 +569,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('public-affairs', 'Public Affairs', 'business', false),
     ('corporate-communications', 'Corporate Communications', 'business', false),
     ('influencer-outreach', 'Influencer Outreach', 'business', false),
-    ('brand-activation', 'Brand Activation', 'business', false);
+    ('brand-activation', 'Brand Activation', 'business', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('experiential-marketing', 'Experiential Marketing', 'business', false),
     ('event-marketing', 'Event Marketing', 'business', false),
@@ -581,7 +581,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('inside-sales', 'Inside Sales', 'business', false),
     ('outside-sales', 'Outside Sales', 'business', false),
     ('field-sales', 'Field Sales', 'business', false),
-    ('retail-sales', 'Retail Sales', 'business', false);
+    ('retail-sales', 'Retail Sales', 'business', false) ON CONFLICT (slug) DO NOTHING;
 
 -- ART (242 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -634,7 +634,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('layout-design', 'Layout Design', 'art', false),
     ('print-design', 'Print Design', 'art', false),
     ('poster-design', 'Poster Design', 'art', false),
-    ('magazine-layout', 'Magazine Layout', 'art', false);
+    ('magazine-layout', 'Magazine Layout', 'art', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('book-cover-design', 'Book Cover Design', 'art', false),
     ('packaging-design', 'Packaging Design', 'art', false),
@@ -685,7 +685,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('pixel-art', 'Pixel Art', 'art', false),
     ('sprite-art', 'Sprite Art', 'art', false),
     ('tile-design', 'Tile Design', 'art', false),
-    ('game-ui', 'Game UI', 'art', false);
+    ('game-ui', 'Game UI', 'art', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('level-design', 'Level Design', 'art', false),
     ('vr-art', 'VR Art', 'art', false),
@@ -736,7 +736,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('autocad', 'AutoCAD', 'art', false),
     ('sketchup', 'SketchUp', 'art', false),
     ('rhino', 'Rhino', 'art', false),
-    ('revit', 'Revit', 'art', false);
+    ('revit', 'Revit', 'art', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('archicad', 'ArchiCAD', 'art', false),
     ('art-direction', 'Art Direction', 'art', false),
@@ -787,7 +787,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('risograph', 'Risograph', 'art', false),
     ('digital-printing', 'Digital Printing', 'art', false),
     ('large-format-printing', 'Large Format Printing', 'art', false),
-    ('book-cover-illustration', 'Book Cover Illustration', 'art', false);
+    ('book-cover-illustration', 'Book Cover Illustration', 'art', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('editorial-illustration', 'Editorial Illustration', 'art', false),
     ('advertising-illustration', 'Advertising Illustration', 'art', false),
@@ -830,7 +830,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('life-drawing', 'Life Drawing', 'art', false),
     ('portrait-drawing', 'Portrait Drawing', 'art', false),
     ('animal-drawing', 'Animal Drawing', 'art', false),
-    ('botanical-illustration', 'Botanical Illustration', 'art', false);
+    ('botanical-illustration', 'Botanical Illustration', 'art', false) ON CONFLICT (slug) DO NOTHING;
 
 -- LANGUAGE (212 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -883,7 +883,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('modern-standard-arabic', 'Modern Standard Arabic', 'language', false),
     ('egyptian-arabic', 'Egyptian Arabic', 'language', false),
     ('levantine-arabic', 'Levantine Arabic', 'language', false),
-    ('gulf-arabic', 'Gulf Arabic', 'language', false);
+    ('gulf-arabic', 'Gulf Arabic', 'language', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('maghrebi-arabic', 'Maghrebi Arabic', 'language', false),
     ('amharic', 'Amharic', 'language', false),
@@ -934,7 +934,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('irish', 'Irish', 'language', false),
     ('welsh', 'Welsh', 'language', false),
     ('scottish-gaelic', 'Scottish Gaelic', 'language', false),
-    ('esperanto', 'Esperanto', 'language', false);
+    ('esperanto', 'Esperanto', 'language', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('latin', 'Latin', 'language', false),
     ('ancient-greek', 'Ancient Greek', 'language', false),
@@ -985,7 +985,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('creative-writing-in-spanish', 'Creative Writing in Spanish', 'language', false),
     ('creative-writing-in-mandarin', 'Creative Writing in Mandarin', 'language', false),
     ('academic-writing', 'Academic Writing', 'language', false),
-    ('essay-writing', 'Essay Writing', 'language', false);
+    ('essay-writing', 'Essay Writing', 'language', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('thesis-writing', 'Thesis Writing', 'language', false),
     ('research-paper-writing', 'Research Paper Writing', 'language', false),
@@ -1036,7 +1036,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('tonal-mandarin', 'Tonal Mandarin', 'language', false),
     ('thai-tones', 'Thai Tones', 'language', false),
     ('vietnamese-tones', 'Vietnamese Tones', 'language', false),
-    ('rare-language-tutoring', 'Rare Language Tutoring', 'language', false);
+    ('rare-language-tutoring', 'Rare Language Tutoring', 'language', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('endangered-languages', 'Endangered Languages', 'language', false),
     ('revitalization-projects', 'Revitalization Projects', 'language', false),
@@ -1049,7 +1049,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('pidgin-practice', 'Pidgin Practice', 'language', false),
     ('creole-languages', 'Creole Languages', 'language', false),
     ('haitian-creole', 'Haitian Creole', 'language', false),
-    ('tok-pisin', 'Tok Pisin', 'language', false);
+    ('tok-pisin', 'Tok Pisin', 'language', false) ON CONFLICT (slug) DO NOTHING;
 
 -- LIFE (228 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -1102,7 +1102,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('cocktail-making', 'Cocktail Making', 'life', false),
     ('mocktail-making', 'Mocktail Making', 'life', false),
     ('wine-pairing', 'Wine Pairing', 'life', false),
-    ('home-gardening', 'Home Gardening', 'life', false);
+    ('home-gardening', 'Home Gardening', 'life', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('vegetable-gardening', 'Vegetable Gardening', 'life', false),
     ('herb-gardening', 'Herb Gardening', 'life', false),
@@ -1153,7 +1153,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('saving', 'Saving', 'life', false),
     ('investing-basics', 'Investing Basics', 'life', false),
     ('index-funds', 'Index Funds', 'life', false),
-    ('stock-market', 'Stock Market', 'life', false);
+    ('stock-market', 'Stock Market', 'life', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('real-estate-investing', 'Real Estate Investing', 'life', false),
     ('retirement-planning', 'Retirement Planning', 'life', false),
@@ -1204,7 +1204,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('work-life-balance', 'Work-Life Balance', 'life', false),
     ('boundary-setting', 'Boundary Setting', 'life', false),
     ('wedding-planning', 'Wedding Planning', 'life', false),
-    ('event-planning', 'Event Planning', 'life', false);
+    ('event-planning', 'Event Planning', 'life', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('birthday-parties', 'Birthday Parties', 'life', false),
     ('baby-showers', 'Baby Showers', 'life', false),
@@ -1255,7 +1255,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('genealogy-research', 'Genealogy Research', 'life', false),
     ('family-history', 'Family History', 'life', false),
     ('photo-album-curation', 'Photo Album Curation', 'life', false),
-    ('memory-keeping', 'Memory Keeping', 'life', false);
+    ('memory-keeping', 'Memory Keeping', 'life', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('journaling', 'Journaling', 'life', false),
     ('bullet-journaling', 'Bullet Journaling', 'life', false),
@@ -1284,7 +1284,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('volunteering', 'Volunteering', 'life', false),
     ('community-organizing', 'Community Organizing', 'life', false),
     ('activism', 'Activism', 'life', false),
-    ('civic-engagement', 'Civic Engagement', 'life', false);
+    ('civic-engagement', 'Civic Engagement', 'life', false) ON CONFLICT (slug) DO NOTHING;
 
 -- HEALTH (231 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -1337,7 +1337,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('tabata', 'Tabata', 'health', false),
     ('running', 'Running', 'health', false),
     ('couch-to-5k', 'Couch to 5K', 'health', false),
-    ('marathon-training', 'Marathon Training', 'health', false);
+    ('marathon-training', 'Marathon Training', 'health', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('cycling', 'Cycling', 'health', false),
     ('indoor-cycling', 'Indoor Cycling', 'health', false),
@@ -1388,7 +1388,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('gratitude-practice', 'Gratitude Practice', 'health', false),
     ('reflective-writing', 'Reflective Writing', 'health', false),
     ('art-therapy', 'Art Therapy', 'health', false),
-    ('music-therapy', 'Music Therapy', 'health', false);
+    ('music-therapy', 'Music Therapy', 'health', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('dance-therapy', 'Dance Therapy', 'health', false),
     ('pet-therapy', 'Pet Therapy', 'health', false),
@@ -1439,7 +1439,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('lymphatic-drainage', 'Lymphatic Drainage', 'health', false),
     ('aromatherapy', 'Aromatherapy', 'health', false),
     ('herbal-medicine', 'Herbal Medicine', 'health', false),
-    ('traditional-chinese-medicine', 'Traditional Chinese Medicine', 'health', false);
+    ('traditional-chinese-medicine', 'Traditional Chinese Medicine', 'health', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('ayurveda-basics', 'Ayurveda Basics', 'health', false),
     ('homeopathy', 'Homeopathy', 'health', false),
@@ -1490,7 +1490,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('auditory-training', 'Auditory Training', 'health', false),
     ('foot-health', 'Foot Health', 'health', false),
     ('podiatry-basics', 'Podiatry Basics', 'health', false),
-    ('plantar-fasciitis-care', 'Plantar Fasciitis Care', 'health', false);
+    ('plantar-fasciitis-care', 'Plantar Fasciitis Care', 'health', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('diabetic-foot-care', 'Diabetic Foot Care', 'health', false),
     ('skin-health', 'Skin Health', 'health', false),
@@ -1522,7 +1522,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('disability-support', 'Disability Support', 'health', false),
     ('wheelchair-skills', 'Wheelchair Skills', 'health', false),
     ('adaptive-sports', 'Adaptive Sports', 'health', false),
-    ('mobility-aid-training', 'Mobility Aid Training', 'health', false);
+    ('mobility-aid-training', 'Mobility Aid Training', 'health', false) ON CONFLICT (slug) DO NOTHING;
 
 -- MUSIC (229 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -1575,7 +1575,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('mandolin', 'Mandolin', 'music', false),
     ('banjo', 'Banjo', 'music', false),
     ('ukulele', 'Ukulele', 'music', false),
-    ('balalaika', 'Balalaika', 'music', false);
+    ('balalaika', 'Balalaika', 'music', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('sitar', 'Sitar', 'music', false),
     ('erhu', 'Erhu', 'music', false),
@@ -1626,7 +1626,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('ensemble-singing', 'Ensemble Singing', 'music', false),
     ('a-cappella', 'A Cappella', 'music', false),
     ('vocal-harmony', 'Vocal Harmony', 'music', false),
-    ('ear-training', 'Ear Training', 'music', false);
+    ('ear-training', 'Ear Training', 'music', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('sight-singing', 'Sight Singing', 'music', false),
     ('solfege', 'Solfege', 'music', false),
@@ -1677,7 +1677,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('fm-synthesis', 'FM Synthesis', 'music', false),
     ('wavetable-synthesis', 'Wavetable Synthesis', 'music', false),
     ('subtractive-synthesis', 'Subtractive Synthesis', 'music', false),
-    ('additive-synthesis', 'Additive Synthesis', 'music', false);
+    ('additive-synthesis', 'Additive Synthesis', 'music', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('sampling', 'Sampling', 'music', false),
     ('field-recording', 'Field Recording', 'music', false),
@@ -1728,7 +1728,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('resonator-guitar', 'Resonator Guitar', 'music', false),
     ('baritone-guitar', 'Baritone Guitar', 'music', false),
     ('12-tone-guitar', '12-tone Guitar', 'music', false),
-    ('extended-range-guitar', 'Extended Range Guitar', 'music', false);
+    ('extended-range-guitar', 'Extended Range Guitar', 'music', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('multiscale-guitar', 'Multiscale Guitar', 'music', false),
     ('fanned-fret-guitar', 'Fanned Fret Guitar', 'music', false),
@@ -1758,7 +1758,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('kodaly-method', 'Kodaly Method', 'music', false),
     ('dalcroze', 'Dalcroze', 'music', false),
     ('gordon-music-learning-theory', 'Gordon Music Learning Theory', 'music', false),
-    ('suzuki-early-childhood-education', 'Suzuki Early Childhood Education', 'music', false);
+    ('suzuki-early-childhood-education', 'Suzuki Early Childhood Education', 'music', false) ON CONFLICT (slug) DO NOTHING;
 
 -- SPORT (347 skills)
 INSERT INTO skills (slug, name, category, is_custom) VALUES
@@ -1811,7 +1811,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('quarterback-drills', 'Quarterback Drills', 'sport', false),
     ('wide-receiver-routes', 'Wide Receiver Routes', 'sport', false),
     ('lineman-techniques', 'Lineman Techniques', 'sport', false),
-    ('australian-football', 'Australian Football', 'sport', false);
+    ('australian-football', 'Australian Football', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('gaelic-football', 'Gaelic Football', 'sport', false),
     ('handball', 'Handball', 'sport', false),
@@ -1862,7 +1862,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('10k-training', '10K Training', 'sport', false),
     ('5k-training', '5K Training', 'sport', false),
     ('race-strategy', 'Race Strategy', 'sport', false),
-    ('pace-planning', 'Pace Planning', 'sport', false);
+    ('pace-planning', 'Pace Planning', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('gravel-cycling', 'Gravel Cycling', 'sport', false),
     ('cyclocross', 'Cyclocross', 'sport', false),
@@ -1913,7 +1913,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('freerunning', 'Freerunning', 'sport', false),
     ('acrobatics', 'Acrobatics', 'sport', false),
     ('tumbling', 'Tumbling', 'sport', false),
-    ('cheerleading', 'Cheerleading', 'sport', false);
+    ('cheerleading', 'Cheerleading', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('trampolining', 'Trampolining', 'sport', false),
     ('gymnastics', 'Gymnastics', 'sport', false),
@@ -1964,7 +1964,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('ice-fishing', 'Ice Fishing', 'sport', false),
     ('kayak-fishing', 'Kayak Fishing', 'sport', false),
     ('equestrian', 'Equestrian', 'sport', false),
-    ('dressage', 'Dressage', 'sport', false);
+    ('dressage', 'Dressage', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('show-jumping', 'Show Jumping', 'sport', false),
     ('eventing', 'Eventing', 'sport', false),
@@ -2015,7 +2015,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('sprint-coaching', 'Sprint Coaching', 'sport', false),
     ('speed-training', 'Speed Training', 'sport', false),
     ('agility-drills', 'Agility Drills', 'sport', false),
-    ('plyometrics', 'Plyometrics', 'sport', false);
+    ('plyometrics', 'Plyometrics', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('jump-training', 'Jump Training', 'sport', false),
     ('recovery-techniques', 'Recovery Techniques', 'sport', false),
@@ -2066,7 +2066,7 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('tough-mudder', 'Tough Mudder', 'sport', false),
     ('rafting', 'Rafting', 'sport', false),
     ('whitewater-rafting', 'Whitewater Rafting', 'sport', false),
-    ('river-tubing', 'River Tubing', 'sport', false);
+    ('river-tubing', 'River Tubing', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('canyoneering', 'Canyoneering', 'sport', false),
     ('caving', 'Caving', 'sport', false),
@@ -2114,6 +2114,6 @@ INSERT INTO skills (slug, name, category, is_custom) VALUES
     ('beach-rugby', 'Beach Rugby', 'sport', false),
     ('beach-ultimate', 'Beach Ultimate', 'sport', false),
     ('beach-cricket', 'Beach Cricket', 'sport', false),
-    ('sand-volleyball', 'Sand Volleyball', 'sport', false);
+    ('sand-volleyball', 'Sand Volleyball', 'sport', false) ON CONFLICT (slug) DO NOTHING;
 
 -- TOTAL: 2049 skills

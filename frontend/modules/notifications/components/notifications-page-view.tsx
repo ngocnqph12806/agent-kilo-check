@@ -133,10 +133,10 @@ function NotificationCard({ notification }: { notification: Notification }) {
     <li>
       <Link
         href={meta.href ?? '#'}
-        className={cn(
+          className={cn(
           'flex items-start gap-4 rounded-2xl border bg-white p-4 shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]/40',
           notification.unread
-            ? 'border-emerald-300 ring-1 ring-emerald-200'
+            ? 'border-brand-credit ring-1 ring-brand-credit/40'
             : 'border-[var(--brand-border)]'
         )}
       >
@@ -153,7 +153,7 @@ function NotificationCard({ notification }: { notification: Notification }) {
             {meta.title}
             {notification.unread ? (
               <span
-                className="inline-block h-2 w-2 shrink-0 rounded-full bg-emerald-500"
+                className="inline-block h-2 w-2 shrink-0 rounded-full bg-brand-credit"
                 aria-label="Unread"
               />
             ) : null}
@@ -246,17 +246,17 @@ function toneFor(type: string): string {
     case 'booking_accepted':
     case 'session_completed':
     case 'email_verified':
-      return 'bg-emerald-100 text-emerald-700';
+      return 'bg-brand-credit-bg text-brand-credit';
     case 'booking_request':
     case 'booking_reminder_24h':
     case 'booking_reminder_1h':
-      return 'bg-amber-100 text-amber-700';
+      return 'bg-brand-pending-bg text-brand-pending';
     case 'session_started':
     case 'rating_prompt':
-      return 'bg-sky-100 text-sky-700';
+      return 'bg-brand-info-bg text-brand-info';
     case 'system':
     default:
-      return 'bg-zinc-100 text-zinc-700';
+      return 'bg-muted text-muted-foreground';
   }
 }
 

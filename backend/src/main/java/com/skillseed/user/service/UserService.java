@@ -179,9 +179,11 @@ public class UserService {
         LocalDate endDate = upperBound.atZone(browserZone).toLocalDate();
 
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
-            int dow0to6 = (date.getDayOfWeek().getValue() == 7) ? 0
-                    : date.getDayOfWeek().getValue() - 1;
-            List<UserAvailability> dayRules = byDow.getOrDefault((short) dow0to6, List.of());
+            // Convention used by the DB and the FE: SUNDAY = 0, MONDAY = 1,
+            // ... SATURDAY = 6. java.time.DayOfWeek uses MON=1..SUN=7, so
+            // SUN needs the explicit remap; everything else shifts by 1.
+            int dow0to6 = date.getDayOfWeek().getValue() % 7;
+            List<UserAvailability> dayRules = byDow.getOrDefault(dow0to6, List.of());
             for (UserAvailability rule : dayRules) {
                 ZoneId tz = ZoneId.of(rule.getTimezone());
                 ZonedDateTime start = ZonedDateTime.of(

@@ -1,10 +1,12 @@
 package com.skillseed.booking.service;
 
+import com.skillseed.booking.domain.CancelReason;
 import com.skillseed.booking.dto.BookingResponse;
 import com.skillseed.booking.dto.CancelBookingRequest;
 import com.skillseed.booking.dto.CreateBookingRequest;
 import com.skillseed.booking.exception.BookingException;
 import com.skillseed.booking.repository.BookingRepository;
+import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.notification.service.NotificationService;
 import com.skillseed.shared.domain.BookingStatus;
 import com.skillseed.skill.domain.Skill;
@@ -57,6 +59,7 @@ class BookingServiceTest {
     private UserAvailabilityRepository availabilityRepository;
     private SeedWalletService walletService;
     private NotificationService notificationService;
+    private EmailTemplateService emailTemplateService;
     private BookingService service;
 
     @BeforeEach
@@ -67,13 +70,15 @@ class BookingServiceTest {
         availabilityRepository = mock(UserAvailabilityRepository.class);
         walletService = mock(SeedWalletService.class);
         notificationService = mock(NotificationService.class);
+        emailTemplateService = mock(EmailTemplateService.class);
         service = new BookingService(
                 bookingRepository,
                 userRepository,
                 skillRepository,
                 availabilityRepository,
                 walletService,
-                notificationService);
+                notificationService,
+                emailTemplateService);
     }
 
     @Test
@@ -105,7 +110,8 @@ class BookingServiceTest {
         assertThat(resp.seedAmount()).isEqualTo(60);
         assertThat(resp.notes()).isEqualTo("Want to learn basics");
         verify(walletService).escrowDebit(any());
-        verify(notificationService, times(1)).publish(eq(teacher), any(), any());
+        verify(notificationService, times(2)).publish(any(), any(), any());
+        verify(emailTemplateService, times(2)).sendBookingConfirmationEmail(any(), any(), any());
     }
 
     @Test
@@ -240,7 +246,7 @@ class BookingServiceTest {
         when(userRepository.findById(teacherId)).thenReturn(Optional.of(booking.teacher));
 
         service.cancel(booking.id, teacherId,
-                new CancelBookingRequest("TEACHER_UNAVAILABLE", null));
+                new CancelBookingRequest(CancelReason.TEACHER_UNAVAILABLE, null));
 
         verify(walletService).refundEscrow(any(), eq(100));
     }
@@ -256,7 +262,7 @@ class BookingServiceTest {
         when(userRepository.findById(learnerId)).thenReturn(Optional.of(booking.learner));
 
         service.cancel(booking.id, learnerId,
-                new CancelBookingRequest("LEARNER_UNAVAILABLE", "sorry"));
+                new CancelBookingRequest(CancelReason.LEARNER_UNAVAILABLE, "sorry"));
 
         verify(walletService).refundEscrow(any(), eq(50));
     }
@@ -270,7 +276,7 @@ class BookingServiceTest {
         when(bookingRepository.findById(booking.id)).thenReturn(Optional.of(booking.entity));
 
         assertThatThrownBy(() -> service.cancel(booking.id, outsider,
-                new CancelBookingRequest("OTHER", null)))
+                new CancelBookingRequest(CancelReason.OTHER, null)))
                 .isInstanceOf(BookingException.class)
                 .hasMessageContaining("participant");
     }

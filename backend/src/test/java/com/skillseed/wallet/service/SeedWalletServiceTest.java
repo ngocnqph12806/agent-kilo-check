@@ -22,6 +22,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -288,10 +289,10 @@ class SeedWalletServiceTest {
         UUID userId = UUID.randomUUID();
         SeedWallet wallet = newWallet(userId, 0);
         when(walletRepository.findByUserId(userId)).thenReturn(Optional.of(wallet));
-        when(txRepository.sumActiveBalance(userId, any())).thenReturn(0);
+        when(txRepository.sumActiveBalance(eq(userId), any())).thenReturn(0);
         when(txRepository.sumExpiredAmount(userId)).thenReturn(0);
-        when(txRepository.sumExpiringSoon(eqUserId(userId), any())).thenReturn(0);
-        when(txRepository.findOldestExpiringAt(eqUserId(userId), any())).thenReturn(null);
+        when(txRepository.sumExpiringSoon(eq(eqUserId(userId)), any())).thenReturn(0);
+        when(txRepository.findOldestExpiringAt(eq(eqUserId(userId)), any())).thenReturn(null);
 
         var summary = service.getWalletSummary(userId);
 

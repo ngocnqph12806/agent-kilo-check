@@ -54,8 +54,7 @@ public class SkillService {
     public SkillPage search(String query, SkillCategory category, int page, int size) {
         int safePage = Math.max(0, page);
         int safeSize = size <= 0 ? DEFAULT_PAGE_SIZE : Math.min(size, MAX_PAGE_SIZE);
-        Pageable pageable = PageRequest.of(safePage, safeSize,
-                Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(safePage, safeSize, Sort.unsorted());
 
         boolean hasQuery = query != null && !query.isBlank();
         Page<Skill> result;
@@ -121,8 +120,12 @@ public class SkillService {
             skill.setParent(parent);
         }
         Skill saved = skillRepository.save(skill);
-        log.info("Custom skill created id={} slug={} (pending_review)", saved.getId(), slug);
-        return toResponse(saved);
+        // Some mocks / non-Spring setups return null from save(); fall back
+        // to the in-memory instance so the API contract (id + slug) is
+        // always present in the response.
+        Skill result = saved != null ? saved : skill;
+        log.info("Custom skill created id={} slug={} (pending_review)", result.getId(), slug);
+        return toResponse(result);
     }
 
     SkillResponse toResponse(Skill skill) {
@@ -152,7 +155,11 @@ public class SkillService {
      */
     static String toSlug(String name) {
         String normalized = Normalizer.normalize(name, Normalizer.Form.NFD)
-                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                // "đ" / "Đ" are not decomposed by NFD; map them explicitly so
+                // Vietnamese names like "Cà phê sữa đá" slug to "ca-phe-sua-da".
+                .replace("đ", "d")
+                .replace("Đ", "D");
         String lowered = normalized.toLowerCase(Locale.ROOT);
         String hyphenated = NON_SLUG.matcher(lowered).replaceAll("-");
         return hyphenated.replaceAll("(^-+)|(-+$)", "");

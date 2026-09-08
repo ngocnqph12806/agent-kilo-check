@@ -25,6 +25,17 @@ public interface SeedTransactionRepository extends JpaRepository<SeedTransaction
     Page<SeedTransaction> findByWalletUserIdAndTypeIn(
             UUID walletUserId, List<SeedTransactionType> types, Pageable pageable);
 
+    default List<SeedTransaction> findRecentByWalletUserId(UUID walletUserId, Pageable pageable) {
+        return findByWalletUserId(
+                walletUserId,
+                org.springframework.data.domain.PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        org.springframework.data.domain.Sort.by(
+                                org.springframework.data.domain.Sort.Direction.DESC, "createdAt")))
+                .getContent();
+    }
+
     List<SeedTransaction> findByWalletUserIdAndStatusAndExpiresAtBefore(
         UUID walletUserId, SeedTransactionStatus status, Instant before);
 

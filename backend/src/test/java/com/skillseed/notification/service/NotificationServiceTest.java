@@ -21,6 +21,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -104,7 +105,7 @@ class NotificationServiceTest {
         service.list(u, true, 0, 20);
 
         verify(repo).findByUserAndReadAtIsNullOrderByCreatedAtDesc(eqUser(u),
-                PageRequest.of(0, 20));
+                eq(PageRequest.of(0, 20)));
     }
 
     @Test

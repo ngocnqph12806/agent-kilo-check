@@ -93,17 +93,49 @@ public class RatingService {
         rating.setOverallScore(req.getOverallScore());
         rating.setReviewText(req.getReviewText());
         rating.setHelpfulnessScore(req.getHelpfulnessScore());
-        rating.setRespectfulnessScore(req.getRespectfulnessScore());
+        rating.setKnowledgeScore(req.getKnowledgeScore());
+        rating.setClarityScore(req.getClarityScore());
+        rating.setPunctualityScore(req.getPunctualityScore());
+        rating.setFriendlinessScore(req.getFriendlinessScore());
+        if (req.getWouldRecommend() != null) {
+            rating.setWouldRecommend(req.getWouldRecommend());
+        }
         rating.setAutoRated(false);
         rating.setCreatedAt(Instant.now());
 
         ratingRepository.save(rating);
         recomputeRateeStats(ratee.getId());
+        markBookingRatedIfBothPartiesRated(booking);
 
         log.info("Rating created: booking={} rater={} ratee={} score={}",
                 booking.getId(), actorId, ratee.getId(), req.getOverallScore());
 
         return RatingResponse.from(rating, rater.getFullName());
+    }
+
+    /**
+     * Flips the booking status to {@link BookingStatus#RATED} once
+     * <em>both</em> participants have a row in {@code ratings} for
+     * this booking. Idempotent: subsequent ratings on an already
+     * RATED booking are still allowed (for historical records) but
+     * no longer mutate status.
+     */
+    private void markBookingRatedIfBothPartiesRated(Booking booking) {
+        if (booking.getStatus() == BookingStatus.RATED) {
+            return;
+        }
+        UUID teacherId = booking.getTeacher().getId();
+        UUID learnerId = booking.getLearner().getId();
+        boolean teacherRated = ratingRepository
+                .findByBookingIdAndRaterId(booking.getId(), teacherId).isPresent();
+        boolean learnerRated = ratingRepository
+                .findByBookingIdAndRaterId(booking.getId(), learnerId).isPresent();
+        if (teacherRated && learnerRated) {
+            booking.setStatus(BookingStatus.RATED);
+            booking.setUpdatedAt(Instant.now());
+            bookingRepository.save(booking);
+            log.info("Booking {} flipped to RATED (both parties rated)", booking.getId());
+        }
     }
 
     /**
@@ -131,6 +163,7 @@ public class RatingService {
         rating.setCreatedAt(Instant.now());
         ratingRepository.save(rating);
         recomputeRateeStats(teacher.getId());
+        markBookingRatedIfBothPartiesRated(booking);
         log.info("Auto-rated booking {} (learner→teacher 5⭐)", booking.getId());
         return true;
     }

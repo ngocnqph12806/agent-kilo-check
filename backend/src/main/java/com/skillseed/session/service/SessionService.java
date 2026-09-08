@@ -6,8 +6,12 @@ import com.skillseed.booking.service.BookingService;
 import com.skillseed.session.client.DailyClient;
 import com.skillseed.session.client.DailyDtos;
 import com.skillseed.session.client.DailyProperties;
+import com.skillseed.session.domain.SessionIncident;
+import com.skillseed.session.dto.ReportIssueRequest;
+import com.skillseed.session.dto.ReportIssueResponse;
 import com.skillseed.session.dto.SessionRoomResponse;
 import com.skillseed.session.exception.SessionException;
+import com.skillseed.session.repository.SessionIncidentRepository;
 import com.skillseed.shared.domain.BookingStatus;
 import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
@@ -42,17 +46,20 @@ public class SessionService {
     private final BookingService bookingService;
     private final DailyClient dailyClient;
     private final DailyProperties dailyProperties;
+    private final SessionIncidentRepository incidentRepository;
 
     public SessionService(BookingRepository bookingRepository,
                           UserRepository userRepository,
                           BookingService bookingService,
                           DailyClient dailyClient,
-                          DailyProperties dailyProperties) {
+                          DailyProperties dailyProperties,
+                          SessionIncidentRepository incidentRepository) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.bookingService = bookingService;
         this.dailyClient = dailyClient;
         this.dailyProperties = dailyProperties;
+        this.incidentRepository = incidentRepository;
     }
 
     @Transactional
@@ -90,14 +97,18 @@ public class SessionService {
                 .plusSeconds(graceSeconds)
                 .getEpochSecond();
 
-        DailyDtos.CreateRoomResponse room = dailyClient.createRoom(roomName, expSeconds);
+        DailyDtos.CreateRoomResponse room = dailyProperties.isEnabled()
+                ? dailyClient.createRoom(roomName, expSeconds)
+                : stubRoom(roomName, expSeconds);
         boolean isOwner = actorId.equals(booking.getTeacher().getId());
-        String token = dailyClient.createMeetingToken(
-                roomName,
-                actorId.toString(),
-                actor.getFullName(),
-                isOwner,
-                expSeconds);
+        String token = dailyProperties.isEnabled()
+                ? dailyClient.createMeetingToken(
+                        roomName,
+                        actorId.toString(),
+                        actor.getFullName(),
+                        isOwner,
+                        expSeconds)
+                : stubToken(actorId);
 
         return new SessionRoomResponse(
                 room.getUrl(),
@@ -107,6 +118,17 @@ public class SessionService {
                 Instant.ofEpochSecond(expSeconds),
                 scheduledAt,
                 duration);
+    }
+
+    private static DailyDtos.CreateRoomResponse stubRoom(String roomName, long expSeconds) {
+        DailyDtos.CreateRoomResponse stub = new DailyDtos.CreateRoomResponse();
+        stub.setName(roomName);
+        stub.setUrl("https://stub.daily.co/" + roomName);
+        return stub;
+    }
+
+    private static String stubToken(UUID actorId) {
+        return "stub-token-" + actorId.toString().replace("-", "");
     }
 
     /**
@@ -146,6 +168,37 @@ public class SessionService {
 
     public static String deriveRoomName(UUID bookingId) {
         return ROOM_NAME_PREFIX + bookingId.toString().replace("-", "");
+    }
+
+    /**
+     * FR-M57: open an incident ticket for an in-session problem. The
+     * caller must be a participant on the booking. Returns the
+     * newly-created incident so the FE can show its id back to the
+     * reporter and the ops dashboard can pick it up.
+     */
+    @Transactional
+    public ReportIssueResponse reportIssue(UUID bookingId, UUID reporterId, ReportIssueRequest req) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> SessionException.notFound("BOOKING_NOT_FOUND",
+                        "Booking " + bookingId + " not found"));
+        if (!reporterId.equals(booking.getTeacher().getId())
+                && !reporterId.equals(booking.getLearner().getId())) {
+            throw SessionException.forbidden("NOT_PARTICIPANT",
+                    "You are not a participant of this booking");
+        }
+        SessionIncident incident = new SessionIncident(
+                UUID.randomUUID(),
+                bookingId,
+                reporterId,
+                req.getCategory(),
+                req.getDescription(),
+                Instant.now());
+        incidentRepository.save(incident);
+        return new ReportIssueResponse(
+                incident.getId(),
+                bookingId,
+                incident.getStatus(),
+                incident.getCreatedAt());
     }
 
     public static UUID extractBookingId(String roomName) {

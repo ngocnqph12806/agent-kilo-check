@@ -24,8 +24,11 @@ public interface DiscoverRepository {
      * @param language         optional language code (matches {@code ANY(languages)})
      * @param countryCode      optional 2-letter ISO country code
      * @param minRating        optional minimum rating (inclusive)
-     * @param pageable         pagination + sort (sort is overridden internally to
-     *                         {@code rating_avg DESC, sessions_completed DESC})
+     * @param timezoneOffset   optional UTC offset in hours (-12..14) — only teachers
+     *                         whose {@code timezone} resolves to the same hour
+     *                         bucket are returned
+     * @param pageable         pagination + sort (sort comes from
+     *                         {@code DiscoverSort} per FR-M32)
      */
     Page<DiscoverMatchResponse> findMatches(
             UUID currentUserId,
@@ -34,5 +37,6 @@ public interface DiscoverRepository {
             String language,
             String countryCode,
             BigDecimal minRating,
+            Integer timezoneOffset,
             Pageable pageable);
 }

@@ -8,6 +8,7 @@ import com.skillseed.session.client.DailyDtos;
 import com.skillseed.session.client.DailyProperties;
 import com.skillseed.session.dto.SessionRoomResponse;
 import com.skillseed.session.exception.SessionException;
+import com.skillseed.session.repository.SessionIncidentRepository;
 import com.skillseed.session.service.SessionService;
 import com.skillseed.shared.domain.BookingStatus;
 import com.skillseed.skill.domain.Skill;
@@ -41,6 +42,7 @@ class SessionServiceTest {
     private BookingService bookingService;
     private DailyClient dailyClient;
     private DailyProperties dailyProperties;
+    private SessionIncidentRepository incidentRepository;
     private SessionService service;
 
     private static final UUID BOOKING_ID = UUID.fromString("11111111-2222-3333-4444-555555555555");
@@ -54,13 +56,14 @@ class SessionServiceTest {
         userRepository = mock(UserRepository.class);
         bookingService = mock(BookingService.class);
         dailyClient = mock(DailyClient.class);
+        incidentRepository = mock(SessionIncidentRepository.class);
         dailyProperties = new DailyProperties();
         dailyProperties.setEnabled(true);
         dailyProperties.setApiKey("test-key");
         dailyProperties.setGraceMinutes(15);
 
         service = new SessionService(bookingRepository, userRepository, bookingService,
-                dailyClient, dailyProperties);
+                dailyClient, dailyProperties, incidentRepository);
     }
 
     @Test
@@ -201,7 +204,9 @@ class SessionServiceTest {
 
     @Test
     void markMeetingEndedIgnoresUnknownRoom() {
-        service.markMeetingEnded("ss-deadbeefdeadbeefdeadbeefdeadbeef");
+        // Prefix matches but the compact body is too short to be a UUID —
+        // the service should short-circuit before hitting the repository.
+        service.markMeetingEnded("ss-deadbeef");
         verify(bookingRepository, never()).findById(any());
         verify(bookingService, never()).complete(any(), any());
     }

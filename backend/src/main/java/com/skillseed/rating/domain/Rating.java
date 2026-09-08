@@ -49,6 +49,21 @@ public class Rating {
     @Column(name = "respectfulness_score")
     private Short respectfulnessScore;
 
+    @Column(name = "knowledge_score")
+    private Short knowledgeScore;
+
+    @Column(name = "clarity_score")
+    private Short clarityScore;
+
+    @Column(name = "punctuality_score")
+    private Short punctualityScore;
+
+    @Column(name = "friendliness_score")
+    private Short friendlinessScore;
+
+    @Column(name = "would_recommend")
+    private Boolean wouldRecommend;
+
     @Column(name = "auto_rated", nullable = false)
     private boolean autoRated;
 
@@ -127,6 +142,46 @@ public class Rating {
 
     public void setRespectfulnessScore(Short respectfulnessScore) {
         this.respectfulnessScore = respectfulnessScore;
+    }
+
+    public Short getKnowledgeScore() {
+        return knowledgeScore;
+    }
+
+    public void setKnowledgeScore(Short knowledgeScore) {
+        this.knowledgeScore = knowledgeScore;
+    }
+
+    public Short getClarityScore() {
+        return clarityScore;
+    }
+
+    public void setClarityScore(Short clarityScore) {
+        this.clarityScore = clarityScore;
+    }
+
+    public Short getPunctualityScore() {
+        return punctualityScore;
+    }
+
+    public void setPunctualityScore(Short punctualityScore) {
+        this.punctualityScore = punctualityScore;
+    }
+
+    public Short getFriendlinessScore() {
+        return friendlinessScore;
+    }
+
+    public void setFriendlinessScore(Short friendlinessScore) {
+        this.friendlinessScore = friendlinessScore;
+    }
+
+    public Boolean getWouldRecommend() {
+        return wouldRecommend;
+    }
+
+    public void setWouldRecommend(Boolean wouldRecommend) {
+        this.wouldRecommend = wouldRecommend;
     }
 
     public boolean isAutoRated() {

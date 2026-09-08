@@ -54,7 +54,7 @@ public class JwtService {
         this.signingKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateAccessToken(UUID userId, String email, short verificationLevel) {
+    public String generateAccessToken(UUID userId, String email, Short verificationLevel) {
         Instant now = Instant.now();
         Instant exp = now.plus(Duration.ofMinutes(accessTtlMinutes));
         return Jwts.builder()

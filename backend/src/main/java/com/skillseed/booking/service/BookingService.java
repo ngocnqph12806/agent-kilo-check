@@ -1,6 +1,7 @@
 package com.skillseed.booking.service;
 
 import com.skillseed.booking.domain.Booking;
+import com.skillseed.booking.domain.CancelReason;
 import com.skillseed.booking.dto.BookingPageResponse;
 import com.skillseed.booking.dto.BookingResponse;
 import com.skillseed.booking.dto.BookingSummaryResponse;
@@ -8,6 +9,7 @@ import com.skillseed.booking.dto.CancelBookingRequest;
 import com.skillseed.booking.dto.CreateBookingRequest;
 import com.skillseed.booking.exception.BookingException;
 import com.skillseed.booking.repository.BookingRepository;
+import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.notification.domain.NotificationType;
 import com.skillseed.notification.service.NotificationService;
 import com.skillseed.shared.domain.BookingStatus;
@@ -59,6 +61,7 @@ public class BookingService {
     private final UserAvailabilityRepository userAvailabilityRepository;
     private final SeedWalletService seedWalletService;
     private final NotificationService notificationService;
+    private final EmailTemplateService emailTemplateService;
 
     public BookingService(
             BookingRepository bookingRepository,
@@ -66,13 +69,15 @@ public class BookingService {
             SkillRepository skillRepository,
             UserAvailabilityRepository userAvailabilityRepository,
             SeedWalletService seedWalletService,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            EmailTemplateService emailTemplateService) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.skillRepository = skillRepository;
         this.userAvailabilityRepository = userAvailabilityRepository;
         this.seedWalletService = seedWalletService;
         this.notificationService = notificationService;
+        this.emailTemplateService = emailTemplateService;
     }
 
     @Transactional
@@ -130,7 +135,11 @@ public class BookingService {
 
         seedWalletService.escrowDebit(booking);
 
-        notificationService.publish(teacher, NotificationType.BOOKING_REQUEST, payloadFor(booking));
+        Map<String, Object> payload = payloadFor(booking);
+        notificationService.publish(teacher, NotificationType.BOOKING_REQUEST, payload);
+        notificationService.publish(learner, NotificationType.BOOKING_REQUEST, payload);
+        emailTemplateService.sendBookingConfirmationEmail(booking, teacher, "teacher");
+        emailTemplateService.sendBookingConfirmationEmail(booking, learner, "learner");
         log.info("Created booking id={} teacher={} learner={} scheduledAt={} seeds={}",
                 booking.getId(), teacher.getId(), learner.getId(),
                 scheduledAt, seedAmount);
@@ -192,7 +201,8 @@ public class BookingService {
         User actor = userRepository.findById(actorId)
                 .orElseThrow(() -> BookingException.notFound("USER_NOT_FOUND", "User not found"));
         booking.setStatus(BookingStatus.CANCELLED);
-        booking.setCancellationReason(req == null || req.reason() == null ? "OTHER" : req.reason());
+        booking.setCancellationReason(req == null || req.reason() == null
+                ? CancelReason.OTHER.getDbValue() : req.reason().getDbValue());
         booking.setCancelledBy(actor);
         booking.setUpdatedAt(Instant.now());
         bookingRepository.save(booking);
@@ -237,10 +247,6 @@ public class BookingService {
         notificationService.publish(booking.getLearner(), NotificationType.SESSION_COMPLETED,
                 payloadFor(booking));
         notificationService.publish(booking.getTeacher(), NotificationType.SESSION_COMPLETED,
-                payloadFor(booking));
-        notificationService.publish(booking.getLearner(), NotificationType.RATING_PROMPT,
-                payloadFor(booking));
-        notificationService.publish(booking.getTeacher(), NotificationType.RATING_PROMPT,
                 payloadFor(booking));
         return BookingResponse.from(booking);
     }

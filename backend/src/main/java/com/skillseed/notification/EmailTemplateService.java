@@ -1,5 +1,6 @@
 package com.skillseed.notification;
 
+import com.skillseed.booking.domain.Booking;
 import com.skillseed.user.domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -121,6 +122,57 @@ public class EmailTemplateService {
         safeSend(user.getEmail(), subject, html, text);
     }
 
+    /**
+     * Booking confirmation email per FR-M43: sent to BOTH the teacher
+     * (request pending acceptance) and the learner (request queued
+     * against their wallet).
+     */
+    public void sendBookingConfirmationEmail(Booking booking, User recipient, String role) {
+        String firstName = firstNameOf(recipient.getFullName());
+        String bookingUrl = publicBaseUrl + "/bookings/" + booking.getId();
+        String subject;
+        String html;
+        String text;
+        if ("teacher".equalsIgnoreCase(role)) {
+            subject = "New booking request — " + booking.getSkill().getName();
+            html = """
+                    <div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;line-height:1.6;color:#0f172a">
+                      <h1 style="margin:0 0 8px;font-size:22px">%s, you have a new booking request</h1>
+                      <p>Skill: <strong>%s</strong></p>
+                      <p>Duration: %d minutes · Seed amount held in escrow: %d</p>
+                      <p>Scheduled at: %s</p>
+                      <p style="margin:24px 0">
+                        <a href="%s" style="background:#0f172a;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none">
+                          Review &amp; accept
+                        </a>
+                      </p>
+                    </div>
+                    """.formatted(firstName, escapeHtml(booking.getSkill().getName()),
+                    booking.getDurationMinutes(), booking.getSeedAmount(),
+                    booking.getScheduledAt(), bookingUrl);
+            text = "You have a new booking request for " + booking.getSkill().getName()
+                    + ". Open " + bookingUrl + " to review.";
+        } else {
+            subject = "Booking sent — waiting for teacher to accept";
+            html = """
+                    <div style="font-family:system-ui,Segoe UI,Roboto,sans-serif;line-height:1.6;color:#0f172a">
+                      <h1 style="margin:0 0 8px;font-size:22px">%s, your booking request is in</h1>
+                      <p>Skill: <strong>%s</strong> · Duration: %d minutes</p>
+                      <p>%d Seeds are held in escrow until the teacher accepts.</p>
+                      <p style="margin:24px 0">
+                        <a href="%s" style="background:#0f172a;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none">
+                          View booking
+                        </a>
+                      </p>
+                    </div>
+                    """.formatted(firstName, escapeHtml(booking.getSkill().getName()),
+                    booking.getDurationMinutes(), booking.getSeedAmount(), bookingUrl);
+            text = "Your booking for " + booking.getSkill().getName()
+                    + " is waiting on the teacher. View at " + bookingUrl;
+        }
+        safeSend(recipient.getEmail(), subject, html, text);
+    }
+
     private void safeSend(String to, String subject, String html, String text) {
         try {
             emailSender.send(to, subject, html, text);
@@ -133,18 +185,24 @@ public class EmailTemplateService {
     }
 
     private static String firstNameOf(String fullName) {
-        if (fullName == null || fullName.isBlank()) return "there";
+        if (fullName == null || fullName.isBlank()) {
+            return "there";
+        }
         int sp = fullName.indexOf(' ');
         return sp < 0 ? fullName : fullName.substring(0, sp);
     }
 
     private static String trimTrailingSlash(String url) {
-        if (url == null) return "";
+        if (url == null) {
+            return "";
+        }
         return url.endsWith("/") ? url.substring(0, url.length() - 1) : url;
     }
 
     private static String escapeHtml(String raw) {
-        if (raw == null) return "";
+        if (raw == null) {
+            return "";
+        }
         return raw.replace("&", "&amp;")
                 .replace("<", "&lt;")
                 .replace(">", "&gt;")

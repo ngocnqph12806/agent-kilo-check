@@ -245,6 +245,7 @@ class UserServiceTest {
     void markOnboardingCompleteIsIdempotent() {
         UUID id = UUID.randomUUID();
         User user = activeUser(id);
+        user.setOnboardingCompleted(false);
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
 
         service.markOnboardingComplete(id);

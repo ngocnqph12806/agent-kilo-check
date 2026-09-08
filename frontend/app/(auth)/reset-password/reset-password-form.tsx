@@ -68,7 +68,7 @@ export function ResetPasswordForm() {
         <input type="hidden" {...register('token')} value={watchedToken || tokenFromQuery} readOnly />
 
         {!hasToken ? (
-          <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
+          <p className="rounded-md border border-brand-pending/40 bg-brand-pending-bg p-3 text-sm text-brand-pending">
             We could not find a reset token in the link. Please request a new one from the sign-in page.
           </p>
         ) : null}

@@ -1,6 +1,5 @@
 package com.skillseed.session.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -22,7 +21,6 @@ public class SessionWebSocketConfig implements WebSocketMessageBrokerConfigurer 
 
     private final StompAuthChannelInterceptor stompAuthChannelInterceptor;
 
-    @Autowired
     public SessionWebSocketConfig(StompAuthChannelInterceptor stompAuthChannelInterceptor) {
         this.stompAuthChannelInterceptor = stompAuthChannelInterceptor;
     }

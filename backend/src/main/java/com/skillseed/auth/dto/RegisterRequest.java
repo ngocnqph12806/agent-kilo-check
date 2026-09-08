@@ -19,5 +19,23 @@ public record RegisterRequest(
 
         @NotBlank(message = "fullName is required")
         @Size(max = 255, message = "fullName must be at most 255 characters")
-        String fullName) {
+        String fullName,
+
+        @Size(max = 20, message = "phone must be at most 20 characters")
+        String phone,
+
+        @Size(min = 2, max = 2, message = "countryCode must be ISO-3166-1 alpha-2")
+        String countryCode,
+
+        @Size(max = 50, message = "timezone must be at most 50 characters")
+        String timezone,
+
+        @Size(max = 64, message = "inviteCode must be at most 64 characters")
+        String inviteCode) {
+
+    /** Convenience constructor used by tests and callers that only supply
+     *  the minimum required registration fields. */
+    public RegisterRequest(String email, String password, String fullName) {
+        this(email, password, fullName, null, null, null, null);
+    }
 }

@@ -56,17 +56,17 @@ export function LoginForm() {
       hero={{ variant: 'auth' }}
     >
       {registered ? (
-        <p className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+        <p className="rounded-md border border-brand-credit/40 bg-brand-credit-bg p-3 text-sm text-brand-credit">
           Account created. Please verify your email before signing in.
         </p>
       ) : null}
       {reset ? (
-        <p className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+        <p className="rounded-md border border-brand-credit/40 bg-brand-credit-bg p-3 text-sm text-brand-credit">
           Password updated. You can now sign in with the new password.
         </p>
       ) : null}
       {verified ? (
-        <p className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+        <p className="rounded-md border border-brand-credit/40 bg-brand-credit-bg p-3 text-sm text-brand-credit">
           Email verified. Please sign in.
         </p>
       ) : null}

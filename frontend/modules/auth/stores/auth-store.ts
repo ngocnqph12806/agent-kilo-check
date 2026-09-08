@@ -5,7 +5,6 @@ import { create } from 'zustand';
 import type { AuthUserSummary } from '../lib/schemas';
 import {
   clearAccessToken,
-  clearRefreshTokenCookie,
   clearStoredUser,
   getStoredUser,
   setStoredUser
@@ -36,7 +35,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
   reset: () => {
     clearAccessToken();
-    clearRefreshTokenCookie();
     clearStoredUser();
     set({ user: null });
   }

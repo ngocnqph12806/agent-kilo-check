@@ -1,6 +1,7 @@
 package com.skillseed.session.controller;
 
 import com.skillseed.session.dto.ReportIssueRequest;
+import com.skillseed.session.dto.ReportIssueResponse;
 import com.skillseed.session.dto.SessionRoomResponse;
 import com.skillseed.session.service.SessionService;
 import com.skillseed.shared.security.CurrentUser;
@@ -37,11 +38,13 @@ public class SessionController {
     }
 
     @PostMapping("/{bookingId}/report-issue")
-    public ResponseEntity<Void> reportIssue(@PathVariable UUID bookingId,
-                                            @Valid @RequestBody ReportIssueRequest body) {
+    @io.swagger.v3.oas.annotations.Operation(summary = "FR-M57: create an incident ticket for an in-session issue")
+    public ResponseEntity<ReportIssueResponse> reportIssue(@PathVariable UUID bookingId,
+                                                          @Valid @RequestBody ReportIssueRequest body) {
         UUID actorId = CurrentUser.requireId();
-        log.info("Session issue reported: booking={} actor={} desc={}",
-                bookingId, actorId, body.getDescription());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        ReportIssueResponse incident = sessionService.reportIssue(bookingId, actorId, body);
+        log.info("Session incident opened: booking={} reporter={} category={} incident={}",
+                bookingId, actorId, body.getCategory(), incident.incidentId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(incident);
     }
 }

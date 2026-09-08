@@ -77,7 +77,7 @@ public class GlobalExceptionHandler {
                 .map(this::formatFieldError)
                 .collect(Collectors.joining("; "));
         return ResponseEntity.badRequest()
-                .body(ApiErrorResponse.of(400, "VALIDATION_FAILED", message));
+                .body(ApiErrorResponse.of(400, "VALIDATION_ERROR", message));
     }
 
     @ExceptionHandler(AuthenticationException.class)

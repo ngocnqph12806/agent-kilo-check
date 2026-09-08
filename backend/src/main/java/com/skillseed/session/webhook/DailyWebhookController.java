@@ -1,15 +1,21 @@
 package com.skillseed.session.webhook;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.skillseed.session.client.DailyProperties;
+import com.skillseed.session.security.DailyWebhookSignatureVerifier;
 import com.skillseed.session.service.SessionService;
+import com.skillseed.shared.exception.ApiErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * Inbound webhook endpoint for Daily.co. Listens for
@@ -19,28 +25,49 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * <p>Marked public in {@code SecurityConfig.PUBLIC_PATHS}
  * because Daily cannot authenticate with our JWT issuer.
- * The route returns 204 in every case except for a
- * malformed payload (400) so that Daily does not retry
- * noisy event types we do not handle.
+ * Defense against spoofed payloads: HMAC-SHA256 verification
+ * of the raw body against the
+ * {@code session.daily.webhook-signing-key} configuration
+ * property, compared in constant time. When the signing
+ * key is unset (e.g. local dev) the signature check is
+ * skipped but a warning is logged so operators notice.
  */
 @RestController
 @RequestMapping("/api/v1/webhooks/daily")
 public class DailyWebhookController {
 
     private static final Logger log = LoggerFactory.getLogger(DailyWebhookController.class);
+    private static final String SIGNATURE_HEADER = "X-Daily-Signature";
 
     private final SessionService sessionService;
+    private final DailyProperties dailyProperties;
+    private final ObjectMapper objectMapper;
 
-    public DailyWebhookController(SessionService sessionService) {
+    public DailyWebhookController(SessionService sessionService,
+                                  DailyProperties dailyProperties,
+                                  ObjectMapper objectMapper) {
         this.sessionService = sessionService;
+        this.dailyProperties = dailyProperties;
+        this.objectMapper = objectMapper;
     }
 
     @PostMapping
-    public ResponseEntity<Void> handle(@RequestBody DailyWebhookPayload body,
-                                       @RequestHeader(value = "Authorization",
-                                               required = false) String authHeader) {
+    public ResponseEntity<?> handle(HttpServletRequest httpRequest) {
+        byte[] raw;
+        DailyWebhookPayload body;
+        try {
+            raw = httpRequest.getInputStream().readAllBytes();
+            body = objectMapper.readValue(raw, DailyWebhookPayload.class);
+        } catch (IOException ex) {
+            log.warn("Failed to read Daily webhook body: {}", ex.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
         if (body == null || body.getType() == null) {
             return ResponseEntity.badRequest().build();
+        }
+        if (!verifySignature(raw, httpRequest)) {
+            log.warn("Rejected Daily webhook with invalid/missing signature");
+            return unauthorized();
         }
         if (!"meeting.ended".equals(body.getType())) {
             log.debug("Ignoring Daily webhook event type '{}'", body.getType());
@@ -55,5 +82,25 @@ public class DailyWebhookController {
         log.info("Daily meeting.ended received for room {}", roomName);
         sessionService.markMeetingEnded(roomName);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    private boolean verifySignature(byte[] rawBody, HttpServletRequest httpRequest) {
+        String key = dailyProperties.getWebhookSigningKey();
+        if (key == null || key.isBlank()) {
+            log.warn("Daily webhook signing key is not configured; skipping HMAC check");
+            return true;
+        }
+        String signature = httpRequest.getHeader(SIGNATURE_HEADER);
+        return DailyWebhookSignatureVerifier.verify(rawBody, signature, key);
+    }
+
+    private ResponseEntity<ApiErrorResponse> unauthorized() {
+        ApiErrorResponse payload = ApiErrorResponse.of(
+                HttpStatus.UNAUTHORIZED.value(),
+                "WEBHOOK_SIGNATURE_INVALID",
+                "Webhook signature is missing or invalid");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(payload);
     }
 }

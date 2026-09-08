@@ -24,6 +24,8 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     Page<Booking> findByLearnerId(UUID learnerId, Pageable pageable);
 
+    List<Booking> findByStatus(BookingStatus status);
+
     List<Booking> findByStatusAndScheduledAtBefore(BookingStatus status, Instant before);
 
     List<Booking> findByStatusAndUpdatedAtBefore(BookingStatus status, Instant before);

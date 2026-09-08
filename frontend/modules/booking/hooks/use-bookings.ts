@@ -113,21 +113,21 @@ export function useCompleteBooking() {
 export function statusToBadgeClasses(status: BookingStatus): string {
   switch (status) {
     case 'pending':
-      return 'bg-amber-100 text-amber-700';
+      return 'bg-brand-pending-bg text-brand-pending';
     case 'confirmed':
-      return 'bg-primary text-primary-foreground';
+      return 'bg-brand-cta text-white';
     case 'in_progress':
-      return 'bg-sky-100 text-sky-700';
+      return 'bg-brand-info-bg text-brand-info';
     case 'completed':
     case 'rated':
-      return 'bg-emerald-100 text-emerald-700';
+      return 'bg-brand-credit-bg text-brand-credit';
     case 'cancelled':
     case 'declined':
     case 'no_show':
-      return 'bg-rose-100 text-rose-700';
+      return 'bg-brand-debit-bg text-brand-debit';
     case 'expired':
-      return 'bg-zinc-100 text-zinc-700';
+      return 'bg-muted text-muted-foreground';
     default:
-      return 'bg-slate-100 text-slate-700';
+      return 'bg-muted text-muted-foreground';
   }
 }

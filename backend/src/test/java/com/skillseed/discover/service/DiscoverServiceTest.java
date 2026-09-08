@@ -54,7 +54,7 @@ class DiscoverServiceTest {
         User caller = user(UUID.randomUUID());
         when(wantedRepo.findByUserId(caller.getId())).thenReturn(List.of());
 
-        DiscoverPageResponse response = service.discover(caller, null, null, null, null, 0, 20);
+        DiscoverPageResponse response = service.discover(caller, null, null, null, null, null, null, 0, 20);
 
         assertThat(response.items()).isEmpty();
         assertThat(response.totalElements()).isZero();
@@ -65,14 +65,14 @@ class DiscoverServiceTest {
         User caller = user(UUID.randomUUID());
         Skill java = new Skill(UUID.randomUUID(), "java", "Java", SkillCategory.TECH);
         when(wantedRepo.findByUserId(caller.getId())).thenReturn(List.of(wanted(caller, java)));
-        when(repo.findMatches(eq(caller.getId()), any(), any(), any(), any(), any(), any()))
+        when(repo.findMatches(eq(caller.getId()), any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of()));
 
-        service.discover(caller, null, null, null, null, -1, 9999);
+        service.discover(caller, null, null, null, null, null, null, -1, 9999);
 
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
         org.mockito.Mockito.verify(repo).findMatches(
-                eq(caller.getId()), any(), any(), any(), any(), any(),
+                eq(caller.getId()), any(), any(), any(), any(), any(), any(),
                 captor.capture());
         Pageable used = captor.getValue();
         assertThat(used.getPageNumber()).isZero();
@@ -86,16 +86,16 @@ class DiscoverServiceTest {
         Skill guitar = new Skill(UUID.randomUUID(), "guitar", "Guitar", SkillCategory.MUSIC);
         when(wantedRepo.findByUserId(caller.getId()))
                 .thenReturn(List.of(wanted(caller, java), wanted(caller, guitar)));
-        when(repo.findMatches(eq(caller.getId()), any(), any(), any(), any(), any(), any()))
+        when(repo.findMatches(eq(caller.getId()), any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of(), PageRequest.of(0, 20), 0));
 
-        service.discover(caller, null, "en", "VN", new BigDecimal("4.0"), 0, 20);
+        service.discover(caller, null, "en", "VN", new BigDecimal("4.0"), null, null, 0, 20);
 
         @SuppressWarnings("unchecked")
         ArgumentCaptor<List<UUID>> skillsCaptor = ArgumentCaptor.forClass(List.class);
         org.mockito.Mockito.verify(repo).findMatches(
                 eq(caller.getId()), skillsCaptor.capture(), eq(null),
-                eq("en"), eq("VN"), eq(new BigDecimal("4.0")), any());
+                eq("en"), eq("VN"), eq(new BigDecimal("4.0")), eq(null), any());
         assertThat(skillsCaptor.getValue()).containsExactly(java.getId(), guitar.getId());
     }
 
@@ -107,10 +107,10 @@ class DiscoverServiceTest {
         DiscoverMatchResponse match = new DiscoverMatchResponse(
                 UUID.randomUUID(), "Bob", null, "VN", List.of("en"),
                 "hi", new BigDecimal("4.5"), 7, 1, List.of());
-        when(repo.findMatches(any(), any(), any(), any(), any(), any(), any()))
+        when(repo.findMatches(any(), any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of(match), PageRequest.of(1, 5), 23));
 
-        DiscoverPageResponse response = service.discover(caller, null, null, null, null, 1, 5);
+        DiscoverPageResponse response = service.discover(caller, null, null, null, null, null, null, 1, 5);
 
         assertThat(response.items()).hasSize(1);
         assertThat(response.page()).isEqualTo(1);

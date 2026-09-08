@@ -1,9 +1,10 @@
 package com.skillseed.booking.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import com.skillseed.booking.domain.CancelReason;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CancelBookingRequest(
-        @NotBlank @Size(max = 50) String reason,
+        @NotNull CancelReason reason,
         @Size(max = 500) String message) {
 }

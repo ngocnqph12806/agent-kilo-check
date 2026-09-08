@@ -41,7 +41,9 @@ public class NotificationService {
      */
     @Transactional
     public Notification publish(User recipient, NotificationType type, Map<String, Object> payload) {
-        if (recipient == null) return null;
+        if (recipient == null) {
+            return null;
+        }
         Notification n = new Notification(UUID.randomUUID(), recipient, type,
                 payload == null ? Map.of() : payload);
         return notificationRepository.save(n);

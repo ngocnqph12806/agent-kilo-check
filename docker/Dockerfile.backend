@@ -4,21 +4,16 @@
 FROM eclipse-temurin:25-jdk-alpine AS builder
 WORKDIR /workspace
 
+# Install Maven (project does not ship a Maven wrapper)
+RUN apk add --no-cache maven
+
 # Cache Maven deps
 COPY backend/pom.xml backend/pom.xml
-COPY backend/.mvn backend/.mvn 2>/dev/null || true
-COPY backend/mvnw backend/mvnw 2>/dev/null || true
-RUN cd backend && \
-    if [ -f mvnw ]; then chmod +x mvnw && ./mvnw dependency:go-offline -B || true; \
-    else apk add --no-cache maven && mvn dependency:go-offline -B || true; \
-    fi
+RUN mvn -B -f backend/pom.xml dependency:go-offline || true
 
 # Copy source và build
 COPY backend/src backend/src
-RUN cd backend && \
-    if [ -f mvnw ]; then ./mvnw -B -DskipTests package; \
-    else mvn -B -DskipTests package; \
-    fi
+RUN mvn -B -f backend/pom.xml -DskipTests package
 
 # ---------- RUNTIME STAGE ----------
 FROM eclipse-temurin:25-jre-alpine

@@ -14,8 +14,7 @@ import type {
   VerifyEmailInput
 } from '../lib/schemas';
 import {
-  setAccessToken,
-  setRefreshTokenCookie
+  setAccessToken
 } from '../lib/token-storage';
 import { useAuthStore } from '../stores/auth-store';
 
@@ -24,11 +23,12 @@ const CURRENT_USER_QUERY_KEY = ['auth', 'me'] as const;
 function persistSession(
   setUser: (user: AuthUserSummary | null) => void,
   user: AuthUserSummary,
-  accessToken: string,
-  refreshToken: string
+  accessToken: string
 ) {
   setAccessToken(accessToken);
-  setRefreshTokenCookie(refreshToken);
+  // Refresh token is now stored exclusively as an HttpOnly cookie
+  // set by the backend on /auth/login and rotated on /auth/refresh.
+  // See backend/src/main/java/com/skillseed/auth/security/RefreshTokenCookie.java
   setUser(user);
 }
 
@@ -66,7 +66,7 @@ export function useLoginMutation() {
       return response;
     },
     onSuccess: (response) => {
-      persistSession(setUser, response.user, response.accessToken, response.refreshToken);
+      persistSession(setUser, response.user, response.accessToken);
       queryClient.setQueryData(CURRENT_USER_QUERY_KEY, response.user);
       router.replace('/discover');
     },
@@ -165,7 +165,7 @@ export function useGoogleLoginMutation() {
   return useMutation({
     mutationFn: async (input: GoogleOAuthInput) => authApi.loginWithGoogle(input),
     onSuccess: (response) => {
-      persistSession(setUser, response.user, response.accessToken, response.refreshToken);
+      persistSession(setUser, response.user, response.accessToken);
       queryClient.setQueryData(CURRENT_USER_QUERY_KEY, response.user);
       router.replace(response.user.onboardingCompleted ? '/discover' : '/onboarding');
     },
@@ -183,7 +183,7 @@ export function useAppleLoginMutation() {
   return useMutation({
     mutationFn: async (idToken: string) => authApi.loginWithApple(idToken),
     onSuccess: (response) => {
-      persistSession(setUser, response.user, response.accessToken, response.refreshToken);
+      persistSession(setUser, response.user, response.accessToken);
       queryClient.setQueryData(CURRENT_USER_QUERY_KEY, response.user);
       router.replace(response.user.onboardingCompleted ? '/discover' : '/onboarding');
     },
