@@ -24,6 +24,23 @@
     --destructive-foreground: 210 40% 98%;
     --ring: 142 76% 36%;
     --radius: 0.5rem;
+
+    /* SkillSeed brand tokens (extracted from screens-svg) */
+    --brand-cta-from: #10B981;
+    --brand-cta-to: #059669;
+    --brand-hero-from: #ECFDF5;
+    --brand-hero-to: #DBEAFE;
+    --brand-text-strong: #111827;
+    --brand-text-muted: #6B7280;
+    --brand-text-subtle: #9CA3AF;
+    --brand-border: #E5E7EB;
+    --brand-surface: #F9FAFB;
+    --brand-divider: #F3F4F6;
+    --brand-on-hero: #A7F3D0;
+    --brand-warn: #FEF3C7;
+    --brand-warn-text: #92400E;
+    --brand-indigo: #6366F1;
+    --brand-rose: #EF4444;
   }
 
   .dark {
@@ -47,23 +64,6 @@
     --destructive-foreground: 210 40% 98%;
     --ring: 142 76% 36%;
   }
-
-  /* SkillSeed brand tokens (extracted from screens-svg) */
-  --brand-cta-from: #10B981;
-  --brand-cta-to: #059669;
-  --brand-hero-from: #ECFDF5;
-  --brand-hero-to: #DBEAFE;
-  --brand-text-strong: #111827;
-  --brand-text-muted: #6B7280;
-  --brand-text-subtle: #9CA3AF;
-  --brand-border: #E5E7EB;
-  --brand-surface: #F9FAFB;
-  --brand-divider: #F3F4F6;
-  --brand-on-hero: #A7F3D0;
-  --brand-warn: #FEF3C7;
-  --brand-warn-text: #92400E;
-  --brand-indigo: #6366F1;
-  --brand-rose: #EF4444;
 }
 
 @layer base {
