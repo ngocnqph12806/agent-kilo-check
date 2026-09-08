@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormError, useFormServerError } from '@/modules/auth/components/form-status';
 import { GoogleSignInButton } from '@/modules/auth/components/google-sign-in-button';
+import { AppleSignInButton } from '@/modules/auth/components/apple-sign-in-button';
 import { useRegisterMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { registerSchema, type RegisterInput } from '@/modules/auth/lib/schemas';
 
@@ -129,6 +130,7 @@ export default function RegisterClient() {
       </div>
 
       <GoogleSignInButton mode="signup" />
+      <AppleSignInButton mode="signup" />
     </AuthShell>
   );
 }

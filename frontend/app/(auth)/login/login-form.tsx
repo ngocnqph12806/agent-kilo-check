@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormError, useFormServerError } from '@/modules/auth/components/form-status';
 import { GoogleSignInButton } from '@/modules/auth/components/google-sign-in-button';
+import { AppleSignInButton } from '@/modules/auth/components/apple-sign-in-button';
 import { useLoginMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { loginSchema, type LoginInput } from '@/modules/auth/lib/schemas';
 
@@ -127,14 +128,17 @@ export function LoginForm() {
 
       <div className="grid grid-cols-2 gap-3">
         <GoogleSignInButton mode="signin" />
-        <Button
-          variant="outline"
+        <AppleSignInButton mode="signin" />
+      </div>
+      <div className="text-center text-sm">
+        New to SkillSeed?{' '}
+        <button
           type="button"
-          className="h-11 rounded-xl text-sm"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
           onClick={() => router.push('/register')}
         >
-          Create a new account
-        </Button>
+          Create an account
+        </button>
       </div>
     </AuthShell>
   );
