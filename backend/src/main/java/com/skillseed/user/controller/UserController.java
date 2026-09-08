@@ -5,6 +5,8 @@ import com.skillseed.user.dto.CurrentUserResponse;
 import com.skillseed.user.dto.FreeSlotResponse;
 import com.skillseed.user.dto.PublicUserResponse;
 import com.skillseed.user.dto.UpdateProfileRequest;
+import com.skillseed.user.dto.UserDataExportResponse;
+import com.skillseed.user.service.UserGdprService;
 import com.skillseed.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,7 +15,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,9 +43,11 @@ public class UserController {
     private static final int MAX_AVAILABILITY_DAYS = 60;
 
     private final UserService userService;
+    private final UserGdprService userGdprService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserGdprService userGdprService) {
         this.userService = userService;
+        this.userGdprService = userGdprService;
     }
 
     @GetMapping("/me")
@@ -83,5 +89,20 @@ public class UserController {
         Instant start = from == null ? Instant.now() : from;
         int safeDays = Math.max(1, Math.min(days, MAX_AVAILABILITY_DAYS));
         return ResponseEntity.ok(userService.getFreeSlots(id, start, safeDays));
+    }
+
+    @DeleteMapping("/me")
+    @Operation(summary = "GDPR right-to-delete: soft-delete current user (T-M200)")
+    @ApiResponses(@ApiResponse(responseCode = "204", description = "Account soft-deleted; hard-delete in 30 days"))
+    public ResponseEntity<Void> deleteMe() {
+        userGdprService.softDelete(CurrentUser.requireId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/me/export", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "GDPR data export: snapshot every personal-data field (T-M201)")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "JSON export returned"))
+    public ResponseEntity<UserDataExportResponse> exportMe() {
+        return ResponseEntity.ok(userGdprService.export(CurrentUser.requireId()));
     }
 }

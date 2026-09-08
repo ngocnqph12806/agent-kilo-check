@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
+import { CookieConsentBanner } from '@/components/shared/cookie-consent-banner';
 import { AuthInitializer } from '@/modules/auth/components/auth-initializer';
 import { QueryProvider } from '@/lib/query-provider';
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QueryProvider>
           <AuthInitializer />
           {children}
+          <CookieConsentBanner />
         </QueryProvider>
       </body>
     </html>

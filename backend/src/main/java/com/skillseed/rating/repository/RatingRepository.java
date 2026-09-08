@@ -15,6 +15,8 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
 
     Page<Rating> findByRateeId(UUID rateeId, Pageable pageable);
 
+    List<Rating> findByRaterId(UUID raterId);
+
     Optional<Rating> findByBookingIdAndRaterId(UUID bookingId, UUID raterId);
 
     long countByRateeId(UUID rateeId);
