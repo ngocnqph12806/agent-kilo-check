@@ -249,4 +249,85 @@ class SkillServiceTest {
         SkillResponse response = service.getById(pending.getId());
         assertThat(response.status()).isEqualTo("pending_review");
     }
+
+    // --- FR-M22: admin review surface ---
+
+    @Test
+    void listPendingReturnsRepositoryPage() {
+        Skill p1 = pending(UUID.randomUUID(), "ux", "UX");
+        Skill p2 = pending(UUID.randomUUID(), "ml", "ML");
+        when(repo.findByStatus(eq(SkillStatus.PENDING_REVIEW), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of(p1, p2)));
+
+        SkillService.SkillPage page = service.listPending(0, 20);
+
+        assertThat(page.content()).hasSize(2);
+        assertThat(page.totalElements()).isEqualTo(2);
+        verify(repo).findByStatus(eq(SkillStatus.PENDING_REVIEW), any(Pageable.class));
+    }
+
+    @Test
+    void listPendingRejectsNegativePageAndOversizedPage() {
+        when(repo.findByStatus(eq(SkillStatus.PENDING_REVIEW), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of()));
+        service.listPending(-5, 9999); // should clamp to 0 and 100
+        ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
+        verify(repo).findByStatus(eq(SkillStatus.PENDING_REVIEW), pageableCaptor.capture());
+        assertThat(pageableCaptor.getValue().getPageNumber()).isEqualTo(0);
+        // SkillService.MAX_PAGE_SIZE = 100, so 9999 must clamp to 100.
+        assertThat(pageableCaptor.getValue().getPageSize()).isEqualTo(100);
+    }
+
+    @Test
+    void approveSkillTransitionsStatus() {
+        Skill pendingSkill = pending(UUID.randomUUID(), "rust", "Rust");
+        when(repo.findById(pendingSkill.getId())).thenReturn(Optional.of(pendingSkill));
+        when(repo.save(any(Skill.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        SkillResponse response = service.approveSkill(pendingSkill.getId());
+
+        assertThat(response.status()).isEqualTo("approved");
+        verify(repo).save(pendingSkill);
+    }
+
+    @Test
+    void approveSkillIsIdempotent() {
+        Skill approvedSkill = approved(UUID.randomUUID(), "java", "Java", SkillCategory.TECH);
+        when(repo.findById(approvedSkill.getId())).thenReturn(Optional.of(approvedSkill));
+
+        SkillResponse response = service.approveSkill(approvedSkill.getId());
+
+        assertThat(response.status()).isEqualTo("approved");
+        verify(repo, never()).save(any(Skill.class));
+    }
+
+    @Test
+    void approveSkillThrowsNotFoundWhenMissing() {
+        UUID missing = UUID.randomUUID();
+        when(repo.findById(missing)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.approveSkill(missing))
+                .isInstanceOf(SkillException.class)
+                .satisfies(ex -> assertThat(((SkillException) ex).getCode())
+                        .isEqualTo("SKILL_NOT_FOUND"));
+    }
+
+    @Test
+    void rejectSkillTransitionsStatus() {
+        Skill pendingSkill = pending(UUID.randomUUID(), "cobol", "Cobol");
+        when(repo.findById(pendingSkill.getId())).thenReturn(Optional.of(pendingSkill));
+        when(repo.save(any(Skill.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        SkillResponse response = service.rejectSkill(pendingSkill.getId());
+
+        assertThat(response.status()).isEqualTo("rejected");
+        verify(repo).save(pendingSkill);
+    }
+
+    private static Skill pending(UUID id, String slug, String name) {
+        Skill skill = new Skill(id, slug, name, SkillCategory.TECH);
+        skill.setStatus(SkillStatus.PENDING_REVIEW);
+        skill.setCustom(true);
+        return skill;
+    }
 }

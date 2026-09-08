@@ -89,6 +89,59 @@ public class SkillService {
     }
 
     /**
+     * Returns the queue of custom skills awaiting admin review (FR-M22).
+     * Sorted oldest-first so reviewers pick up the longest-pending item
+     * before the backlog grows.
+     */
+    @Transactional(readOnly = true)
+    public SkillPage listPending(int page, int size) {
+        int safePage = Math.max(0, page);
+        int safeSize = size <= 0 ? DEFAULT_PAGE_SIZE : Math.min(size, MAX_PAGE_SIZE);
+        Pageable pageable = PageRequest.of(safePage, safeSize,
+                Sort.by(Sort.Direction.ASC, "createdAt"));
+        Page<Skill> result = skillRepository.findByStatus(SkillStatus.PENDING_REVIEW, pageable);
+        List<SkillResponse> content = result.getContent().stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+        return new SkillPage(content, safePage, safeSize,
+                result.getTotalElements(), result.getTotalPages());
+    }
+
+    /**
+     * Approves a custom skill (FR-M22). Idempotent: approving an already-
+     * approved skill is a no-op. Throws 404 if the id doesn't exist.
+     */
+    @Transactional
+    public SkillResponse approveSkill(UUID id) {
+        Skill skill = skillRepository.findById(id)
+                .orElseThrow(() -> SkillException.notFound("SKILL_NOT_FOUND",
+                        "Skill not found"));
+        if (skill.getStatus() != SkillStatus.APPROVED) {
+            skill.setStatus(SkillStatus.APPROVED);
+            skill = skillRepository.save(skill);
+            log.info("Skill {} approved by admin", id);
+        }
+        return toResponse(skill);
+    }
+
+    /**
+     * Rejects a custom skill (FR-M22). Idempotent: rejecting an already-
+     * rejected skill is a no-op.
+     */
+    @Transactional
+    public SkillResponse rejectSkill(UUID id) {
+        Skill skill = skillRepository.findById(id)
+                .orElseThrow(() -> SkillException.notFound("SKILL_NOT_FOUND",
+                        "Skill not found"));
+        if (skill.getStatus() != SkillStatus.REJECTED) {
+            skill.setStatus(SkillStatus.REJECTED);
+            skill = skillRepository.save(skill);
+            log.info("Skill {} rejected by admin", id);
+        }
+        return toResponse(skill);
+    }
+
+    /**
      * Creates a user-submitted custom skill (FR-M22). Always stored with
      * {@code is_custom=true} and {@code status=pending_review} for admin
      * approval.
