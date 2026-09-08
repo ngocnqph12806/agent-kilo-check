@@ -26,6 +26,8 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     List<Booking> findByStatusAndScheduledAtBefore(BookingStatus status, Instant before);
 
+    List<Booking> findByStatusAndUpdatedAtBefore(BookingStatus status, Instant before);
+
     List<Booking> findByTeacherIdAndScheduledAtBetween(UUID teacherId, Instant from, Instant to);
 
     @Query("SELECT b FROM Booking b WHERE b.status = :status AND b.scheduledAt BETWEEN :from AND :to")

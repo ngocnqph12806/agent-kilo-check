@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { BookingModal } from '@/modules/booking/components/booking-modal';
+import { ReviewsList } from '@/modules/rating/components/reviews-list';
 import { useWalletSummary } from '@/modules/wallet/hooks/use-wallet';
 
 import {
@@ -85,15 +86,13 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             </ul>
           </Block>
 
-          <Block
-            title="Reviews"
-            emptyMessage="No reviews yet — be the first to book a session."
-          >
-            <p className="text-sm text-muted-foreground">
+          <Block title="Reviews">
+            <p className="mb-3 text-sm text-muted-foreground">
               {user.sessionsCompleted} completed session
               {user.sessionsCompleted === 1 ? '' : 's'} ·{' '}
               {user.ratingAvg > 0 ? `${user.ratingAvg.toFixed(1)} ⭐ average` : 'no rating yet'}
             </p>
+            <ReviewsList userId={user.id} />
           </Block>
         </div>
 

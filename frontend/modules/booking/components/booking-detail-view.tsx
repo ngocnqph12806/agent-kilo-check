@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { RateBookingButton } from '@/modules/rating/components/rate-booking-button';
+import { JoinSessionButton } from '@/modules/session/components/join-session-button';
 
 import {
   statusToBadgeClasses,
@@ -82,6 +84,13 @@ export function BookingDetailView({
     isParticipant(data, currentUserId) &&
     (data.status === ('pending' as BookingStatus) ||
       data.status === ('confirmed' as BookingStatus));
+  const canJoin =
+    isParticipant(data, currentUserId) &&
+    (data.status === ('confirmed' as BookingStatus) ||
+      data.status === ('in_progress' as BookingStatus));
+  const canRate =
+    isParticipant(data, currentUserId) &&
+    data.status === ('completed' as BookingStatus);
 
   return (
     <main className="container mx-auto max-w-3xl space-y-8 py-10">
@@ -129,7 +138,7 @@ export function BookingDetailView({
             </a>
           ) : (
             <span className="text-muted-foreground">
-              Generated when the session starts (Sprint 3)
+              Generated when the session starts
             </span>
           )}
         </Detail>
@@ -148,6 +157,12 @@ export function BookingDetailView({
       ) : null}
 
       <section className="flex flex-wrap items-center gap-2">
+        {canJoin ? (
+          <JoinSessionButton
+            bookingId={bookingId}
+            scheduledAt={data.scheduledAt}
+          />
+        ) : null}
         {canStart ? (
           <Button
             onClick={() => start.mutate(bookingId)}
@@ -182,6 +197,13 @@ export function BookingDetailView({
         <Button variant="outline" onClick={() => refetch()}>
           Refresh
         </Button>
+        {canRate ? (
+          <RateBookingButton
+            bookingId={bookingId}
+            rateeName={counterparty.fullName}
+            onSubmitted={() => refetch()}
+          />
+        ) : null}
       </section>
 
       <StatusTimeline current={data.status as BookingStatus} />
