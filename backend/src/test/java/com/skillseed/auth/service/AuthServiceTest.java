@@ -356,6 +356,35 @@ class AuthServiceTest {
                     .satisfies(ex -> assertThat(((AuthException) ex).getCode())
                             .isEqualTo("INVALID_TOKEN"));
         }
+
+        @Test
+        void bodyTokenWinsOverStaleCookie() throws Exception {
+            // A freshly rotated body token should win over a stale cookie
+            // from a previous session — otherwise a user who re-installed
+            // on a new device but kept the old cookie can't refresh.
+            UUID id = UUID.randomUUID();
+            Claims claims = mock(Claims.class);
+            when(claims.getSubject()).thenReturn(id.toString());
+            when(jwtService.parseAndValidate("body-new", "refresh")).thenReturn(claims);
+            when(tokenStore.consume(AuthService.PURPOSE_REFRESH_TOKEN, "body-new"))
+                    .thenReturn(Optional.of(id.toString()));
+            when(userRepository.findById(id)).thenReturn(Optional.of(existingEmailUser(id)));
+            when(jwtService.generateAccessToken(eq(id), anyString(), any(), any())).thenReturn("access");
+            when(jwtService.generateRefreshToken(id)).thenReturn("rotated");
+
+            jakarta.servlet.http.HttpServletRequest httpRequest = mock(
+                    jakarta.servlet.http.HttpServletRequest.class);
+            jakarta.servlet.http.Cookie cookie = new jakarta.servlet.http.Cookie(
+                    com.skillseed.auth.security.RefreshTokenCookie.NAME, "stale-cookie-value");
+            when(httpRequest.getCookies()).thenReturn(new jakarta.servlet.http.Cookie[] { cookie });
+
+            AuthTokenResponse response = authService.refresh(
+                    httpRequest, new RefreshTokenRequest("body-new"), false);
+
+            assertThat(response.refreshToken()).isEqualTo("rotated");
+            verify(tokenStore, never()).consume(
+                    AuthService.PURPOSE_REFRESH_TOKEN, "stale-cookie-value");
+        }
     }
 
     @Nested

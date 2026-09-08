@@ -244,10 +244,17 @@ public class AuthService {
     public AuthTokenResponse refresh(HttpServletRequest httpRequest,
                                      RefreshTokenRequest req,
                                      boolean secureCookie) {
+        // Prefer the body-supplied token (explicit, latest intent) over the
+        // cookie. Cookies are convenient for hardened clients that never
+        // see JS, but a freshly rotated token the client just received
+        // should win over a stale cookie set during a previous session —
+        // otherwise a user who re-installed on a new device but kept the
+        // old cookie would be unable to refresh.
+        String bodyToken = req == null ? null : req.refreshToken();
         String cookieToken = RefreshTokenCookie.read(httpRequest);
-        String token = cookieToken != null
-                ? cookieToken
-                : (req == null ? null : req.refreshToken());
+        String token = (bodyToken != null && !bodyToken.isBlank())
+                ? bodyToken
+                : cookieToken;
         if (token == null || token.isBlank()) {
             throw AuthException.unauthorized("INVALID_TOKEN",
                 "Refresh token is required (cookie or body)");
@@ -285,10 +292,11 @@ public class AuthService {
 
     public void logout(HttpServletRequest httpRequest,
                        RefreshTokenRequest req) {
+        String bodyToken = req == null ? null : req.refreshToken();
         String cookieToken = RefreshTokenCookie.read(httpRequest);
-        String token = cookieToken != null
-                ? cookieToken
-                : (req == null ? null : req.refreshToken());
+        String token = (bodyToken != null && !bodyToken.isBlank())
+                ? bodyToken
+                : cookieToken;
         if (token == null || token.isBlank()) {
             return;
         }
