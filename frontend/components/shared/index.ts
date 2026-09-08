@@ -18,4 +18,4 @@ export type { NetworkErrorScreenProps } from './network-error-screen';
 export { AsyncBoundary } from './async-boundary';
 export type { AsyncBoundaryProps } from './async-boundary';
 export { CookieConsentBanner } from './cookie-consent-banner';
-export { FeedbackLauncher } from './feedback-launcher';
+export { default as FeedbackLauncher, default as IntercomFeedback } from './feedback-launcher';

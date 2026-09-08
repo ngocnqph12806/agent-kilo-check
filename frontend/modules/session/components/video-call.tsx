@@ -12,11 +12,14 @@ import {
   Clock,
   Circle,
   X,
-  Loader2
+  Loader2,
+  AlertTriangle
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
+import { NetworkIndicator, type ConnectionQuality } from './network-indicator';
+import { ReportIssueDialog } from './report-issue-dialog';
 import { WhiteboardPanel } from './whiteboard-panel';
 
 import type { SessionRoom } from '../lib/session-api';
@@ -38,6 +41,7 @@ type DailyCallInstance = {
 
 interface VideoCallProps {
   room: SessionRoom;
+  bookingId: string;
   sessionTitle?: string;
   counterpartyName?: string;
   onLeave: () => void;
@@ -51,7 +55,19 @@ function formatElapsed(seconds: number): string {
   return `${m}:${s}`;
 }
 
-export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, onLeave }: VideoCallProps) {
+/**
+ * Map Daily's numeric network-quality threshold (0..1, higher = better)
+ * to the 4-level ConnectionQuality shown to the user (FR-M56).
+ * Thresholds are based on Daily's documented boundaries.
+ */
+function mapThresholdToQuality(t: number): ConnectionQuality {
+  if (t >= 0.9) return 'excellent';
+  if (t >= 0.6) return 'good';
+  if (t >= 0.3) return 'poor';
+  return 'bad';
+}
+
+export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpartyName, onLeave }: VideoCallProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const callRef = useRef<DailyCallInstance | null>(null);
   const [status, setStatus] = useState<CallStatus>('joining');
@@ -62,6 +78,8 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
   const [whiteboardOpen, setWhiteboardOpen] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [recording] = useState(false);
+  const [quality, setQuality] = useState<ConnectionQuality>('unknown');
+  const [reportIssueOpen, setReportIssueOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,6 +96,15 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
 
         callObject.on('joined-meeting', () => setStatus('joined'));
         callObject.on('left-meeting', () => setStatus('left'));
+        // FR-M56: surface Daily's network-quality-change event. Daily
+        // publishes `quality` as 'good' | 'low' | 'unknown' (we map
+        // 'good' → excellent/good from getNetworkStats below) and a
+        // numeric `threshold` (0..1) in `event.threshold`.
+        callObject.on('network-quality-change', (event: unknown) => {
+          const threshold = (event as { threshold?: number } | null)?.threshold;
+          if (typeof threshold !== 'number') return;
+          setQuality(mapThresholdToQuality(threshold));
+        });
         callObject.on('error', (event: unknown) => {
           const message =
             typeof event === 'object' && event !== null && 'message' in event
@@ -186,6 +213,7 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
               REC {formatElapsed(elapsed)}
             </div>
           ) : null}
+          <NetworkIndicator quality={quality} />
         </div>
 
         <button
@@ -254,6 +282,14 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
         >
           <PenTool className="h-5 w-5" />
         </ControlButton>
+        <ControlButton
+          active={false}
+          disabled={status !== 'joined'}
+          onClick={() => setReportIssueOpen(true)}
+          label="Report issue"
+        >
+          <AlertTriangle className="h-5 w-5" />
+        </ControlButton>
         <button
           type="button"
           onClick={leave}
@@ -267,6 +303,11 @@ export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, on
       <WhiteboardPanel
         open={whiteboardOpen}
         onClose={() => setWhiteboardOpen(false)}
+      />
+      <ReportIssueDialog
+        bookingId={bookingId}
+        open={reportIssueOpen}
+        onClose={() => setReportIssueOpen(false)}
       />
     </div>
   );

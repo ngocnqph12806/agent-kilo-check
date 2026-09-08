@@ -40,7 +40,7 @@ export function JoinSessionButton({ bookingId, scheduledAt }: JoinSessionButtonP
   };
 
   if (active) {
-    return <VideoCall room={active} onLeave={() => setActive(null)} />;
+    return <VideoCall room={active} bookingId={bookingId} onLeave={() => setActive(null)} />;
   }
 
   return (
