@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 
 import { CookieConsentBanner } from '@/components/shared/cookie-consent-banner';
+import { IntercomFeedback } from '@/components/shared/feedback-launcher';
 import { AuthInitializer } from '@/modules/auth/components/auth-initializer';
 import { buildPageMetadata } from '@/lib/metadata';
 import { QueryProvider } from '@/lib/query-provider';
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AuthInitializer />
           {children}
           <CookieConsentBanner />
+          <IntercomFeedback />
         </QueryProvider>
       </body>
     </html>
