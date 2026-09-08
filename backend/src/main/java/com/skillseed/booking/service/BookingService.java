@@ -32,7 +32,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +51,11 @@ public class BookingService {
     static final long REFUND_FULL_HOURS = 24;
     static final long NO_SHOW_GRACE_MINUTES = 10;
     static final Duration PENDING_TTL = Duration.ofHours(24);
+
+    /** Mirror of {@link #REFUND_FULL_HOURS} in minutes — used at the cancel
+     *  boundary so callers can't accidentally lose resolution by going
+     * through whole-hour rounding (FR-M76). */
+    static final long REFUND_FULL_MINUTES = 24L * 60L;
     private static final List<Integer> ALLOWED_DURATIONS = List.of(15, 30, 45, 60);
     private static final List<BookingStatus> ACTIVE_STATUSES = List.of(
             BookingStatus.PENDING, BookingStatus.CONFIRMED, BookingStatus.IN_PROGRESS);
@@ -195,8 +200,8 @@ public class BookingService {
             throw BookingException.conflict("INVALID_STATE_TRANSITION",
                     "Cannot cancel a booking in state " + current.getDbValue());
         }
-        long hoursAhead = ChronoUnit.HOURS.between(Instant.now(), booking.getScheduledAt());
-        int refundPercent = hoursAhead >= REFUND_FULL_HOURS ? 100 : 50;
+        long minutesAhead = Duration.between(Instant.now(), booking.getScheduledAt()).toMinutes();
+        int refundPercent = minutesAhead >= REFUND_FULL_MINUTES ? 100 : 50;
 
         User actor = userRepository.findById(actorId)
                 .orElseThrow(() -> BookingException.notFound("USER_NOT_FOUND", "User not found"));

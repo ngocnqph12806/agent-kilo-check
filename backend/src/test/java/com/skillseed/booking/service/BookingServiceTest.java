@@ -268,6 +268,44 @@ class BookingServiceTest {
     }
 
     @Test
+    void cancelAtExactly24hBoundaryRefundsFull() {
+        // FR-M76: the 24h boundary must be evaluated in MINUTES (not whole
+        // hours) so a cancel 24h00m ahead still earns a full refund.
+        UUID teacherId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        // 24 * 60 + 1 minutes so the test never reads false-positive due to
+        // clock drift between now() and the service's internal Instant.now().
+        Instant scheduledAt = Instant.now().plus(24 * 60 + 1, ChronoUnit.MINUTES);
+        BookingStub booking = bookingFixture(teacherId, learnerId,
+                BookingStatus.CONFIRMED, scheduledAt);
+        when(bookingRepository.findById(booking.id)).thenReturn(Optional.of(booking.entity));
+        when(userRepository.findById(teacherId)).thenReturn(Optional.of(booking.teacher));
+
+        service.cancel(booking.id, teacherId,
+                new CancelBookingRequest(CancelReason.TEACHER_UNAVAILABLE, null));
+
+        verify(walletService).refundEscrow(any(), eq(100));
+    }
+
+    @Test
+    void cancelOneMinuteUnder24hBoundaryRefundsHalf() {
+        // 23h59m ahead is strictly less than the FR-M76 threshold, so a
+        // half-refund (50%) is the correct policy.
+        UUID teacherId = UUID.randomUUID();
+        UUID learnerId = UUID.randomUUID();
+        Instant scheduledAt = Instant.now().plus(23 * 60 + 59, ChronoUnit.MINUTES);
+        BookingStub booking = bookingFixture(teacherId, learnerId,
+                BookingStatus.CONFIRMED, scheduledAt);
+        when(bookingRepository.findById(booking.id)).thenReturn(Optional.of(booking.entity));
+        when(userRepository.findById(teacherId)).thenReturn(Optional.of(booking.teacher));
+
+        service.cancel(booking.id, teacherId,
+                new CancelBookingRequest(CancelReason.TEACHER_UNAVAILABLE, null));
+
+        verify(walletService).refundEscrow(any(), eq(50));
+    }
+
+    @Test
     void cancelRejectsNonParticipant() {
         UUID teacherId = UUID.randomUUID();
         UUID learnerId = UUID.randomUUID();
