@@ -1,8 +1,20 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  Mic,
+  MicOff,
+  Video,
+  VideoOff,
+  ScreenShare,
+  PhoneOff,
+  PenTool,
+  Clock,
+  Circle,
+  X,
+  Loader2
+} from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import { WhiteboardPanel } from './whiteboard-panel';
@@ -10,7 +22,7 @@ import { WhiteboardPanel } from './whiteboard-panel';
 import type { SessionRoom } from '../lib/session-api';
 
 type DailyCallInstance = {
-  join: () => Promise<void>;
+  join: (args?: { url?: string; token?: string; userName?: string }) => Promise<void>;
   leave: () => Promise<void>;
   setLocalAudio: (enabled: boolean) => void;
   setLocalVideo: (enabled: boolean) => void;
@@ -26,12 +38,20 @@ type DailyCallInstance = {
 
 interface VideoCallProps {
   room: SessionRoom;
+  sessionTitle?: string;
+  counterpartyName?: string;
   onLeave: () => void;
 }
 
 type CallStatus = 'joining' | 'joined' | 'left' | 'error';
 
-export function VideoCall({ room, onLeave }: VideoCallProps) {
+function formatElapsed(seconds: number): string {
+  const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+  const s = (seconds % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+
+export function VideoCall({ room, sessionTitle = 'Session', counterpartyName, onLeave }: VideoCallProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const callRef = useRef<DailyCallInstance | null>(null);
   const [status, setStatus] = useState<CallStatus>('joining');
@@ -40,6 +60,8 @@ export function VideoCall({ room, onLeave }: VideoCallProps) {
   const [cameraOff, setCameraOff] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [whiteboardOpen, setWhiteboardOpen] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+  const [recording] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -87,6 +109,12 @@ export function VideoCall({ room, onLeave }: VideoCallProps) {
     };
   }, [room.roomUrl, room.token]);
 
+  useEffect(() => {
+    if (status !== 'joined') return;
+    const id = window.setInterval(() => setElapsed((e) => e + 1), 1000);
+    return () => window.clearInterval(id);
+  }, [status]);
+
   const toggleAudio = useCallback(() => {
     const call = callRef.current;
     if (!call) return;
@@ -133,81 +161,145 @@ export function VideoCall({ room, onLeave }: VideoCallProps) {
   }, [onLeave]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-zinc-950 text-zinc-50">
+    <div className="fixed inset-0 z-50 flex flex-col bg-[#111827] text-zinc-50">
+      <header className="flex h-14 items-center justify-between border-b border-white/5 bg-black/40 px-4 backdrop-blur">
+        <div className="flex items-center gap-3 truncate">
+          <span className="text-sm font-semibold truncate">{sessionTitle}</span>
+          {counterpartyName ? (
+            <>
+              <span className="text-zinc-500">·</span>
+              <span className="truncate text-sm text-zinc-400">with {counterpartyName}</span>
+            </>
+          ) : null}
+        </div>
+
+        <div className="hidden items-center gap-3 sm:flex">
+          {status === 'joined' ? (
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs">
+              <Clock className="h-3.5 w-3.5" />
+              {formatElapsed(elapsed)}
+            </div>
+          ) : null}
+          {recording ? (
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs">
+              <Circle className="h-2.5 w-2.5 fill-[var(--brand-rose)] text-[var(--brand-rose)]" />
+              REC {formatElapsed(elapsed)}
+            </div>
+          ) : null}
+        </div>
+
+        <button
+          type="button"
+          onClick={leave}
+          aria-label="Leave session"
+          className="rounded-full p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      </header>
+
       <div
         ref={containerRef}
         className="relative flex-1 overflow-hidden"
         data-testid="daily-call-container"
       >
-        {status === 'joining' && (
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-zinc-300">
-            Connecting to {room.role === 'owner' ? 'host ' : ''}session…
+        {status === 'joining' ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-sm text-zinc-300">
+            <Loader2 className="h-10 w-10 animate-spin text-emerald-400" />
+            <p>Connecting to {room.role === 'owner' ? 'host ' : ''}session…</p>
           </div>
-        )}
+        ) : null}
         {status === 'error' && error ? (
           <div className="absolute inset-0 flex items-center justify-center p-6 text-center text-sm text-rose-300">
             <div>
-              <p className="font-semibold">Video session failed</p>
+              <p className="text-base font-semibold">Video session failed</p>
               <p className="mt-2 max-w-md text-rose-200/80">{error}</p>
             </div>
           </div>
         ) : null}
       </div>
 
-      <div className="flex items-center justify-center gap-2 border-t border-zinc-800 bg-zinc-900/80 p-3">
-        <Button
-          type="button"
-          size="sm"
-          variant={muted ? 'destructive' : 'secondary'}
+      <div className="flex items-center justify-center gap-2 border-t border-white/5 bg-black/60 p-4 backdrop-blur">
+        <ControlButton
+          active={!muted}
+          destructive={muted}
+          disabled={status !== 'joined'}
           onClick={toggleAudio}
-          disabled={status !== 'joined'}
-          aria-pressed={muted}
+          label={muted ? 'Unmute' : 'Mute'}
         >
-          {muted ? 'Unmute' : 'Mute'}
-        </Button>
-        <Button
-          type="button"
-          size="sm"
-          variant={cameraOff ? 'destructive' : 'secondary'}
+          {muted ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+        </ControlButton>
+        <ControlButton
+          active={!cameraOff}
+          destructive={cameraOff}
+          disabled={status !== 'joined'}
           onClick={toggleVideo}
-          disabled={status !== 'joined'}
-          aria-pressed={cameraOff}
+          label={cameraOff ? 'Camera on' : 'Camera off'}
         >
-          {cameraOff ? 'Camera on' : 'Camera off'}
-        </Button>
-        <Button
-          type="button"
-          size="sm"
-          variant={sharing ? 'default' : 'secondary'}
+          {cameraOff ? <VideoOff className="h-5 w-5" /> : <Video className="h-5 w-5" />}
+        </ControlButton>
+        <ControlButton
+          active={sharing}
+          disabled={status !== 'joined'}
           onClick={toggleScreenShare}
-          disabled={status !== 'joined'}
-          aria-pressed={sharing}
+          label={sharing ? 'Stop sharing' : 'Share screen'}
         >
-          {sharing ? 'Stop sharing' : 'Share screen'}
-        </Button>
-        <Button
-          type="button"
-          size="sm"
-          variant={whiteboardOpen ? 'default' : 'secondary'}
+          <ScreenShare className="h-5 w-5" />
+        </ControlButton>
+        <ControlButton
+          active={whiteboardOpen}
+          disabled={status !== 'joined'}
           onClick={() => setWhiteboardOpen((v) => !v)}
-          disabled={status !== 'joined'}
+          label={whiteboardOpen ? 'Hide whiteboard' : 'Whiteboard'}
         >
-          {whiteboardOpen ? 'Hide whiteboard' : 'Whiteboard'}
-        </Button>
-        <Button
+          <PenTool className="h-5 w-5" />
+        </ControlButton>
+        <button
           type="button"
-          size="sm"
-          variant="destructive"
           onClick={leave}
-          className={cn(status === 'joined' ? '' : 'opacity-80')}
+          className="ml-2 inline-flex h-12 items-center gap-2 rounded-full bg-[var(--brand-rose)] px-5 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
         >
-          Leave session
-        </Button>
+          <PhoneOff className="h-5 w-5" />
+          Leave
+        </button>
       </div>
+
       <WhiteboardPanel
         open={whiteboardOpen}
         onClose={() => setWhiteboardOpen(false)}
       />
     </div>
+  );
+}
+
+interface ControlButtonProps {
+  active: boolean;
+  destructive?: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  label: string;
+  children: React.ReactNode;
+}
+
+function ControlButton({ active, destructive, disabled, onClick, label, children }: ControlButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      aria-pressed={!active}
+      className={cn(
+        'inline-flex h-12 w-12 items-center justify-center rounded-full transition',
+        destructive
+          ? 'bg-[var(--brand-rose)] text-white'
+          : active
+            ? 'bg-white/10 text-white hover:bg-white/20'
+            : 'bg-white/5 text-zinc-400 hover:bg-white/10',
+        disabled && 'cursor-not-allowed opacity-50'
+      )}
+    >
+      {children}
+    </button>
   );
 }
