@@ -1,7 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+
+import { Bell, Loader2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -39,25 +42,31 @@ export function NotificationBell() {
       <button
         type="button"
         onClick={() => setOpen((state) => !state)}
-        className="relative rounded-full border bg-background p-2 hover:bg-accent"
+        className="relative rounded-full border border-[var(--brand-border)] bg-white p-2 text-[var(--brand-text-strong)] shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]"
         aria-label={`Notifications (${unreadCount} unread)`}
       >
-        <BellIcon />
+        <Bell className="h-5 w-5" aria-hidden />
         {unreadCount > 0 ? (
-          <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold text-destructive-foreground">
+          <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-semibold text-white">
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         ) : null}
       </button>
 
       {open ? (
-        <div className="absolute right-0 z-50 mt-2 w-80 rounded-lg border bg-popover text-popover-foreground shadow-lg">
-          <div className="flex items-center justify-between border-b px-4 py-2">
-            <p className="text-sm font-medium">Notifications</p>
+        <div className="absolute right-0 z-50 mt-2 w-96 overflow-hidden rounded-2xl border border-[var(--brand-border)] bg-white text-[var(--brand-text-strong)] shadow-brand-card">
+          <div className="flex items-center justify-between border-b border-[var(--brand-border)] bg-[var(--brand-hero-soft)]/40 px-4 py-3">
+            <div>
+              <p className="text-sm font-bold">Notifications</p>
+              <p className="text-xs text-[var(--brand-text-muted)]">
+                {unreadCount} unread
+              </p>
+            </div>
             <Button
               variant="ghost"
               size="sm"
               type="button"
+              className="rounded-full text-emerald-700 hover:bg-emerald-50"
               disabled={unreadCount === 0 || markAll.isPending}
               onClick={() => markAll.mutate()}
             >
@@ -67,9 +76,16 @@ export function NotificationBell() {
 
           <div className="max-h-96 overflow-auto">
             {inbox.isLoading ? (
-              <p className="px-4 py-8 text-center text-sm text-muted-foreground">Loading…</p>
+              <div className="flex items-center justify-center gap-2 px-4 py-10 text-sm text-[var(--brand-text-muted)]">
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                Loading…
+              </div>
+            ) : inbox.error ? (
+              <p className="px-4 py-10 text-center text-sm text-rose-600">
+                Could not load notifications.
+              </p>
             ) : inbox.data && inbox.data.items.length > 0 ? (
-              <ul className="divide-y">
+              <ul className="divide-y divide-[var(--brand-border)]">
                 {inbox.data.items.map((n) => (
                   <NotificationRow
                     key={n.id}
@@ -84,10 +100,21 @@ export function NotificationBell() {
                 ))}
               </ul>
             ) : (
-              <p className="px-4 py-8 text-center text-sm text-muted-foreground">
+              <div className="px-4 py-10 text-center text-sm text-[var(--brand-text-muted)]">
+                <Bell className="mx-auto mb-2 h-6 w-6 text-zinc-300" aria-hidden />
                 No notifications yet.
-              </p>
+              </div>
             )}
+          </div>
+
+          <div className="border-t border-[var(--brand-border)] bg-white px-4 py-2">
+            <Link
+              href="/notifications"
+              onClick={() => setOpen(false)}
+              className="block text-center text-xs font-semibold text-emerald-700 hover:underline"
+            >
+              View all notifications
+            </Link>
           </div>
         </div>
       ) : null}
@@ -102,26 +129,34 @@ function NotificationRow({
   notification: Notification;
   onClick: () => void;
 }) {
+  const payload = (notification.payload ?? {}) as Record<string, unknown>;
+  const title =
+    typeof payload.title === 'string'
+      ? payload.title
+      : titleFor(notification);
+
   return (
     <li>
       <button
         type="button"
         onClick={onClick}
         className={cn(
-          'flex w-full items-start gap-3 px-4 py-3 text-left hover:bg-accent',
-          notification.unread && 'bg-primary/5'
+          'flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-[var(--brand-hero-soft)]/40',
+          notification.unread && 'bg-emerald-50/60'
         )}
       >
         <span
           className={cn(
-            'mt-1 h-2 w-2 shrink-0 rounded-full',
-            notification.unread ? 'bg-primary' : 'bg-transparent'
+            'mt-1.5 h-2 w-2 shrink-0 rounded-full',
+            notification.unread ? 'bg-emerald-500' : 'bg-transparent'
           )}
           aria-hidden
         />
-        <div className="flex-1">
-          <p className="text-sm font-medium">{titleFor(notification)}</p>
-          <p className="text-xs text-muted-foreground">
+        <div className="flex-1 space-y-1">
+          <p className="text-sm font-semibold text-[var(--brand-text-strong)]">
+            {title}
+          </p>
+          <p className="text-xs text-[var(--brand-text-muted)]">
             {new Date(notification.createdAt).toLocaleString()}
           </p>
         </div>
@@ -131,8 +166,6 @@ function NotificationRow({
 }
 
 function titleFor(notification: Notification): string {
-  const title = (notification.payload as { title?: string }).title;
-  if (title) return title;
   switch (notification.type) {
     case 'welcome':
       return 'Welcome to SkillSeed';
@@ -166,24 +199,4 @@ function titleFor(notification: Notification): string {
 function routeFor(notification: Notification): string | null {
   const href = (notification.payload as { href?: string }).href;
   return href ?? null;
-}
-
-function BellIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-    </svg>
-  );
 }
