@@ -30,6 +30,10 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     List<Booking> findByTeacherIdAndScheduledAtBetween(UUID teacherId, Instant from, Instant to);
 
+    List<Booking> findByTeacherId(UUID teacherId);
+
+    List<Booking> findByLearnerId(UUID learnerId);
+
     @Query("SELECT b FROM Booking b WHERE b.status = :status AND b.scheduledAt BETWEEN :from AND :to")
     List<Booking> findRemindersWindow(@Param("status") BookingStatus status,
                                        @Param("from") Instant from,

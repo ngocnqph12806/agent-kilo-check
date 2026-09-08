@@ -2,7 +2,10 @@ name: CD
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened, closed]
   workflow_dispatch:
     inputs:
       environment:
@@ -18,18 +21,26 @@ concurrency:
 permissions:
   contents: read
   deployments: write
+  pull-requests: write
 
 jobs:
   # ---------- BACKEND → Railway ----------
   backend-deploy:
     name: Backend · Deploy to Railway
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || inputs.environment != ''
+    if: github.event_name != 'pull_request'
     environment:
-      name: ${{ github.event_name == 'push' && 'production' || inputs.environment }}
-      url: https://api.skillseed.app
+      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+      url: ${{ github.ref_name == 'main' && 'https://api.skillseed.app' || 'https://api.staging.skillseed.app' }}
     steps:
       - uses: actions/checkout@v7
+
+      - name: Skip on [skip cd] commit
+        run: |
+          if echo "${{ github.event.head_commit.message }}" | grep -q '\[skip cd\]'; then
+            echo "Commit opts out of CD. Skipping."
+            exit 0
+          fi
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
@@ -43,18 +54,15 @@ jobs:
   frontend-deploy:
     name: Frontend · Deploy to Vercel
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || inputs.environment != ''
-    environment:
-      name: ${{ github.event_name == 'push' && 'production' || inputs.environment }}
-      url: https://skillseed.app
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
+        cache: npm
+        cache-dependency-path: frontend/package-lock.json
 
       - name: Install Vercel CLI
         run: npm install -g vercel@latest
@@ -74,19 +82,37 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
-      - name: Comment PR (if applicable)
-        if: github.event_name == 'pull_request'
+  # ---------- PR PREVIEWS ----------
+  pr-preview:
+    name: PR · Preview comment
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Comment preview URL
         uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: vercel-preview
           message: |
-            🚀 Preview deployed: https://skillseed-${{ github.event.pull_request.number }}.vercel.app
+            🚀 Vercel preview will be available shortly at:
+            `https://skillseed-git-${{ github.head_ref }}-<org>.vercel.app`
+            _(Vercel bot also posts the exact URL.)_
+
+  pr-cleanup:
+    name: PR · Cleanup
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: vercel-preview
+          message: '🧹 Preview cleaned up after PR close.'
 
   # ---------- POST-DEPLOY SMOKE TEST ----------
   smoke:
     name: Post-Deploy · Smoke Test
     needs: [backend-deploy, frontend-deploy]
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref_name == 'main'
     runs-on: ubuntu-latest
     steps:
       - name: Health check (backend)
@@ -122,5 +148,15 @@ jobs:
           payload: |
             {
               "text": "🚨 *SkillSeed prod deploy smoke test failed*\nCommit: ${{ github.sha }}\nActor: ${{ github.actor }}"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify on success
+        if: success()
+        uses: slackapi/slack-github-action@v4
+        with:
+          payload: |
+            {
+              "text": "✅ *SkillSeed prod deploy succeeded*\nCommit: ${{ github.sha }}\nActor: ${{ github.actor }}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
