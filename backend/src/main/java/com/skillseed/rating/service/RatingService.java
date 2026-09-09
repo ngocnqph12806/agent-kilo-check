@@ -191,10 +191,11 @@ public class RatingService {
             return;
         }
         // Single aggregate query — no row materialisation. Old code loaded
-        // every rating row into memory just to sum a column.
-        BigDecimal newAvg = ratingRepository.averageOverallScoreForRatee(rateeId);
+        // every rating row into memory just to sum a column. JPQL AVG()
+        // returns Double; convert to BigDecimal for the persisted column.
+        Double newAvg = ratingRepository.averageOverallScoreForRatee(rateeId);
         if (newAvg != null) {
-            ratee.setRatingAvg(newAvg.setScale(2, RoundingMode.HALF_UP));
+            ratee.setRatingAvg(BigDecimal.valueOf(newAvg).setScale(2, RoundingMode.HALF_UP));
         }
         ratee.setSessionsCompleted(ratee.getSessionsCompleted() + 1);
         userRepository.save(ratee);

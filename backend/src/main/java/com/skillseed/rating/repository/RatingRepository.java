@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,8 +34,12 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
      * ratings yet; callers must guard. Replaces the old findAll +
      * in-memory sum/divide which loaded every rating row into memory
      * just to discard them.
+     *
+     * <p>JPQL {@code AVG()} returns {@link Double} — callers needing a
+     * {@link java.math.BigDecimal} should convert via
+     * {@code BigDecimal.valueOf(avg)}.
      */
     @Query("SELECT AVG(r.overallScore) FROM Rating r "
-            + "WHERE r.rateeId = :rateeId AND r.overallScore IS NOT NULL")
-    BigDecimal averageOverallScoreForRatee(@Param("rateeId") UUID rateeId);
+            + "WHERE r.ratee.id = :rateeId AND r.overallScore IS NOT NULL")
+    Double averageOverallScoreForRatee(@Param("rateeId") UUID rateeId);
 }
