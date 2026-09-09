@@ -36,6 +36,7 @@ public class SecurityConfig {
             "/actuator/info",
             "/api/v1/health",
             "/api/v1/auth/**",
+            "/api/v1/waitlist",
             "/api/v1/webhooks/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",

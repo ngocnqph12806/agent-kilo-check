@@ -84,6 +84,7 @@ class AuthServiceTest {
 
         authService = new AuthService(
                 userRepository,
+                mock(com.skillseed.user.repository.UserWalletRepository.class),
                 passwordEncoder,
                 jwtService,
                 tokenStore,
@@ -91,6 +92,8 @@ class AuthServiceTest {
                 rateLimiter,
                 inMemoryRateLimiter,
                 provider,
+                mock(SiweService.class),
+                mock(WalletChallengeStore.class),
                 "https://app.skillseed.test");
     }
 

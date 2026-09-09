@@ -69,6 +69,12 @@ jwt:
 
 app:
   public-base-url: ${APP_PUBLIC_BASE_URL:http://localhost:3000}
+  siwe:
+    # Domain embedded in the SIWE message (must match what the wallet UI shows).
+    domain: ${APP_SIWE_DOMAIN:localhost:3000}
+    uri: ${APP_SIWE_URI:http://localhost:3000}
+  wallet:
+    challenge-ttl-minutes: ${APP_WALLET_CHALLENGE_TTL_MINUTES:10}
 
 notification:
   resend:

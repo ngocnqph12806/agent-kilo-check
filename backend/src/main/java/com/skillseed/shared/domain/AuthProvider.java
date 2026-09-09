@@ -3,7 +3,8 @@ package com.skillseed.shared.domain;
 public enum AuthProvider {
     EMAIL("email"),
     GOOGLE("google"),
-    APPLE("apple");
+    APPLE("apple"),
+    WALLET("wallet");
 
     private final String dbValue;
 

@@ -11,6 +11,9 @@ import com.skillseed.auth.dto.RegisterResponse;
 import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.SimpleMessageResponse;
 import com.skillseed.auth.dto.VerifyEmailRequest;
+import com.skillseed.auth.dto.WalletChallengeRequest;
+import com.skillseed.auth.dto.WalletChallengeResponse;
+import com.skillseed.auth.dto.WalletVerifyRequest;
 import com.skillseed.auth.security.RefreshTokenCookie;
 import com.skillseed.auth.service.AuthService;
 import com.skillseed.user.domain.User;
@@ -176,6 +179,33 @@ public class AuthController {
             @Parameter(hidden = true) HttpServletResponse httpResponse) {
         boolean secure = isSecure(httpRequest);
         AuthTokenResponse tokens = authService.loginWithApple(req, secure);
+        RefreshTokenCookie.write(httpResponse, tokens.refreshToken(), secure);
+        return ResponseEntity.ok(tokens);
+    }
+
+    @PostMapping("/wallet/challenge")
+    @Operation(summary = "Issue a fresh SIWE challenge message for the given wallet")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Challenge generated; sign and submit via /wallet/verify"),
+            @ApiResponse(responseCode = "400", description = "Invalid address or unsupported chain id")
+    })
+    public ResponseEntity<WalletChallengeResponse> walletChallenge(
+            @Valid @RequestBody WalletChallengeRequest req) {
+        return ResponseEntity.ok(authService.walletChallenge(req));
+    }
+
+    @PostMapping("/wallet/verify")
+    @Operation(summary = "Sign in (or register) with a verified SIWE signature")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Authenticated; JWT pair returned"),
+            @ApiResponse(responseCode = "401", description = "Signature invalid, challenge replayed, or rate-limited")
+    })
+    public ResponseEntity<AuthTokenResponse> walletVerify(
+            @Valid @RequestBody WalletVerifyRequest req,
+            @Parameter(hidden = true) HttpServletRequest httpRequest,
+            @Parameter(hidden = true) HttpServletResponse httpResponse) {
+        boolean secure = isSecure(httpRequest);
+        AuthTokenResponse tokens = authService.loginWithWallet(req, clientKey(httpRequest), secure);
         RefreshTokenCookie.write(httpResponse, tokens.refreshToken(), secure);
         return ResponseEntity.ok(tokens);
     }

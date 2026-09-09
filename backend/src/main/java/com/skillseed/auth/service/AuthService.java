@@ -9,13 +9,18 @@ import com.skillseed.auth.dto.RefreshTokenRequest;
 import com.skillseed.auth.dto.RegisterRequest;
 import com.skillseed.auth.dto.ResetPasswordRequest;
 import com.skillseed.auth.dto.UserSummaryResponse;
+import com.skillseed.auth.dto.WalletChallengeRequest;
+import com.skillseed.auth.dto.WalletChallengeResponse;
+import com.skillseed.auth.dto.WalletVerifyRequest;
 import com.skillseed.auth.exception.AuthException;
 import com.skillseed.auth.security.RefreshTokenCookie;
 import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.shared.domain.AuthProvider;
 import com.skillseed.shared.security.InMemoryRateLimiter;
 import com.skillseed.user.domain.User;
+import com.skillseed.user.domain.UserWallet;
 import com.skillseed.user.repository.UserRepository;
+import com.skillseed.user.repository.UserWalletRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -62,6 +67,7 @@ public class AuthService {
     static final int VERIFY_EMAIL_MAX_ATTEMPTS = 10;
 
     private final UserRepository userRepository;
+    private final UserWalletRepository walletRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final TokenStore tokenStore;
@@ -69,10 +75,13 @@ public class AuthService {
     private final RateLimiter rateLimiter;
     private final InMemoryRateLimiter inMemoryRateLimiter;
     private final Map<String, OAuthIdTokenVerifier> oauthVerifiers;
+    private final SiweService siweService;
+    private final WalletChallengeStore challengeStore;
     private final String publicBaseUrl;
 
     public AuthService(
         UserRepository userRepository,
+        UserWalletRepository walletRepository,
         PasswordEncoder passwordEncoder,
         JwtService jwtService,
         TokenStore tokenStore,
@@ -80,8 +89,11 @@ public class AuthService {
         RateLimiter rateLimiter,
         InMemoryRateLimiter inMemoryRateLimiter,
         ObjectProvider<List<OAuthIdTokenVerifier>> oauthProvider,
+        SiweService siweService,
+        WalletChallengeStore challengeStore,
         @Value("${app.public-base-url:http://localhost:3000}") String publicBaseUrl) {
         this.userRepository = userRepository;
+        this.walletRepository = walletRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.tokenStore = tokenStore;
@@ -92,6 +104,8 @@ public class AuthService {
             .collect(Collectors.toMap(
                 v -> v.configSummary().get("provider"),
                 v -> v));
+        this.siweService = siweService;
+        this.challengeStore = challengeStore;
         this.publicBaseUrl = publicBaseUrl;
     }
 
@@ -384,6 +398,98 @@ public class AuthService {
     @Transactional
     public AuthTokenResponse loginWithApple(OAuthAppleRequest req, boolean secureCookie) {
         return oauthLogin("apple", req.idToken(), req.fullName(), secureCookie);
+    }
+
+    // ---------------------------------------------------------------------
+    // SIWE (Web3 Wallet) — Phase 1, T-M405
+    // ---------------------------------------------------------------------
+
+    /**
+     * Issues a fresh SIWE challenge message that the client must sign with
+     * their wallet. The nonce is bound into the message and tracked via
+     * {@link WalletChallengeStore} to prevent replay.
+     */
+    public WalletChallengeResponse walletChallenge(WalletChallengeRequest req) {
+        siweService.validateAddress(req.address());
+        siweService.validateChain(req.chainId());
+        String message = siweService.buildMessage(req.address(), req.chainId());
+        return new WalletChallengeResponse(message, req.chainId());
+    }
+
+    /**
+     * Verifies the signed SIWE challenge, looks up (or creates) the user
+     * for the recovered wallet address, and issues a JWT pair. Auto-creates
+     * a passwordless account on first sign-in (auth_provider = WALLET,
+     * full_name derived from the truncated address or ENS).
+     */
+    @Transactional
+    public AuthTokenResponse loginWithWallet(WalletVerifyRequest req,
+                                             String clientKey,
+                                             boolean secureCookie) {
+        String rateKey = clientKey == null || clientKey.isBlank() ? "unknown" : clientKey;
+        if (!rateLimiter.tryAcquire("wallet-login", rateKey,
+                LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW)) {
+            long retry = rateLimiter.retryAfterSeconds("wallet-login", rateKey,
+                LOGIN_MAX_ATTEMPTS, LOGIN_WINDOW);
+            throw AuthException.tooManyRequests("RATE_LIMITED",
+                "Too many wallet sign-in attempts; retry in " + retry + "s");
+        }
+        siweService.validateChain(req.chainId());
+
+        // Replay protection: the (message, signature) pair can only be used once.
+        if (!challengeStore.consumeIfFresh(req.message())) {
+            throw AuthException.unauthorized("CHALLENGE_REPLAYED",
+                "This challenge has already been used; request a new one");
+        }
+
+        String recovered = siweService.recoverAddress(req.message(), req.signature());
+        String recoveredLower = recovered.toLowerCase(Locale.ROOT);
+        log.info("SIWE recovered address={}", recoveredLower);
+
+        UserWallet wallet = walletRepository.findByAddressLower(recoveredLower)
+            .orElseGet(() -> createWalletUser(recovered, req.chainId()));
+        wallet.touchLastUsed();
+        walletRepository.save(wallet);
+
+        User user = wallet.getUser();
+        if (!user.isVerified()) {
+            user.setVerified(true);
+        }
+        if (user.getAuthProvider() == AuthProvider.EMAIL
+                || user.getAuthProvider() == AuthProvider.GOOGLE
+                || user.getAuthProvider() == AuthProvider.APPLE) {
+            // Linking: keep prior provider so the user can still log in via
+            // the original method. Only flip to WALLET for brand-new accounts.
+        }
+        user.setUpdatedAt(Instant.now());
+        userRepository.save(user);
+        return issueTokens(user, secureCookie);
+    }
+
+    private UserWallet createWalletUser(String address, long chainId) {
+        String shortAddress = address.substring(0, 6) + "…" + address.substring(38);
+        String pseudoEmail = recoveredAddressToEmail(address);
+        if (userRepository.existsByEmail(pseudoEmail)) {
+            throw AuthException.conflict("WALLET_ALREADY_LINKED",
+                "This wallet is already linked to a different account");
+        }
+        Instant now = Instant.now();
+        User user = new User(UUID.randomUUID(), pseudoEmail, "Wallet " + shortAddress);
+        user.setAuthProvider(AuthProvider.WALLET);
+        user.setVerified(true);
+        user.setVerificationLevel((short) 0);
+        user.setPasswordHash(null);
+        user.setCreatedAt(now);
+        user.setUpdatedAt(now);
+        userRepository.save(user);
+        UserWallet wallet = new UserWallet(user, address, chainId);
+        wallet.setPrimary(true);
+        return walletRepository.save(wallet);
+    }
+
+    /** Maps a wallet address to a deterministic pseudo-email for FK/UNIQUE. */
+    private static String recoveredAddressToEmail(String address) {
+        return address.toLowerCase(Locale.ROOT) + "@wallet.skillseed.local";
     }
 
     private AuthTokenResponse oauthLogin(String provider, String idToken,
