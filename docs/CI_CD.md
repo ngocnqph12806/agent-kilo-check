@@ -131,6 +131,7 @@ Trước khi PR được merge:
 - [ ] **Frontend typecheck** pass (`npm run typecheck`)
 - [ ] **Frontend build** pass (`npm run build`)
 - [ ] **Docs lint** pass (markdownlint)
+- [ ] **Visual fidelity gate** — PR có UI / DTO / status-enum change đính kèm `Matches screens-svg/...` (xem §5.3 AGENTS.md + `docs/VISUAL_FIDELITY.md`)
 - [ ] **Branch protection** trên `main` đã bật (xem §7)
 
 ---
