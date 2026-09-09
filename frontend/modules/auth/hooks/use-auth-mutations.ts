@@ -76,11 +76,19 @@ export function useLoginMutation() {
   });
 }
 
+/** Form-side type (includes client-only fields like acceptTerms). */
+type RegisterFormInput = Omit<RegisterInput, 'acceptTerms'> & {
+  acceptTerms?: boolean;
+};
+
 export function useRegisterMutation() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (input: RegisterInput) => authApi.register(input),
+    mutationFn: async (input: RegisterFormInput) => {
+      const { acceptTerms: _acceptTerms, ...payload } = input;
+      return authApi.register(payload);
+    },
     onSuccess: () => {
       router.replace('/login?registered=1');
     },
