@@ -62,12 +62,12 @@ export function OnboardingWizard() {
 
   if (isSplash) {
     return (
-      <main className="min-h-screen bg-[var(--brand-surface)]">
+      <main className="min-h-screen bg-brand-surface">
         <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
           {isWelcome ? <ProgressHeader step={step + 1} progress={5} /> : null}
           <ActiveStep />
           {isWelcome ? (
-            <p className="mt-8 text-center text-xs text-[var(--brand-text-subtle)]">
+            <p className="mt-8 text-center text-xs text-brand-subtle">
               You can update any of this later from your profile settings.
             </p>
           ) : null}
@@ -77,11 +77,11 @@ export function OnboardingWizard() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--brand-surface)]">
+    <main className="min-h-screen bg-brand-surface">
       <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
         <ProgressHeader step={step + 1} progress={progress} />
 
-        <div className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card sm:p-8">
+        <div className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card sm:p-8">
           <ActiveStep />
 
           {serverError ? (
@@ -90,7 +90,7 @@ export function OnboardingWizard() {
             </p>
           ) : null}
 
-          <div className="mt-8 flex items-center justify-between border-t border-[var(--brand-divider)] pt-4">
+          <div className="mt-8 flex items-center justify-between border-t border-brand-divider pt-4">
             <Button
               variant="ghost"
               type="button"
@@ -114,7 +114,7 @@ export function OnboardingWizard() {
             </Button>
           </div>
           {!canAdvance ? (
-            <p className="mt-3 text-center text-xs text-[var(--brand-text-muted)]">{stepHint(step)}</p>
+            <p className="mt-3 text-center text-xs text-brand-muted">{stepHint(step)}</p>
           ) : null}
         </div>
       </div>
@@ -126,13 +126,13 @@ function ProgressHeader({ step, progress }: { step: number; progress: number }) 
   return (
     <div className="mb-6 space-y-3">
       <div className="flex items-center justify-between text-sm">
-        <span className="font-semibold text-[var(--brand-text-strong)]">SkillSeed</span>
-        <span className="flex items-center gap-3 text-[var(--brand-text-muted)]">
+        <span className="font-semibold text-brand-strong">SkillSeed</span>
+        <span className="flex items-center gap-3 text-brand-muted">
           <span>Step {step} of {TOTAL_STEPS}</span>
           <span className="font-semibold text-primary">{progress}% complete</span>
         </span>
       </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--brand-border)]">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-brand-default">
         <div
           className="h-full rounded-full bg-brand-cta transition-all"
           style={{ width: `${progress}%` }}

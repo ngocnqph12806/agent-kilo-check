@@ -31,21 +31,21 @@ export function NetworkErrorScreen({ onRetry, className }: NetworkErrorScreenPro
       role="alert"
       aria-live="assertive"
       className={cn(
-        'flex min-h-[60vh] flex-col items-center justify-center bg-[var(--brand-surface)] px-4',
+        'flex min-h-[60vh] flex-col items-center justify-center bg-brand-surface px-4',
         className
       )}
     >
       <div className="flex max-w-md flex-col items-center text-center">
-        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[var(--brand-warn)] shadow-brand-card">
-          <WifiOff className="h-12 w-12 text-[var(--brand-warn-text)]" aria-hidden />
+        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-brand-warn shadow-brand-card">
+          <WifiOff className="h-12 w-12 text-brand-warn-text" aria-hidden />
         </div>
-        <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-card px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)] shadow-brand-card">
+        <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-brand-default bg-card px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-muted shadow-brand-card">
           <span aria-hidden>📶</span> Connection
         </p>
-        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-brand-strong">
           {online ? 'Can\u2019t reach SkillSeed' : 'You\u2019re offline'}
         </h1>
-        <p className="mt-3 max-w-md text-base text-[var(--brand-text-muted)]">
+        <p className="mt-3 max-w-md text-base text-brand-muted">
           {online
             ? 'Our servers aren\u2019t responding right now. Check your connection or try again in a moment.'
             : 'Check your internet connection. We\u2019ll keep things ready — once you\u2019re back online, hit retry and we\u2019ll catch you up.'}
@@ -64,7 +64,7 @@ export function NetworkErrorScreen({ onRetry, className }: NetworkErrorScreenPro
             <Link href="/">🏠 Back to home</Link>
           </Button>
         </div>
-        <p className="mt-8 text-xs text-[var(--brand-text-subtle)]">
+        <p className="mt-8 text-xs text-brand-subtle">
           Bookmarked content is still available below.
         </p>
       </div>

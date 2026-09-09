@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import {
-  statusToBadgeClasses,
   useAcceptBooking,
   useCancelBooking,
   useCompleteBooking,
@@ -22,6 +21,7 @@ import {
   useStartBooking
 } from '../hooks/use-bookings';
 import type { BookingStatus, BookingSummary } from '../lib/schemas';
+import { BookingStatusBadge } from './booking-status-badge';
 
 export interface BookingListItemProps {
   booking: BookingSummary;
@@ -73,49 +73,42 @@ export function BookingListItem({
   const onComplete = () => complete.mutate(booking.id);
 
   return (
-    <li className="flex flex-col gap-4 rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card sm:flex-row sm:items-center sm:justify-between">
+    <li className="flex flex-col gap-4 rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-1 items-start gap-4">
         <div
           aria-hidden
-          className="hidden h-20 w-20 shrink-0 flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--brand-hero-from)] to-[var(--brand-hero-to)] text-center sm:flex"
+          className="hidden h-20 w-20 shrink-0 flex-col items-center justify-center rounded-2xl bg-brand-hero-soft text-center sm:flex"
         >
           <span className="text-[10px] font-bold uppercase tracking-wide text-primary">
             {monthShort}
           </span>
-          <span className="text-2xl font-extrabold leading-none text-[var(--brand-text-strong)]">
+          <span className="text-2xl font-extrabold leading-none text-brand-strong">
             {dayNum}
           </span>
-          <span className="text-[10px] text-[var(--brand-text-muted)]">
+          <span className="text-[10px] text-brand-muted">
             {weekday}
           </span>
         </div>
         <div
           aria-hidden
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--brand-hero-from)] to-[var(--brand-hero-to)] text-sm font-bold text-[var(--brand-text-strong)] sm:hidden"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-hero-soft text-sm font-bold text-brand-strong sm:hidden"
         >
           {initials || '👤'}
         </div>
         <div className="flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span
-              className={cn(
-                'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium capitalize',
-                statusToBadgeClasses(booking.status)
-              )}
-            >
-              {booking.status.replace('_', ' ')}
-            </span>
-            <h3 className="text-base font-semibold text-[var(--brand-text-strong)]">
+            <BookingStatusBadge status={booking.status} />
+            <h3 className="text-base font-semibold text-brand-strong">
               {booking.skillName}
             </h3>
           </div>
-          <p className="text-sm text-[var(--brand-text-muted)]">
+          <p className="text-sm text-brand-muted">
             {perspective === 'teacher' ? 'with' : 'from'}{' '}
-            <span className="font-medium text-[var(--brand-text-strong)]">
+            <span className="font-medium text-brand-strong">
               {counterpartyName}
             </span>
           </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--brand-text-muted)]">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-brand-muted">
             <span className="inline-flex items-center gap-1">
               <Calendar className="h-3 w-3" aria-hidden />
               {scheduled.toLocaleDateString(undefined, {
@@ -132,11 +125,11 @@ export function BookingListItem({
               <MapPin className="h-3 w-3" aria-hidden />
               Online (video)
             </span>
-            <span className="inline-flex items-center gap-1 font-medium text-[var(--brand-text-strong)]">
+            <span className="inline-flex items-center gap-1 font-medium text-brand-strong">
               🌱 {booking.seedAmount} seeds
             </span>
           </div>
-          <p className="text-base font-semibold text-[var(--brand-text-strong)] sm:hidden">
+          <p className="text-base font-semibold text-brand-strong sm:hidden">
             {weekday}, {monthShort} {dayNum} · {startTime}
           </p>
         </div>
@@ -223,7 +216,7 @@ function ActionButtons({
       <Button type="button"
         key="cancel"
         variant="ghost"
-        className="h-10 rounded-full text-[var(--brand-rose)]"
+        className="h-10 rounded-full text-brand-rose"
         onClick={onCancel}
         disabled={busy}
       >

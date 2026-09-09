@@ -12,9 +12,9 @@ export function LoadingState({ label = 'Loading…', rows = 3, className }: Load
     <div
       role="status"
       aria-live="polite"
-      className={cn('space-y-4 rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card', className)}
+      className={cn('space-y-4 rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card', className)}
     >
-      <div className="flex items-center gap-3 text-sm text-[var(--brand-text-muted)]">
+      <div className="flex items-center gap-3 text-sm text-brand-muted">
         <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-primary" aria-hidden />
         {label}
       </div>

@@ -21,7 +21,7 @@ export function MarketingTopBar({ current, authSlot, className }: MarketingTopBa
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 border-b border-[var(--brand-border)] bg-background/95 backdrop-blur',
+        'sticky top-0 z-40 border-b border-brand-default bg-background/95 backdrop-blur',
         className
       )}
     >
@@ -31,9 +31,9 @@ export function MarketingTopBar({ current, authSlot, className }: MarketingTopBa
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand-cta text-white shadow-brand-cta">
               <span className="text-sm">🌱</span>
             </span>
-            <span className="ml-2 text-xl font-bold text-[var(--brand-text-strong)]">SkillSeed</span>
+            <span className="ml-2 text-xl font-bold text-brand-strong">SkillSeed</span>
           </Link>
-          <nav className="hidden items-center gap-8 text-sm font-medium text-[var(--brand-text-muted)] md:flex">
+          <nav className="hidden items-center gap-8 text-sm font-medium text-brand-muted md:flex">
             {navItems.map((item) => {
               const active = current === item.key;
               return (
@@ -41,7 +41,7 @@ export function MarketingTopBar({ current, authSlot, className }: MarketingTopBa
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    'transition-colors hover:text-[var(--brand-text-strong)]',
+                    'transition-colors hover:text-brand-strong',
                     active && 'font-semibold text-primary'
                   )}
                 >

@@ -66,7 +66,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
       <div
-        className="relative w-full max-w-md rounded-2xl border border-[var(--brand-border)] bg-card p-8 shadow-brand-card"
+        className="relative w-full max-w-md rounded-2xl border border-brand-default bg-card p-8 shadow-brand-card"
         role="dialog"
         aria-modal="true"
         aria-label="Rate session"
@@ -75,18 +75,18 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--brand-text-muted)] transition hover:bg-[var(--brand-surface)] hover:text-[var(--brand-text-strong)]"
+          className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full text-brand-muted transition hover:bg-brand-surface hover:text-brand-strong"
         >
           <X className="h-4 w-4" />
         </button>
 
         <header className="mb-6 text-center">
-          <div className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-hero-soft)] text-primary">
+          <div className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-hero-soft text-primary">
             <Star className="h-6 w-6 fill-primary text-primary" />
           </div>
-          <h2 className="text-xl font-bold text-[var(--brand-text-strong)]">Rate your session</h2>
-          <p className="mt-1 text-sm text-[var(--brand-text-muted)]">
-            How was your session with <span className="font-semibold text-[var(--brand-text-strong)]">{rateeName}</span>?
+          <h2 className="text-xl font-bold text-brand-strong">Rate your session</h2>
+          <p className="mt-1 text-sm text-brand-muted">
+            How was your session with <span className="font-semibold text-brand-strong">{rateeName}</span>?
           </p>
         </header>
 
@@ -99,7 +99,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
         </label>
         <textarea
           id="rating-review"
-          className="mt-1 w-full rounded-md border border-[var(--brand-border)] bg-background p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className="mt-1 w-full rounded-md border border-brand-default bg-background p-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
           rows={3}
           value={reviewText}
           maxLength={2000}
@@ -108,7 +108,7 @@ export function RatingModal({ open, bookingId, rateeName, onClose, onSubmitted }
         />
 
         {error ? (
-          <p className="mt-3 rounded-md border border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 p-2 text-sm text-[var(--brand-rose)]">
+          <p className="mt-3 rounded-md border border-brand-rose/30 bg-brand-rose/5 p-2 text-sm text-brand-rose">
             {error}
           </p>
         ) : null}
@@ -147,8 +147,8 @@ interface ScorePickerProps {
 function ScorePicker({ label, value, onChange, required }: ScorePickerProps) {
   return (
     <div className="mb-3">
-      <p className="text-sm font-medium text-[var(--brand-text-strong)]">
-        {label} {required ? <span className="text-[var(--brand-rose)]">*</span> : null}
+      <p className="text-sm font-medium text-brand-strong">
+        {label} {required ? <span className="text-brand-rose">*</span> : null}
       </p>
       <div className="mt-1 flex items-center gap-1">
         {SCORE_VALUES.map((n) => {

@@ -29,8 +29,8 @@ export default function MaintenancePage() {
         <div className="mt-8 w-full max-w-sm rounded-full border border-white/30 bg-white/15 px-4 py-3 text-left shadow-brand-card">
           <div className="flex items-center gap-3">
             <span className="relative flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--brand-rose)] opacity-75" />
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-[var(--brand-rose)]" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-rose opacity-75" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-rose" />
             </span>
             <div>
               <p className="text-sm font-bold text-white">Major upgrade in progress</p>

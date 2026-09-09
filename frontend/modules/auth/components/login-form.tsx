@@ -13,10 +13,11 @@ import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormError, useFormServerError } from '@/modules/auth/components/form-status';
 import { GoogleSignInButton } from '@/modules/auth/components/google-sign-in-button';
 import { AppleSignInButton } from '@/modules/auth/components/apple-sign-in-button';
+import { WalletLoginButton } from '@/modules/auth/components/wallet-login-button';
 import { useLoginMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { loginSchema, type LoginInput } from '@/modules/auth/lib/schemas';
 
-import { useLoginSearchState } from './use-login-search';
+import { useLoginSearchState } from '@/modules/auth/hooks/use-login-search';
 
 export function LoginForm() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export function LoginForm() {
     formState: { errors, isSubmitting }
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' }
+    defaultValues: { email: '', password: '', remember: true }
   });
 
   const loginMutation = useLoginMutation();
@@ -49,7 +50,10 @@ export function LoginForm() {
       subtitle={
         <>
           New to SkillSeed?{' '}
-          <Link href="/register" className="font-semibold text-primary underline-offset-4 hover:underline">
+          <Link
+            href="/register"
+            className="font-semibold text-primary underline-offset-4 hover:underline"
+          >
             Create an account
           </Link>
         </>
@@ -74,6 +78,14 @@ export function LoginForm() {
 
       <FormError message={serverError} />
 
+      {/* Social buttons (above email/password per SVG §1-auth/02-login.svg:62-70) */}
+      <div className="grid grid-cols-2 gap-3">
+        <GoogleSignInButton mode="signin" />
+        <AppleSignInButton mode="signin" />
+      </div>
+
+      <Divider label="Or continue with" />
+
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
@@ -85,7 +97,9 @@ export function LoginForm() {
             aria-invalid={Boolean(errors.email)}
             {...register('email')}
           />
-          {errors.email ? <p className="text-sm text-destructive">{errors.email.message}</p> : null}
+          {errors.email ? (
+            <p className="text-sm text-destructive">{errors.email.message}</p>
+          ) : null}
         </div>
 
         <div className="space-y-2">
@@ -105,41 +119,49 @@ export function LoginForm() {
             aria-invalid={Boolean(errors.password)}
             {...register('password')}
           />
-          {errors.password ? <p className="text-sm text-destructive">{errors.password.message}</p> : null}
+          {errors.password ? (
+            <p className="text-sm text-destructive">{errors.password.message}</p>
+          ) : null}
         </div>
+
+        <label className="flex items-center gap-2 text-xs text-brand-muted">
+          <input
+            type="checkbox"
+            defaultChecked
+            className="h-4 w-4 rounded border-brand-default accent-primary"
+            {...register('remember')}
+          />
+          Remember me for 30 days
+        </label>
 
         <Button
           type="submit"
-          variant="brand" className="h-12 w-full rounded-full text-base font-semibold"
+          variant="brand"
+          className="h-12 w-full rounded-full text-base font-semibold"
           disabled={isSubmitting || loginMutation.isPending}
         >
           {loginMutation.isPending || isSubmitting ? 'Signing in…' : 'Log in'}
         </Button>
       </form>
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-[var(--brand-border)]" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-[var(--brand-text-subtle)]">Or continue with</span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <GoogleSignInButton mode="signin" />
-        <AppleSignInButton mode="signin" />
-      </div>
-      <div className="text-center text-sm">
-        New to SkillSeed?{' '}
-        <button
-          type="button"
-          className="font-semibold text-primary underline-offset-4 hover:underline"
-          onClick={() => router.push('/register')}
-        >
-          Create an account
-        </button>
-      </div>
+      {/* Web3 wallet (below submit per SVG §1-auth/02-login.svg:105-111) */}
+      <Divider label="Or" />
+      <WalletLoginButton />
     </AuthShell>
+  );
+}
+
+function Divider({ label }: { label: string }) {
+  return (
+    <div className="relative">
+      <div className="absolute inset-0 flex items-center" aria-hidden="true">
+        <div className="w-full border-t border-brand-default" />
+      </div>
+      <div className="relative flex justify-center text-xs uppercase">
+        <span className="bg-background px-2 text-brand-subtle">
+          {label}
+        </span>
+      </div>
+    </div>
   );
 }

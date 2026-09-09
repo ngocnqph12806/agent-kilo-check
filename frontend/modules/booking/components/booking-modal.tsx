@@ -111,18 +111,18 @@ export function BookingModal({
       aria-labelledby="booking-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8"
     >
-      <div className="w-full max-w-2xl space-y-5 rounded-2xl border border-[var(--brand-border)] bg-card p-0 shadow-brand-card">
-        <header className="flex items-center justify-between rounded-t-2xl bg-[var(--brand-divider)] px-6 py-4">
+      <div className="w-full max-w-2xl space-y-5 rounded-2xl border border-brand-default bg-card p-0 shadow-brand-card">
+        <header className="flex items-center justify-between rounded-t-2xl bg-brand-divider px-6 py-4">
           <h2
             id="booking-modal-title"
-            className="text-xl font-extrabold tracking-tight text-[var(--brand-text-strong)]"
+            className="text-xl font-extrabold tracking-tight text-brand-strong"
           >
             Book a session
           </h2>
           <Button type="button"
             variant="ghost"
             size="icon"
-            className="h-9 w-9 rounded-full text-[var(--brand-text-muted)]"
+            className="h-9 w-9 rounded-full text-brand-muted"
             onClick={onClose}
             aria-label="Close"
           >
@@ -133,15 +133,15 @@ export function BookingModal({
         <div className="flex items-center gap-3 px-6">
           <div
             aria-hidden
-            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--brand-hero-from)] to-[var(--brand-hero-to)] text-lg font-bold text-[var(--brand-text-strong)]"
+            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-hero-soft text-lg font-bold text-brand-strong"
           >
             {initials || '👤'}
           </div>
           <div className="space-y-0.5">
-            <p className="text-base font-semibold text-[var(--brand-text-strong)]">
+            <p className="text-base font-semibold text-brand-strong">
               {teacherName}
             </p>
-            <p className="text-xs text-[var(--brand-text-muted)] inline-flex items-center gap-1">
+            <p className="text-xs text-brand-muted inline-flex items-center gap-1">
               <MapPin className="h-3 w-3" aria-hidden />
               Online · video call
             </p>
@@ -149,11 +149,11 @@ export function BookingModal({
         </div>
 
         <div className="space-y-5 px-6 pb-6">
-          <hr className="border-[var(--brand-divider)]" />
+          <hr className="border-brand-divider" />
 
           <Field step={1} label="What do you want to learn?">
             <select
-              className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex h-11 w-full rounded-xl border border-brand-default bg-background px-3 text-sm text-brand-strong focus:outline-none focus:ring-2 focus:ring-primary"
               value={skillId}
               onChange={(e) => setSkillId(e.target.value)}
             >
@@ -179,8 +179,8 @@ export function BookingModal({
                   className={cn(
                     'flex h-16 flex-col items-center justify-center rounded-xl border text-sm font-medium transition',
                     duration === d
-                      ? 'border-primary bg-primary/5 text-[var(--brand-text-strong)]'
-                      : 'border-[var(--brand-border)] bg-card text-[var(--brand-text-strong)] hover:bg-[var(--brand-divider)]'
+                      ? 'border-primary bg-primary/5 text-brand-strong'
+                      : 'border-brand-default bg-card text-brand-strong hover:bg-brand-divider'
                   )}
                 >
                   <span className="text-sm font-semibold">{d} min</span>
@@ -189,7 +189,7 @@ export function BookingModal({
                       'text-xs',
                       duration === d
                         ? 'text-primary'
-                        : 'text-[var(--brand-text-muted)]'
+                        : 'text-brand-muted'
                     )}
                   >
                     {Math.round(d / 15)} seeds
@@ -201,12 +201,12 @@ export function BookingModal({
 
           <Field step={3} label="Pick a date & time">
             {slots.length === 0 ? (
-              <p className="text-xs text-[var(--brand-text-muted)]">
+              <p className="text-xs text-brand-muted">
                 No free slots available in the next 14 days.
               </p>
             ) : (
               <select
-                className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex h-11 w-full rounded-xl border border-brand-default bg-background px-3 text-sm text-brand-strong focus:outline-none focus:ring-2 focus:ring-primary"
                 value={slotValue}
                 onChange={(e) => setSlotValue(e.target.value)}
               >
@@ -217,7 +217,7 @@ export function BookingModal({
                 ))}
               </select>
             )}
-            <p className="mt-2 inline-flex items-center gap-1 text-xs text-[var(--brand-text-muted)]">
+            <p className="mt-2 inline-flex items-center gap-1 text-xs text-brand-muted">
               <Calendar className="h-3 w-3" aria-hidden />
               <Clock className="h-3 w-3" aria-hidden />
               Times shown in your local timezone.
@@ -231,7 +231,7 @@ export function BookingModal({
               maxLength={500}
               rows={3}
               placeholder="e.g. I'm vegetarian — would love to learn egg-free pasta options."
-              className="flex w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 py-2 text-sm text-[var(--brand-text-strong)] placeholder:text-[var(--brand-text-subtle)] focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex w-full rounded-xl border border-brand-default bg-background px-3 py-2 text-sm text-brand-strong placeholder:text-brand-subtle focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </Field>
 
@@ -239,8 +239,8 @@ export function BookingModal({
             className={cn(
               'rounded-2xl border p-4 text-sm',
               remainingAfter != null && remainingAfter < 0
-                ? 'border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 text-[var(--brand-rose)]'
-                : 'border-primary/20 bg-[var(--brand-hero-from)] text-[var(--brand-text-strong)]'
+                ? 'border-brand-rose/30 bg-brand-rose/5 text-brand-rose'
+                : 'border-primary/20 bg-brand-hero-soft text-brand-strong'
             )}
           >
             <p className="text-sm font-semibold">Booking summary</p>
@@ -316,7 +316,7 @@ function Field({
 }) {
   return (
     <div className="space-y-2">
-      <p className="text-sm font-semibold text-[var(--brand-text-strong)]">
+      <p className="text-sm font-semibold text-brand-strong">
         {step ? `${step}. ` : ''}
         {label}
       </p>

@@ -53,14 +53,14 @@ export function MarketingHero({
             </blockquote>
             <figcaption className="mt-4 flex items-center gap-3">
               <span
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-on-hero)] text-base"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-on-hero text-base"
                 aria-hidden
               >
                 {testimonial.emoji ?? '🙂'}
               </span>
               <div className="text-sm">
                 <div className="font-semibold">{testimonial.name}</div>
-                <div className="text-[var(--brand-on-hero)]">{testimonial.role}</div>
+                <div className="text-brand-on-hero">{testimonial.role}</div>
               </div>
             </figcaption>
           </figure>
@@ -68,13 +68,13 @@ export function MarketingHero({
       </div>
 
       {stats?.length ? (
-        <div className="space-y-2 text-[var(--brand-on-hero)]">
+        <div className="space-y-2 text-brand-on-hero">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/80">Trusted by</p>
           <dl className="grid grid-cols-3 gap-6">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="text-xl font-bold text-white">{stat.value}</dt>
-                <dd className="text-xs text-[var(--brand-on-hero)]">{stat.label}</dd>
+                <dd className="text-xs text-brand-on-hero">{stat.label}</dd>
               </div>
             ))}
           </dl>

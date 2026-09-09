@@ -30,7 +30,7 @@ export function BrandLogo({ href = '/discover', variant = 'app', size = 'md', cl
       </span>
       <span className="ml-2" style={{ marginLeft: s.gap }} />
       <span
-        className={cn(s.text, isHero ? 'text-white' : 'text-[var(--brand-text-strong)]')}
+        className={cn(s.text, isHero ? 'text-white' : 'text-brand-strong')}
       >
         SkillSeed
       </span>

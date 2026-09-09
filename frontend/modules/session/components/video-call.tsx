@@ -191,7 +191,7 @@ export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpa
   }, [onLeave]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[var(--brand-text-strong)] text-zinc-50">
+    <div className="fixed inset-0 z-50 flex flex-col bg-brand-strong text-zinc-50">
       <header className="flex h-14 items-center justify-between border-b border-white/5 bg-black/40 px-4 backdrop-blur">
         <div className="flex items-center gap-3 truncate">
           <span className="text-sm font-semibold truncate">{sessionTitle}</span>
@@ -212,7 +212,7 @@ export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpa
           ) : null}
           {recording ? (
             <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs">
-              <Circle className="h-2.5 w-2.5 fill-[var(--brand-rose)] text-[var(--brand-rose)]" aria-hidden />
+              <Circle className="h-2.5 w-2.5 fill-brand-rose text-brand-rose" aria-hidden />
               REC {formatElapsed(elapsed)}
             </div>
           ) : null}
@@ -304,7 +304,7 @@ export function VideoCall({ room, bookingId, sessionTitle = 'Session', counterpa
         <button
           type="button"
           onClick={leave}
-          className="ml-2 inline-flex h-12 items-center gap-2 rounded-full bg-[var(--brand-rose)] px-5 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
+          className="ml-2 inline-flex h-12 items-center gap-2 rounded-full bg-brand-rose px-5 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
         >
           <PhoneOff className="h-5 w-5" />
           Leave
@@ -349,7 +349,7 @@ function ControlButton({ active, destructive, disabled, onClick, label, children
       className={cn(
         'inline-flex h-12 w-12 items-center justify-center rounded-full transition',
         destructive
-          ? 'bg-[var(--brand-rose)] text-white'
+          ? 'bg-brand-rose text-white'
           : active
             ? 'bg-white/10 text-white hover:bg-white/20'
             : 'bg-white/5 text-zinc-400 hover:bg-white/10',

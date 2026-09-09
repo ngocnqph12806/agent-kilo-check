@@ -41,6 +41,7 @@
     --brand-warn-text: #92400E;
     --brand-indigo: #6366F1;
     --brand-rose: #EF4444;
+    --brand-emerald: #10B981;
 
     /* Semantic status tokens (used by wallet tx, alerts, badges) */
     --brand-credit: #10B981;

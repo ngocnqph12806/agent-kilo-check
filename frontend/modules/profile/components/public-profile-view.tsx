@@ -60,7 +60,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
   const currentBalance = wallet.data?.balance;
 
   return (
-    <main className="bg-[var(--brand-surface)] pb-16">
+    <main className="bg-brand-surface pb-16">
       <ProfileHero
         user={user}
         isSelf={isSelf}
@@ -76,21 +76,21 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           <div className="space-y-6 lg:col-span-2">
             {user.bio ? (
               <Card>
-                <h2 className="mb-3 text-lg font-bold text-[var(--brand-text-strong)]">
+                <h2 className="mb-3 text-lg font-bold text-brand-strong">
                   About {user.fullName.split(' ')[0]}
                 </h2>
-                <p className="whitespace-pre-line text-sm leading-relaxed text-[var(--brand-text-muted)]">
+                <p className="whitespace-pre-line text-sm leading-relaxed text-brand-muted">
                   {user.bio}
                 </p>
                 {user.languages.length > 0 ? (
                   <div className="mt-4 flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-subtle)]">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-brand-subtle">
                       <Languages className="h-3.5 w-3.5" aria-hidden /> Speaks
                     </span>
                     {user.languages.map((lang) => (
                       <span
                         key={lang}
-                        className="rounded-full bg-[var(--brand-hero-soft)] px-3 py-1 text-xs font-medium text-[var(--brand-cta-to)]"
+                        className="rounded-full bg-brand-hero-soft px-3 py-1 text-xs font-medium text-brand-cta-to"
                       >
                         {lang}
                       </span>
@@ -113,10 +113,10 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
 
             <Card>
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-bold text-[var(--brand-text-strong)]">
+                <h2 className="text-lg font-bold text-brand-strong">
                   Reviews
                 </h2>
-                <p className="text-xs text-[var(--brand-text-muted)]">
+                <p className="text-xs text-brand-muted">
                   {user.sessionsCompleted} completed session
                   {user.sessionsCompleted === 1 ? '' : 's'} ·{' '}
                   {user.ratingAvg > 0
@@ -140,15 +140,15 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
               onOpenBooking={() => setBookingOpen(true)}
             />
             <Card className="space-y-3">
-              <h3 className="text-sm font-bold text-[var(--brand-text-strong)]">
+              <h3 className="text-sm font-bold text-brand-strong">
                 Location & timezone
               </h3>
-              <p className="inline-flex items-center gap-2 text-sm text-[var(--brand-text-muted)]">
-                <MapPin className="h-4 w-4 text-[var(--brand-cta-from)]" aria-hidden />
+              <p className="inline-flex items-center gap-2 text-sm text-brand-muted">
+                <MapPin className="h-4 w-4 text-brand-cta-from" aria-hidden />
                 {user.countryCode ? `${user.countryCode}` : 'Location not listed'}
               </p>
-              <p className="inline-flex items-center gap-2 text-sm text-[var(--brand-text-muted)]">
-                <Calendar className="h-4 w-4 text-[var(--brand-cta-from)]" aria-hidden />
+              <p className="inline-flex items-center gap-2 text-sm text-brand-muted">
+                <Calendar className="h-4 w-4 text-brand-cta-from" aria-hidden />
                 {user.timezone}
               </p>
             </Card>
@@ -204,26 +204,26 @@ function ProfileHero({ user, isSelf, isAuthenticated, canBook, onBookClick }: Pr
             <Avatar name={user.fullName} url={user.avatarUrl} />
             <div className="space-y-1 pb-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-bold tracking-tight text-[var(--brand-text-strong)]">
+                <h1 className="text-2xl font-bold tracking-tight text-brand-strong">
                   {user.fullName}
                 </h1>
                 {user.verified ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[var(--brand-hero-soft)] px-2 py-0.5 text-xs font-medium text-[var(--brand-cta-to)]">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-hero-soft px-2 py-0.5 text-xs font-medium text-brand-cta-to">
                     <Sparkles className="h-3 w-3" aria-hidden /> Verified
                   </span>
                 ) : null}
                 {user.ratingAvg >= 4.8 && user.sessionsCompleted >= 50 ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[var(--brand-warn)] px-2 py-0.5 text-xs font-medium text-[var(--brand-warn-text)]">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-warn px-2 py-0.5 text-xs font-medium text-brand-warn-text">
                     <Award className="h-3 w-3" aria-hidden /> Top Mentor
                   </span>
                 ) : null}
               </div>
               {user.bio ? (
-                <p className="max-w-xl text-sm text-[var(--brand-text-muted)]">
+                <p className="max-w-xl text-sm text-brand-muted">
                   {user.bio.length > 140 ? `${user.bio.slice(0, 140)}…` : user.bio}
                 </p>
               ) : null}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--brand-text-muted)]">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-brand-muted">
                 {user.countryCode ? (
                   <span className="inline-flex items-center gap-1">
                     <MapPin className="h-3.5 w-3.5" aria-hidden />
@@ -311,13 +311,13 @@ function StatsRow({ user }: { user: PublicUserProfile }) {
         const Icon = stat.icon;
         return (
           <Card key={stat.label} className="flex flex-col gap-1 p-4">
-            <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--brand-text-subtle)]">
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-brand-subtle">
               <Icon className="h-3 w-3" aria-hidden /> {stat.label}
             </span>
-            <span className="text-2xl font-extrabold text-[var(--brand-text-strong)]">
+            <span className="text-2xl font-extrabold text-brand-strong">
               {stat.value}
             </span>
-            <span className="text-xs text-[var(--brand-text-muted)]">{stat.sub}</span>
+            <span className="text-xs text-brand-muted">{stat.sub}</span>
           </Card>
         );
       })}
@@ -336,13 +336,13 @@ function SkillsSection({ title, emoji, emptyMessage, skills }: SkillsSectionProp
   return (
     <Card>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-bold text-[var(--brand-text-strong)]">{title}</h2>
-        <span className="text-xs text-[var(--brand-text-muted)]">
+        <h2 className="text-lg font-bold text-brand-strong">{title}</h2>
+        <span className="text-xs text-brand-muted">
           {skills.length} {skills.length === 1 ? 'skill' : 'skills'}
         </span>
       </div>
       {skills.length === 0 ? (
-        <p className="rounded-lg border border-dashed border-[var(--brand-border)] bg-[var(--brand-surface)] px-4 py-6 text-sm text-[var(--brand-text-muted)]">
+        <p className="rounded-lg border border-dashed border-brand-default bg-brand-surface px-4 py-6 text-sm text-brand-muted">
           {emptyMessage}
         </p>
       ) : (
@@ -351,7 +351,7 @@ function SkillsSection({ title, emoji, emptyMessage, skills }: SkillsSectionProp
             <li
               key={skill.id}
               className={cn(
-                'rounded-xl border border-[var(--brand-border)] p-4',
+                'rounded-xl border border-brand-default p-4',
                 SKILL_TILE_BG[idx % SKILL_TILE_BG.length]
               )}
             >
@@ -379,8 +379,8 @@ function SkillsSection({ title, emoji, emptyMessage, skills }: SkillsSectionProp
 }
 
 const SKILL_TILE_BG = [
-  'bg-[var(--brand-warn)]/60 text-[var(--brand-warn-text)]',
-  'bg-[var(--brand-hero-soft)] text-[var(--brand-cta-to)]',
+  'bg-brand-warn/60 text-brand-warn-text',
+  'bg-brand-hero-soft text-brand-cta-to',
   'bg-rose-50 text-rose-700',
   'bg-emerald-50 text-emerald-700'
 ];
@@ -414,7 +414,7 @@ function BookSessionPanel({
   const canBook = user.offeredSkills.length > 0 && !isSelf;
   return (
     <Card className="space-y-3">
-      <h2 className="text-base font-bold text-[var(--brand-text-strong)]">
+      <h2 className="text-base font-bold text-brand-strong">
         Book a session
       </h2>
 
@@ -426,7 +426,7 @@ function BookSessionPanel({
             </label>
             <select
               id="book-skill"
-              className="flex h-10 w-full rounded-md border border-[var(--brand-border)] bg-background px-3 text-sm"
+              className="flex h-10 w-full rounded-md border border-brand-default bg-background px-3 text-sm"
               value={bookingSkill || user.offeredSkills[0]?.id || ''}
               onChange={(e) => setBookingSkill(e.target.value)}
             >
@@ -439,13 +439,13 @@ function BookSessionPanel({
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-medium text-[var(--brand-text-strong)]">
+            <p className="text-xs font-medium text-brand-strong">
               Upcoming availability
             </p>
             {slotsLoading ? (
-              <p className="text-xs text-[var(--brand-text-muted)]">Loading slots…</p>
+              <p className="text-xs text-brand-muted">Loading slots…</p>
             ) : slots.length === 0 ? (
-              <p className="text-xs text-[var(--brand-text-muted)]">
+              <p className="text-xs text-brand-muted">
                 No free slots in the next 14 days.
               </p>
             ) : (
@@ -453,7 +453,7 @@ function BookSessionPanel({
                 {slots.slice(0, 8).map((slot) => (
                   <li
                     key={slot.startsAt}
-                    className="rounded border border-[var(--brand-border)] bg-[var(--brand-surface)] px-2 py-1 text-[var(--brand-text-muted)]"
+                    className="rounded border border-brand-default bg-brand-surface px-2 py-1 text-brand-muted"
                   >
                     {new Date(slot.startsAt).toLocaleString()} –{' '}
                     {new Date(slot.endsAt).toLocaleTimeString([], {
@@ -480,13 +480,13 @@ function BookSessionPanel({
                 : 'Book session'}
           </Button>
           {isAuthenticated && slots.length > 0 ? (
-            <p className="text-center text-xs text-[var(--brand-text-muted)]">
+            <p className="text-center text-xs text-brand-muted">
               Seeds are held in escrow and released to the teacher when the session completes.
             </p>
           ) : null}
         </>
       ) : (
-        <p className="text-sm text-[var(--brand-text-muted)]">
+        <p className="text-sm text-brand-muted">
           {isSelf
             ? "You can't book yourself."
             : "This teacher hasn't added any skills yet."}
@@ -505,7 +505,7 @@ function Card({ children, className }: CardProps) {
   return (
     <section
       className={cn(
-        'rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card',
+        'rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card',
         className
       )}
     >
@@ -533,7 +533,7 @@ function Avatar({ name, url }: { name: string; url?: string | null }) {
     );
   }
   return (
-    <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-[var(--brand-warn)] text-2xl font-bold text-[var(--brand-warn-text)] shadow-brand-card">
+    <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-brand-warn text-2xl font-bold text-brand-warn-text shadow-brand-card">
       {initials || '?'}
     </div>
   );
@@ -541,7 +541,7 @@ function Avatar({ name, url }: { name: string; url?: string | null }) {
 
 function CenteredLoading() {
   return (
-    <main className="container mx-auto max-w-3xl py-20 text-center text-sm text-[var(--brand-text-muted)]">
+    <main className="container mx-auto max-w-3xl py-20 text-center text-sm text-brand-muted">
       Loading profile…
     </main>
   );
@@ -550,7 +550,7 @@ function CenteredLoading() {
 function CenteredError({ message }: { message: string }) {
   return (
     <main className="container mx-auto max-w-3xl py-20">
-      <p className="rounded-md border border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 p-4 text-sm text-[var(--brand-rose)]">
+      <p className="rounded-md border border-brand-rose/30 bg-brand-rose/5 p-4 text-sm text-brand-rose">
         {message}
       </p>
     </main>

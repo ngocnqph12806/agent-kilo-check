@@ -26,11 +26,11 @@ export function AuthShell({
   className
 }: AuthShellProps) {
   return (
-    <main className={cn('min-h-screen bg-[var(--brand-surface)] lg:flex', className)}>
+    <main className={cn('min-h-screen bg-brand-surface lg:flex', className)}>
       {hero ? <MarketingHero {...hero} /> : null}
 
       <section className="flex flex-1 items-center justify-center px-4 py-12 lg:py-16">
-        <div className="w-full max-w-[500px] rounded-2xl border border-[var(--brand-border)] bg-card p-8 shadow-brand-card sm:p-10">
+        <div className="w-full max-w-[500px] rounded-2xl border border-brand-default bg-card p-8 shadow-brand-card sm:p-10">
           {mobileLogo ? (
             <div className="mb-6 lg:hidden">
               <BrandLogo href="/" size="md" />
@@ -38,31 +38,31 @@ export function AuthShell({
           ) : null}
 
           <header className="mb-6 space-y-1">
-            <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+            <h1 className="text-3xl font-extrabold tracking-tight text-brand-strong">
               {title}
             </h1>
             {subtitle ? (
-              <p className="text-sm text-[var(--brand-text-muted)]">{subtitle}</p>
+              <p className="text-sm text-brand-muted">{subtitle}</p>
             ) : null}
             {description ? (
-              <p className="text-sm text-[var(--brand-text-muted)]">{description}</p>
+              <p className="text-sm text-brand-muted">{description}</p>
             ) : null}
           </header>
 
           <div className="space-y-4">{children}</div>
 
           {footer ? (
-            <div className="mt-6 border-t border-[var(--brand-border)] pt-4 text-center text-sm text-[var(--brand-text-muted)]">
+            <div className="mt-6 border-t border-brand-default pt-4 text-center text-sm text-brand-muted">
               {footer}
             </div>
           ) : null}
 
-          <p className="mt-8 text-center text-xs text-[var(--brand-text-subtle)]">
-            <Link href="/privacy" className="hover:text-[var(--brand-text-muted)]">
+          <p className="mt-8 text-center text-xs text-brand-subtle">
+            <Link href="/privacy" className="hover:text-brand-muted">
               Privacy
             </Link>{' '}
             ·{' '}
-            <Link href="/terms" className="hover:text-[var(--brand-text-muted)]">
+            <Link href="/terms" className="hover:text-brand-muted">
               Terms
             </Link>
           </p>
