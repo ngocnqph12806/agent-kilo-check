@@ -62,9 +62,7 @@ export function LandingPageClient() {
       {/* Header */}
       <header className="border-b border-brand-divider bg-background">
         <div className="container mx-auto flex h-[72px] max-w-6xl items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <BrandLogo variant="app" size="md" />
-          </Link>
+          <BrandLogo href="/" variant="app" size="md" />
           <nav className="hidden items-center gap-8 text-sm font-medium text-brand-strong lg:flex">
             {NAV_LINKS.map((link) => (
               <Link
