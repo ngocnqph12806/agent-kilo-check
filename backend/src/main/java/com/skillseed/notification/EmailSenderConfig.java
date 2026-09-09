@@ -6,7 +6,7 @@ import com.resend.services.emails.model.CreateEmailResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Configuration;
 public class EmailSenderConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "notification.resend", name = "api-key")
+    @ConditionalOnExpression("!'${notification.resend.api-key:}'.isEmpty()")
     public EmailSender resendEmailSender(
             @Value("${notification.resend.api-key}") String apiKey,
             @Value("${notification.resend.from:no-reply@skillseed.app}") String from) {
