@@ -97,10 +97,10 @@ export function BookingsView({ currentUserId }: BookingsViewProps) {
   return (
     <div className="container mx-auto max-w-4xl space-y-6 py-10">
       <header className="space-y-2">
-        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-brand-strong">
           My bookings
         </h1>
-        <p className="text-sm text-[var(--brand-text-muted)]">
+        <p className="text-sm text-brand-muted">
           Manage your upcoming and past sessions.
         </p>
       </header>
@@ -108,7 +108,7 @@ export function BookingsView({ currentUserId }: BookingsViewProps) {
       <div
         role="tablist"
         aria-label="Booking status filter"
-        className="inline-flex items-center gap-1 rounded-full border border-[var(--brand-border)] bg-card p-1 shadow-brand-card"
+        className="inline-flex items-center gap-1 rounded-full border border-brand-default bg-card p-1 shadow-brand-card"
       >
         <TabButton
           active={tab === 'upcoming'}
@@ -198,7 +198,7 @@ function TabButton({
         'inline-flex h-10 items-center gap-2 rounded-full px-5 text-sm font-medium transition',
         active
           ? 'bg-brand-cta text-white shadow-brand-cta'
-          : 'text-[var(--brand-text-muted)] hover:bg-[var(--brand-divider)]'
+          : 'text-brand-muted hover:bg-brand-divider'
       )}
     >
       {label}
@@ -207,7 +207,7 @@ function TabButton({
           'inline-flex items-center justify-center rounded-full px-2 py-0.5 text-xs',
           active
             ? 'bg-white/20 text-white'
-            : 'bg-[var(--brand-divider)] text-[var(--brand-text-muted)]'
+            : 'bg-brand-divider text-brand-muted'
         )}
       >
         {count}

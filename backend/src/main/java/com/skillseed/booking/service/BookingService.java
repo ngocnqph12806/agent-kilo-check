@@ -60,7 +60,7 @@ public class BookingService {
      *  boundary so callers can't accidentally lose resolution by going
      * through whole-hour rounding (FR-M76). */
     static final long REFUND_FULL_MINUTES = 24L * 60L;
-    private static final List<Integer> ALLOWED_DURATIONS = List.of(15, 30, 45, 60);
+    private static final List<Integer> ALLOWED_DURATIONS = List.of(15, 30, 45, 60, 90);
     private static final List<BookingStatus> ACTIVE_STATUSES = List.of(
             BookingStatus.PENDING, BookingStatus.CONFIRMED, BookingStatus.IN_PROGRESS);
 
@@ -444,8 +444,20 @@ public class BookingService {
         }
     }
 
+    /**
+     * Pricing table per screens-svg/04-booking/01-booking-modal.svg:62-80.
+     * 15/30 min cost 1 seed (introductory), 45 min = 2, 60 min = 3, 90 min = 4.
+     */
     static int calculateSeedAmount(int durationMinutes) {
-        return durationMinutes;
+        return switch (durationMinutes) {
+            case 15, 30 -> 1;
+            case 45 -> 2;
+            case 60 -> 3;
+            case 90 -> 4;
+            default -> throw com.skillseed.booking.exception.BookingException
+                    .badRequest("INVALID_DURATION",
+                        "Duration must be one of 15, 30, 45, 60, or 90 minutes");
+        };
     }
 
     private Map<String, Object> payloadFor(Booking booking) {

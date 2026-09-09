@@ -20,7 +20,7 @@ export function ErrorState({
     <div
       role="alert"
       className={cn(
-        'rounded-2xl border border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 p-6 text-sm text-[var(--brand-rose)] shadow-brand-card',
+        'rounded-2xl border border-brand-rose/30 bg-brand-rose/5 p-6 text-sm text-brand-rose shadow-brand-card',
         className
       )}
     >
@@ -28,14 +28,14 @@ export function ErrorState({
         <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" aria-hidden />
         <div className="space-y-1">
           <p className="font-semibold">{title}</p>
-          {message ? <p className="text-[var(--brand-rose)]/80">{message}</p> : null}
+          {message ? <p className="text-brand-rose/80">{message}</p> : null}
         </div>
       </div>
       {onRetry ? (
         <Button
           variant="outline"
           size="sm"
-          className="mt-4 gap-2 border-[var(--brand-rose)]/40 text-[var(--brand-rose)]"
+          className="mt-4 gap-2 border-brand-rose/40 text-brand-rose"
           onClick={onRetry}
         >
           <RefreshCw className="h-4 w-4" />

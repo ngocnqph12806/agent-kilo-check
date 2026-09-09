@@ -20,11 +20,11 @@ export function EmptyState({ icon: Icon, emoji, title, description, action, clas
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center rounded-2xl border border-dashed border-[var(--brand-border)] bg-card px-6 py-16 text-center shadow-brand-card',
+        'flex flex-col items-center justify-center rounded-2xl border border-dashed border-brand-default bg-card px-6 py-16 text-center shadow-brand-card',
         className
       )}
     >
-      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--brand-hero-soft)] text-2xl">
+      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-hero-soft text-2xl">
         {emoji ? (
           <span aria-hidden>{emoji}</span>
         ) : Icon ? (
@@ -33,9 +33,9 @@ export function EmptyState({ icon: Icon, emoji, title, description, action, clas
           <span aria-hidden>✨</span>
         )}
       </div>
-      <h2 className="text-lg font-semibold text-[var(--brand-text-strong)]">{title}</h2>
+      <h2 className="text-lg font-semibold text-brand-strong">{title}</h2>
       {description ? (
-        <p className="mt-2 max-w-md text-sm text-[var(--brand-text-muted)]">{description}</p>
+        <p className="mt-2 max-w-md text-sm text-brand-muted">{description}</p>
       ) : null}
       {action ? (
         <Button asChild={Boolean(action.href)} className="mt-6 rounded-full" {...(action.onClick ? { onClick: action.onClick } : {})}>

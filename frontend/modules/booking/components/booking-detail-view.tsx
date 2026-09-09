@@ -24,7 +24,6 @@ import { RateBookingButton } from '@/modules/rating/components/rate-booking-butt
 import { JoinSessionButton } from '@/modules/session/components/join-session-button';
 
 import {
-  statusToBadgeClasses,
   useAcceptBooking,
   useBooking,
   useCancelBooking,
@@ -32,6 +31,10 @@ import {
   useDeclineBooking,
   useStartBooking
 } from '../hooks/use-bookings';
+import {
+  BookingStatusBadge,
+  BOOKING_STATUS_LABELS
+} from './booking-status-badge';
 import type { BookingStatus, CancelReason } from '../lib/schemas';
 import { CANCEL_REASONS, CANCEL_REASON_LABELS } from '../lib/schemas';
 
@@ -55,32 +58,21 @@ function Countdown({ scheduledAt }: { scheduledAt: string }) {
   const minutes = Math.floor((abs % (3600 * 1000)) / (60 * 1000));
   const seconds = Math.floor((abs % (60 * 1000)) / 1000);
   const isPast = diff < 0;
+  // Past = amber (session has started). Future = emerald (upcoming).
+  const toneClasses = isPast
+    ? 'bg-amber-100 text-amber-900'
+    : 'bg-emerald-100 text-emerald-900';
   return (
     <span
       className={cn(
         'inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium',
-        isPast
-          ? 'bg-[var(--brand-warn)] text-[var(--brand-warn-text)]'
-          : 'bg-[var(--brand-warn)] text-[var(--brand-warn-text)]'
+        toneClasses
       )}
     >
       <Clock className="h-4 w-4" aria-hidden />
       {isPast ? 'Started' : 'Starts in'}{' '}
       {days > 0 ? `${days}d ` : ''}
       {`${hours}h ${minutes}m ${seconds}s`}
-    </span>
-  );
-}
-
-function StatusPill({ status }: { status: BookingStatus }) {
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium capitalize',
-        statusToBadgeClasses(status)
-      )}
-    >
-      {status.replace('_', ' ')}
     </span>
   );
 }
@@ -167,42 +159,45 @@ export function BookingDetailView({
   return (
     <div className="container mx-auto max-w-4xl space-y-6 py-10">
       <div>
-        <Button asChild variant="ghost" size="sm" className="-ml-2 text-[var(--brand-text-muted)]">
+        <Button asChild variant="ghost" size="sm" className="-ml-2 text-brand-muted">
           <Link href="/bookings">← All bookings</Link>
         </Button>
       </div>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
+      <section className="rounded-2xl bg-brand-cta p-6 text-white shadow-brand-cta">
         <div className="flex flex-wrap items-start gap-4">
           <div
             aria-hidden
-            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--brand-hero-from)] to-[var(--brand-hero-to)] text-xl font-bold text-[var(--brand-text-strong)]"
+            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/20 text-2xl backdrop-blur-sm"
           >
             {initials || '👤'}
           </div>
           <div className="flex-1 space-y-1">
-            <p className="text-xs uppercase tracking-wide text-[var(--brand-text-muted)]">
-              {isTeacher ? 'Learner' : 'Teacher'}
+            <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
+              {isTeacher ? 'Learner' : 'Teacher'} · {data.durationMinutes} min
             </p>
-            <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white">
               {counterparty.fullName}
             </h1>
-            <p className="text-sm text-[var(--brand-text-muted)]">
-              {data.skill.name} · {data.durationMinutes} minutes
+            <p className="text-sm font-medium text-white/90">
+              {data.skill.name}
             </p>
             <div className="pt-2">
-              <StatusPill status={data.status as BookingStatus} />
+              <BookingStatusBadge
+                status={data.status}
+                className="bg-white/20 px-3 py-1 text-xs font-bold text-white"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+      <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-muted">
           <Calendar className="h-4 w-4" aria-hidden />
           Date &amp; time
         </div>
-        <p className="mt-3 text-base font-semibold text-[var(--brand-text-strong)]">
+        <p className="mt-3 text-base font-semibold text-brand-strong">
           {scheduledDate.toLocaleDateString(undefined, {
             weekday: 'long',
             year: 'numeric',
@@ -210,7 +205,7 @@ export function BookingDetailView({
             day: 'numeric'
           })}
         </p>
-        <p className="mt-1 text-xs text-[var(--brand-text-muted)]">
+        <p className="mt-1 text-xs text-brand-muted">
           {scheduledDate.toLocaleTimeString(undefined, {
             hour: '2-digit',
             minute: '2-digit'
@@ -223,15 +218,15 @@ export function BookingDetailView({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+      <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-muted">
           <Video className="h-4 w-4" aria-hidden />
           Meeting
         </div>
-        <p className="mt-3 text-base font-semibold text-[var(--brand-text-strong)]">
+        <p className="mt-3 text-base font-semibold text-brand-strong">
           Online (video call)
         </p>
-        <p className="text-xs text-[var(--brand-text-muted)]">
+        <p className="text-xs text-brand-muted">
           {data.meetingUrl ? (
             <a
               className="text-primary underline-offset-2 hover:underline"
@@ -248,60 +243,60 @@ export function BookingDetailView({
       </section>
 
       {data.notes ? (
-        <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+        <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
             Notes
           </p>
-          <p className="mt-2 text-sm text-[var(--brand-text-strong)]">{data.notes}</p>
+          <p className="mt-2 text-sm text-brand-strong">{data.notes}</p>
         </section>
       ) : null}
 
       {data.cancellationReason || data.cancelledBy ? (
-        <section className="rounded-2xl border border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 p-6 shadow-brand-card">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-rose)]">
+        <section className="rounded-2xl border border-brand-rose/30 bg-brand-rose/5 p-6 shadow-brand-card">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-rose">
             Cancellation
           </p>
-          <p className="mt-2 text-sm text-[var(--brand-rose)]">
+          <p className="mt-2 text-sm text-brand-rose">
             {data.cancellationReason ?? 'Cancelled by ' + (data.cancelledBy ?? 'a participant')}.
           </p>
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+      <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
+        <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
           Payment
         </p>
         <div className="mt-3 flex items-center justify-between">
-          <span className="text-sm text-[var(--brand-text-muted)]">
+          <span className="text-sm text-brand-muted">
             Seed cost
           </span>
-          <span className="text-sm font-semibold text-[var(--brand-text-strong)]">
+          <span className="text-sm font-semibold text-brand-strong">
             {data.seedAmount} seeds
           </span>
         </div>
       </section>
 
       {confirmingCancel ? (
-        <section className="rounded-2xl border border-[var(--brand-rose)]/30 bg-[var(--brand-rose)]/5 p-6 shadow-brand-card">
+        <section className="rounded-2xl border border-brand-rose/30 bg-brand-rose/5 p-6 shadow-brand-card">
           <div className="flex items-start gap-3">
-            <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-[var(--brand-rose)]" aria-hidden />
+            <XCircle className="mt-0.5 h-5 w-5 shrink-0 text-brand-rose" aria-hidden />
             <div className="space-y-1">
-              <p className="text-base font-semibold text-[var(--brand-text-strong)]">
+              <p className="text-base font-semibold text-brand-strong">
                 Cancel this booking?
               </p>
-              <p className="text-sm text-[var(--brand-text-muted)]">
+              <p className="text-sm text-brand-muted">
                 Seeds will be refunded according to the cancellation policy.
               </p>
             </div>
           </div>
           <div className="mt-4 space-y-3">
             <label className="block">
-              <span className="mb-1 block text-sm font-medium text-[var(--brand-text-strong)]">
+              <span className="mb-1 block text-sm font-medium text-brand-strong">
                 Reason
               </span>
               <select
                 aria-label="Cancellation reason"
-                className="flex h-11 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm text-[var(--brand-text-strong)] focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex h-11 w-full rounded-xl border border-brand-default bg-background px-3 text-sm text-brand-strong focus:outline-none focus:ring-2 focus:ring-primary"
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value as CancelReason)}
                 disabled={cancel.isPending}
@@ -400,7 +395,7 @@ export function BookingDetailView({
         {canCancel && !confirmingCancel ? (
           <Button type="button"
             variant="ghost"
-            className="h-11 rounded-full text-[var(--brand-rose)]"
+            className="h-11 rounded-full text-brand-rose"
             onClick={() => setConfirmingCancel(true)}
           >
             Cancel booking
@@ -428,7 +423,7 @@ export function BookingDetailView({
         <Button type="button"
           variant="ghost"
           size="sm"
-          className="ml-auto text-[var(--brand-text-muted)]"
+          className="ml-auto text-brand-muted"
           onClick={() => {
             void refetch();
           }}
@@ -438,8 +433,8 @@ export function BookingDetailView({
         </Button>
       </section>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+      <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
+        <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
           Lifecycle
         </p>
         <ol className="mt-3 flex flex-wrap items-center gap-2">
@@ -457,7 +452,7 @@ export function BookingDetailView({
                   'inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium capitalize',
                   reached
                     ? 'bg-primary/10 text-primary'
-                    : 'bg-[var(--brand-divider)] text-[var(--brand-text-muted)]'
+                    : 'bg-brand-divider text-brand-muted'
                 )}
               >
                 {step.replace('_', ' ')}

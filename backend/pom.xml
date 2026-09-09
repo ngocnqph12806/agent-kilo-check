@@ -111,6 +111,15 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!-- Web3 / SIWE: only the crypto module is needed for secp256k1
+             signature recovery (Sign.signedMessageToAddress). Pulled in
+             as a runtime dep so we don't carry the full web3j stack. -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>crypto</artifactId>
+            <version>4.10.0</version>
+        </dependency>
+
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>

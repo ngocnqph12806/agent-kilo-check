@@ -36,23 +36,30 @@ export const TERMINAL_BOOKING_STATUSES: BookingStatus[] = [
   'rated'
 ];
 
-export const BOOKING_DURATIONS: number[] = [15, 30, 45, 60];
+export const BOOKING_DURATIONS: number[] = [15, 30, 45, 60, 90];
 
 /**
  * Stable enum mirroring backend {@code com.skillseed.booking.domain.CancelReason}.
  * The wire form is the lowercase dbValue; the UI uses the SCREAMING_SNAKE_CASE
  * variant for readability.
+ *
+ * <p>Sprint 5 (T-M401) adds three values that match the labels in
+ * {@code screens-svg/04-booking/06-cancel.svg:48-58}. The legacy values
+ * are retained so the wire stays compatible with old bookings.
  */
 export type CancelReason =
   | 'TEACHER_UNAVAILABLE'
   | 'LEARNER_UNAVAILABLE'
   | 'TECHNICAL_ISSUE'
+  | 'SCHEDULE_CONFLICT'
+  | 'FOUND_ANOTHER_MENTOR'
+  | 'NO_LONGER_NEEDED'
   | 'OTHER';
 
 export const CANCEL_REASONS: readonly CancelReason[] = [
-  'TEACHER_UNAVAILABLE',
-  'LEARNER_UNAVAILABLE',
-  'TECHNICAL_ISSUE',
+  'SCHEDULE_CONFLICT',
+  'FOUND_ANOTHER_MENTOR',
+  'NO_LONGER_NEEDED',
   'OTHER'
 ] as const;
 
@@ -60,6 +67,9 @@ export const CANCEL_REASON_LABELS: Record<CancelReason, string> = {
   TEACHER_UNAVAILABLE: 'Teacher unavailable',
   LEARNER_UNAVAILABLE: "I'm unavailable",
   TECHNICAL_ISSUE: 'Technical issue',
+  SCHEDULE_CONFLICT: 'Schedule conflict',
+  FOUND_ANOTHER_MENTOR: 'Found another mentor',
+  NO_LONGER_NEEDED: 'No longer need this skill',
   OTHER: 'Other'
 };
 

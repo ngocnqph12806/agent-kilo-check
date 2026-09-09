@@ -52,11 +52,11 @@ export function NotificationsPageView() {
     <main className="container mx-auto max-w-4xl space-y-8 py-10">
       <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-1">
-          <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+          <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-brand-strong">
             <Bell className="h-7 w-7" aria-hidden />
             Notifications
           </h1>
-          <p className="text-sm text-[var(--brand-text-muted)]">
+          <p className="text-sm text-brand-muted">
             {NUMBER_FORMAT.format(unreadCount)} unread ·{' '}
             {NUMBER_FORMAT.format(totalCount)} total
           </p>
@@ -64,7 +64,7 @@ export function NotificationsPageView() {
         <div className="flex items-center gap-2">
           {isFetching && !isLoading ? (
             <Loader2
-              className="h-4 w-4 animate-spin text-[var(--brand-text-muted)]"
+              className="h-4 w-4 animate-spin text-brand-muted"
               aria-hidden
             />
           ) : null}
@@ -83,7 +83,7 @@ export function NotificationsPageView() {
         </div>
       </header>
 
-      <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
+      <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
         {isLoading ? (
           <LoadingState label="Loading notifications…" rows={4} className="border-none p-0 shadow-none" />
         ) : isError ? (
@@ -106,7 +106,7 @@ export function NotificationsPageView() {
                 if (!list || list.length === 0) return null;
                 return (
                   <div key={key} className="space-y-3">
-                    <p className="text-xs font-bold uppercase tracking-widest text-[var(--brand-text-muted)]">
+                    <p className="text-xs font-bold uppercase tracking-widest text-brand-muted">
                       {GROUP_LABEL[key]}
                     </p>
                     <ul className="space-y-3">
@@ -134,10 +134,10 @@ function NotificationCard({ notification }: { notification: Notification }) {
       <Link
         href={meta.href ?? '#'}
           className={cn(
-          'flex items-start gap-4 rounded-2xl border bg-card p-4 shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]/40',
+          'flex items-start gap-4 rounded-2xl border bg-card p-4 shadow-brand-card transition-colors hover:bg-brand-hero-soft/40',
           notification.unread
             ? 'border-brand-credit ring-1 ring-brand-credit/40'
-            : 'border-[var(--brand-border)]'
+            : 'border-brand-default'
         )}
       >
         <span
@@ -149,7 +149,7 @@ function NotificationCard({ notification }: { notification: Notification }) {
           <Icon className="h-5 w-5" aria-hidden />
         </span>
         <div className="min-w-0 flex-1 space-y-1">
-          <p className="flex items-center gap-2 text-sm font-bold text-[var(--brand-text-strong)]">
+          <p className="flex items-center gap-2 text-sm font-bold text-brand-strong">
             {meta.title}
             {notification.unread ? (
               <span
@@ -159,9 +159,9 @@ function NotificationCard({ notification }: { notification: Notification }) {
             ) : null}
           </p>
           {meta.body ? (
-            <p className="text-sm text-[var(--brand-text-muted)]">{meta.body}</p>
+            <p className="text-sm text-brand-muted">{meta.body}</p>
           ) : null}
-          <p className="text-xs text-[var(--brand-text-muted)]">
+          <p className="text-xs text-brand-muted">
             {formatRelative(notification.createdAt)}
           </p>
         </div>

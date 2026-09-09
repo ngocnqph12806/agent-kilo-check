@@ -25,7 +25,7 @@ export function BookingConfirmationView({ bookingId }: BookingConfirmationViewPr
 
   if (isLoading) {
     return (
-      <main className="container mx-auto max-w-3xl py-20 text-center text-sm text-[var(--brand-text-muted)]">
+      <main className="container mx-auto max-w-3xl py-20 text-center text-sm text-brand-muted">
         Loading booking…
       </main>
     );
@@ -33,7 +33,7 @@ export function BookingConfirmationView({ bookingId }: BookingConfirmationViewPr
 
   if (isError || !data) {
     return (
-      <main className="container mx-auto max-w-3xl py-20 text-center text-sm text-[var(--brand-rose)]">
+      <main className="container mx-auto max-w-3xl py-20 text-center text-sm text-brand-rose">
         We couldn&apos;t load this booking.{' '}
         <Link href="/bookings" className="underline">
           Back to bookings
@@ -57,46 +57,46 @@ function ConfirmationCard({ booking }: { booking: Booking }) {
     <main
       className={cn(
         'min-h-[calc(100vh-72px)] px-4 py-10',
-        'bg-gradient-to-br from-[var(--brand-hero-soft)] to-[var(--brand-surface)]'
+        'bg-gradient-to-br from-brand-hero-soft to-brand-surface'
       )}
     >
-      <div className="mx-auto w-full max-w-2xl rounded-2xl border border-[var(--brand-border)] bg-card p-8 shadow-brand-card sm:p-10">
+      <div className="mx-auto w-full max-w-2xl rounded-2xl border border-brand-default bg-card p-8 shadow-brand-card sm:p-10">
         <div className="flex flex-col items-center text-center">
           <div className="relative mb-6 flex h-24 w-24 items-center justify-center">
-            <span className="absolute inset-0 rounded-full bg-[var(--brand-credit-bg)]" aria-hidden />
+            <span className="absolute inset-0 rounded-full bg-brand-credit-bg" aria-hidden />
             <CheckCircle2
               className="relative h-12 w-12 text-primary"
               aria-hidden
               strokeWidth={2.5}
             />
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+          <h1 className="text-3xl font-extrabold tracking-tight text-brand-strong">
             Booking confirmed!
           </h1>
-          <p className="mt-2 text-sm text-[var(--brand-text-muted)]">
+          <p className="mt-2 text-sm text-brand-muted">
             We&apos;ve notified {booking.teacher.fullName}. See you on {dateLabel}.
           </p>
         </div>
 
-        <section className="mt-8 space-y-4 rounded-xl bg-[var(--brand-surface)] p-5">
+        <section className="mt-8 space-y-4 rounded-xl bg-brand-surface p-5">
           <header className="flex items-center gap-3">
             <div
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--brand-info-bg)] text-xl"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-info-bg text-xl"
               aria-hidden
             >
               👤
             </div>
             <div className="min-w-0">
-              <p className="truncate text-base font-semibold text-[var(--brand-text-strong)]">
+              <p className="truncate text-base font-semibold text-brand-strong">
                 {booking.teacher.fullName}
               </p>
-              <p className="truncate text-xs text-[var(--brand-text-muted)]">
+              <p className="truncate text-xs text-brand-muted">
                 {booking.skill.name}
               </p>
             </div>
           </header>
 
-          <hr className="border-[var(--brand-divider)]" />
+          <hr className="border-brand-divider" />
 
           <dl className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-3">
             <Field label="Date" value={dateLabel} />
@@ -114,15 +114,15 @@ function ConfirmationCard({ booking }: { booking: Booking }) {
         </section>
 
         <aside
-          className="mt-6 flex items-start gap-3 rounded-xl bg-[var(--brand-warn)] p-4"
+          className="mt-6 flex items-start gap-3 rounded-xl bg-brand-warn p-4"
           role="note"
         >
-          <Calendar className="mt-0.5 h-5 w-5 shrink-0 text-[var(--brand-warn-text)]" aria-hidden />
+          <Calendar className="mt-0.5 h-5 w-5 shrink-0 text-brand-warn-text" aria-hidden />
           <div className="text-xs">
-            <p className="font-semibold text-[var(--brand-warn-text)]">
+            <p className="font-semibold text-brand-warn-text">
               Calendar invite sent to your email
             </p>
-            <p className="mt-1 text-[var(--brand-warn-text)]/80">
+            <p className="mt-1 text-brand-warn-text/80">
               We&apos;ll send you a reminder 1 hour before the session starts.
             </p>
           </div>
@@ -132,7 +132,7 @@ function ConfirmationCard({ booking }: { booking: Booking }) {
           <Button asChild variant="outline" className="h-11 rounded-full px-6">
             <Link href="/bookings">View bookings</Link>
           </Button>
-          <Button asChild variant="outline" className="h-11 rounded-full border-primary px-6 text-primary hover:bg-[var(--brand-hero-soft)]">
+          <Button asChild variant="outline" className="h-11 rounded-full border-primary px-6 text-primary hover:bg-brand-hero-soft">
             <a href={icsHref} download={`skillseed-booking-${booking.id.slice(0, 8)}.ics`}>
               <CalendarPlus className="mr-2 h-4 w-4" aria-hidden />
               Add to calendar
@@ -158,12 +158,12 @@ function Field({
 }) {
   return (
     <div>
-      <dt className="text-[11px] font-medium uppercase tracking-wide text-[var(--brand-text-subtle)]">
+      <dt className="text-[11px] font-medium uppercase tracking-wide text-brand-subtle">
         {label}
       </dt>
       <dd
         className={cn(
-          'mt-1 text-sm font-semibold text-[var(--brand-text-strong)]',
+          'mt-1 text-sm font-semibold text-brand-strong',
           mono && 'font-mono'
         )}
       >
@@ -176,15 +176,15 @@ function Field({
 function StatusPill({ status }: { status: Booking['status'] }) {
   // Map status → brand colour. Use the existing status-token conventions.
   const styles: Record<Booking['status'], string> = {
-    pending: 'bg-[var(--brand-pending-bg)] text-[var(--brand-pending-text)]',
-    confirmed: 'bg-[var(--brand-credit-bg)] text-[var(--brand-credit-text)]',
-    declined: 'bg-[var(--brand-debit-bg)] text-[var(--brand-debit-text)]',
-    in_progress: 'bg-[var(--brand-info-bg)] text-[var(--brand-info-text)]',
-    completed: 'bg-[var(--brand-credit-bg)] text-[var(--brand-credit-text)]',
-    cancelled: 'bg-[var(--brand-debit-bg)] text-[var(--brand-debit-text)]',
-    expired: 'bg-[var(--brand-debit-bg)] text-[var(--brand-debit-text)]',
-    no_show: 'bg-[var(--brand-debit-bg)] text-[var(--brand-debit-text)]',
-    rated: 'bg-[var(--brand-credit-bg)] text-[var(--brand-credit-text)]'
+    pending: 'bg-brand-pending-bg text-brand-pending',
+    confirmed: 'bg-brand-credit-bg text-brand-credit',
+    declined: 'bg-brand-debit-bg text-brand-debit',
+    in_progress: 'bg-brand-info-bg text-brand-info',
+    completed: 'bg-brand-credit-bg text-brand-credit',
+    cancelled: 'bg-brand-debit-bg text-brand-debit',
+    expired: 'bg-brand-debit-bg text-brand-debit',
+    no_show: 'bg-brand-debit-bg text-brand-debit',
+    rated: 'bg-brand-credit-bg text-brand-credit'
   };
   return (
     <span

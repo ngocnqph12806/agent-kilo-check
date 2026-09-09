@@ -66,19 +66,43 @@ const config: Config = {
         'brand-debit-bg': 'var(--brand-debit-bg)',
         'brand-pending': 'var(--brand-pending)',
         'brand-pending-bg': 'var(--brand-pending-bg)',
-        'brand-info-bg': 'var(--brand-info-bg)'
+        'brand-info-bg': 'var(--brand-info-bg)',
+        'brand-surface': 'var(--brand-surface)',
+        'brand-divider': 'var(--brand-divider)',
+        'brand-warn': 'var(--brand-warn)',
+        'brand-rose': 'var(--brand-rose)',
+        'brand-strong': 'var(--brand-text-strong)',
+        'brand-on-hero': 'var(--brand-on-hero)',
+        'brand-indigo': 'var(--brand-indigo)',
+        'brand-emerald': 'var(--brand-emerald)'
       },
       textColor: {
         'brand-credit': 'var(--brand-credit-text)',
         'brand-debit': 'var(--brand-debit-text)',
         'brand-pending': 'var(--brand-pending-text)',
-        'brand-info': 'var(--brand-info-text)'
+        'brand-info': 'var(--brand-info-text)',
+        'brand-strong': 'var(--brand-text-strong)',
+        'brand-muted': 'var(--brand-text-muted)',
+        'brand-subtle': 'var(--brand-text-subtle)',
+        'brand-on-hero': 'var(--brand-on-hero)',
+        'brand-warn-text': 'var(--brand-warn-text)',
+        'brand-indigo': 'var(--brand-indigo)',
+        'brand-rose': 'var(--brand-rose)',
+        'brand-cta-from': 'var(--brand-cta-from)',
+        'brand-cta-to': 'var(--brand-cta-to)'
       },
       borderColor: {
         'brand-credit': 'var(--brand-credit)',
         'brand-debit': 'var(--brand-debit)',
         'brand-pending': 'var(--brand-pending)',
-        'brand-info': 'var(--brand-info)'
+        'brand-info': 'var(--brand-info)',
+        'brand-default': 'var(--brand-border)',
+        'brand-divider': 'var(--brand-divider)',
+        'brand-rose': 'var(--brand-rose)',
+        'brand-indigo': 'var(--brand-indigo)'
+      },
+      fillColor: {
+        'brand-rose': 'var(--brand-rose)'
       },
       boxShadow: {
         'brand-card': '0 6px 24px -6px rgb(17 24 39 / 0.08), 0 4px 8px -4px rgb(17 24 39 / 0.06)',

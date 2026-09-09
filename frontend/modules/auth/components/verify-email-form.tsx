@@ -32,7 +32,7 @@ export function VerifyEmailForm({ token }: VerifyEmailFormProps) {
         subtitle="Hang tight while we activate your account."
         hero={{ variant: 'auth' }}
       >
-        <div className="flex flex-col items-center justify-center gap-3 py-8 text-[var(--brand-text-muted)]">
+        <div className="flex flex-col items-center justify-center gap-3 py-8 text-brand-muted">
           <Loader2 className="h-10 w-10 animate-spin text-primary" aria-hidden />
           <p className="text-sm">Just a moment…</p>
         </div>
@@ -76,7 +76,7 @@ export function VerifyEmailForm({ token }: VerifyEmailFormProps) {
         hero={{ variant: 'auth' }}
       >
         <div className="flex flex-col items-center gap-3 py-4">
-          <XCircle className="h-12 w-12 text-[var(--brand-rose)]" aria-hidden />
+          <XCircle className="h-12 w-12 text-brand-rose" aria-hidden />
           <Button asChild variant="outline" className="h-11 w-full rounded-full">
             <Link href="/login">Back to sign in</Link>
           </Button>

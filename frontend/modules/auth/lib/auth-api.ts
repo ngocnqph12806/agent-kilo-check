@@ -44,7 +44,7 @@ function extractErrorMessage(error: unknown, fallback: string): string {
 }
 
 export const authApi = {
-  async register(input: RegisterInput): Promise<BackendRegisterResponse> {
+  async register(input: import('./schemas').RegisterPayload): Promise<BackendRegisterResponse> {
     const { data } = await apiClient.post<BackendRegisterResponse>('/auth/register', {
       email: input.email,
       password: input.password,

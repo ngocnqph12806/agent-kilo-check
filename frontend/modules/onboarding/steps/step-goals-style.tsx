@@ -19,7 +19,7 @@ export function StepGoalsStyle() {
   return (
     <div className="space-y-8">
       <section className="space-y-3">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--brand-text-muted)]">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-brand-muted">
           What&rsquo;s your primary goal?
         </h3>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -34,14 +34,14 @@ export function StepGoalsStyle() {
                   'relative flex h-24 flex-col items-start justify-between rounded-xl border bg-card p-4 text-left transition',
                   active
                     ? 'border-primary ring-2 ring-primary/40'
-                    : 'border-[var(--brand-border)] hover:border-primary/40'
+                    : 'border-brand-default hover:border-primary/40'
                 )}
               >
                 <span className="text-2xl" aria-hidden>
                   {goal.emoji}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-[var(--brand-text-strong)]">{goal.label}</p>
+                  <p className="text-sm font-semibold text-brand-strong">{goal.label}</p>
                   {active ? (
                     <p className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-primary">
                       <Check className="h-3 w-3" /> Selected
@@ -55,7 +55,7 @@ export function StepGoalsStyle() {
       </section>
 
       <section className="space-y-3">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--brand-text-muted)]">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-brand-muted">
           How much time can you commit weekly?
         </h3>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -70,11 +70,11 @@ export function StepGoalsStyle() {
                   'rounded-xl border bg-card p-3 text-left transition',
                   active
                     ? 'border-primary ring-2 ring-primary/40'
-                    : 'border-[var(--brand-border)] hover:border-primary/40'
+                    : 'border-brand-default hover:border-primary/40'
                 )}
               >
-                <p className="text-sm font-semibold text-[var(--brand-text-strong)]">{slot.label}</p>
-                <p className={cn('mt-0.5 text-xs', active ? 'text-primary' : 'text-[var(--brand-text-muted)]')}>
+                <p className="text-sm font-semibold text-brand-strong">{slot.label}</p>
+                <p className={cn('mt-0.5 text-xs', active ? 'text-primary' : 'text-brand-muted')}>
                   {active ? '✓ ' : ''}
                   {slot.sub}
                 </p>
@@ -85,7 +85,7 @@ export function StepGoalsStyle() {
       </section>
 
       <section className="space-y-3">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--brand-text-muted)]">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-brand-muted">
           Preferred learning style (pick all that apply)
         </h3>
         <div className="flex flex-wrap gap-2">
@@ -100,7 +100,7 @@ export function StepGoalsStyle() {
                   'inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium transition',
                   active
                     ? 'border-transparent bg-brand-cta text-white shadow-brand-cta'
-                    : 'border-[var(--brand-border)] bg-card text-[var(--brand-text-strong)] hover:border-primary/40'
+                    : 'border-brand-default bg-card text-brand-strong hover:border-primary/40'
                 )}
               >
                 <span aria-hidden>{style.emoji}</span>
@@ -112,8 +112,8 @@ export function StepGoalsStyle() {
         </div>
       </section>
 
-      <section className="space-y-3 rounded-xl border border-[var(--brand-border)] bg-card p-4">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--brand-text-muted)]">
+      <section className="space-y-3 rounded-xl border border-brand-default bg-card p-4">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-brand-muted">
           Goals &amp; interests
         </h3>
         <div className="space-y-2">

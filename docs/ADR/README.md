@@ -11,6 +11,8 @@ that affects Phase 1 and beyond (T-M233).
 | [003](003-ledger-pattern-for-wallet.md) | Append-only ledger pattern for the Seed wallet | Accepted | 2026-08-20 |
 | [004](004-spring-boot-3-java-21.md) | Spring Boot 3.3 + Java 21 | Accepted | 2026-08-22 |
 | [005](005-postgresql-row-versioning.md) | Postgres + Flyway for schema evolution | Accepted | 2026-08-25 |
+| [007](007-visual-fidelity-rule.md) | Visual Fidelity Rule (mọi UI / DTO change tham chiếu `screens-svg/`) | Accepted | 2026-09-09 |
+| [008](008-table-naming.md) | Plural table names for new entities | Accepted | 2026-09-09 |
 
 > Add new ADRs to this table and to `docs/ADR/`. Use the next sequential
 > number. Cross-link from spec when relevant.

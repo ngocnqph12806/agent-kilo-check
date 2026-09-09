@@ -104,7 +104,8 @@ Chi tiết tổng quan: **`SKILLSEED.md`** (đọc §1 + §6).
 ### 5.1. Naming
 - **Files (FE):** kebab-case — `booking-modal.tsx`, `use-wallet-balance.ts`
 - **Files (BE):** PascalCase class — `BookingService.java`
-- **DB tables:** snake_case, **số ít** — `user`, `booking`, `seed_transaction` (KHÔNG `users`)
+- **DB tables:** snake_case, **số nhiều** — `users`, `bookings`, `seed_transactions` (chuẩn Spring Data + dễ đọc khi debug SQL).
+  - **Quyết định:** xem [`docs/ADR/008-table-naming.md`](docs/ADR/008-table-naming.md) — sửa 2026-09-09 (Sprint 5, T-M420). Rule cũ "số ít" đã bị ignore trong 12 migration đầu; chuẩn hoá lại thành plural cho khớp thực tế.
 - **DB columns:** snake_case — `created_at`, `user_id`
 - **API routes:** REST, kebab-case, **số nhiều** — `/api/v1/bookings`, `/api/v1/skill-seeds`
 - **JSON fields:** camelCase — `firstName`, `createdAt`

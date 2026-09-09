@@ -42,7 +42,7 @@ export function NotificationBell() {
       <button
         type="button"
         onClick={() => setOpen((state) => !state)}
-        className="relative rounded-full border border-[var(--brand-border)] bg-card p-2 text-[var(--brand-text-strong)] shadow-brand-card transition-colors hover:bg-[var(--brand-hero-soft)]"
+        className="relative rounded-full border border-brand-default bg-card p-2 text-brand-strong shadow-brand-card transition-colors hover:bg-brand-hero-soft"
         aria-label={`Notifications (${unreadCount} unread)`}
       >
         <Bell className="h-5 w-5" aria-hidden />
@@ -54,11 +54,11 @@ export function NotificationBell() {
       </button>
 
       {open ? (
-        <div className="absolute right-0 z-50 mt-2 w-96 overflow-hidden rounded-2xl border border-[var(--brand-border)] bg-card text-[var(--brand-text-strong)] shadow-brand-card">
-          <div className="flex items-center justify-between border-b border-[var(--brand-border)] bg-[var(--brand-hero-soft)]/40 px-4 py-3">
+        <div className="absolute right-0 z-50 mt-2 w-96 overflow-hidden rounded-2xl border border-brand-default bg-card text-brand-strong shadow-brand-card">
+          <div className="flex items-center justify-between border-b border-brand-default bg-brand-hero-soft/40 px-4 py-3">
             <div>
               <p className="text-sm font-bold">Notifications</p>
-              <p className="text-xs text-[var(--brand-text-muted)]">
+              <p className="text-xs text-brand-muted">
                 {unreadCount} unread
               </p>
             </div>
@@ -76,7 +76,7 @@ export function NotificationBell() {
 
           <div className="max-h-96 overflow-auto">
             {inbox.isLoading ? (
-              <div className="flex items-center justify-center gap-2 px-4 py-10 text-sm text-[var(--brand-text-muted)]">
+              <div className="flex items-center justify-center gap-2 px-4 py-10 text-sm text-brand-muted">
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
                 Loading…
               </div>
@@ -85,7 +85,7 @@ export function NotificationBell() {
                 Could not load notifications.
               </p>
             ) : inbox.data && inbox.data.items.length > 0 ? (
-              <ul className="divide-y divide-[var(--brand-border)]">
+              <ul className="divide-y divide-brand-default">
                 {inbox.data.items.map((n) => (
                   <NotificationRow
                     key={n.id}
@@ -100,14 +100,14 @@ export function NotificationBell() {
                 ))}
               </ul>
             ) : (
-              <div className="px-4 py-10 text-center text-sm text-[var(--brand-text-muted)]">
+              <div className="px-4 py-10 text-center text-sm text-brand-muted">
                 <Bell className="mx-auto mb-2 h-6 w-6 text-zinc-300" aria-hidden />
                 No notifications yet.
               </div>
             )}
           </div>
 
-          <div className="border-t border-[var(--brand-border)] bg-card px-4 py-2">
+          <div className="border-t border-brand-default bg-card px-4 py-2">
             <Link
               href="/notifications"
               onClick={() => setOpen(false)}
@@ -141,7 +141,7 @@ function NotificationRow({
         type="button"
         onClick={onClick}
         className={cn(
-          'flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-[var(--brand-hero-soft)]/40',
+          'flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-brand-hero-soft/40',
           notification.unread && 'bg-emerald-50/60'
         )}
       >
@@ -153,10 +153,10 @@ function NotificationRow({
           aria-hidden
         />
         <div className="flex-1 space-y-1">
-          <p className="text-sm font-semibold text-[var(--brand-text-strong)]">
+          <p className="text-sm font-semibold text-brand-strong">
             {title}
           </p>
-          <p className="text-xs text-[var(--brand-text-muted)]">
+          <p className="text-xs text-brand-muted">
             {new Date(notification.createdAt).toLocaleString()}
           </p>
         </div>

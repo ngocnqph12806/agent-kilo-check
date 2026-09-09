@@ -35,11 +35,11 @@ export function AppTopBar() {
   const activeKey = navItems.find((item) => pathname?.startsWith(item.href))?.key;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--brand-border)] bg-background">
+    <header className="sticky top-0 z-40 border-b border-brand-default bg-background">
       <div className="mx-auto flex h-[72px] w-full max-w-[1280px] items-center justify-between gap-4 px-4 md:px-8">
         <div className="flex items-center gap-10">
           <BrandLogo href="/discover" size="md" />
-          <nav className="hidden items-center gap-7 text-sm font-medium text-[var(--brand-text-muted)] md:flex">
+          <nav className="hidden items-center gap-7 text-sm font-medium text-brand-muted md:flex">
             {navItems.map((item) => {
               const active = activeKey === item.key;
               return (
@@ -47,7 +47,7 @@ export function AppTopBar() {
                   key={item.key}
                   href={item.href}
                   className={cn(
-                    'transition-colors hover:text-[var(--brand-text-strong)]',
+                    'transition-colors hover:text-brand-strong',
                     active && 'font-semibold text-primary'
                   )}
                 >
@@ -64,7 +64,7 @@ export function AppTopBar() {
           <Link
             href="/settings"
             aria-label="Your account"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-warn)] text-sm font-semibold text-[var(--brand-warn-text)]"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-warn text-sm font-semibold text-brand-warn-text"
           >
             {getInitials(user?.fullName, user?.email)}
           </Link>

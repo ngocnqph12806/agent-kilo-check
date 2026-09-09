@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { VerifyEmailForm } from './verify-email-form';
+import { VerifyEmailForm } from '@/modules/auth/components/verify-email-form';
 
 interface VerifyEmailPageProps {
   params: Promise<{ token: string }>;

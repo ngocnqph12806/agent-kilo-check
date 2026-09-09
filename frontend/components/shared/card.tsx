@@ -29,7 +29,7 @@ export const CardSection = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElem
       <div
         ref={ref}
         className={cn(
-          'rounded-2xl border border-[var(--brand-border)] bg-card p-4 shadow-brand-card sm:p-6',
+          'rounded-2xl border border-brand-default bg-card p-4 shadow-brand-card sm:p-6',
           className
         )}
         {...rest}

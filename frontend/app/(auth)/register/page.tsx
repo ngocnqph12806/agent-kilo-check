@@ -1,11 +1,11 @@
 import { GuestGuard } from '@/modules/auth/components/guest-guard';
 
-import RegisterClient from './register-client';
+import { RegisterForm } from '@/modules/auth/components/register-form';
 
 export default function RegisterRoute() {
   return (
     <GuestGuard>
-      <RegisterClient />
+      <RegisterForm />
     </GuestGuard>
   );
 }

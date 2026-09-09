@@ -2,11 +2,15 @@
 
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  PasswordStrength,
+  scorePassword
+} from '@/components/shared/password-strength';
 
 import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormError, useFormServerError } from '@/modules/auth/components/form-status';
@@ -15,15 +19,25 @@ import { AppleSignInButton } from '@/modules/auth/components/apple-sign-in-butto
 import { useRegisterMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { registerSchema, type RegisterInput } from '@/modules/auth/lib/schemas';
 
-export default function RegisterClient() {
+export function RegisterForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting }
   } = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { fullName: '', email: '', password: '', confirmPassword: '' }
+    defaultValues: {
+      fullName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      acceptTerms: false as unknown as true
+    }
   });
+
+  const passwordValue = useWatch({ control, name: 'password' }) ?? '';
+  const passwordScore = scorePassword(passwordValue);
 
   const registerMutation = useRegisterMutation();
   const { serverError, setServerError } = useFormServerError();
@@ -31,7 +45,12 @@ export default function RegisterClient() {
   const onSubmit = handleSubmit(async (values) => {
     try {
       setServerError(null);
-      await registerMutation.mutateAsync(values);
+      await registerMutation.mutateAsync({
+        email: values.email,
+        password: values.password,
+        fullName: values.fullName,
+        confirmPassword: values.confirmPassword
+      });
     } catch (error) {
       setServerError(error instanceof Error ? error.message : 'Unable to create account.');
     }
@@ -95,6 +114,7 @@ export default function RegisterClient() {
               Minimum 8 characters with at least one letter and one number.
             </p>
           )}
+          <PasswordStrength value={passwordScore} />
         </div>
 
         <div className="space-y-2">
@@ -111,6 +131,26 @@ export default function RegisterClient() {
           ) : null}
         </div>
 
+        <label className="flex items-start gap-2 text-xs text-brand-muted">
+          <input
+            type="checkbox"
+            required
+            className="mt-0.5 h-4 w-4 rounded border-brand-default accent-primary"
+            {...register('acceptTerms')}
+          />
+          <span>
+            I agree to the{' '}
+            <Link href="/terms" className="font-semibold text-primary underline-offset-4 hover:underline">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link href="/privacy" className="font-semibold text-primary underline-offset-4 hover:underline">
+              Privacy Policy
+            </Link>
+            .
+          </span>
+        </label>
+
         <Button
           type="submit"
           variant="brand" className="h-12 w-full rounded-full text-base font-semibold"
@@ -122,10 +162,10 @@ export default function RegisterClient() {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-[var(--brand-border)]" />
+          <div className="w-full border-t border-brand-default" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-[var(--brand-text-subtle)]">Or sign up with</span>
+          <span className="bg-background px-2 text-brand-subtle">Or sign up with</span>
         </div>
       </div>
 

@@ -13,7 +13,7 @@ import { FormError, useFormServerError } from '@/modules/auth/components/form-st
 import { useResetPasswordMutation } from '@/modules/auth/hooks/use-auth-mutations';
 import { resetPasswordSchema, type ResetPasswordInput } from '@/modules/auth/lib/schemas';
 
-import { useResetTokenFromQuery } from './use-reset-token';
+import { useResetTokenFromQuery } from '@/modules/auth/hooks/use-reset-token';
 
 export function ResetPasswordForm() {
   const tokenFromQuery = useResetTokenFromQuery();

@@ -74,7 +74,7 @@ export function ReportIssueDialog({ bookingId, open, onClose }: ReportIssueDialo
       aria-labelledby="report-issue-title"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
     >
-      <div className="w-full max-w-md space-y-4 rounded-2xl border border-[var(--brand-border)] bg-[var(--brand-surface)] p-6 shadow-brand-card">
+      <div className="w-full max-w-md space-y-4 rounded-2xl border border-brand-default bg-brand-surface p-6 shadow-brand-card">
         <header className="flex items-center gap-2">
           <AlertTriangle className="h-5 w-5 text-amber-500" aria-hidden />
           <h2 id="report-issue-title" className="text-lg font-semibold">
@@ -97,7 +97,7 @@ export function ReportIssueDialog({ bookingId, open, onClose }: ReportIssueDialo
             <label className="block space-y-1 text-sm">
               <span className="font-semibold">Category</span>
               <select
-                className="flex h-10 w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 text-sm"
+                className="flex h-10 w-full rounded-xl border border-brand-default bg-background px-3 text-sm"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ReportIssueCategory)}
                 disabled={submitting}
@@ -112,7 +112,7 @@ export function ReportIssueDialog({ bookingId, open, onClose }: ReportIssueDialo
             <label className="block space-y-1 text-sm">
               <span className="font-semibold">What happened?</span>
               <textarea
-                className="flex w-full rounded-xl border border-[var(--brand-border)] bg-background px-3 py-2 text-sm"
+                className="flex w-full rounded-xl border border-brand-default bg-background px-3 py-2 text-sm"
                 rows={4}
                 placeholder="e.g. Audio dropped for ~10 seconds around the 12-minute mark."
                 value={description}
@@ -121,7 +121,7 @@ export function ReportIssueDialog({ bookingId, open, onClose }: ReportIssueDialo
                 maxLength={1000}
               />
             </label>
-            {error ? <p className="text-xs text-[var(--brand-rose)]">{error}</p> : null}
+            {error ? <p className="text-xs text-brand-rose">{error}</p> : null}
             <div className="flex justify-end gap-2 pt-2">
               <Button type="button" variant="outline" onClick={onClose} disabled={submitting}>
                 Cancel

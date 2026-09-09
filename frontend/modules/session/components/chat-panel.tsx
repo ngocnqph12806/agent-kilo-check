@@ -113,7 +113,7 @@ export function ChatPanel({ bookingId, open, onClose }: ChatPanelProps) {
     <aside
       role="dialog"
       aria-labelledby="chat-panel-title"
-      className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col border-l border-white/10 bg-[var(--brand-surface)]/95 text-zinc-50 shadow-2xl backdrop-blur"
+      className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col border-l border-white/10 bg-brand-surface/95 text-zinc-50 shadow-2xl backdrop-blur"
     >
       <header className="flex items-center justify-between border-b border-white/10 bg-black/40 px-4 py-3">
         <div className="flex items-center gap-2">
@@ -154,7 +154,7 @@ export function ChatPanel({ bookingId, open, onClose }: ChatPanelProps) {
                 className={cn(
                   'max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-relaxed shadow-sm',
                   own
-                    ? 'rounded-br-sm bg-[var(--brand-emerald)] text-white'
+                    ? 'rounded-br-sm bg-brand-emerald text-white'
                     : 'rounded-bl-sm bg-white/10 text-zinc-100'
                 )}
               >
@@ -193,14 +193,14 @@ export function ChatPanel({ bookingId, open, onClose }: ChatPanelProps) {
             placeholder="Type a message"
             rows={1}
             disabled={status !== 'connected'}
-            className="flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[var(--brand-emerald)]"
+            className="flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-emerald"
           />
           <button
             type="button"
             onClick={send}
             disabled={!draft.trim() || status !== 'connected'}
             aria-label="Send"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand-emerald)] text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-emerald text-white transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Send className="h-4 w-4" />
           </button>

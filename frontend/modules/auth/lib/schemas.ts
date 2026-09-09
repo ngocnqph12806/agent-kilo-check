@@ -20,7 +20,8 @@ export const fullNameSchema = z
 
 export const loginSchema = z.object({
   email: emailSchema,
-  password: z.string().min(1, 'Password is required')
+  password: z.string().min(1, 'Password is required'),
+  remember: z.boolean().default(true)
 });
 
 export const registerSchema = z
@@ -28,7 +29,10 @@ export const registerSchema = z
     fullName: fullNameSchema,
     email: emailSchema,
     password: passwordSchema,
-    confirmPassword: z.string().min(1, 'Please confirm your password')
+    confirmPassword: z.string().min(1, 'Please confirm your password'),
+    acceptTerms: z.literal(true, {
+      errorMap: () => ({ message: 'You must accept the Terms to create an account' })
+    })
   })
   .refine((value) => value.password === value.confirmPassword, {
     path: ['confirmPassword'],
@@ -60,6 +64,13 @@ export const googleOAuthSchema = z.object({
 
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
+
+/**
+ * API-side payload — excludes client-only fields like {@code acceptTerms}.
+ * Kept as a separate type so the auth-api layer never sees form-internal
+ * markers (T-M406).
+ */
+export type RegisterPayload = Omit<RegisterInput, 'acceptTerms'>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 export type VerifyEmailInput = z.infer<typeof verifyEmailSchema>;

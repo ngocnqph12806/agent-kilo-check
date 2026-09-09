@@ -1,9 +1,10 @@
 'use client';
 
+import { Search } from 'lucide-react';
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { Button } from '@/components/ui/button';
+import { EmptyState, ErrorState, LoadingState } from '@/components/shared';
 import { SkillsAutocomplete } from '@/modules/skills/components/skills-autocomplete';
 import { cn } from '@/lib/utils';
 
@@ -74,25 +75,28 @@ function DiscoverContent() {
           </div>
 
           {discover.isLoading ? (
-            <p className="py-12 text-center text-sm text-muted-foreground">Loading matches…</p>
+            <LoadingState label="Loading matches…" rows={3} />
           ) : null}
 
           {discover.isError ? (
-            <p className="rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
-              Failed to load matches. {discover.error instanceof Error ? discover.error.message : ''}
-            </p>
+            <ErrorState
+              title="Could not load matches"
+              message={
+                discover.error instanceof Error
+                  ? discover.error.message
+                  : 'Please try again in a moment.'
+              }
+              onRetry={() => discover.refetch()}
+            />
           ) : null}
 
           {discover.data && discover.data.items.length === 0 ? (
-            <div className="rounded-lg border bg-card p-12 text-center">
-              <h2 className="text-lg font-semibold">No matches yet</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Add more skills to your wanted list in onboarding to see better matches.
-              </p>
-              <Button asChild className="mt-4">
-                <a href="/onboarding">Edit wanted skills</a>
-              </Button>
-            </div>
+            <EmptyState
+              icon={Search}
+              title="No matches yet"
+              description="Add more skills to your wanted list in onboarding to see better matches."
+              action={{ label: 'Edit wanted skills', href: '/onboarding' }}
+            />
           ) : null}
 
           {discover.data && discover.data.items.length > 0 ? (

@@ -19,22 +19,22 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <main className="flex min-h-[80vh] flex-col items-center justify-center bg-[var(--brand-surface)] px-4">
+    <main className="flex min-h-[80vh] flex-col items-center justify-center bg-brand-surface px-4">
       <div className="flex max-w-md flex-col items-center text-center">
-        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[var(--brand-rose)]/15 shadow-brand-card">
-          <AlertTriangle className="h-12 w-12 text-[var(--brand-rose)]" aria-hidden />
+        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-brand-rose/15 shadow-brand-card">
+          <AlertTriangle className="h-12 w-12 text-brand-rose" aria-hidden />
         </div>
-        <p className="mb-2 inline-flex items-center rounded-full border border-[var(--brand-rose)]/40 bg-[var(--brand-rose)]/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--brand-rose)]">
+        <p className="mb-2 inline-flex items-center rounded-full border border-brand-rose/40 bg-brand-rose/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-rose">
           500 · Server error
         </p>
-        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-brand-strong">
           Something went wrong
         </h1>
-        <p className="mt-3 max-w-md text-base text-[var(--brand-text-muted)]">
+        <p className="mt-3 max-w-md text-base text-brand-muted">
           We&apos;ve been notified. Please try again in a moment — most issues clear themselves quickly.
         </p>
         {error.digest ? (
-          <code className="mt-3 rounded bg-muted px-2 py-1 text-xs text-[var(--brand-text-muted)] shadow-brand-card">
+          <code className="mt-3 rounded bg-muted px-2 py-1 text-xs text-brand-muted shadow-brand-card">
             Ref: {error.digest}
           </code>
         ) : null}
@@ -50,11 +50,11 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
             <Link href="/">🏠 Back to home</Link>
           </Button>
         </div>
-        <p className="mt-8 text-xs text-[var(--brand-text-subtle)]">
+        <p className="mt-8 text-xs text-brand-subtle">
           If this persists, contact{' '}
           <a
             href="mailto:support@skillseed.app"
-            className="font-semibold text-[var(--brand-cta-from)]"
+            className="font-semibold text-brand-cta-from"
           >
             support@skillseed.app
           </a>

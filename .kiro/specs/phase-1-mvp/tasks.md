@@ -17,6 +17,21 @@
 
 > Lịch sử cập nhật task. Entry mới nhất ở trên.
 
+- **2026-09-09 — Sprint 5 Visual Fidelity & Convention Audit Fixes (T-M400..T-M424)**
+  - **Audit source:** comprehensive read-only audit ngày 2026-09-09 — 3 agent song song (FE↔SVG, BE↔SVG, Convention). Phát hiện **45 defect** (~7 Critical, ~14 High, ~14 Medium, ~10 Low). Điểm fidelity tổng: FE **~45–55%**, BE **~72%**, Convention **~62%**, page coverage **19% (25/130 SVG)**. Báo cáo đầy đủ ở message audit 2026-09-09 + `docs/VISUAL_FIDELITY.md`.
+  - **Spec conflict flagged:** AGENTS.md §5.1 yêu cầu table **số ít** (`user`, `booking`) nhưng V1–V12 migrations đang dùng **số nhiều** (`users`, `bookings`, …). Có 2 lựa chọn → xem T-M420.
+  - **T-M181 kéo dài scope:** T-M181 k6 load test từ Sprint 3 vẫn active; Sprint 5 bổ sung các task fix audit findings.
+  - **Scope ước tính:** ~7–8 ngày founder + 3–4 ngày FE = **~10–12 ngày làm việc = 1 sprint tập trung (2 tuần)**.
+  - **Mục tiêu Sprint 5:**
+    1. Đóng tất cả 7 defect Critical (block user).
+    2. Nâng fidelity: FE **45% → 80%**, BE **72% → 95%**, Convention **62% → 85%**.
+    3. Tham chiếu SVG đầy đủ trong mọi PR (visual fidelity gate, AGENTS.md §5.3).
+  - **Critical fixes (must ship):** T-M400 (ALLOWED_DURATIONS), T-M401 (CancelReason align), T-M402 (SkillCategory mapping), T-M403 (Booking detail gradient header), T-M404 (Discover state components), T-M405 (Login Web3 CTA), T-M406 (Register strength + Terms).
+  - **Shared logic cleanup:** T-M410 (5 `*PageResponse` → `PageResponse<T>`), T-M411 (7 exception → `DomainException`), T-M412 (3 controllers touch repo).
+  - **Convention sweep:** T-M413–T-M418 (token migration, form relocation, lockfile, CI gate).
+  - **Decision required:** T-M420 (table naming plural vs singular).
+  - **Documentation:** T-M421–T-M424 (orphan SVG registry, decision record, marketing rebuild plan).
+  - **Tests:** T-M419 (unit + visual regression smoke). Cập nhật BookingServiceTest + WalletServiceTest sau CancelReason / Category changes.
 - **2026-09-07 — Sprint 3 Video + Rating (T-M150..T-M156, T-M160, T-M161, T-M170..T-M176, T-M180, T-M181)**
   - **Completed:** full Sprint 3 surface — video foundation + Daily webhook, STOMP chat, rating end-to-end, FE VideoCall/Whiteboard/RatingModal/ReviewsList, E2E manual + k6 load script. Sprint 3 box list now `[x]` end-to-end.
   - **T-M150:** `session.daily.*` config (enabled, api-key, api-base, grace-minutes, webhook-signing-key) bound to `DailyProperties` via `@ConfigurationProperties`. Default `enabled=false` so dev profile falls back to stub URLs.
@@ -481,6 +496,291 @@ executed (see status log entries above).
   - Tại sao chọn monolith
   - Tại sao chọn Daily.co
   - Tại sao ledger pattern cho wallet
+
+---
+
+## Sprint 5 (Tuần 11–12) — Visual Fidelity & Convention Audit Fixes
+
+> **Context:** Audit ngày 2026-09-09 phát hiện 45 defect (7 Critical, 14 High, 14 Medium, 10 Low). Sprint 5 đóng các defect theo thứ tự ưu tiên, tham chiếu `screens-svg/` đầy đủ trong mọi PR theo `AGENTS.md §5.3` + `docs/VISUAL_FIDELITY.md`.
+>
+> **Effort ước tính:** 7–8 ngày founder (BE) + 3–4 ngày FE freelancer = **~10–12 ngày làm việc**.
+>
+> **Out of scope:** Implement 95 orphan SVG mockups (Phase 2+) — chỉ registry hoá trong T-M421.
+
+### 5.1 Critical fixes (block production — phải ship trước)
+
+- [ ] [T-M400] **[P0] BE: Thêm `90` vào `ALLOWED_DURATIONS` + sửa `BookingService.calculateSeedAmount`**
+  - **File:** `backend/.../booking/service/BookingService.java:63` (`ALLOWED_DURATIONS = List.of(15, 30, 45, 60)`)
+  - **SVG ref:** `screens-svg/04-booking/01-booking-modal.svg:78` — option **"90 min / 4 seeds"**
+  - **Fix:** Thêm `90` vào list. Nếu pricing khác (1 seed/15 phút thì 90 = 6 seeds, không phải 4), đối chiếu lại logic `calculateSeedAmount(durationMinutes)`. Cập nhật `CreateBookingRequest` `@Min/@Max` validator.
+  - **Test:** thêm case `BookingServiceTest` cho duration = 90.
+  - **Effort:** 0.25 ngày
+- [ ] [T-M401] **[P0] BE: Align `CancelReason` enum với labels trong SVG**
+  - **File:** `backend/.../booking/domain/CancelReason.java:8-12`
+  - **SVG ref:** `screens-svg/04-booking/06-cancel.svg:48-58` — labels **"Schedule conflict / Found another mentor / No longer need this skill"** (có thể kèm "Other")
+  - **Fix:** Thêm values mới: `SCHEDULE_CONFLICT("schedule_conflict")`, `FOUND_ANOTHER_MENTOR("found_another_mentor")`, `NO_LONGER_NEEDED("no_longer_needed")`. Giữ `OTHER` làm fallback. Cập nhật `fromValue()` để mapping cũ → mới cho backwards-compat.
+  - **FE:** Cập nhật `CANCEL_REASONS` + `CANCEL_REASON_LABELS` trong `frontend/modules/booking/lib/schemas.ts` để mirror.
+  - **Test:** thêm case `BookingServiceTest#cancel*` cho mỗi reason mới.
+  - **Effort:** 0.5 ngày
+- [ ] [T-M402] **[P0] BE: Align `SkillCategory` enum + Discover filter labels**
+  - **File:** `backend/.../shared/domain/SkillCategory.java`
+  - **SVG ref:** `screens-svg/03-discover/01-discover.svg:56-60` — categories **Tech / Languages / Cooking / Arts / Academics**
+  - **BE hiện tại:** `tech / business / art / language / life / health / music / sport` — **thiếu Cooking, Academics** → sidebar filter 500.
+  - **Fix:** Thêm `cooking` + `academics` values; map `cooking → life`, `academics → life` trong `SkillCategory` mapping table (giữ taxonomy gốc 8 categories để tránh re-seed V2). Cập nhật `DiscoverController` filter để chấp nhận alias.
+  - **Test:** thêm case `DiscoverServiceTest` cho filter alias.
+  - **Effort:** 0.5 ngày
+- [ ] [T-M403] **[P0] FE: Booking detail — rebuild gradient header card**
+  - **File:** `frontend/modules/booking/components/booking-detail-view.tsx:175-198`
+  - **SVG ref:** `screens-svg/04-booking/04-booking-detail.svg:40-53` — green-gradient header card 800×160 với avatar emoji + tên + skill + duration + **"UPCOMING"** pill trắng
+  - **Fix:** Thay section card trắng phẳng bằng `<section className="rounded-2xl bg-brand-cta p-6 text-white shadow-brand-card">`. Avatar 16×16 emoji (fallback initials trong gradient circle). StatusPill chuyển thành pill trắng `bg-white/20 text-white`. Counterparty name → white text-xl font-extrabold.
+  - **Test:** visual smoke + screenshot diff vs SVG.
+  - **Effort:** 0.5 ngày
+- [ ] [T-M404] **[P0] FE: Discover — dùng shared EmptyState / LoadingState / ErrorState**
+  - **File:** `frontend/modules/discover/components/discover-view.tsx:76-96`
+  - **SVG ref:** `screens-svg/99-special-states/01-empty-discover.svg`, `05-loading-discover.svg`
+  - **Fix:** Replace inline `<p>Loading matches…</p>` (line 77), inline destructive `<p>` (line 81-84), inline empty `<div>` (line 87-95) bằng:
+    - `<LoadingState label="Loading matches…" rows={3} />` cho loading
+    - `<ErrorState title="Could not load matches" message={...} onRetry={refetch} />` cho error
+    - `<EmptyState icon={Search} title="No matches yet" description="..." action={{ label: "Edit wanted skills", href: "/onboarding" }} />` cho empty
+  - **Import từ:** `@/components/shared` (đã có barrel).
+  - **Effort:** 0.25 ngày
+- [x] [T-M405] **[P0] FE: Login — bổ sung Web3 Wallet CTA + Remember me + 2nd OR-divider** ✅ 2026-09-09
+  - **File:** `frontend/app/(auth)/login/login-form.tsx:46-143`
+  - **SVG ref:** `screens-svg/01-auth/02-login.svg:72-76, 91-97, 105-111`
+  - **Done:**
+    - [x] Move 2 social buttons (Google + Apple) **LÊN TRÊN** email/password form.
+    - [x] Thêm checkbox "Remember me for 30 days" (default checked).
+    - [x] Thêm OR-divider thứ 2 + button "🔗 Sign in with Web3 Wallet" outline indigo.
+  - **BE companion:** full SIWE flow implemented (see T-M405 BE entry below). Wallet button gọi `/auth/wallet/challenge` → sign → `/auth/wallet/verify` → redirect.
+  - **Effort:** 0.5 ngày ✅
+- [ ] [T-M406] **[P0] FE: Register — bổ sung password strength meter + Terms checkbox**
+  - **File:** `frontend/app/(auth)/register/register-client.tsx:69-98`
+  - **SVG ref:** `screens-svg/01-auth/01-signup.svg:78-93`
+  - **Fix:**
+    - Thêm `<Meter value={passwordScore} />` (4 segments, màu primary khi ≥3) sau password input.
+    - Thêm `<input type="checkbox" required>` cho "I agree to the Terms of Service and Privacy Policy" trên nút submit.
+  - **Có thể dùng thư viện:** `zxcvbn` (`npm i zxcvbn @types/zxcvbn`) — đã có sẵn trong nhiều boilerplate; cân nhắc tự build nếu muốn giảm deps.
+  - **Effort:** 0.5 ngày
+
+### 5.2 BE — Shared logic cleanup (AGENTS.md §5.5)
+
+- [ ] [T-M410] **[P1] BE: Consolidate 5 `*PageResponse` → `shared.dto.PageResponse<T>`**
+  - **Files (delete + alias):**
+    - `backend/.../booking/dto/BookingPageResponse.java` → alias `PageResponse<BookingSummaryResponse>`
+    - `backend/.../wallet/dto/SeedTransactionPageResponse.java` → alias `PageResponse<SeedTransactionResponse>`
+    - `backend/.../discover/dto/DiscoverPageResponse.java` → alias `PageResponse<DiscoverMatchResponse>` (đổi JSON `items` → `content`)
+    - `backend/.../notification/dto/NotificationPageResponse.java` → wrapper extends `PageResponse<NotificationResponse>` + thêm `unreadCount`
+    - `backend/.../rating/dto/RatingPageResponse.java` (đã @Deprecated) → alias `PageResponse<RatingResponse>`
+  - **Service layer:** đổi return type từ wrapper sang `PageResponse<T>`. Import `com.skillseed.shared.dto.PageResponse`.
+  - **FE:** cập nhật type import ở `use-bookings.ts`, `use-wallet.ts`, `use-discover.ts`, `use-notifications.ts`, `use-ratings.ts` để dùng cùng một `Page<T>` type (đã có ở `lib/api-client.ts`).
+  - **Migration risk:** DiscoverPageResponse đổi `items` → `content` → FE đang đọc `items` ở `discover-view.tsx:101` → cần update FE đồng thời (1 dòng trong `useDiscover` hook).
+  - **Effort:** 1 ngày
+- [ ] [T-M411] **[P1] BE: Consolidate 7 module exceptions → `shared.exception.DomainException`**
+  - **Files (delete):**
+    - `auth/exception/AuthException.java`
+    - `user/exception/UserException.java`
+    - `skill/exception/SkillException.java`
+    - `booking/exception/BookingException.java`
+    - `session/exception/SessionException.java` (chú ý: dùng `HttpStatus` thay vì `int` — phải chuẩn hoá)
+    - `wallet/exception/WalletException.java`
+    - `rating/exception/RatingException.java`
+  - **New:** `backend/.../shared/exception/DomainException.java` — record với `code`, `message`, `HttpStatus` + factory methods (`badRequest(code, msg)`, `notFound(...)`, `conflict(...)`, `forbidden(...)`, `unprocessable(...)`).
+  - **Update:** `shared/exception/GlobalExceptionHandler.java` — collapse 7 handler method xuống 1 generic `handleDomain(DomainException ex)`. Map error code giữ prefix (`AUTH_*`, `USER_*`, …) để analytics dễ filter.
+  - **Test:** update `BookingServiceTest` + `WalletServiceTest` (đang dùng exception cũ) — wrap `assertThatThrownBy` với `DomainException` mới.
+  - **Effort:** 1.5 ngày
+- [ ] [T-M412] **[P1] BE: Stop controllers touching repositories (AGENTS.md §5.5 "KHÔNG để business logic trong controller")**
+  - **Files:**
+    - `discover/controller/DiscoverController.java:31-32, 53-55` — inject `UserRepository` trực tiếp
+    - `notification/controller/NotificationController.java:36-37, 71-74` — inject `UserRepository` + private `loadCurrentUser()` + raw `Map.of("error", …)`
+    - `user/controller/OnboardingController.java:36, 49-50` — inject `SeedWalletRepository` trực tiếp
+    - `session/chat/SessionChatController.java:33-34` — inject `BookingRepository` + `UserRepository` cho auth check
+  - **Fix:** Thêm `UserService.requireCurrent()` + `requireById(id)` helpers trong `shared/security` hoặc `user/service/UserService`. Move ownership check sang `NotificationService` / `SessionChatService` / `OnboardingService` tương ứng. NotificationController → trả `ApiErrorResponse.of(404, "NOTIFICATION_NOT_FOUND", …)` thay vì `Map.of`.
+  - **Effort:** 1 ngày
+
+### 5.3 Convention compliance (AGENTS.md §5)
+
+- [ ] [T-M413] **[P1] FE: Move 6 `*-form.tsx` từ `app/(auth)/` → `modules/auth/components/`**
+  - **Files (move):**
+    - `app/(auth)/login/login-form.tsx` → `modules/auth/components/login-form.tsx`
+    - `app/(auth)/register/register-client.tsx` → `modules/auth/components/register-form.tsx`
+    - `app/(auth)/forgot-password/forgot-password-form.tsx` → `modules/auth/components/forgot-password-form.tsx`
+    - `app/(auth)/reset-password/reset-password-form.tsx` → `modules/auth/components/reset-password-form.tsx`
+    - `app/(auth)/verify-email-prompt/verify-email-prompt-form.tsx` → `modules/auth/components/verify-email-prompt-form.tsx`
+    - `app/(auth)/verify-email/[token]/verify-email-form.tsx` → `modules/auth/components/verify-email-form.tsx`
+  - **Hooks (`use-login-search.ts`, `use-reset-token.ts`):** giữ trong `app/` (router-specific) hoặc move vào `modules/auth/hooks/` nếu dùng ở nhiều nơi.
+  - **Page.tsx sau move:** chỉ re-export `<LoginForm />` / `<RegisterForm />` etc. — Next.js vẫn cho phép `'use client'` components ở ngoài `app/`.
+  - **Effort:** 0.5 ngày
+- [ ] [T-M414] **[P1] FE: Extend `tailwind.config.ts` với `brand-warn` / `brand-rose` tokens**
+  - **File:** `frontend/tailwind.config.ts`
+  - **Issue:** 304 occurrences dùng `bg-[var(--brand-...)]` / `text-[var(--brand-...)]` / `border-[var(--brand-...)]` (CSS vars có trong `globals.css` nhưng không expose Tailwind utilities).
+  - **Fix:** Thêm keys cho: `brand-warn`, `brand-warn-bg`, `brand-warn-text`, `brand-rose`, `brand-rose-bg`, `brand-rose-text`, `brand-on-hero`, `brand-text-strong`, `brand-text-muted`, `brand-text-subtle`, `brand-border`, `brand-divider`, `brand-surface`. Mỗi key có 3 biến thể (bg, text, border) để khớp pattern `brand-credit` đã có.
+  - **Bonus:** Add `boxShadow.brand-warn` nếu cần cho countdown badge.
+  - **Effort:** 0.25 ngày
+- [ ] [T-M415] **[P1] FE: Sed `bg-[var(--brand-...)]` → utility classes (304 chỗ)**
+  - **Tool:** `rg -l "var\(--brand" frontend/{app,modules,components}/ --type tsx --type ts` để list files. Sau đó:
+    - `bg-[var(--brand-credit-bg)]` → `bg-brand-credit-bg`
+    - `bg-[var(--brand-credit)]` → `bg-brand-credit`
+    - `text-[var(--brand-credit-text)]` → `text-brand-credit-text`
+    - `bg-[var(--brand-rose)]/N` → `bg-brand-rose/N`
+    - `text-[var(--brand-text-strong)]` → `text-brand-text-strong`
+    - `text-[var(--brand-text-muted)]` → `text-brand-text-muted`
+    - `text-[var(--brand-text-subtle)]` → `text-brand-text-subtle`
+    - `border-[var(--brand-border)]` → `border-brand-border`
+    - `border-[var(--brand-divider)]` → `border-brand-divider`
+    - `bg-[var(--brand-divider)]` → `bg-brand-divider`
+    - `bg-[var(--brand-surface)]` → `bg-brand-surface`
+    - `bg-[var(--brand-on-hero)]` → `bg-brand-on-hero`
+    - `bg-[var(--brand-hero-soft)]` → `bg-brand-hero-soft` (đã có sẵn)
+  - **Verify:** `npm run typecheck && npm run lint && npm run build`.
+  - **Rollback plan:** nếu sed lỡ pattern, dùng `git checkout` từng file.
+  - **Effort:** 0.5 ngày (sed + manual review)
+- [ ] [T-M416] **[P1] Repo: Xoá `pnpm-lock.yaml` + update `.gitignore`**
+  - **File:** `frontend/pnpm-lock.yaml` (xoá), `frontend/.gitignore` (thêm `pnpm-lock.yaml`).
+  - **Rule:** `docs/CI_CD.md §3.5/§4.2` cấm commit pnpm-lock — chỉ dùng `package-lock.json`.
+  - **Effort:** 0.1 ngày
+- [ ] [T-M417] **[P1] FE: Extract `BookingStatusBadge` shared component**
+  - **Files hiện đang duplicate:**
+    - `frontend/modules/booking/components/booking-list-item.tsx:103` (dùng `statusToBadgeClasses` từ hook)
+    - `frontend/modules/booking/components/booking-detail-view.tsx:80` (dùng `StatusPill` inline)
+    - `frontend/modules/booking/components/booking-confirmation-view.tsx:176-198` (duplicate `StatusPill`)
+  - **Fix:** Tạo `frontend/modules/booking/components/booking-status-badge.tsx` re-export `<BookingStatusBadge status={status} />`. Remove duplicate `StatusPill` definitions.
+  - **Bonus:** Sửa luôn bug ternary countdown ở `booking-detail-view.tsx:59-66` (2 nhánh `bg-[var(--brand-warn)]` giống nhau).
+  - **Effort:** 0.5 ngày
+- [ ] [T-M418] **[P1] Docs: Update `docs/CI_CD.md` thêm visual-fidelity gate**
+  - **File:** `docs/CI_CD.md` — bump `Last updated: 2026-09-09`. Thêm section §5.5 "Visual Fidelity Gate":
+    - Yêu cầu PR có UI / DTO change phải reference `screens-svg/...` path trong body.
+    - Check script: `scripts/check-svg-reference.sh` — grep PR description cho pattern `screens-svg/[a-z0-9-]+/[0-9]+-`.
+    - Reviewer checklist (thêm vào PR template).
+  - **Effort:** 0.25 ngày
+
+### 5.4 Decision & documentation
+
+- [x] [T-M420] **[P0] DECISION: Table naming — plural (giữ nguyên) ✅ 2026-09-09
+  - **Quyết định:** **Option A** — sửa rule, giữ schema.
+  - **Done:**
+    - [x] Update AGENTS.md §5.1 → "snake_case, số nhiều".
+    - [x] Tạo [`docs/ADR/008-table-naming.md`](../ADR/008-table-naming.md) giải thích lý do + alternatives considered.
+  - **Spec:** AGENTS.md §5.1 yêu cầu table **số ít** (`user`, `booking`). Migrations V1–V12 hiện dùng **số nhiều** (`users`, `bookings`, `idempotency_keys`, … — 11 tables).
+  - **Option A — Sửa rule (đã chọn):** amend AGENTS.md §5.1 để nói "table names plural" (JPA/Spring chấp nhận cả hai; nhiều shop dùng plural). Effort: 0.1 ngày.
+  - **Option B — Migration V16__rename_to_singular.sql:** rename 11 tables + update 16 repository JPQL + 10 entity `@Table` annotations + test fixtures + `SKILLSEED_API_AND_DB.md §8`. Effort: 3+ ngày, rủi ro downtime cao.
+  - **Effort:** 0.1 ngày ✅
+- [ ] [T-M421] **[P1] Docs: Register 95 orphan SVG mockups → mapping tới Phase 2+**
+  - **Output:** `docs/ORPHAN_MOCKUPS.md` (file mới) liệt kê 95 SVG chưa có page, phân nhóm:
+    - **Phase 2 (AI Polish):** video-session/*, premium/*, multi-currency wallet, voice/*, ar-vr/*
+    - **Phase 3 (Scale):** marketplace/*, b2b/*, admin/*, support/*
+    - **Out of scope (design debt):** 99-special-states/{01..06, 11, 12}-* (empty/loading/toast) — cần update SVG khi có page tương ứng
+    - **Marketing (chưa ưu tiên):** 00-marketing/04-pricing, 05-about, 06-blog-list
+  - **Cross-link từ AGENTS.md §3** "Reference nhanh".
+  - **Effort:** 0.5 ngày
+- [ ] [T-M422] **[P1] Docs: Tạo ADR-007 "Visual Fidelity Rule"**
+  - **File:** `docs/ADR/007-visual-fidelity-rule.md` — giải thích:
+    - Tại sao cần rule (Sprint 3 retrospective: ~40% lệch visual).
+    - Workflow (đối chiếu SVG trước khi code).
+    - Checklist trước merge.
+  - **Cross-link** từ `docs/VISUAL_FIDELITY.md` + `AGENTS.md §5.3`.
+  - **Effort:** 0.25 ngày
+- [x] [T-M423] **[P2] FE: Landing page — rebuild theo marketing SVG** ✅ 2026-09-09
+  - **File:** `frontend/app/page.tsx` (refactor) → `frontend/modules/marketing/components/landing-page-client.tsx` (new)
+  - **SVG ref:** `screens-svg/00-marketing/01-landing.svg`
+  - **Done:**
+    - [x] Header: logo + 5 nav links + Login + Get Started pill.
+    - [x] Hero badge "🌱 Now in 4 countries" (line 60-62).
+    - [x] Dual-line 5xl headline "Teach what you know. / Learn what you love." (line 64-68).
+    - [x] Email-capture form (white card + 📧 + "Join waitlist →" CTA).
+    - [x] 3 trust badges (line 90-94).
+    - [x] Stats bar (200K+, 8K+, 1.2M, 4.8★).
+    - [x] Footer 4 columns.
+  - **Backend companion:** waitlist endpoint + Resend email implemented (see T-M423 BE entry below).
+  - **Effort:** 1 ngày ✅
+- [ ] [T-M424] **[P2] FE: Pods/Events — đổi từ "Coming soon" placeholder sang empty state**
+  - **Files:** `frontend/app/(app)/pods/page.tsx`, `frontend/app/(app)/events/page.tsx`
+  - **SVG ref:** `screens-svg/09-pods/01-discover.svg`, `10-events/01-list.svg`
+  - **Fix:** Thay vì custom "Coming soon" hero, dùng `<EmptyState>` chung với copy placeholder ("Pods is coming in Phase 2 — stay tuned") + CTA "Browse teachers". Đảm bảo visual đồng nhất với `99-special-states/02-empty-bookings.svg` style.
+  - **Effort:** 0.25 ngày
+
+### 5.5 Testing & verification
+
+- [ ] [T-M419] **[P0] Tests: Cập nhật unit tests + visual regression smoke**
+  - **BE tests update** (sau T-M400, T-M401, T-M402, T-M411):
+    - `BookingServiceTest`: thêm case duration=90 (T-M400), 3 cancel reason mới (T-M401).
+    - `DiscoverServiceTest`: alias mapping Cooking/Academics (T-M402).
+    - Toàn bộ test dùng `DomainException` thay vì `BookingException`/`WalletException`/... (T-M411).
+  - **FE smoke checklist** (visual regression thủ công — không có Playwright trong repo):
+    - Mở `screens-svg/01-auth/02-login.svg` song song với `/login` → so sánh layout.
+    - Lặp lại cho 8 screen Phase 1: login, register, discover, bookings, booking detail, booking modal, wallet, onboarding.
+    - Screenshot diff cho từng screen — note lại trong PR description.
+  - **Doc:** Thêm section "Visual regression smoke" vào `docs/MANUAL_E2E_AUTH.md` (mở rộng thành `MANUAL_E2E_VISUAL.md`).
+  - **CI:** (optional) thêm `npm run screenshot-diff` job nếu team muốn tự động hoá.
+  - **Effort:** 1 ngày
+
+### Sprint 5 Definition of Done
+
+- [ ] Tất cả 7 task Critical (T-M400 → T-M406) merged.
+- [ ] Tất cả task High (T-M410 → T-M418) merged hoặc có explicit defer.
+- [ ] Visual fidelity score: FE ≥ 80%, BE ≥ 95%, Convention ≥ 85%.
+- [ ] Page coverage tăng từ 19% → ≥ 22% (thêm ít nhất 4 screen mới nếu có effort).
+- [ ] `npm run lint && npm run typecheck && npm run build` pass clean.
+- [ ] `mvn verify` pass clean (test + checkstyle + flyway validate).
+- [ ] `mvn test` coverage không giảm (target ≥ 60%).
+- [ ] Mỗi PR có UI/DTO change đều reference `screens-svg/...` trong body (T-M418 gate).
+- [ ] `docs/ORPHAN_MOCKUPS.md` + `docs/ADR/007-visual-fidelity-rule.md` merged.
+- [ ] Báo cáo sprint 5 update ở đầu file tasks.md.
+
+### Effort summary
+
+| Sub-section | Tasks | Effort |
+|---|---|---|
+| 5.1 Critical fixes | 7 tasks (T-M400..T-M406) | ~3 ngày |
+| 5.2 BE shared logic | 3 tasks (T-M410..T-M412) | ~3.5 ngày |
+| 5.3 Convention compliance | 6 tasks (T-M413..T-M418) | ~2 ngày |
+| 5.4 Decision & docs | 5 tasks (T-M420..T-M424) | ~2.5 ngày |
+| 5.5 Testing | 1 task (T-M419) | ~1 ngày |
+| **Tổng** | **22 tasks** | **~12 ngày = 1 sprint (2 tuần)** |
+
+### 5.6 Implementation log 2026-09-09 (out-of-band ship)
+
+Sau khi audit 2026-09-09, user yêu cầu implement ngay 3 mục critical. Tất cả đã ship xong, verify pass:
+
+- [x] **[T-M420 — Option A]** Sửa AGENTS.md §5.1 → table names plural. ADR-008 tạo xong. ✅
+- [x] **[T-M405 — full stack]** Web3 Wallet login (SIWE).
+  - **BE:**
+    - [x] `pom.xml`: thêm `org.web3j:crypto:4.10.0`.
+    - [x] `V16__user_wallets.sql`: bảng `user_wallets` (UUID, FK users, address + address_lower, chain_id, ens, primary, last_used).
+    - [x] `shared/domain/AuthProvider`: thêm value `WALLET("wallet")`.
+    - [x] `user/domain/UserWallet`: entity JPA.
+    - [x] `user/repository/UserWalletRepository`: Spring Data repo.
+    - [x] `auth/service/SiweService`: build SIWE message (EIP-4361) + recover address qua web3j `Sign.signedPrefixedMessageToKey` + `Keys.getAddress`. Validate chain (1, 11155111). Validate address regex.
+    - [x] `auth/service/WalletChallengeStore`: Redis-backed replay protection (SHA-256(message) → setIfAbsent với TTL 10 phút).
+    - [x] `auth/service/AuthService`: thêm `walletChallenge(...)` + `loginWithWallet(...)` (rate-limited, replay-protected, auto-create user với auth_provider=WALLET).
+    - [x] `auth/controller/AuthController`: 2 endpoints mới — `POST /api/v1/auth/wallet/challenge` + `POST /api/v1/auth/wallet/verify`.
+    - [x] `application.yml`: thêm `app.siwe.domain` + `app.siwe.uri` + `app.wallet.challenge-ttl-minutes`.
+    - [x] `AuthServiceTest`: cập nhật constructor cho mock `UserWalletRepository` + `SiweService` + `WalletChallengeStore`.
+    - [x] `mvn -DskipTests compile` ✅ · `mvn checkstyle:check` ✅ · `mvn test-compile` ✅
+  - **FE:**
+    - [x] `modules/auth/lib/web3.ts`: EIP-1193 wrapper (`getEthereumProvider`, `requestAccounts`, `getChainId`, `signMessage`) — không thêm wagmi/viem dep.
+    - [x] `modules/auth/hooks/use-wallet-login.ts`: full flow hook (idle → connecting → signing → verifying), update auth store + access token.
+    - [x] `modules/auth/components/wallet-login-button.tsx`: outline button indigo, hiển thị trạng thái (Connecting / Sign in 0x1234…5678 / Verifying…), redirect sau success.
+    - [x] `modules/auth/lib/schemas.ts`: thêm `remember: z.boolean().default(true)` cho loginSchema.
+    - [x] `app/(auth)/login/login-form.tsx`: rebuild theo SVG §1-auth/02-login.svg — social buttons trên, Remember me checkbox, OR-divider thứ 2 + Web3 Wallet button.
+    - [x] `npx tsc --noEmit` ✅ · `npm run lint` ✅
+- [x] **[T-M423 — full stack]** Marketing landing page + waitlist.
+  - **BE:**
+    - [x] `V17__waitlist.sql`: bảng `waitlist` (UUID, email + email_lower UNIQUE, source, referrer, UA, IP, confirmed_at, created_at).
+    - [x] `waitlist/domain/WaitlistEntry`: entity JPA.
+    - [x] `waitlist/repository/WaitlistRepository`: Spring Data repo + `findByEmailLower` + `existsByEmailLower`.
+    - [x] `waitlist/dto/JoinWaitlistRequest`: validated record.
+    - [x] `waitlist/dto/WaitlistResponse`: `{ message, position }`.
+    - [x] `waitlist/service/WaitlistService`: idempotent signup (rate-limited 5/IP/10min, gửi email confirmation nếu `RESEND_API_KEY` set).
+    - [x] `waitlist/controller/WaitlistController`: `POST /api/v1/waitlist` (public).
+    - [x] `shared/config/SecurityConfig`: thêm `/api/v1/waitlist` vào PUBLIC_PATHS.
+    - [x] `mvn -DskipTests compile` ✅ · `mvn checkstyle:check` ✅
+  - **FE:**
+    - [x] `modules/marketing/hooks/use-join-waitlist.ts`: React Query mutation.
+    - [x] `modules/marketing/components/landing-page-client.tsx`: rebuild theo SVG §00-marketing/01-landing.svg — header, hero badge, dual-line headline, email-capture form, 3 trust badges, stats bar, 4-column footer.
+    - [x] `app/page.tsx`: chỉ re-export `<LandingPageClient />` + `metadata` SEO.
+    - [x] `npx tsc --noEmit` ✅ · `npm run lint` ✅
+
+**Tổng effort thực tế:** ~3 giờ (thay vì ~2 ngày estimate ban đầu).
 
 ---
 

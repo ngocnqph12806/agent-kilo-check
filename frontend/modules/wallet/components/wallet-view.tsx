@@ -94,10 +94,10 @@ export function WalletView() {
   return (
     <main className="container mx-auto max-w-4xl space-y-8 py-10">
       <header className="space-y-1">
-        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--brand-text-strong)]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-brand-strong">
           Wallet
         </h1>
-        <p className="text-sm text-[var(--brand-text-muted)]">
+        <p className="text-sm text-brand-muted">
           Track your seeds, transactions, and what&rsquo;s expiring soon.
         </p>
       </header>
@@ -215,7 +215,7 @@ function StatCard({
         : 'bg-brand-pending-bg text-brand-pending';
 
   return (
-    <div className="rounded-2xl border border-[var(--brand-border)] bg-card p-5 shadow-brand-card">
+    <div className="rounded-2xl border border-brand-default bg-card p-5 shadow-brand-card">
       <div className="flex items-center gap-3">
         <span
           className={cn(
@@ -225,15 +225,15 @@ function StatCard({
         >
           <Icon className="h-5 w-5" aria-hidden />
         </span>
-        <p className="text-xs font-semibold uppercase tracking-wide text-[var(--brand-text-muted)]">
+        <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted">
           {label}
         </p>
       </div>
-      <p className="mt-3 text-2xl font-extrabold text-[var(--brand-text-strong)]">
+      <p className="mt-3 text-2xl font-extrabold text-brand-strong">
         {typeof value === 'number' ? NUMBER_FORMAT.format(value) : value}
       </p>
       {suffix ? (
-        <p className="text-xs text-[var(--brand-text-muted)]">{suffix}</p>
+        <p className="text-xs text-brand-muted">{suffix}</p>
       ) : null}
     </div>
   );
@@ -288,19 +288,19 @@ function TransactionHistory({
   const items = data?.content ?? [];
 
   return (
-    <section className="rounded-2xl border border-[var(--brand-border)] bg-card p-6 shadow-brand-card">
+    <section className="rounded-2xl border border-brand-default bg-card p-6 shadow-brand-card">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-extrabold text-[var(--brand-text-strong)]">
+          <h2 className="text-lg font-extrabold text-brand-strong">
             Recent activity
           </h2>
-          <p className="text-xs text-[var(--brand-text-muted)]">
+          <p className="text-xs text-brand-muted">
             {NUMBER_FORMAT.format(totalElements)}{' '}
             {totalElements === 1 ? 'transaction' : 'transactions'}
           </p>
         </div>
         {isFetching && !isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin text-[var(--brand-text-muted)]" aria-hidden />
+          <Loader2 className="h-4 w-4 animate-spin text-brand-muted" aria-hidden />
         ) : null}
       </div>
 
@@ -322,7 +322,7 @@ function TransactionHistory({
             action={{ label: 'Browse teachers', href: '/discover' }}
           />
         ) : (
-          <ul className="divide-y divide-[var(--brand-border)]">
+          <ul className="divide-y divide-brand-default">
             {items.map((row) => (
               <TransactionRow key={row.id} tx={row} />
             ))}
@@ -366,10 +366,10 @@ function TransactionRow({ tx }: { tx: SeedTransaction }) {
         <Icon className="h-5 w-5" aria-hidden />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-[var(--brand-text-strong)]">
+        <p className="truncate text-sm font-semibold text-brand-strong">
           {tx.description ?? meta.label}
         </p>
-        <p className="text-xs text-[var(--brand-text-muted)]">
+        <p className="text-xs text-brand-muted">
           {meta.label} ·{' '}
           {new Date(tx.createdAt).toLocaleDateString('en-US', {
             month: 'short',
@@ -383,7 +383,7 @@ function TransactionRow({ tx }: { tx: SeedTransaction }) {
           {isCredit ? '+' : ''}
           {NUMBER_FORMAT.format(tx.amount)} seeds
         </p>
-        <p className="text-xs text-[var(--brand-text-muted)]">
+        <p className="text-xs text-brand-muted">
           Balance {NUMBER_FORMAT.format(tx.balanceAfter)}
         </p>
       </div>
@@ -412,7 +412,7 @@ function Pagination({
       >
         Previous
       </Button>
-      <span className="px-2 text-[var(--brand-text-muted)]">
+      <span className="px-2 text-brand-muted">
         Page {page + 1} of {totalPages}
       </span>
       <Button
