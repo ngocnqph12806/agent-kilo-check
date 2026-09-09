@@ -8,6 +8,25 @@ const SORT_TO_BACKEND: Record<DiscoverSortKey, string> = {
   recent: 'updatedAt'
 };
 
+/**
+ * Raw wire shape returned by the backend. The backend uses Spring's Page
+ * convention and serializes the row list as `content` (see
+ * DiscoverPageResponse.@JsonProperty("content")), so we have to translate
+ * it into the frontend's `items` field here.
+ */
+interface DiscoverPageWire {
+  content?: unknown[];
+  items?: unknown[];
+  page?: number;
+  size?: number;
+  totalElements?: number;
+  totalPages?: number;
+  first?: boolean;
+  last?: boolean;
+  hasNext?: boolean;
+  hasPrevious?: boolean;
+}
+
 export async function discover(filters: DiscoverFilters): Promise<DiscoverPage> {
   const cleaned: Record<string, string | number> = {};
   if (filters.skill) cleaned.skill = filters.skill;
@@ -19,6 +38,17 @@ export async function discover(filters: DiscoverFilters): Promise<DiscoverPage> 
   if (filters.page != null) cleaned.page = filters.page;
   if (filters.size != null) cleaned.size = filters.size;
 
-  const { data } = await apiClient.get<DiscoverPage>('/discover', { params: cleaned });
-  return data;
+  const { data } = await apiClient.get<DiscoverPageWire>('/discover', { params: cleaned });
+  const items = Array.isArray(data.items)
+    ? data.items
+    : Array.isArray(data.content)
+      ? data.content
+      : [];
+  return {
+    items: items as DiscoverPage['items'],
+    page: data.page ?? 0,
+    size: data.size ?? items.length,
+    totalElements: data.totalElements ?? items.length,
+    totalPages: data.totalPages ?? 1
+  };
 }
