@@ -50,6 +50,17 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 export type ApiError = AxiosError<ErrorPayload>;
 
+/**
+ * Returns true when an Axios error came back with HTTP 401. Components can
+ * branch on this to call `router.replace('/login')` etc. instead of
+ * showing a generic error UI.
+ */
+export function isUnauthorizedError(error: unknown): boolean {
+  if (!error || typeof error !== 'object') return false;
+  const status = (error as { response?: { status?: number } }).response?.status;
+  return status === 401;
+}
+
 function shouldSkipAuthHeader(url?: string): boolean {
   if (!url) return false;
   return url.includes('/auth/login') || url.includes('/auth/register') || url.includes('/auth/refresh');
