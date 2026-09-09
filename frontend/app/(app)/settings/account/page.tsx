@@ -8,10 +8,11 @@ import { Loader2, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { RequireCurrentUser } from '@/modules/auth/components/require-current-user';
 import { useCurrentUser } from '@/modules/auth/hooks/use-auth-mutations';
 import { patchProfile, type PatchProfilePayload } from '@/modules/onboarding/lib/onboarding-api';
 
-export default function SettingsAccountPage() {
+function AccountForm({ userId }: { userId: string }) {
   const me = useCurrentUser();
   const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
@@ -49,6 +50,9 @@ export default function SettingsAccountPage() {
       setSaving(false);
     }
   };
+
+  // userId is currently informational; reserved for future per-user settings.
+  void userId;
 
   return (
     <main className="container max-w-3xl space-y-8 py-10">
@@ -156,5 +160,13 @@ export default function SettingsAccountPage() {
         </p>
       </section>
     </main>
+  );
+}
+
+export default function SettingsAccountPage() {
+  return (
+    <RequireCurrentUser loadingLabel="Loading account…">
+      {(userId) => <AccountForm userId={userId} />}
+    </RequireCurrentUser>
   );
 }

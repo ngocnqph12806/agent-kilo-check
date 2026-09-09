@@ -90,7 +90,7 @@ function DiscoverContent() {
             />
           ) : null}
 
-          {discover.data && discover.data.items.length === 0 ? (
+          {discover.data && (discover.data.items?.length ?? 0) === 0 ? (
             <EmptyState
               icon={Search}
               title="No matches yet"
@@ -99,7 +99,7 @@ function DiscoverContent() {
             />
           ) : null}
 
-          {discover.data && discover.data.items.length > 0 ? (
+          {discover.data && (discover.data.items?.length ?? 0) > 0 ? (
             <>
               <p className="text-xs text-muted-foreground">
                 Showing {discover.data.items.length} of {discover.data.totalElements} match
