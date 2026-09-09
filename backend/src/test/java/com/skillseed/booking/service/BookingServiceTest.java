@@ -107,7 +107,10 @@ class BookingServiceTest {
         BookingResponse resp = service.create(learnerId, req);
 
         assertThat(resp.status()).isEqualTo("pending");
-        assertThat(resp.seedAmount()).isEqualTo(60);
+        // Sprint 5 (T-M400): 60-minute session now costs 3 seeds per
+        // screens-svg/04-booking/01-booking-modal.svg:62-80 pricing tiers
+        // (was previously 60 due to a 1 seed/minute mis-pricing bug).
+        assertThat(resp.seedAmount()).isEqualTo(3);
         assertThat(resp.notes()).isEqualTo("Want to learn basics");
         verify(walletService).escrowDebit(any());
         verify(notificationService, times(2)).publish(any(), any(), any());
