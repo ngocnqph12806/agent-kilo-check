@@ -323,6 +323,30 @@ class SeedWalletServiceTest {
         assertThat(summary.expiringSoon().amount()).isZero();
     }
 
+    @Test
+    void getWalletSummaryReturnsEmptySyntheticResponseWhenWalletNotProvisioned() {
+        // User is authenticated but has no seed_wallets row yet (e.g. they
+        // haven't completed onboarding, or it's a seeded test account).
+        // The service must NOT throw WALLET_NOT_FOUND; it returns a synthetic
+        // zero summary so the wallet page can render, and does NOT persist a
+        // row (pure read path → no race window).
+        UUID userId = UUID.randomUUID();
+        when(walletRepository.findByUserId(userId)).thenReturn(Optional.empty());
+
+        var summary = service.getWalletSummary(userId);
+
+        assertThat(summary.balance()).isZero();
+        assertThat(summary.totalEarned()).isZero();
+        assertThat(summary.totalSpent()).isZero();
+        assertThat(summary.totalExpired()).isZero();
+        assertThat(summary.tier()).isEqualTo("bronze");
+        assertThat(summary.expiringSoon().amount()).isZero();
+        assertThat(summary.expiringSoon().oldestExpiresAt()).isNull();
+        // Critical: read path must not create the row — write paths are
+        // responsible for provisioning the wallet (escrow / grantStarterSeeds).
+        verify(walletRepository, never()).save(any(SeedWallet.class));
+    }
+
     private SeedWallet newWallet(UUID userId, int balance) {
         SeedWallet wallet = new SeedWallet();
         wallet.setUserId(userId);

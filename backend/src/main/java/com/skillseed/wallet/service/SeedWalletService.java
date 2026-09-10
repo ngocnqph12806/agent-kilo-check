@@ -258,9 +258,20 @@ public class SeedWalletService {
     @Transactional(readOnly = true)
     public WalletSummaryResponse getWalletSummary(UUID userId) {
         Instant now = Instant.now();
-        SeedWallet wallet = seedWalletRepository.findByUserId(userId)
-                .orElseThrow(() -> WalletException.notFound("WALLET_NOT_FOUND",
-                        "Wallet not provisioned for user"));
+        SeedWallet wallet = seedWalletRepository.findByUserId(userId).orElse(null);
+        if (wallet == null) {
+            // No wallet row yet — e.g. authenticated user who hasn't completed
+            // onboarding, or a seeded test account missing the wallet row.
+            // Return a synthetic empty summary so the client can render the
+            // page; the row will be created lazily by the next write path
+            // (escrowDebit / forfeitEscrow / grantStarterSeeds). This is a
+            // pure read, so no DB write and no race window.
+            log.info("Wallet summary requested for unprovisioned user id={}, returning empty response", userId);
+            return new WalletSummaryResponse(
+                    0, 0, 0, 0,
+                    new ExpiringSoonResponse(0, null),
+                    WalletTier.BRONZE.getDbValue());
+        }
         int activeBalance = seedTransactionRepository.sumActiveBalance(userId, now);
         if (activeBalance != wallet.getBalanceCached()) {
             log.warn("balance_cached mismatch for user {}: cached={} computed={}",
