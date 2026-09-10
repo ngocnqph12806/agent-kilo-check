@@ -2,17 +2,35 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 
 import { AuthShell } from '@/modules/auth/components/auth-shell';
 import { FormAlert, FormError } from '@/modules/auth/components/form-status';
+import { useAuthStore } from '@/modules/auth/stores/auth-store';
 
 export function VerifyEmailPromptForm() {
   const [resent, setResent] = useState(false);
+  const reset = useAuthStore((state) => state.reset);
+  const router = useRouter();
 
   const handleResend = () => {
     setResent(true);
+  };
+
+  // The user is technically logged in here (AuthGuard bounces them in once
+  // they hold an access token but are unverified). A naked `<Link href="/login">`
+  // would re-enter GuestGuard, which sees the still-present user and redirects
+  // to /discover, which AuthGuard then bounces right back here — so the page
+  // appears to reload itself. Clear the session locally before navigating so
+  // /login can actually render.
+  const handleBackToSignIn = (
+    event?: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+  ) => {
+    event?.preventDefault();
+    reset();
+    router.replace('/login');
   };
 
   return (
@@ -22,7 +40,11 @@ export function VerifyEmailPromptForm() {
       footer={
         <p>
           Already verified?{' '}
-          <Link href="/login" className="font-semibold text-primary underline-offset-4 hover:underline">
+          <Link
+            href="/login"
+            onClick={handleBackToSignIn}
+            className="font-semibold text-primary underline-offset-4 hover:underline"
+          >
             Back to sign in
           </Link>
         </p>
@@ -46,7 +68,9 @@ export function VerifyEmailPromptForm() {
           Resend verification email
         </Button>
         <Button asChild variant="outline" className="h-11 w-full rounded-full">
-          <Link href="/login">Back to sign in</Link>
+          <Link href="/login" onClick={handleBackToSignIn}>
+            Back to sign in
+          </Link>
         </Button>
       </div>
     </AuthShell>
