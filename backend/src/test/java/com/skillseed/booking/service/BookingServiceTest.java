@@ -23,6 +23,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.lang.reflect.Field;
 import java.time.Instant;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -389,14 +390,19 @@ class BookingServiceTest {
     private UserAvailability slotForTeacherTimezone(User teacher, Instant scheduledAt, int minutes) {
         ZoneId zone = ZoneId.of(teacher.getTimezone());
         ZonedDateTime start = scheduledAt.atZone(zone);
-        ZonedDateTime end = start.plus(minutes, ChronoUnit.MINUTES);
         short dayOfWeek = (short) (start.getDayOfWeek().getValue() % 7);
+        // Cover the whole day so the test is robust against the wall clock:
+        // a tighter slot (e.g. start = scheduledAt - 1h, end = scheduledAt + duration + 1h)
+        // would fail when scheduledAt is near midnight because LocalTime wraps
+        // modulo 24h and the production slot check pins both ends to start's
+        // local date. The whole-day slot is the simplest fix that keeps the
+        // helper honest about what it's stubbing.
         return new UserAvailability(
                 UUID.randomUUID(),
                 teacher,
                 dayOfWeek,
-                start.toLocalTime().minusHours(1),
-                end.toLocalTime().plusHours(1),
+                LocalTime.MIN,
+                LocalTime.MAX,
                 teacher.getTimezone());
     }
 
