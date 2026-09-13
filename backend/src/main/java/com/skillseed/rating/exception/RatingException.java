@@ -1,24 +1,22 @@
 package com.skillseed.rating.exception;
 
+import com.skillseed.shared.exception.DomainException;
 import org.springframework.http.HttpStatus;
 
-public class RatingException extends RuntimeException {
-
-    private final String code;
-    private final HttpStatus status;
+/**
+ * Rating module domain exception.
+ *
+ * <p>Retained as a thin wrapper around {@link DomainException} for
+ * backwards compatibility and to keep {@code throws} clauses expressive
+ * (T-M411). Prefer throwing {@link DomainException} directly in new code.
+ *
+ * @deprecated since Sprint 6 — extend {@link DomainException} directly.
+ */
+@Deprecated
+public class RatingException extends DomainException {
 
     public RatingException(String code, String message, HttpStatus status) {
-        super(message);
-        this.code = code;
-        this.status = status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
+        super(code, message, status);
     }
 
     public static RatingException badRequest(String code, String message) {

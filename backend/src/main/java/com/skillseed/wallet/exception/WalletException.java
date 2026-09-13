@@ -1,28 +1,22 @@
 package com.skillseed.wallet.exception;
 
+import com.skillseed.shared.exception.DomainException;
 import org.springframework.http.HttpStatus;
 
-public class WalletException extends RuntimeException {
-
-    private final String code;
-    private final HttpStatus status;
+/**
+ * Wallet module domain exception.
+ *
+ * <p>Retained as a thin wrapper around {@link DomainException} for
+ * backwards compatibility and to keep {@code throws} clauses expressive
+ * (T-M411). Prefer throwing {@link DomainException} directly in new code.
+ *
+ * @deprecated since Sprint 6 — extend {@link DomainException} directly.
+ */
+@Deprecated
+public class WalletException extends DomainException {
 
     public WalletException(String code, String message, HttpStatus status) {
-        super(message);
-        this.code = code;
-        this.status = status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public int getHttpStatus() {
-        return status.value();
+        super(code, message, status);
     }
 
     public static WalletException badRequest(String code, String message) {

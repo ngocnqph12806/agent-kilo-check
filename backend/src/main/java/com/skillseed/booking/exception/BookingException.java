@@ -1,24 +1,22 @@
 package com.skillseed.booking.exception;
 
+import com.skillseed.shared.exception.DomainException;
 import org.springframework.http.HttpStatus;
 
-public class BookingException extends RuntimeException {
-
-    private final String code;
-    private final HttpStatus status;
+/**
+ * Booking module domain exception.
+ *
+ * <p>Retained as a thin wrapper around {@link DomainException} for
+ * backwards compatibility and to keep {@code throws} clauses expressive
+ * (T-M411). Prefer throwing {@link DomainException} directly in new code.
+ *
+ * @deprecated since Sprint 6 — extend {@link DomainException} directly.
+ */
+@Deprecated
+public class BookingException extends DomainException {
 
     public BookingException(String code, String message, HttpStatus status) {
-        super(message);
-        this.code = code;
-        this.status = status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
+        super(code, message, status);
     }
 
     public static BookingException badRequest(String code, String message) {

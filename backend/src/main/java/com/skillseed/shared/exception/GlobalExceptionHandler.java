@@ -1,12 +1,5 @@
 package com.skillseed.shared.exception;
 
-import com.skillseed.auth.exception.AuthException;
-import com.skillseed.booking.exception.BookingException;
-import com.skillseed.rating.exception.RatingException;
-import com.skillseed.session.exception.SessionException;
-import com.skillseed.skill.exception.SkillException;
-import com.skillseed.user.exception.UserException;
-import com.skillseed.wallet.exception.WalletException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,50 +16,30 @@ import java.util.stream.Collectors;
 /**
  * Maps application exceptions to {@link ApiErrorResponse} JSON payloads with
  * stable error codes that the frontend can switch on.
+ *
+ * <p>After T-M411, all module exceptions extend {@link DomainException}, so
+ * a single generic handler covers AuthException / UserException /
+ * SkillException / BookingException / SessionException / WalletException /
+ * RatingException. Spring's {@code ExceptionHandlerExceptionResolver} picks
+ * the most specific match, so the seven previous per-module methods were
+ * collapsed without losing any HTTP-status semantics.
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(AuthException.class)
-    public ResponseEntity<ApiErrorResponse> handleAuth(AuthException ex) {
-        return ResponseEntity.status(ex.getHttpStatus())
-                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(UserException.class)
-    public ResponseEntity<ApiErrorResponse> handleUser(UserException ex) {
-        return ResponseEntity.status(ex.getHttpStatus())
-                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(WalletException.class)
-    public ResponseEntity<ApiErrorResponse> handleWallet(WalletException ex) {
-        return ResponseEntity.status(ex.getHttpStatus())
-                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(SkillException.class)
-    public ResponseEntity<ApiErrorResponse> handleSkill(SkillException ex) {
-        return ResponseEntity.status(ex.getHttpStatus())
-                .body(ApiErrorResponse.of(ex.getHttpStatus(), ex.getCode(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(SessionException.class)
-    public ResponseEntity<ApiErrorResponse> handleSession(SessionException ex) {
-        return ResponseEntity.status(ex.getStatus())
-                .body(ApiErrorResponse.of(ex.getStatus().value(), ex.getCode(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(BookingException.class)
-    public ResponseEntity<ApiErrorResponse> handleBooking(BookingException ex) {
-        return ResponseEntity.status(ex.getStatus())
-                .body(ApiErrorResponse.of(ex.getStatus().value(), ex.getCode(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(RatingException.class)
-    public ResponseEntity<ApiErrorResponse> handleRating(RatingException ex) {
+    /**
+     * Single handler for every module exception (T-M411).
+     *
+     * <p>Each subclass ({@code AuthException}, {@code BookingException},
+     * {@code WalletException}, …) delegates here because they all extend
+     * {@link DomainException}. Error code prefix is preserved on the
+     * subclass side ({@code AUTH_*}, {@code BOOKING_*}, …) so analytics
+     * can still filter by module.
+     */
+    @ExceptionHandler(DomainException.class)
+    public ResponseEntity<ApiErrorResponse> handleDomain(DomainException ex) {
         return ResponseEntity.status(ex.getStatus())
                 .body(ApiErrorResponse.of(ex.getStatus().value(), ex.getCode(), ex.getMessage()));
     }

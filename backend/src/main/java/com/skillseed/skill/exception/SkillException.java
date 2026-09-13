@@ -1,33 +1,37 @@
 package com.skillseed.skill.exception;
 
-public class SkillException extends RuntimeException {
+import com.skillseed.shared.exception.DomainException;
+import org.springframework.http.HttpStatus;
 
-    private final String code;
-    private final int httpStatus;
+/**
+ * Skill module domain exception.
+ *
+ * <p>Retained as a thin wrapper around {@link DomainException} for
+ * backwards compatibility and to keep {@code throws} clauses expressive
+ * (T-M411). Prefer throwing {@link DomainException} directly in new code.
+ *
+ * @deprecated since Sprint 6 — extend {@link DomainException} directly.
+ */
+@Deprecated
+public class SkillException extends DomainException {
 
     public SkillException(String code, String message, int httpStatus) {
-        super(message);
-        this.code = code;
-        this.httpStatus = httpStatus;
+        super(code, message, httpStatus);
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public int getHttpStatus() {
-        return httpStatus;
+    public SkillException(String code, String message, HttpStatus status) {
+        super(code, message, status);
     }
 
     public static SkillException notFound(String code, String message) {
-        return new SkillException(code, message, 404);
+        return new SkillException(code, message, HttpStatus.NOT_FOUND);
     }
 
     public static SkillException conflict(String code, String message) {
-        return new SkillException(code, message, 409);
+        return new SkillException(code, message, HttpStatus.CONFLICT);
     }
 
     public static SkillException badRequest(String code, String message) {
-        return new SkillException(code, message, 400);
+        return new SkillException(code, message, HttpStatus.BAD_REQUEST);
     }
 }

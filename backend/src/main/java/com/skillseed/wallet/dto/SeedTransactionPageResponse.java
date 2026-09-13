@@ -1,7 +1,13 @@
 package com.skillseed.wallet.dto;
 
+import com.skillseed.shared.dto.PageResponse;
+
 import java.util.List;
 
+/**
+ * Module-specific page envelope for seed-transaction history — implements
+ * the shared {@link PageResponse} contract (T-M410).
+ */
 public record SeedTransactionPageResponse(
         List<SeedTransactionResponse> content,
         int page,
@@ -11,7 +17,7 @@ public record SeedTransactionPageResponse(
         boolean first,
         boolean last,
         boolean hasNext,
-        boolean hasPrevious) {
+        boolean hasPrevious) implements PageResponse<SeedTransactionResponse> {
 
     public SeedTransactionPageResponse(List<SeedTransactionResponse> content,
                                        int page, int size, long totalElements, int totalPages) {

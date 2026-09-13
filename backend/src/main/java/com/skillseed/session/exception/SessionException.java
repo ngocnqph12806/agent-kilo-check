@@ -1,30 +1,22 @@
 package com.skillseed.session.exception;
 
+import com.skillseed.shared.exception.DomainException;
 import org.springframework.http.HttpStatus;
 
 /**
- * Domain exception thrown by the session module. Handled by
- * {@link com.skillseed.shared.exception.GlobalExceptionHandler}
- * which is wired to map it onto an {@code ApiErrorResponse}
- * payload with the embedded {@code code} field.
+ * Session module domain exception.
+ *
+ * <p>Retained as a thin wrapper around {@link DomainException} for
+ * backwards compatibility and to keep {@code throws} clauses expressive
+ * (T-M411). Prefer throwing {@link DomainException} directly in new code.
+ *
+ * @deprecated since Sprint 6 — extend {@link DomainException} directly.
  */
-public class SessionException extends RuntimeException {
-
-    private final String code;
-    private final HttpStatus status;
+@Deprecated
+public class SessionException extends DomainException {
 
     public SessionException(String code, String message, HttpStatus status) {
-        super(message);
-        this.code = code;
-        this.status = status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
+        super(code, message, status);
     }
 
     public static SessionException notFound(String code, String message) {

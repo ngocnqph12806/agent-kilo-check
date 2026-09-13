@@ -2,82 +2,33 @@ package com.skillseed.rating.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.skillseed.shared.dto.PageResponse;
 
 import java.util.List;
 
 /**
- * @deprecated use the shared {@code com.skillseed.shared.dto.PageResponse}
- *             shape — this class adds {@code content} alongside the old
- *             {@code items} field to ease migration.
+ * Module-specific page envelope for user reviews — implements the
+ * shared {@link PageResponse} contract (T-M410). The {@code content}
+ * field is aliased as {@code items} on the wire so legacy FE clients
+ * that read {@code items} keep working.
  */
-@Deprecated
-public class RatingPageResponse {
+public record RatingPageResponse(
+        @JsonProperty("content") @JsonAlias("items") List<RatingResponse> content,
+        int page,
+        int size,
+        long totalElements,
+        int totalPages,
+        boolean first,
+        boolean last,
+        boolean hasNext,
+        boolean hasPrevious) implements PageResponse<RatingResponse> {
 
-    @JsonProperty("content")
-    @JsonAlias("items")
-    private List<RatingResponse> items;
-    private int page;
-    private int size;
-    private long totalElements;
-    private int totalPages;
-    private boolean first;
-    private boolean last;
-    private boolean hasNext;
-    private boolean hasPrevious;
-
-    public RatingPageResponse() {
-    }
-
-    public RatingPageResponse(List<RatingResponse> items, int page, int size,
+    public RatingPageResponse(List<RatingResponse> content, int page, int size,
                               long totalElements, int totalPages) {
-        this.items = items;
-        this.page = page;
-        this.size = size;
-        this.totalElements = totalElements;
-        this.totalPages = totalPages;
-        this.first = page == 0;
-        this.last = page >= Math.max(1, totalPages) - 1;
-        this.hasNext = !this.last;
-        this.hasPrevious = !this.first;
-    }
-
-    public List<RatingResponse> getItems() {
-        return items;
-    }
-
-    public List<RatingResponse> getContent() {
-        return items;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public long getTotalElements() {
-        return totalElements;
-    }
-
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public boolean isFirst() {
-        return first;
-    }
-
-    public boolean isLast() {
-        return last;
-    }
-
-    public boolean isHasNext() {
-        return hasNext;
-    }
-
-    public boolean isHasPrevious() {
-        return hasPrevious;
+        this(content, page, size, totalElements, totalPages,
+                page == 0,
+                page >= Math.max(1, totalPages) - 1,
+                page < Math.max(1, totalPages) - 1,
+                page > 0);
     }
 }
