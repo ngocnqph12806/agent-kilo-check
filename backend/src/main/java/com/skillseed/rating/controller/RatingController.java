@@ -1,7 +1,7 @@
 package com.skillseed.rating.controller;
 
 import com.skillseed.rating.dto.CreateRatingRequest;
-import com.skillseed.rating.dto.RatingPageResponse;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.rating.dto.RatingResponse;
 import com.skillseed.rating.service.RatingService;
 import com.skillseed.shared.security.CurrentUser;
@@ -35,7 +35,7 @@ public class RatingController {
     }
 
     @GetMapping("/api/v1/users/{id}/ratings")
-    public ResponseEntity<RatingPageResponse> listForUser(
+    public ResponseEntity<PageResponse<RatingResponse>> listForUser(
             @PathVariable("id") UUID userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size) {

@@ -2,7 +2,8 @@ package com.skillseed.wallet.controller;
 
 import com.skillseed.shared.domain.SeedTransactionType;
 import com.skillseed.shared.security.CurrentUser;
-import com.skillseed.wallet.dto.SeedTransactionPageResponse;
+import com.skillseed.shared.dto.PageResponse;
+import com.skillseed.wallet.dto.SeedTransactionResponse;
 import com.skillseed.wallet.dto.WalletSummaryResponse;
 import com.skillseed.wallet.service.SeedWalletService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +50,7 @@ public class WalletController {
 
     @GetMapping("/me/transactions")
     @Operation(summary = "Current user's transaction history, newest first; optional type filter")
-    public ResponseEntity<SeedTransactionPageResponse> transactions(
+    public ResponseEntity<PageResponse<SeedTransactionResponse>> transactions(
             @RequestParam(name = "page", defaultValue = "0") @Min(0) int page,
             @RequestParam(name = "size", defaultValue = "10") @Min(1) @Max(50) int size,
             @RequestParam(name = "type", required = false) List<SeedTransactionType> types) {

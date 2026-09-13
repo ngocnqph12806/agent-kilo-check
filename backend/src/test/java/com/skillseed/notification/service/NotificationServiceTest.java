@@ -5,6 +5,7 @@ import com.skillseed.notification.domain.NotificationRepository;
 import com.skillseed.notification.domain.NotificationType;
 import com.skillseed.notification.dto.NotificationPageResponse;
 import com.skillseed.shared.domain.AuthProvider;
+import com.skillseed.shared.exception.DomainException;
 import com.skillseed.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,7 +87,7 @@ class NotificationServiceTest {
 
         NotificationPageResponse response = service.list(u, false, -2, 9999);
 
-        assertThat(response.items()).hasSize(1);
+        assertThat(response.content()).hasSize(1);
         assertThat(response.unreadCount()).isEqualTo(3L);
         ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
         verify(repo).findByUserOrderByCreatedAtDesc(eqUser(u), pageableCaptor.capture());
@@ -128,7 +129,9 @@ class NotificationServiceTest {
         when(repo.findById(any(UUID.class))).thenReturn(java.util.Optional.empty());
 
         assertThatThrownBy(() -> service.markRead(u, UUID.randomUUID()))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(DomainException.class)
+                .satisfies(ex -> assertThat(((DomainException) ex).getCode())
+                        .isEqualTo("NOTIFICATION_NOT_FOUND"));
     }
 
     @Test
@@ -140,7 +143,9 @@ class NotificationServiceTest {
         when(repo.findById(n.getId())).thenReturn(java.util.Optional.of(n));
 
         assertThatThrownBy(() -> service.markRead(attacker, n.getId()))
-                .isInstanceOf(SecurityException.class);
+                .isInstanceOf(DomainException.class)
+                .satisfies(ex -> assertThat(((DomainException) ex).getCode())
+                        .isEqualTo("FORBIDDEN"));
         verify(repo, never()).save(any());
     }
 

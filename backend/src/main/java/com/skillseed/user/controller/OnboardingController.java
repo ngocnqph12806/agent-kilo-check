@@ -1,12 +1,11 @@
 package com.skillseed.user.controller;
 
 import com.skillseed.shared.security.CurrentUser;
+import com.skillseed.user.domain.User;
 import com.skillseed.user.dto.OnboardingCompleteResponse;
 import com.skillseed.user.dto.OnboardingCompleteResponse.WalletGrant;
-import com.skillseed.user.domain.User;
 import com.skillseed.user.service.UserService;
-import com.skillseed.wallet.domain.SeedTransaction;
-import com.skillseed.wallet.repository.SeedWalletRepository;
+import com.skillseed.wallet.dto.WalletSummaryResponse;
 import com.skillseed.wallet.service.SeedWalletService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,6 +22,10 @@ import java.util.UUID;
  * Marks onboarding complete and grants the starter-seed pack. The
  * 7-step wizard's autosave writes flow through {@code PATCH /users/me};
  * this endpoint is called once at the end of the wizard (FR-M08).
+ *
+ * <p>After T-M412 this controller no longer touches
+ * {@code SeedWalletRepository} directly — wallet reads go through
+ * {@link SeedWalletService#getWalletSummary(UUID)}.
  */
 @RestController
 @RequestMapping("/api/v1/users/me/onboarding")
@@ -31,15 +34,12 @@ public class OnboardingController {
 
     private final UserService userService;
     private final SeedWalletService seedWalletService;
-    private final SeedWalletRepository seedWalletRepository;
 
     public OnboardingController(
             UserService userService,
-            SeedWalletService seedWalletService,
-            SeedWalletRepository seedWalletRepository) {
+            SeedWalletService seedWalletService) {
         this.userService = userService;
         this.seedWalletService = seedWalletService;
-        this.seedWalletRepository = seedWalletRepository;
     }
 
     @PostMapping
@@ -51,13 +51,13 @@ public class OnboardingController {
     public ResponseEntity<OnboardingCompleteResponse> complete() {
         UUID userId = CurrentUser.requireId();
         User user = userService.markOnboardingComplete(userId);
-        SeedTransaction grant = seedWalletService.grantStarterSeeds(userId);
-        int balance = seedWalletRepository.findByUserId(userId)
-                .map(w -> w.getBalanceCached())
-                .orElse(grant.getBalanceAfter());
+        // grantStarterSeeds is idempotent and returns the GRANT ledger row;
+        // the balance we report is the post-grant wallet summary.
+        var grant = seedWalletService.grantStarterSeeds(userId);
+        WalletSummaryResponse wallet = seedWalletService.getWalletSummary(userId);
         return ResponseEntity.ok(new OnboardingCompleteResponse(
                 user.getId(),
                 user.isOnboardingCompleted(),
-                new WalletGrant(grant.getAmount(), grant.getExpiresAt(), balance)));
+                new WalletGrant(grant.getAmount(), grant.getExpiresAt(), wallet.balance())));
     }
 }

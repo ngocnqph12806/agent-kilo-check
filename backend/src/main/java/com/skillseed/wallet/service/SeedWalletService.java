@@ -8,6 +8,7 @@ import com.skillseed.user.repository.UserRepository;
 import com.skillseed.wallet.domain.SeedTransaction;
 import com.skillseed.wallet.domain.SeedWallet;
 import com.skillseed.wallet.dto.ExpiringSoonResponse;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.wallet.dto.SeedTransactionPageResponse;
 import com.skillseed.wallet.dto.SeedTransactionResponse;
 import com.skillseed.wallet.dto.WalletSummaryResponse;
@@ -295,7 +296,7 @@ public class SeedWalletService {
     }
 
     @Transactional(readOnly = true)
-    public SeedTransactionPageResponse listTransactions(UUID userId, int page, int size,
+    public PageResponse<SeedTransactionResponse> listTransactions(UUID userId, int page, int size,
                                                         List<SeedTransactionType> types) {
         int safePage = Math.max(0, page);
         int safeSize = size <= 0 ? 20 : Math.min(size, 100);

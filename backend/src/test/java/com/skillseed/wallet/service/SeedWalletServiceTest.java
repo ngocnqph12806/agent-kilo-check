@@ -7,7 +7,7 @@ import com.skillseed.user.domain.User;
 import com.skillseed.user.repository.UserRepository;
 import com.skillseed.wallet.domain.SeedTransaction;
 import com.skillseed.wallet.domain.SeedWallet;
-import com.skillseed.wallet.exception.WalletException;
+import com.skillseed.shared.exception.DomainException;
 import com.skillseed.wallet.repository.SeedTransactionRepository;
 import com.skillseed.wallet.repository.SeedWalletRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,8 +110,8 @@ class SeedWalletServiceTest {
         when(txRepository.findByBookingId(booking.getId())).thenReturn(List.of());
 
         assertThatThrownBy(() -> service.escrowDebit(booking))
-                .isInstanceOf(WalletException.class)
-                .satisfies(ex -> assertThat(((WalletException) ex).getStatus().value())
+                .isInstanceOf(DomainException.class)
+                .satisfies(ex -> assertThat(((DomainException) ex).getStatus().value())
                         .isEqualTo(409));
         verify(txRepository, never()).save(any());
     }

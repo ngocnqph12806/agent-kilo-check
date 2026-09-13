@@ -1,6 +1,7 @@
 package com.skillseed.discover.controller;
 
-import com.skillseed.discover.dto.DiscoverPageResponse;
+import com.skillseed.shared.dto.PageResponse;
+import com.skillseed.discover.dto.DiscoverMatchResponse;
 import com.skillseed.discover.dto.DiscoverSort;
 import com.skillseed.discover.service.DiscoverService;
 import com.skillseed.shared.security.CurrentUser;
@@ -38,7 +39,7 @@ public class DiscoverController {
 
     @GetMapping
     @Operation(summary = "List teacher matches for the current user's wanted skills")
-    public ResponseEntity<DiscoverPageResponse> discover(
+    public ResponseEntity<PageResponse<DiscoverMatchResponse>> discover(
             @Parameter(description = "Optional skill filter (must be in caller's wanted list)")
             @RequestParam(name = "skill", required = false) UUID skill,
             @Parameter(description = "Filter by common language code")

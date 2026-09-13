@@ -1,7 +1,8 @@
 package com.skillseed.wallet.controller;
 
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.shared.security.CurrentUser;
-import com.skillseed.wallet.dto.SeedTransactionPageResponse;
+import com.skillseed.wallet.dto.SeedTransactionResponse;
 import com.skillseed.wallet.dto.WalletSummaryResponse;
 import com.skillseed.wallet.service.SeedWalletService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,7 +41,7 @@ public class LegacyWalletController {
 
     @GetMapping("/me/transactions")
     @Operation(summary = "DEPRECATED — use /api/v1/wallets/me/transactions")
-    public ResponseEntity<SeedTransactionPageResponse> transactions(
+    public ResponseEntity<PageResponse<SeedTransactionResponse>> transactions(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "20") int size) {
         UUID userId = CurrentUser.requireId();

@@ -2,6 +2,7 @@ package com.skillseed.discover.service;
 
 import com.skillseed.discover.dto.DiscoverMatchResponse;
 import com.skillseed.discover.dto.DiscoverPageResponse;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.discover.dto.DiscoverSort;
 import com.skillseed.discover.repository.DiscoverRepository;
 import com.skillseed.user.domain.User;
@@ -33,7 +34,7 @@ public class DiscoverService {
     }
 
     @Transactional(readOnly = true)
-    public DiscoverPageResponse discover(User currentUser,
+    public PageResponse<DiscoverMatchResponse> discover(User currentUser,
                                          UUID skillFilter,
                                          String language,
                                          String countryCode,

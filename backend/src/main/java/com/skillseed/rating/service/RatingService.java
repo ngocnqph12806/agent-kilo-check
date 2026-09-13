@@ -5,6 +5,7 @@ import com.skillseed.booking.repository.BookingRepository;
 import com.skillseed.rating.domain.Rating;
 import com.skillseed.rating.dto.CreateRatingRequest;
 import com.skillseed.rating.dto.RatingPageResponse;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.rating.dto.RatingResponse;
 import com.skillseed.rating.exception.RatingException;
 import com.skillseed.rating.repository.RatingRepository;
@@ -169,7 +170,7 @@ public class RatingService {
     }
 
     @Transactional(readOnly = true)
-    public RatingPageResponse listForUser(UUID userId, int page, int size) {
+    public PageResponse<RatingResponse> listForUser(UUID userId, int page, int size) {
         int safePage = Math.max(0, page);
         int safeSize = size <= 0 ? DEFAULT_PAGE_SIZE : Math.min(size, MAX_PAGE_SIZE);
         Pageable pageable = PageRequest.of(safePage, safeSize,

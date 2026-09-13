@@ -4,7 +4,7 @@ import com.skillseed.booking.domain.Booking;
 import com.skillseed.booking.repository.BookingRepository;
 import com.skillseed.rating.domain.Rating;
 import com.skillseed.rating.dto.CreateRatingRequest;
-import com.skillseed.rating.dto.RatingPageResponse;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.rating.dto.RatingResponse;
 import com.skillseed.rating.exception.RatingException;
 import com.skillseed.rating.repository.RatingRepository;
@@ -180,12 +180,12 @@ class RatingServiceTest {
         Page<Rating> page = new PageImpl<>(List.of(rating), PageRequest.of(0, 20), 1);
         when(ratingRepository.findByRateeId(eq(TEACHER_ID), any(Pageable.class))).thenReturn(page);
 
-        RatingPageResponse response = service.listForUser(TEACHER_ID, 0, 20);
+        PageResponse<RatingResponse> response = service.listForUser(TEACHER_ID, 0, 20);
 
-        assertThat(response.getItems()).hasSize(1);
-        assertThat(response.getItems().get(0).getRaterName()).isEqualTo("Aria");
-        assertThat(response.getTotalElements()).isEqualTo(1L);
-        assertThat(response.getTotalPages()).isEqualTo(1);
+        assertThat(response.content()).hasSize(1);
+        assertThat(response.content().get(0).getRaterName()).isEqualTo("Aria");
+        assertThat(response.totalElements()).isEqualTo(1L);
+        assertThat(response.totalPages()).isEqualTo(1);
     }
 
     @Test
@@ -194,10 +194,10 @@ class RatingServiceTest {
         Page<Rating> page = new PageImpl<>(List.of(), PageRequest.of(0, 100), 0);
         when(ratingRepository.findByRateeId(eq(TEACHER_ID), any(Pageable.class))).thenReturn(page);
 
-        RatingPageResponse response = service.listForUser(TEACHER_ID, -5, 9999);
+        PageResponse<RatingResponse> response = service.listForUser(TEACHER_ID, -5, 9999);
 
-        assertThat(response.getSize()).isEqualTo(50);
-        assertThat(response.getPage()).isEqualTo(0);
+        assertThat(response.size()).isEqualTo(50);
+        assertThat(response.page()).isEqualTo(0);
         verify(ratingRepository).findByRateeId(eq(TEACHER_ID),
                 any(Pageable.class));
     }

@@ -1,10 +1,5 @@
 package com.skillseed.session.chat;
 
-import com.skillseed.booking.domain.Booking;
-import com.skillseed.booking.repository.BookingRepository;
-import com.skillseed.session.exception.SessionException;
-import com.skillseed.user.domain.User;
-import com.skillseed.user.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -12,6 +7,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import java.security.Principal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -21,29 +17,26 @@ import java.util.UUID;
  * <p>Clients send to {@code /app/sessions/{bookingId}/chat} and
  * receive broadcasts on {@code /topic/sessions/{bookingId}}.
  *
- * <p>Authorisation is enforced inside the handler: only teacher
- * or learner on the booking may publish; everyone else gets an
- * empty broadcast (so the message is silently dropped rather than
- * pushed to a forbidden topic).
+ * <p>After T-M412 the controller is a pure dispatcher: participant
+ * authorisation and sender-name resolution live in
+ * {@link SessionChatService}.
  */
 @Controller
 public class SessionChatController {
 
     private static final Logger log = LoggerFactory.getLogger(SessionChatController.class);
 
-    private final BookingRepository bookingRepository;
-    private final UserRepository userRepository;
+    private final SessionChatService sessionChatService;
 
-    public SessionChatController(BookingRepository bookingRepository, UserRepository userRepository) {
-        this.bookingRepository = bookingRepository;
-        this.userRepository = userRepository;
+    public SessionChatController(SessionChatService sessionChatService) {
+        this.sessionChatService = sessionChatService;
     }
 
     @MessageMapping("/sessions/{bookingId}/chat")
     @SendTo("/topic/sessions/{bookingId}")
     public SessionChatMessage handle(@DestinationVariable UUID bookingId,
                                      SessionChatMessage incoming,
-                                     java.security.Principal principal) {
+                                     Principal principal) {
         if (incoming == null || incoming.getBody() == null || incoming.getBody().isBlank()) {
             return null;
         }
@@ -53,30 +46,20 @@ public class SessionChatController {
             return null;
         }
 
-        Booking booking = bookingRepository.findById(bookingId).orElse(null);
-        if (booking == null) {
-            throw SessionException.notFound("BOOKING_NOT_FOUND",
-                    "Booking " + bookingId + " not found");
-        }
-        UUID teacherId = booking.getTeacher().getId();
-        UUID learnerId = booking.getLearner().getId();
-        if (!senderId.equals(teacherId) && !senderId.equals(learnerId)) {
-            log.warn("Non-participant {} attempted to chat on booking {}", senderId, bookingId);
+        var ctx = sessionChatService.resolveChatContext(bookingId, senderId);
+        if (ctx.isEmpty()) {
+            // Non-participant — silently drop (preserve original behaviour).
             return null;
         }
 
-        User sender = userRepository.findById(senderId).orElse(null);
-        String name = sender != null ? sender.getFullName() : "Anonymous";
-
         incoming.setBookingId(bookingId);
         incoming.setSenderId(senderId);
-        incoming.setSenderName(name);
+        incoming.setSenderName(ctx.get().senderName());
         incoming.setSentAt(Instant.now());
         return incoming;
     }
 
-    private static UUID resolveSenderId(java.security.Principal principal,
-                                        SessionChatMessage incoming) {
+    private static UUID resolveSenderId(Principal principal, SessionChatMessage incoming) {
         if (incoming != null && incoming.getSenderId() != null) {
             return incoming.getSenderId();
         }

@@ -1,7 +1,8 @@
 package com.skillseed.booking.controller;
 
-import com.skillseed.booking.dto.BookingPageResponse;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.booking.dto.BookingResponse;
+import com.skillseed.booking.dto.BookingSummaryResponse;
 import com.skillseed.booking.dto.CancelBookingRequest;
 import com.skillseed.booking.dto.CreateBookingRequest;
 import com.skillseed.booking.dto.DeclineBookingRequest;
@@ -62,7 +63,7 @@ public class BookingController {
 
     @GetMapping("/me")
     @Operation(summary = "List the current user's bookings, optionally filtered by role + status")
-    public ResponseEntity<BookingPageResponse> listMine(
+    public ResponseEntity<PageResponse<BookingSummaryResponse>> listMine(
             @RequestParam(name = "role") String role,
             @RequestParam(name = "status", required = false) List<BookingStatus> status,
             @RequestParam(name = "page", defaultValue = "0") int page,

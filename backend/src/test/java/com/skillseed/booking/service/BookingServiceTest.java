@@ -4,7 +4,7 @@ import com.skillseed.booking.domain.CancelReason;
 import com.skillseed.booking.dto.BookingResponse;
 import com.skillseed.booking.dto.CancelBookingRequest;
 import com.skillseed.booking.dto.CreateBookingRequest;
-import com.skillseed.booking.exception.BookingException;
+import com.skillseed.shared.exception.DomainException;
 import com.skillseed.booking.repository.BookingRepository;
 import com.skillseed.notification.EmailTemplateService;
 import com.skillseed.notification.service.NotificationService;
@@ -15,7 +15,6 @@ import com.skillseed.user.domain.User;
 import com.skillseed.user.domain.UserAvailability;
 import com.skillseed.user.repository.UserAvailabilityRepository;
 import com.skillseed.user.repository.UserRepository;
-import com.skillseed.wallet.exception.WalletException;
 import com.skillseed.wallet.service.SeedWalletService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -126,7 +125,7 @@ class BookingServiceTest {
                 30, null);
 
         assertThatThrownBy(() -> service.create(learnerId, req))
-                .isInstanceOf(BookingException.class)
+                .isInstanceOf(DomainException.class)
                 .hasMessageContaining("Teacher and learner");
         verify(walletService, never()).escrowDebit(any());
     }
@@ -138,7 +137,7 @@ class BookingServiceTest {
                 Instant.now().minusSeconds(60), 30, null);
 
         assertThatThrownBy(() -> service.create(UUID.randomUUID(), req))
-                .isInstanceOf(BookingException.class)
+                .isInstanceOf(DomainException.class)
                 .hasMessageContaining("future");
     }
 
@@ -149,7 +148,7 @@ class BookingServiceTest {
                 Instant.now().plusSeconds(3600), 20, null);
 
         assertThatThrownBy(() -> service.create(UUID.randomUUID(), req))
-                .isInstanceOf(BookingException.class)
+                .isInstanceOf(DomainException.class)
                 .hasMessageContaining("durationMinutes");
     }
 
@@ -171,15 +170,15 @@ class BookingServiceTest {
         when(availabilityRepository.findByUserIdAndDayOfWeek(eq(teacherId), any(Short.class)))
                 .thenReturn(List.of(slotForTeacherTimezone(teacher, scheduledAt, 60)));
         when(bookingRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
-        doThrow(WalletException.conflict("INSUFFICIENT_BALANCE", "no funds"))
+        doThrow(DomainException.conflict("INSUFFICIENT_BALANCE", "no funds"))
                 .when(walletService).escrowDebit(any());
 
         CreateBookingRequest req = new CreateBookingRequest(
                 teacherId, skill.getId(), scheduledAt, 60, null);
 
         assertThatThrownBy(() -> service.create(learnerId, req))
-                .isInstanceOf(WalletException.class)
-                .satisfies(ex -> assertThat(((WalletException) ex).getCode())
+                .isInstanceOf(DomainException.class)
+                .satisfies(ex -> assertThat(((DomainException) ex).getCode())
                         .isEqualTo("INSUFFICIENT_BALANCE"));
     }
 
@@ -208,7 +207,7 @@ class BookingServiceTest {
         when(bookingRepository.findById(booking.id)).thenReturn(Optional.of(booking.entity));
 
         assertThatThrownBy(() -> service.accept(booking.id, learnerId))
-                .isInstanceOf(BookingException.class)
+                .isInstanceOf(DomainException.class)
                 .hasMessageContaining("teacher");
         verify(bookingRepository, never()).save(any());
     }
@@ -220,7 +219,7 @@ class BookingServiceTest {
         when(bookingRepository.findById(booking.id)).thenReturn(Optional.of(booking.entity));
 
         assertThatThrownBy(() -> service.accept(booking.id, teacherId))
-                .isInstanceOf(BookingException.class)
+                .isInstanceOf(DomainException.class)
                 .hasMessageContaining("state");
     }
 
@@ -319,7 +318,7 @@ class BookingServiceTest {
 
         assertThatThrownBy(() -> service.cancel(booking.id, outsider,
                 new CancelBookingRequest(CancelReason.OTHER, null)))
-                .isInstanceOf(BookingException.class)
+                .isInstanceOf(DomainException.class)
                 .hasMessageContaining("participant");
     }
 

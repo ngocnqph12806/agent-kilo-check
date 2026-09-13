@@ -1,9 +1,9 @@
 package com.skillseed.discover.service;
 
 import com.skillseed.discover.dto.DiscoverMatchResponse;
-import com.skillseed.discover.dto.DiscoverPageResponse;
 import com.skillseed.discover.repository.DiscoverRepository;
 import com.skillseed.shared.domain.AuthProvider;
+import com.skillseed.shared.dto.PageResponse;
 import com.skillseed.skill.domain.Skill;
 import com.skillseed.shared.domain.SkillCategory;
 import com.skillseed.user.domain.User;
@@ -54,9 +54,9 @@ class DiscoverServiceTest {
         User caller = user(UUID.randomUUID());
         when(wantedRepo.findByUserId(caller.getId())).thenReturn(List.of());
 
-        DiscoverPageResponse response = service.discover(caller, null, null, null, null, null, null, 0, 20);
+        PageResponse<DiscoverMatchResponse> response = service.discover(caller, null, null, null, null, null, null, 0, 20);
 
-        assertThat(response.items()).isEmpty();
+        assertThat(response.content()).isEmpty();
         assertThat(response.totalElements()).isZero();
     }
 
@@ -110,9 +110,9 @@ class DiscoverServiceTest {
         when(repo.findMatches(any(), any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn(new PageImpl<>(List.of(match), PageRequest.of(1, 5), 23));
 
-        DiscoverPageResponse response = service.discover(caller, null, null, null, null, null, null, 1, 5);
+        PageResponse<DiscoverMatchResponse> response = service.discover(caller, null, null, null, null, null, null, 1, 5);
 
-        assertThat(response.items()).hasSize(1);
+        assertThat(response.content()).hasSize(1);
         assertThat(response.page()).isEqualTo(1);
         assertThat(response.size()).isEqualTo(5);
         assertThat(response.totalElements()).isEqualTo(23);

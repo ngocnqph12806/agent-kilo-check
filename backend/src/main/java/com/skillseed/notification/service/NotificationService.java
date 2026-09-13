@@ -5,6 +5,7 @@ import com.skillseed.notification.domain.NotificationRepository;
 import com.skillseed.notification.domain.NotificationType;
 import com.skillseed.notification.dto.NotificationPageResponse;
 import com.skillseed.notification.dto.NotificationResponse;
+import com.skillseed.shared.exception.DomainException;
 import com.skillseed.user.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -78,9 +79,11 @@ public class NotificationService {
     @Transactional
     public void markRead(User user, UUID notificationId) {
         Notification n = notificationRepository.findById(notificationId)
-                .orElseThrow(() -> new IllegalArgumentException("Notification not found"));
+                .orElseThrow(() -> DomainException.notFound("NOTIFICATION_NOT_FOUND",
+                        "Notification " + notificationId + " not found"));
         if (!n.getUser().getId().equals(user.getId())) {
-            throw new SecurityException("Notification does not belong to caller");
+            throw DomainException.forbidden("FORBIDDEN",
+                    "Notification does not belong to caller");
         }
         if (n.isUnread()) {
             n.markRead(Instant.now());
