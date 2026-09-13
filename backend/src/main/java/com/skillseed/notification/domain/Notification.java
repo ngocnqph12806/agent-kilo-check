@@ -2,9 +2,8 @@ package com.skillseed.notification.domain;
 
 import com.skillseed.user.domain.User;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -39,7 +38,7 @@ public class Notification {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = NotificationTypeConverter.class)
     @Column(name = "type", nullable = false, length = 50, updatable = false)
     private NotificationType type;
 
