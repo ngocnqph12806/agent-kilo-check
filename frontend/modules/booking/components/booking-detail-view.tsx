@@ -11,7 +11,7 @@ import {
   XCircle
 } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -147,14 +147,15 @@ export function BookingDetailView({
     isParticipant(data, currentUserId) &&
     data.status === ('completed' as BookingStatus);
 
-  const initials = useMemo(() => {
-    return counterparty.fullName
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((part) => part[0]?.toUpperCase() ?? '')
-      .join('');
-  }, [counterparty.fullName]);
+  // Plain (non-hook) computation so the hook count stays constant across
+  // early-return renders. The string operation is cheap enough that we don't
+  // need useMemo's identity guarantee here.
+  const initials = counterparty.fullName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? '')
+    .join('');
 
   return (
     <div className="container mx-auto max-w-4xl space-y-6 py-10">
