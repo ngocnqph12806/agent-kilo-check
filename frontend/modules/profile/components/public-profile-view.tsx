@@ -160,12 +160,15 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
         teacherId={user.id}
         teacherName={user.fullName}
         skills={user.offeredSkills.map((s) => ({
-          id: s.id,
+          // Backend's POST /bookings expects the Skill master id (skills.id),
+          // not the UserSkillOffered row id. `PublicOfferedSkill.id` is the
+          // join-row PK; `skillId` is the real Skill PK we must send.
+          id: s.skillId,
           name: s.name,
           hourlySeedRate: s.hourlySeedRate
         }))}
         slots={slots.data ?? []}
-        defaultSkillId={bookingSkill || user.offeredSkills[0]?.id}
+        defaultSkillId={bookingSkill || user.offeredSkills[0]?.skillId}
         currentBalance={currentBalance}
         open={bookingOpen}
         onClose={() => setBookingOpen(false)}
@@ -427,11 +430,14 @@ function BookSessionPanel({
             <select
               id="book-skill"
               className="flex h-10 w-full rounded-md border border-brand-default bg-background px-3 text-sm"
-              value={bookingSkill || user.offeredSkills[0]?.id || ''}
+              value={bookingSkill || user.offeredSkills[0]?.skillId || ''}
               onChange={(e) => setBookingSkill(e.target.value)}
             >
               {user.offeredSkills.map((s) => (
-                <option key={s.id} value={s.id}>
+                // React key stays as s.id (UserSkillOffered PK, unique per row).
+                // `value` must be s.skillId — the Skill master id the booking
+                // endpoint actually expects.
+                <option key={s.id} value={s.skillId}>
                   {s.name}
                 </option>
               ))}
