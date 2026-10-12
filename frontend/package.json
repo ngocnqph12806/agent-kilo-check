@@ -13,7 +13,7 @@
     "@daily-co/daily-js": "^0.71.0",
     "@daily-co/daily-react": "^0.22.0",
     "@hookform/resolvers": "^3.9.1",
-    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-slot": "^1.4.0",
     "@stomp/stompjs": "^7.3.0",
     "@tanstack/react-query": "^5.59.20",
     "axios": "^1.7.7",
@@ -39,7 +39,7 @@
     "eslint": "^9.14.0",
     "eslint-config-next": "15.0.3",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.6.3"
   }
 }
